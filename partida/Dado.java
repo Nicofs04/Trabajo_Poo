@@ -8,6 +8,7 @@ public class Dado {
 
     public int getValor(){
         return valor;
+    
     }
 
     public void setValor(int valor){
