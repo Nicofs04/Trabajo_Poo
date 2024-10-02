@@ -133,18 +133,29 @@ public class Menu {
     * Parámetro: comando introducido
      */
     private void descJugador(String[] partes) {
+        for(Jugador jugador:jugadores){
+            if((jugador.getNombre()).equals(partes[2])){
+                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: [Valencia, Barcelona, Terrassa]" + "\nhipotecas: [Palencia, Badajoz]" + "\nedificios: [casa-1, casa-2, hotel-4]" + "\n}\n");
+            }
+        }
     }
 
     /*Método que realiza las acciones asociadas al comando 'describir avatar'.
     * Parámetro: id del avatar a describir.
     */
     private void descAvatar(String ID) {
+        for(Avatar avatar:avatares){
+            if((avatar.getId()).equals(ID)){
+                System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + avatar.getCasilla() + ",\njugador: " + avatar.getJugador() + "\n}\n");
+            }
+        }
     }
 
     /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
     * Parámetros: nombre de la casilla a describir.
     */
     private void descCasilla(String nombre) {
+        System.out.println(Casilla); //tengo la funcion hecha en casilla.java
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
