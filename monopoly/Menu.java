@@ -18,6 +18,7 @@ public class Menu {
     private Jugador banca; //El jugador banca.
     private boolean tirado; //Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
+    private boolean dadosdobles;
 
     public Menu(){
         this.jugadores = new ArrayList<Jugador>();
@@ -165,14 +166,13 @@ public class Menu {
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
     private void lanzarDados() {
-        int valor;
+
         dado1.hacerTirada();
         dado2.hacerTirada();
 
-        valor = dado1.getValor();
-        valor += dado2.getValor();
+        //hacer el evaluar casilla
 
-        
+        //comprobar dados dobles
 
    }
 
