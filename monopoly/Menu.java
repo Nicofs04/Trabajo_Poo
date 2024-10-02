@@ -139,7 +139,7 @@ public class Menu {
     private void descJugador(String[] palabras) {
         for(Jugador jugador:jugadores){
             if((jugador.getNombre()).equals(partes[2])){
-                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: [Valencia, Barcelona, Terrassa]" + "\nhipotecas: [Palencia, Badajoz]" + "\nedificios: [casa-1, casa-2, hotel-4]" + "\n}\n");
+                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + listarPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
             }
         }
     }
@@ -159,7 +159,7 @@ public class Menu {
     * Parámetros: nombre de la casilla a describir.
     */
     private void descCasilla(String nombre) {
-        Casilla casilla = encontrar_casilla(nombre);
+        Casilla casilla = tablero.encontrar_casilla(nombre);
         System.out.println(casilla); //tengo la funcion hecha en casilla.java
     }
 
