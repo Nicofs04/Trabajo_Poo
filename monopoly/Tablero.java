@@ -145,7 +145,7 @@ public class Tablero {
         }
         tablero.append("\n------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
         return "------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n"
-                + "|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|\n"
+                + "|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|\n"
                 + "------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n"+
                 "|%s|\t\t\t\t\t\t\t|%s|\n" + "------\t\t\t\t\t\t\t------\n" +
                 "|%s|\t\t\t\t\t\t\t|%s|\n" + "------\t\t\t\t\t\t\t------\n" +
@@ -157,9 +157,9 @@ public class Tablero {
                 "|%s|\t\t\t\t\t\t\t|%s|\n" +
                 "------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n" +
                 "|%s||%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|\n"
-                + "------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n" , for(Casilla ladonorte :posiciones.get(2)){
-
-        }
+                + "------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n" + for(Casilla ladonorte:posiciones.get(2)){
+            System.out.println(ladonorte.getNombre());
+        } + posiciones.get(1).get(0)
     }
     
     //Método usado para buscar la casilla con el nombre pasado como argumento:

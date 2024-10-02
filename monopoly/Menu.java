@@ -180,6 +180,7 @@ public class Menu {
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
+
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
