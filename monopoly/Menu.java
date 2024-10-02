@@ -170,8 +170,8 @@ public class Menu {
         dado2.hacerTirada();
 
         dadosdobles=dado1.equals(dado2);
-        if () {
-            
+        if (dadosdobles) {
+            System.out.println("Sacaste dobles");
         }
 
    }
