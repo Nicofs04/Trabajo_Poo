@@ -72,7 +72,7 @@ public class Menu {
     }
 
     public void setDado2(Dado dado2){
-        this.dado2 = dado2
+        this.dado2 = dado2;
     }
 
     public Jugador getBanca(){
@@ -160,6 +160,12 @@ public class Menu {
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
     private void lanzarDados() {
+        dado1.hacerTirada();
+        dado2.hacerTirada();
+
+        tablero.
+
+
     }
 
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
