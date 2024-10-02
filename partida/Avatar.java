@@ -34,7 +34,7 @@ public class Avatar {
     //GETTERS
 
     public String getId() {
-        return id; // Devuelve el ID del avatar
+        return id; 
     }
 
     public String getTipo(){
@@ -118,10 +118,3 @@ public class Avatar {
 
  
 }
-
-
-
-//GETTERS
-
-
-
