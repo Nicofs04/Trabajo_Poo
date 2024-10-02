@@ -21,4 +21,8 @@ public class Dado {
         return valor;
     }
 
+    public boolean equals(Dado dado2){
+        return this.valor==dado2.valor;
+    }
+
 }
