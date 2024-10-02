@@ -169,9 +169,10 @@ public class Menu {
         dado1.hacerTirada();
         dado2.hacerTirada();
 
-        //hacer el evaluar casilla
-
-        //comprobar dados dobles
+        dadosdobles=dado1.equals(dado2);
+        if () {
+            
+        }
 
    }
 
