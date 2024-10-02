@@ -84,6 +84,3 @@ public class Avatar {
         return id; // Devuelve el ID del avatar
     }
 }
-
-
-//hola
