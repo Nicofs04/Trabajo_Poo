@@ -160,13 +160,16 @@ public class Menu {
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
     private void lanzarDados() {
+        int valor;
         dado1.hacerTirada();
         dado2.hacerTirada();
 
-        tablero.
+        valor = dado1.getValor();
+        valor += dado2.getValor();
 
+        
 
-    }
+   }
 
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
     * Parámetro: cadena de caracteres con el nombre de la casilla.
