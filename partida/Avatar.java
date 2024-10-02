@@ -16,6 +16,10 @@ public class Avatar {
     public Avatar() {
     }
 
+
+
+
+
     /* Constructor principal. Requiere estos parámetros:
     * Tipo del avatar, jugador al que pertenece, lugar en el que estará ubicado, y un arraylist con los
     * avatares creados (usado para crear un ID distinto del de los demás avatares).
@@ -26,6 +30,39 @@ public class Avatar {
         this.lugar = lugar;
         generarId(avCreados);
     }
+
+    //GETTERS
+
+    public String getId() {
+        return id; // Devuelve el ID del avatar
+    }
+
+    public String getTipo(){
+        return tipo;
+    }
+    public Jugador getJugador(){
+        return jugador;
+    }
+    public Casilla getLugar(){
+        return lugar;
+    }
+
+    //SETTERS
+
+    public void setId(String ID){
+        this.id=ID;
+    }
+    public void setTipo(String TIPO){
+        this.tipo=TIPO;
+    }
+    public void setId(Jugador JUGADOR){
+        this.jugador=JUGADOR;
+    }
+    public void setLugar(Casilla LUGAR){
+        this.lugar=LUGAR;
+    }
+
+
 
     // Método que permite mover a un avatar a una casilla concreta.
     public void moverAvatar(ArrayList<Casilla> casillas, int valorTirada) {
@@ -79,8 +116,12 @@ public class Avatar {
         }
     }
 
-    // Método para obtener el ID del avatar
-    public String getId() {
-        return id; // Devuelve el ID del avatar
-    }
+ 
 }
+
+
+
+//GETTERS
+
+
+
