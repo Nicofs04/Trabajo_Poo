@@ -19,6 +19,16 @@ public class Menu {
     private boolean tirado; //Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
 
+    public Menu(){
+        this.jugadores = new ArrayList<Jugador>();
+        this.avatares = new ArrayList<Avatar>();
+        this.banca = new Jugador();
+        this.tablero = new Tablero(banca);
+        this.dado1 = new Dado();
+
+
+    }
+
     public ArrayList<Jugador> getJugadores(){
         return jugadores;
     }
@@ -101,12 +111,6 @@ public class Menu {
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
-        jugadores = new ArrayList<Jugador>();
-        avatares = new ArrayList<Avatar>();
-        tablero = new Tablero(banca);
-        dado1 = new Dado();
-        dado2 = new Dado();
-        banca = new Jugador();
 
         jugadores.add(banca);
 
@@ -132,7 +136,7 @@ public class Menu {
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
     * Parámetro: comando introducido
      */
-    private void descJugador(String[] partes) {
+    private void descJugador(String[] palabras) {
         for(Jugador jugador:jugadores){
             if((jugador.getNombre()).equals(partes[2])){
                 System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: [Valencia, Barcelona, Terrassa]" + "\nhipotecas: [Palencia, Badajoz]" + "\nedificios: [casa-1, casa-2, hotel-4]" + "\n}\n");
@@ -155,18 +159,22 @@ public class Menu {
     * Parámetros: nombre de la casilla a describir.
     */
     private void descCasilla(String nombre) {
-        System.out.println(Casilla); //tengo la funcion hecha en casilla.java
+        Casilla casilla = encontrar_casilla(nombre);
+        System.out.println(Casilla casilla); //tengo la funcion hecha en casilla.java
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
     private void lanzarDados() {
+        int valor;
         dado1.hacerTirada();
         dado2.hacerTirada();
 
-        tablero.
+        valor = dado1.getValor();
+        valor += dado2.getValor();
 
+        
 
-    }
+   }
 
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
     * Parámetro: cadena de caracteres con el nombre de la casilla.
