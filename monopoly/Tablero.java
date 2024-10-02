@@ -32,7 +32,7 @@ public class Tablero {
         return grupos;
     }
 
-    public void setGrupos(ArrayList<ArrayList<Casilla>>){
+    public void setGrupos(HashMap<String,Grupo> grupos){
         this.grupos = grupos;
     }
 
