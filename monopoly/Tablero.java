@@ -135,31 +135,37 @@ public class Tablero {
 
     //Para imprimir el tablero, modificamos el método toString().
     @Override
-    public String toString() {
-        StringBuilder tablero= new StringBuilder();
-        tablero.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
-        for(Casilla casillasnorte: posiciones.get(2)){
-            tablero.append("|");
-            tablero.append(casillasnorte.getNombre());
-            tablero.append("|");
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
+        for(Casilla ladonorte:posiciones.get(2)){
+            sb.append("|").append(ladonorte.getNombre()).append("|\n");
         }
-        tablero.append("\n------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
-        return "------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n"
-                + "|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|\n"
-                + "------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n"+
-                "|%s|\t\t\t\t\t\t\t|%s|\n" + "------\t\t\t\t\t\t\t------\n" +
-                "|%s|\t\t\t\t\t\t\t|%s|\n" + "------\t\t\t\t\t\t\t------\n" +
-                "|%s|\t\t\t\t\t\t\t|%s|\n" + "------\t\t\t\t\t\t\t------\n" +
-                "|%s|\t\t\t\t\t\t\t|%s|\n" + "------\t\t\t\t\t\t\t------\n" +
-                "|%s|\t\t\t\t\t\t\t|%s|\n" + "------\t\t\t\t\t\t\t------\n" +
-                "|%s|\t\t\t\t\t\t\t|%s|\n" + "------\t\t\t\t\t\t\t------\n" +
-                "|%s|\t\t\t\t\t\t\t|%s|\n" + "------\t\t\t\t\t\t\t------\n" +
-                "|%s|\t\t\t\t\t\t\t|%s|\n" +
-                "------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n" +
-                "|%s||%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|\n"
-                + "------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n" + for(Casilla ladonorte:posiciones.get(2)){
-            System.out.println(ladonorte.getNombre());
-        } + posiciones.get(1).get(0)
+        sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
+        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(0), posiciones.get(3).get(0)));
+        sb.append("------\t\t\t\t\t\t\t------\n");
+        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(1), posiciones.get(3).get(1)));
+        sb.append("------\t\t\t\t\t\t\t------\n");
+        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(2), posiciones.get(3).get(2)));
+        sb.append("------\t\t\t\t\t\t\t------\n");
+        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(3), posiciones.get(3).get(3)));
+        sb.append("------\t\t\t\t\t\t\t------\n");
+        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(4), posiciones.get(3).get(4)));
+        sb.append("------\t\t\t\t\t\t\t------\n");
+        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(5), posiciones.get(3).get(5)));
+        sb.append("------\t\t\t\t\t\t\t------\n");
+        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(6), posiciones.get(3).get(6)));
+        sb.append("------\t\t\t\t\t\t\t------\n");
+        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(7), posiciones.get(3).get(7)));
+        sb.append("------\t\t\t\t\t\t\t------\n");
+        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(8), posiciones.get(3).get(8)));
+        sb.append("------\t\t\t\t\t\t\t------\n");
+        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(9), posiciones.get(3).get(9)));
+        sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
+        for(Casilla ladonorte:posiciones.get(0)){
+            sb.append("|").append(ladonorte.getNombre()).append("|\n");
+        }
+        return sb.toString();
     }
     
     //Método usado para buscar la casilla con el nombre pasado como argumento:
