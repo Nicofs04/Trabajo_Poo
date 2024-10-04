@@ -65,25 +65,34 @@ public class Avatar {
 
 
     // Método que permite mover a un avatar a una casilla concreta.
-    public void moverAvatar(ArrayList<Casilla> casillas, int valorTirada) {
-    // Obtiene la posición actual del lugar del avatar
-    int posicionActual = lugar.getPosicion(); // Supone que 'lugar' tiene un método getPosicion()
+    public void moverAvatar(ArrayList<Casilla> casillas, int tirada) {
+        // Obtener el avatar del jugador
+        Jugador jugador =         // Obtener la posición actual del avatar
+        
+        int posicionActual = casillas.getPosicion();
 
-    // Calcula la nueva posición después de mover
-    int nuevaPosicion = (posicionActual + valorTirada) % 40; // Usa el módulo para asegurarte de que vuelva al inicio si excede 39
+        // Calcular la nueva posición en el tablero
+        int nuevaPosicion = (posicionActual + tirada) % casillas.size(); // El tablero es circular
 
-    // Busca la nueva casilla correspondiente a la nueva posición usando un bucle tradicional
-    for (int i = 0; i < casillas.size(); i++) {
-        Casilla casilla = casillas.get(i); // Accede a la casilla usando el índice
+        // Actualizar la posición del avatar
+        avatar.setPosicion(nuevaPosicion);
 
-        if (casilla.getPosicion() == nuevaPosicion) {
-            lugar = casilla; // Asigna el nuevo lugar basado en la nueva posición
-            break; // Sale del bucle al encontrar la casilla correspondiente
+        // Obtener la casilla en la nueva posición
+        Casilla nuevaCasilla = casillas.get(nuevaPosicion);
+
+        // Evaluar la casilla donde aterriza el avatar
+        boolean esSolvente = nuevaCasilla.evaluarCasilla(jugador, banca, tirada);
+
+        // Imprimir información sobre el movimiento
+        System.out.println(jugador.getNombre() + " ha movido su avatar a " + nuevaCasilla.getNombre());
+        
+        // Aquí puedes agregar lógica adicional si el jugador no es solvente
+        if (!esSolvente) {
+            System.out.println(jugador.getNombre() + " no puede cumplir con las deudas.");
         }
     }
 
-    // Aquí podrías agregar lógica adicional, como efectos al aterrizar en una casilla específica.
-}
+    
 
 
     /* Método que permite generar un ID para un avatar. Solo lo usamos en esta clase (por ello es privado).

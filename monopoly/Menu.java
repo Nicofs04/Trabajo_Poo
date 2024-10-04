@@ -203,8 +203,8 @@ public class Menu {
             }else{
                 contador=0;
                 }
-        //mover avatar
-        //evaluar casilla
+        moverAvatar(tablero,dado1.getValor()+dado2.getValor());
+        //evalur casilla
 
     }while(dadosdobles);
    }
