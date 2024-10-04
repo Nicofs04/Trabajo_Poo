@@ -26,11 +26,15 @@ public class Jugador {
     * avatares creados (usado para dos propósitos: evitar que dos jugadores tengan el mismo nombre y
     * que dos avatares tengan mismo ID). Desde este constructor también se crea el avatar.
      */
+    public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
+        this.nombre = nombre;
+        Avatar avatar = new Avatar(tipoAvatar, this, inicio, );
+        this.avatar.tipo = tipoAvatar;
+    }
+
+
 
     //SETTERS Y GETTERS
-
-    public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
-    }
 
     public String getNombre(){
         return nombre;

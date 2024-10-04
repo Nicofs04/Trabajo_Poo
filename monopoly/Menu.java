@@ -128,9 +128,28 @@ public class Menu {
         String nombre = palabras[2];
         String avatar = palabras[3];
 
-        if(metodo.equals("crear jugador")){
+        switch(metodo){
+            case "crear jugador":
+                new Jugador()
+                break;
+            case "describir jugador":
+                descJugador(palabras);
+                break;
+            case "describir avatar":
+                descAvatar(palabras);
+                break;
+            case "describir":
 
-        }else if(metodo.equals(""))
+
+
+        }
+
+
+        /*if(metodo.equals("crear jugador")){
+
+        }else if(metodo.equals("descJugador")){
+            descJugador(palabras);
+        }*/
     }
 
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
@@ -138,8 +157,8 @@ public class Menu {
      */
     private void descJugador(String[] palabras) {
         for(Jugador jugador:jugadores){
-            if((jugador.getNombre()).equals(partes[2])){
-                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + listarPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
+            if((jugador.getNombre()).equals(palabras[2])){
+                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + /*listarPropiedades() +*/ "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
             }
         }
     }
@@ -147,10 +166,10 @@ public class Menu {
     /*Método que realiza las acciones asociadas al comando 'describir avatar'.
     * Parámetro: id del avatar a describir.
     */
-    private void descAvatar(String ID) {
+    private void descAvatar(String[] palabras) {
         for(Avatar avatar:avatares){
-            if((avatar.getId()).equals(ID)){
-                System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + avatar.getCasilla() + ",\njugador: " + avatar.getJugador() + "\n}\n");
+            if((avatar.getId()).equals(palabras[2])){
+                System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + /*avatar.getCasilla() +*/ ",\njugador: " + avatar.getJugador() + "\n}\n");
             }
         }
     }
