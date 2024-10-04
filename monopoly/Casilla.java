@@ -152,6 +152,7 @@ public class Casilla {
     * en caso de no cumplirlas.*/
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
 
+
     }
 
     /*Método usado para comprar una casilla determinada. Parámetros:

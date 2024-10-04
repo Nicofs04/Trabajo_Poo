@@ -184,15 +184,29 @@ public class Menu {
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
     private void lanzarDados() {
+        int contador=0;
+        do{
+            dado1.hacerTirada();
+            dado2.hacerTirada();
 
-        dado1.hacerTirada();
-        dado2.hacerTirada();
+            System.out.println("Dado 1: "+dado1.getValor());
+            System.out.println("Dado 2: "+dado2.getValor());
+            dadosdobles=dado1.equals(dado2);
+            if (dadosdobles) {
+                System.out.println("Sacaste dobles");
+                contador++;
+                if (contador==3) {
+                    System.out.println("Sacaste dobles 3 veces, serás enviado a la cárcel");
+                    //ircarcel
+                    break;
+                }
+            }else{
+                contador=0;
+                }
+        //mover avatar
+        //evaluar casilla
 
-        dadosdobles=dado1.equals(dado2);
-        if (dadosdobles) {
-            System.out.println("Sacaste dobles");
-        }
-
+    }while(dadosdobles);
    }
 
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
