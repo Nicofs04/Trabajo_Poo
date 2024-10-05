@@ -230,7 +230,7 @@ public class Menu {
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
     private void lanzarDados() {
-        if (tirado) {
+        if (getTirado()) {
             System.out.println("Ya has lanzado los dados en este turno.");
             return;
         }
@@ -242,11 +242,11 @@ public class Menu {
         System.out.println("Dado 2: " + dado2.getValor());
 
         int sumaDados = dado1.getValor() + dado2.getValor();
-        dadosdobles = dado1.equals(dado2);
+        setDadosdobles(dado1.equals(dado2));
 
     
         if (jugadores.get(turno).getEnCarcel()) {
-            if (dadosdobles) {
+            if (getDadosdobles()) {
                 System.out.println("Has sacado dobles y sales de la cárcel.");
                 jugadores.get(turno).setEnCarcel(false);
             } else {
@@ -255,7 +255,7 @@ public class Menu {
                         System.out.println("Has fallado 3 veces.");
                         jugadores.get(turno).setEnCarcel(false); // Sale de la cárcel después de pagar
                     }
-                tirado = true;
+                setTirado(true);
                 return;
         }
     }
@@ -283,7 +283,7 @@ public class Menu {
     setTirado(true); // El jugador ya ha lanzado los dados en este turno
 
     // Si sacó dobles, puede volver a tirar
-    if (dadosdobles) {
+    if (getDadosdobles()) {
         System.out.println("Has sacado dobles, puedes lanzar de nuevo.");
         setTirado(false); // Permitir volver a tirar
         setLanzamientos(getLanzamientos()+1);
@@ -342,6 +342,7 @@ public class Menu {
 
         setTirado(false);
         setLanzamientos(0);
+        setDadosdobles(false);
         //falta lógica
     }
 
