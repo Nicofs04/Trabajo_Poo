@@ -146,7 +146,7 @@ public class Menu {
             if (palabras.length >= 4 && palabras[1].equals("jugador")) {
                 String nombre = palabras[2];
                 String tipoAvatar = palabras[3];
-                crearJugador(nombre, tipoAvatar); // Método que crea un jugador
+                Jugador jugador= new Jugador(nombre, tipoAvatar,, avatares);
             } else {
                 System.out.println("Comando incompleto o incorrecto para crear jugador.");
             }
@@ -217,7 +217,7 @@ public class Menu {
             break;
 
         case "vertablero":
-            tablero.mostrarTablero(); // Método para visualizar el tablero
+            tablero.toString(); // Método para visualizar el tablero
             break;
 
         default:
