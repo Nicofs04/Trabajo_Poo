@@ -232,6 +232,11 @@ public class Casilla {
     // Si la casilla en la que cae el avatar es Parking, entonces deberá de recibir
     // el bote almacenado por el pago de impuestos o tasas.
     public void sumarValor(float suma) {
+        if(this.tipo=="Parking"){
+            //El bote se lo lleva el primero que cae en le parking, porque luego el valor suma se queda a 0
+            float fortuna_final= this.avatares.get(0).getJugador().getFortuna()+suma;
+            this.avatares.get(0).getJugador().setFortuna(fortuna_final);
+        }
     }
 
     /*
@@ -251,7 +256,7 @@ public class Casilla {
         // "comprarCasilla"
         // DOY POR HECHO QUE EL JUGADOR BANCA DE LLAMA "Banca", si no habría que pasarle
         // la banca como parámetro a la función
-        if (((this.tipo == "Solar") || (this.tipo == "Servicios") || (this.tipo == "Transporte"))&& (this.duenho.getNombre() == "Banca")) {
+        if (((this.tipo == "Solar") || (this.tipo == "Servicios") || (this.tipo == "Transporte"))&& (this.duenho.getNombre() == "banca")) {
             if(this.tipo=="Solar"){
                 System.out.println("Nombre de la casilla a la venta: "+this.nombre);
                 System.out.println("Tipo de la casilla a la venta: "+this.tipo);
