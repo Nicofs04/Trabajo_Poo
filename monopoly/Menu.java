@@ -266,22 +266,22 @@ public class Menu {
     // Evaluar la casilla en la que ha caído
     // Aquí puedes incluir la lógica para evaluar la casilla (si es propiedad, pagar renta, etc.)
 
-    tirado = true; // El jugador ya ha lanzado los dados en este turno
+    setTirado(true); // El jugador ya ha lanzado los dados en este turno
 
     // Si sacó dobles, puede volver a tirar
     if (dadosdobles) {
         System.out.println("Has sacado dobles, puedes lanzar de nuevo.");
-        tirado = false; // Permitir volver a tirar
-        lanzamientos++;
+        setTirado(false); // Permitir volver a tirar
+        setLanzamientos(getLanzamientos()+1);
 
         // Si sacó dobles 3 veces, va a la cárcel
-        if (lanzamientos == 3) {
+        if (getLanzamientos() == 3) {
             System.out.println("Has sacado dobles 3 veces seguidas, vas a la cárcel.");
             jugadores.get(turno).encarcelar(tablero.getPosiciones());
-            tirado = true;
+            setTirado(true);
         }
     } else {
-        lanzamientos = 0; // Resetear el contador de lanzamientos dobles
+        setLanzamientos(0); // Resetear el contador de lanzamientos dobles
     }
 }
 
@@ -318,6 +318,16 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
+        
+        turno++;
+
+        if (turno>jugadores.size()-1) {
+            turno=0;
+        }
+
+        setTirado(false);
+        setLanzamientos(0);
+        //falta lógica
     }
 
 }
