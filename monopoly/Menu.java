@@ -120,7 +120,10 @@ public class Menu {
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
         new Menu();
+        avatares = new ArrayList<Avatar>();
+        jugadores = new ArrayList<Jugador>();
         jugadores.add(banca);
+
 
         Scanner scanner = new Scanner(System.in);
         String comando = scanner.nextLine();
