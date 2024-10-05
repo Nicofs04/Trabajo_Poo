@@ -229,13 +229,9 @@ public class Casilla {
      * Este método toma como argumento la cantidad a añadir del valor de la casilla.
      */
 
+    // Si la casilla en la que cae el avatar es Parking, entonces deberá de recibir
+    // el bote almacenado por el pago de impuestos o tasas.
     public void sumarValor(float suma) {
-        if(this.tipo=="Parking"){
-            this.valor+=suma;  
-        }else if(this.tipo=="Solar"){
-            this.valor+=suma;
-        }
-
     }
 
     /*
@@ -289,32 +285,33 @@ public class Casilla {
         // "comprarCasilla"
         // DOY POR HECHO QUE EL JUGADOR BANCA DE LLAMA "Banca", si no habría que pasarle
         // la banca como parámetro a la función
-        if (((this.tipo == "Solar") || (this.tipo == "Servicios") || (this.tipo == "Transporte"))&& (this.duenho.getNombre() == "banca")) {
+        StringBuilder sb = new StringBuilder();
+        if (((this.tipo == "Solar") || (this.tipo == "Servicios") || (this.tipo == "Transporte"))&& (this.duenho.getNombre() == "Banca")) {
             if(this.tipo=="Solar"){
-                System.out.println("Nombre de la casilla a la venta: "+this.nombre);
-                System.out.println("Tipo de la casilla a la venta: "+this.tipo);
-                System.out.println("Valor de la casilla a la venta: "+this.valor);
-                System.out.println("Posicion de la casilla a la venta: "+this.posicion);
-                System.out.println("Nombre del dueño de la casilla: "+this.duenho.getNombre());
-                System.out.println("Grupo de la casilla a la venta: "+this.grupo.getColorGrupo());
-                System.out.println("Impuesto por caer en la casilla: "+this.impuesto);
-                System.out.println("Valor de hipoteca "+this.hipoteca);
 
-                System.out.println("Avatares en la casilla:");
-                for(int i=0;i<this.avatares.size();i++){
-                    System.out.println("Avatar"+i+":"+this.avatares.get(i).getId());
+                sb.append(String.format("Nombre de la casilla a la venta: %s", this.getNombre()));
+                sb.append(String.format("Tipo de la casilla a la venta: %s", this.getTipo()));
+                sb.append(String.format("Valor de la casilla a la venta: %s", this.getValor()));
+                sb.append(String.format("Posición de la casilla a la venta: %s", this.getPosicion()));
+                sb.append(String.format("Nombre del dueño de la casilla: %s", this.getDuenho().getNombre()));
+                sb.append(String.format("Grupo de la casilla a la venta: %s", this.getColorGrupo()));
+                sb.append(String.format("Impuesto por caer en la casilla: %s", this.getImpuesto()));
+                sb.append(String.format("Valor de hipoteca: %s", this.getHipoteca()));
+                sb.append(String.format("Avatares: "));
+                for(Avatar avatar:avatares){
+                    sb.append(String.format("%s\t", avatar.getId()));
                 }
-
             }else{
-                System.out.println("Nombre de la casilla a la venta: "+this.nombre);
-                System.out.println("Tipo de la casilla a la venta: "+this.tipo);
-                System.out.println("Valor de la casilla a la venta: "+this.valor);
-                System.out.println("Posicion de la casilla a la venta: "+this.posicion);
-                System.out.println("Nombre del dueño de la casilla: "+this.duenho.getNombre());
-                System.out.println("Impuesto por caer en la casilla: "+this.impuesto);
-                System.out.println("Valor de hipoteca "+this.hipoteca);
-                for(int i=0;i<this.avatares.size();i++){
-                    System.out.println("Avatar"+i+":"+this.avatares.get(i).getId());
+                sb.append(String.format("Nombre de la casilla a la venta: %s", this.getNombre()));
+                sb.append(String.format("Tipo de la casilla a la venta: %s", this.getTipo()));
+                sb.append(String.format("Valor de la casilla a la venta: %s", this.getValor()));
+                sb.append(String.format("Posición de la casilla a la venta: %s", this.getPosicion()));
+                sb.append(String.format("Nombre del dueño de la casilla: %s", this.getDuenho().getNombre()));
+                sb.append(String.format("Impuesto por caer en la casilla: %s", this.getImpuesto()));
+                sb.append(String.format("Valor de hipoteca: %s", this.getHipoteca()));
+                sb.append(String.format("Avatares: "));
+                for(Avatar avatar:avatares){
+                    sb.append(String.format("%s\t"));
                 }
             }
 
