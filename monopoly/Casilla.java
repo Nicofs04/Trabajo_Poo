@@ -232,6 +232,7 @@ public class Casilla {
     // Si la casilla en la que cae el avatar es Parking, entonces deberá de recibir
     // el bote almacenado por el pago de impuestos o tasas.
     public void sumarValor(float suma) {
+        this.valor+=suma;
     }
 
     /*
