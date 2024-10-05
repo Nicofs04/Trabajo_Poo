@@ -31,6 +31,7 @@ public class Jugador {
      * avatar.
      */
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
+
         this.nombre = nombre;
         this.avatar = new Avatar(tipoAvatar, this, inicio, avCreados);
         this.fortuna = 9543076.28f;

@@ -68,7 +68,7 @@ public class Avatar {
     // Método que permite mover a un avatar a una casilla concreta.
     public void moverAvatar(ArrayList<ArrayList<Casilla>> tablero, int valorTirada){
     /*HACER DOS FORS ANIDADOS, EL PRIMERO PARA IR RECORRIENDO CADA GRUPO DEL TABLERO POR SEPARADO Y EL SEGUNDO PARA IR RECORRIENDO LAS CASILLAS
-    DE CADA GRUPO E IR HACIENDO GETPOSICIO0N PARA IR COMPARANDOLA CON EL VALOR DE LA NUEVAPOSICION
+    DE CADA GRUPO E IR HACIENDO GETPOSICION PARA IR COMPARANDOLA CON EL VALOR DE LA NUEVAPOSICION
     */
         // Obtener la posición actual del lugar del avatar
         int posicionActual = lugar.getPosicion();

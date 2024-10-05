@@ -258,9 +258,15 @@ public class Menu {
 
     // Verificar si el jugador ha dado la vuelta al tablero
     if (avatarActual.getLugar().getPosicion() < sumaDados) {
-        jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
-        System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.");
-        jugadores.get(turno).sumarFortuna(200); // Suponiendo que reciben 200 por pasar la salida
+        if(avatarActual.getLugar().getNombre().equals("ircarcel")){
+            System.out.println("Has caído en la carcel.\n");
+            jugadores.get(turno).encarcelar(tablero.getPosiciones());
+            jugadores.get(turno).setEnCarcel(true);
+        }else{
+            jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
+            System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.\n");
+            jugadores.get(turno).sumarFortuna(200); // Suponiendo que reciben 200 por pasar la salida
+        }
     }
 
     // Evaluar la casilla en la que ha caído
@@ -296,6 +302,7 @@ public class Menu {
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
     private void salirCarcel() {
+        jugadores.get(turno).setEnCarcel(false);
     }
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
