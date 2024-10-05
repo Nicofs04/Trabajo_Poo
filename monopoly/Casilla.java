@@ -243,7 +243,41 @@ public class Casilla {
      * Devuelve una cadena con información específica de cada tipo de casilla.
      */
     public String infoCasilla() {
+        StringBuilder info = new StringBuilder();
+    
+        if (this.tipo.equals("Solar")) {
+            info.append("Nombre de la casilla: ").append(this.nombre).append("\n");
+            info.append("Tipo de la casilla: ").append(this.tipo).append("\n");
+            info.append("Valor de la casilla: ").append(this.valor).append("\n");
+            info.append("Posición de la casilla: ").append(this.posicion).append("\n");
+            info.append("Nombre del dueño de la casilla: ").append(this.duenho.getNombre()).append("\n");
+            info.append("Grupo de la casilla: ").append(this.grupo.getColorGrupo()).append("\n");
+            info.append("Impuesto por caer en la casilla: ").append(this.impuesto).append("\n");
+            info.append("Valor de hipoteca: ").append(this.hipoteca).append("\n");
+    
+            info.append("Avatares en la casilla:\n");
+            for (int i = 0; i < this.avatares.size(); i++) {
+                info.append("Avatar ").append(i).append(": ").append(this.avatares.get(i).getId()).append("\n");
+            }
+    
+        } else {
+            info.append("Nombre de la casilla: ").append(this.nombre).append("\n");
+            info.append("Tipo de la casilla: ").append(this.tipo).append("\n");
+            info.append("Valor de la casilla: ").append(this.valor).append("\n");
+            info.append("Posición de la casilla: ").append(this.posicion).append("\n");
+            info.append("Nombre del dueño de la casilla: ").append(this.duenho.getNombre()).append("\n");
+            info.append("Impuesto por caer en la casilla: ").append(this.impuesto).append("\n");
+            info.append("Valor de hipoteca: ").append(this.hipoteca).append("\n");
+    
+            info.append("Avatares en la casilla:\n");
+            for (int i = 0; i < this.avatares.size(); i++) {
+                info.append("Avatar ").append(i).append(": ").append(this.avatares.get(i).getId()).append("\n");
+            }
+        }
+    
+        return info.toString();
     }
+    
 
     /*
      * Método para mostrar información de una casilla en venta.
