@@ -140,12 +140,12 @@ public class Jugador {
      * Se requiere disponer de las casillas del tablero para ello (por eso se pasan
      * como parámetro).
      */
-    public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
+    public void encarcelar(ArrayList<ArrayList<Casilla>> tablero) {
 
         //Poner enCarcel como true.
         this.enCarcel = true;
         //Actualizar la casilla actual a la carcel.
-        this.avatar.lugar=
+        this.avatar.lugar= tablero.get(1).get(10);
 
     }
 
