@@ -166,7 +166,7 @@ public class Casilla {
     */
     public void comprarCasilla(Jugador solicitante, Jugador banca) {
         //Comprobamos que sea una casilla "comprable"
-        if((this.tipo=="Solar")||(this.tipo=="Servicios")||(this.tipo=="Transporte")){
+        if(((this.tipo=="Solar")||(this.tipo=="Servicios")||(this.tipo=="Transporte"))&&(solicitante.getFortuna()>=this.valor)){
         
             //JUGADOR SOLICITANTE
 
@@ -183,9 +183,11 @@ public class Casilla {
 
             //BANCA, aunque realmente es innecesario
             banca.setFortuna(banca.getFortuna()+this.valor);
-        }else{
+        }else if((this.tipo!="Solar")&&(this.tipo!="Servicios")&&(this.tipo!="Transporte")){
             //En caso de que no sea de ninguno de estos tipos, la propiedad no se podrá comprar
-            System.out.println("Esta propiedad no se puede comprar\n");
+            System.out.println("Esta propiedad no se puede comprar, para poder comprar una propiedad debe de ser de uno de los siguientes tipos: SOLAR, TRANSPORTE, SERVICIOS\n");
+        }else{
+            System.out.println("No tienes dinero suficiente como para comprar esta propiedad\n");
         }
 
     }
