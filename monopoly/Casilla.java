@@ -202,9 +202,6 @@ public class Casilla {
     /*Método para mostrar información sobre una casilla.
     * Devuelve una cadena con información específica de cada tipo de casilla.*/
     public String infoCasilla() {
-        if(scanner.equals("describir " + getNombre())){
-            System.out.println();
-        }
     }
 
     /* Método para mostrar información de una casilla en venta.
