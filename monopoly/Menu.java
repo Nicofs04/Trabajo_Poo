@@ -130,7 +130,7 @@ public class Menu {
 
         switch(metodo){
             case "crear jugador":
-                new Jugador(nombre, avatar.getTipo());
+                new Jugador(nombre, ;
                 break;
             case "describir jugador":
                 descJugador(palabras);
@@ -139,6 +139,11 @@ public class Menu {
                 descAvatar(palabras);
                 break;
             case "describir":
+
+                break;
+            case "lanzar dados":
+                lanzarDados();
+                break;
 
 
 
