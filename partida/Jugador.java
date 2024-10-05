@@ -28,8 +28,7 @@ public class Jugador {
      */
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
         this.nombre = nombre;
-        Avatar avatar = new Avatar(tipoAvatar, this, inicio, );
-        this.avatar.tipo = tipoAvatar;
+        Avatar avatar = new Avatar(tipoAvatar,this, inicio, avCreados);
     }
 
 
