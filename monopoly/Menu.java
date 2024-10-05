@@ -222,34 +222,68 @@ public class Menu {
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
     private void lanzarDados() {
-        int suma = 0;
-        lanzamientos = 0;
-        do{
-            dado1.hacerTirada();
-            dado2.hacerTirada();
+        if (tirado) {
+            System.out.println("Ya has lanzado los dados en este turno.");
+            return;
+        }
+        
+        dado1.hacerTirada();
+        dado2.hacerTirada();
 
-            System.out.println("Dado 1: "+dado1.getValor());
-            System.out.println("Dado 2: "+dado2.getValor());
-            dadosdobles=dado1.equals(dado2);
+        System.out.println("Dado 1: " + dado1.getValor());
+        System.out.println("Dado 2: " + dado2.getValor());
+
+        int sumaDados = dado1.getValor() + dado2.getValor();
+        dadosdobles = dado1.equals(dado2);
+
+    
+        if (jugadores.get(turno).getEnCarcel()) {
             if (dadosdobles) {
-                System.out.println("Sacaste dobles");
-                lanzamientos++;
-                if (lanzamientos==3) {
-                    System.out.println("Sacaste dobles 3 veces, serás enviado a la cárcel");
-                    //ircarcel
-                    break;
-                }
-            }else{
-                lanzamientos=0;
-                }
-            suma = dado1.getValor();
-            suma+=dado2.getValor();
-            
-            avatares.get(this.turno).moverAvatar(tablero.getPosiciones(),suma);     
-        //evalur casilla
+                System.out.println("Has sacado dobles y sales de la cárcel.");
+                jugadores.get(turno).setEnCarcel(false); // Sale de la cárcel
+            } else {
+                jugadores.get(turno).setTiradasCarcel(jugadores.get(turno).getTiradasCarcel() + 1);
+                    if (jugadores.get(turno).getTiradasCarcel() >= 3) {
+                        System.out.println("Has fallado 3 veces. Pagas multa y sales de la cárcel.");
+                        jugadores.get(turno).setEnCarcel(false); // Sale de la cárcel después de pagar
+                    }
+                    tirado = true; // El jugador ha tirado y no puede volver a tirar
+                    return; // No puede moverse
+        }
+    }
 
-    }while(dadosdobles);
-   }
+    // Mover el avatar del jugador
+    Avatar avatarActual = jugadores.get(turno).getAvatar();
+    avatarActual.moverAvatar(tablero.getPosiciones(), sumaDados);
+
+    // Verificar si el jugador ha dado la vuelta al tablero
+    if (avatarActual.getLugar().getPosicion() < sumaDados) {
+        jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
+        System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.");
+        jugadores.get(turno).sumarFortuna(200); // Suponiendo que reciben 200 por pasar la salida
+    }
+
+    // Evaluar la casilla en la que ha caído
+    // Aquí puedes incluir la lógica para evaluar la casilla (si es propiedad, pagar renta, etc.)
+
+    tirado = true; // El jugador ya ha lanzado los dados en este turno
+
+    // Si sacó dobles, puede volver a tirar
+    if (dadosdobles) {
+        System.out.println("Has sacado dobles, puedes lanzar de nuevo.");
+        tirado = false; // Permitir volver a tirar
+        lanzamientos++;
+
+        // Si sacó dobles 3 veces, va a la cárcel
+        if (lanzamientos == 3) {
+            System.out.println("Has sacado dobles 3 veces seguidas, vas a la cárcel.");
+            jugadores.get(turno).encarcelar(tablero.getPosiciones());
+            tirado = true;
+        }
+    } else {
+        lanzamientos = 0; // Resetear el contador de lanzamientos dobles
+    }
+}
 
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
     * Parámetro: cadena de caracteres con el nombre de la casilla.
