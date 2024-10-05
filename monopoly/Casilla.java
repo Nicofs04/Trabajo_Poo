@@ -229,14 +229,13 @@ public class Casilla {
      * Este método toma como argumento la cantidad a añadir del valor de la casilla.
      */
 
-    // Si la casilla en la que cae el avatar es Parking, entonces deberá de recibir
-    // el bote almacenado por el pago de impuestos o tasas.
     public void sumarValor(float suma) {
         if(this.tipo=="Parking"){
-            //El bote se lo lleva el primero que cae en le parking, porque luego el valor suma se queda a 0
-            float fortuna_final= this.avatares.get(0).getJugador().getFortuna()+suma;
-            this.avatares.get(0).getJugador().setFortuna(fortuna_final);
+            this.valor+=suma;  
+        }else if(this.tipo=="Solar"){
+            this.valor+=suma;
         }
+
     }
 
     /*
