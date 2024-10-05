@@ -159,14 +159,14 @@ public class Casilla {
     * - Jugador que solicita la compra de la casilla.
     * - Banca del monopoly (es el dueño de las casillas no compradas aún).*/
 
-    /*SOLO SE PUEDEN COMPRAR LAS CASILLAS DE TIPO SOLAR,SERVICIOS Y TRANSPORTE, Y TIENE QUE TENER DINERO SUFICIENTE EL SOLICITANTE
+    /*SOLO SE PUEDEN COMPRAR LAS CASILLAS DE TIPO SOLAR,SERVICIOS Y TRANSPORTE, TIENE QUE TENER DINERO SUFICIENTE EL SOLICITANTE, y el dueño tiene que ser la banca
     ,
     Al solicitante hay que asignarle la propiedad, quitarle la pasta y sumarle los gastos, a la banca quitarle 
     la propiedad y darle la pasta y hay que asignar el nuevo dueño a la casilla, que será el solicitante
     */
     public void comprarCasilla(Jugador solicitante, Jugador banca) {
         //Comprobamos que sea una casilla "comprable"
-        if(((this.tipo=="Solar")||(this.tipo=="Servicios")||(this.tipo=="Transporte"))&&(solicitante.getFortuna()>=this.valor)){
+        if(((this.tipo=="Solar")||(this.tipo=="Servicios")||(this.tipo=="Transporte"))&&(solicitante.getFortuna()>=this.valor)&&(this.duenho==banca)){
         
             //JUGADOR SOLICITANTE
 
@@ -196,6 +196,8 @@ public class Casilla {
     * - Sumar valor a la casilla de parking.
     * - Sumar valor a las casillas de solar al no comprarlas tras cuatro vueltas de todos los jugadores.
     * Este método toma como argumento la cantidad a añadir del valor de la casilla.*/
+
+    //Si la casilla en la que cae el avatar es Parking, entonces deberá de recibir el bote almacenado por el pago de impuestos o tasas.
     public void sumarValor(float suma) {
     }
 
@@ -211,6 +213,12 @@ public class Casilla {
      * Valor devuelto: texto con esa información.
      */
     public String casEnVenta() {
+        //Para mostrar la informacion tiene que estar en venta, y para estar en venta, el dueño tiene que ser la banca y cumplir los requisitos del primer if de "comprarCasilla"
+        if(((this.tipo=="Solar")||(this.tipo=="Servicios")||(this.tipo=="Transporte"))&&(this.duenho.get)){
+
+
+
+        }
     }
 
     public String generarCasilla(int posicion){
