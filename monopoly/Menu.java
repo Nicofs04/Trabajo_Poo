@@ -349,6 +349,6 @@ public class Menu {
             setSolvente(false);
         }
 
-        System.out.println("El turno actual será de:"+jugadores.get(turno+1).getNombre());
+        System.out.println("El turno actual será de:" + jugadores.get(turno+1).getNombre());
     }
 }
