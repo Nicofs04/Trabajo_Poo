@@ -122,7 +122,6 @@ public class Menu {
         new Menu();
         avatares = new ArrayList<Avatar>();
         jugadores = new ArrayList<Jugador>();
-        jugadores.add(banca);
 
 
         Scanner scanner = new Scanner(System.in);
