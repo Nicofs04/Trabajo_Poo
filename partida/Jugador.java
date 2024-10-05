@@ -13,7 +13,7 @@ public class Jugador {
     private float gastos; // Gastos realizados a lo largo del juego.
     private boolean enCarcel; // Será true si el jugador está en la carcel
     private int tiradasCarcel; // Cuando está en la carcel, contará las tiradas sin éxito que ha hecho allí
-                               // para intentar salir (se usa para limitar el numero de intentos).
+    // para intentar salir (se usa para limitar el numero de intentos).
     private int vueltas; // Cuenta las vueltas dadas al tablero.
     private ArrayList<Casilla> propiedades; // Propiedades que posee el jugador.
 
@@ -140,7 +140,6 @@ public class Jugador {
      * como parámetro).
      */
     public void encarcelar(ArrayList<ArrayList<Casilla>> tablero) {
-
         //Poner enCarcel como true.
         this.enCarcel = true;
         //Actualizar la casilla actual a la carcel.

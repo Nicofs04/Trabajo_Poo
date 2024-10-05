@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Casilla {
 
+public class Casilla {
     //Atributos:
     private String nombre; //Nombre de la casilla
     private String tipo; //Tipo de casilla (Solar, Especial, Transporte, Servicios, Comunidad).
@@ -158,7 +158,35 @@ public class Casilla {
     /*Método usado para comprar una casilla determinada. Parámetros:
     * - Jugador que solicita la compra de la casilla.
     * - Banca del monopoly (es el dueño de las casillas no compradas aún).*/
+
+    /*SOLO SE PUEDEN COMPRAR LAS CASILLAS DE TIPO SOLAR,SERVICIOS Y TRANSPORTE, Y TIENE QUE TENER DINERO SUFICIENTE EL SOLICITANTE
+    ,
+    Al solicitante hay que asignarle la propiedad, quitarle la pasta y sumarle los gastos, a la banca quitarle 
+    la propiedad y darle la pasta y hay que asignar el nuevo dueño a la casilla, que será el solicitante
+    */
     public void comprarCasilla(Jugador solicitante, Jugador banca) {
+        //Comprobamos que sea una casilla "comprable"
+        if((this.tipo=="Solar")||(this.tipo=="Servicios")||(this.tipo=="Transporte")){
+        
+            //JUGADOR SOLICITANTE
+
+            //"quitar pasta"
+            solicitante.setFortuna(solicitante.getFortuna()-this.valor);
+
+            //"sumar gastos"
+            solicitante.setGastos(solicitante.getGastos()+this.valor);
+
+            //"asignarle la propiedad"
+            //Primero tenemos que cambiarle el dueño a la casilla
+            this.duenho = solicitante;
+            solicitante.getPropiedades().add(this);
+
+            //BANCA, aunque realmente es innecesario
+            banca.setFortuna(banca.getFortuna()+this.valor);
+        }else{
+            //En caso de que no sea de ninguno de estos tipos, la propiedad no se podrá comprar
+            System.out.println("Esta propiedad no se puede comprar\n");
+        }
 
     }
 
