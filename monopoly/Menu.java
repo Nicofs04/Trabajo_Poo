@@ -222,7 +222,8 @@ public class Menu {
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
     private void lanzarDados() {
-        int contador=0;
+        int suma = 0;
+        lanzamientos = 0;
         do{
             dado1.hacerTirada();
             dado2.hacerTirada();
@@ -232,16 +233,19 @@ public class Menu {
             dadosdobles=dado1.equals(dado2);
             if (dadosdobles) {
                 System.out.println("Sacaste dobles");
-                contador++;
-                if (contador==3) {
+                lanzamientos++;
+                if (lanzamientos==3) {
                     System.out.println("Sacaste dobles 3 veces, serás enviado a la cárcel");
                     //ircarcel
                     break;
                 }
             }else{
-                contador=0;
+                lanzamientos=0;
                 }
-            moverAvatar(tablero,dado1.getValor()+dado2.getValor());     
+            suma = dado1.getValor();
+            suma+=dado2.getValor();
+            
+            avatares.get(this.turno).moverAvatar(tablero.getPosiciones(),suma);     
         //evalur casilla
 
     }while(dadosdobles);
