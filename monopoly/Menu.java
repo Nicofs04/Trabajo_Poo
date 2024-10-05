@@ -207,7 +207,7 @@ public class Menu {
     private void descAvatar(String[] palabras) {
         for(Avatar avatar:avatares){
             if((avatar.getId()).equals(palabras[2])){
-                System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + /*avatar.getCasilla() +*/ ",\njugador: " + avatar.getJugador() + "\n}\n");
+                System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + avatar.getLugar() + ",\njugador: " + avatar.getJugador() + "\n}\n");
             }
         }
     }
@@ -311,6 +311,9 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     private void listarAvatares() {
+        for(Avatar avatar:avatares){
+            System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + avatar.getLugar() + ",\njugador: " + avatar.getJugador() + "\n}\n");
+        }
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
