@@ -124,30 +124,63 @@ public class Menu {
     */
     private void analizarComando(String comando) {
         String[] palabras = comando.split(" ");
-        String metodo = palabras[0] + " " + palabras[1];
-        String nombre = palabras[2];
-        String avatar = palabras[3];
 
-        switch(metodo){
-            case "crear jugador":
-                //new Jugador(nombre, ;
-                break;
-            case "describir jugador":
-                descJugador(palabras);
-                break;
-            case "describir avatar":
-                descAvatar(palabras);
-                break;
-            case "describir":
+    // Si el comando tiene menos de 2 palabras, no puede ser válido.
+    if (palabras.length < 2) {
+        System.out.println("Comando inválido.");
+        return;
+    }
 
-                break;
-            case "lanzar dados":
-                lanzarDados();
-                break;
+    // Determinar el método (la acción que se va a realizar)
+    String metodo = palabras[0] + " " + palabras[1];
 
+    // Dependiendo del comando, la cantidad de palabras puede variar, así que manejamos posibles casos
+    switch (metodo) {
+        case "crear jugador":
+            if (palabras.length >= 3) {
+                String nombre = palabras[2];
+                new Jugador(nombre); // Suponiendo que Jugador tiene este constructor
+                System.out.println("Jugador " + nombre + " creado.");
+            } else {
+                System.out.println("Comando incompleto para crear jugador.");
+            }
+            break;
 
+        case "describir jugador":
+            if (palabras.length >= 3) {
+                descJugador(palabras[2]); // Llama al método que describe un jugador
+            } else {
+                System.out.println("Comando incompleto para describir jugador.");
+            }
+            break;
 
-        }
+        case "describir avatar":
+            if (palabras.length >= 3) {
+                descAvatar(palabras[2]); // Llama al método que describe un avatar
+            } else {
+                System.out.println("Comando incompleto para describir avatar.");
+            }
+            break;
+
+        case "describir":
+            if (palabras.length >= 2) {
+                // Aquí puedes usar el nombre de la entidad a describir
+                // Por ejemplo, si es una casilla o algún otro objeto del juego
+                String nombreEntidad = palabras[2]; 
+                // Lógica para describir la entidad
+            } else {
+                System.out.println("Comando incompleto para describir.");
+            }
+            break;
+
+        case "lanzar dados":
+            lanzarDados(); // Método que gestiona el lanzamiento de dados
+            break;
+
+        default:
+            System.out.println("Comando no reconocido.");
+            break;
+    }
 
 
         /*if(metodo.equals("crear jugador")){
