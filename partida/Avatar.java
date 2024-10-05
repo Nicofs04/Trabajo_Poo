@@ -16,13 +16,11 @@ public class Avatar {
     public Avatar() {
     }
 
-
-
-
-
-    /* Constructor principal. Requiere estos parámetros:
-    * Tipo del avatar, jugador al que pertenece, lugar en el que estará ubicado, y un arraylist con los
-    * avatares creados (usado para crear un ID distinto del de los demás avatares).
+    /*
+     * Constructor principal. Requiere estos parámetros:
+     * Tipo del avatar, jugador al que pertenece, lugar en el que estará ubicado, y
+     * un arraylist con los
+     * avatares creados (usado para crear un ID distinto del de los demás avatares).
      */
     public Avatar(String tipo, Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
         this.tipo = tipo;
@@ -31,73 +29,69 @@ public class Avatar {
         generarId(avCreados);
     }
 
-    //GETTERS
+    // GETTERS
 
     public String getId() {
-        return id; 
+        return id;
     }
 
-    public String getTipo(){
+    public String getTipo() {
         return tipo;
     }
-    public Jugador getJugador(){
+
+    public Jugador getJugador() {
         return jugador;
     }
-    public Casilla getLugar(){
+
+    public Casilla getLugar() {
         return lugar;
     }
 
-    //SETTERS
+    // SETTERS
 
-    public void setId(String ID){
-        this.id=ID;
-    }
-    public void setTipo(String TIPO){
-        this.tipo=TIPO;
-    }
-    public void setId(Jugador JUGADOR){
-        this.jugador=JUGADOR;
-    }
-    public void setLugar(Casilla LUGAR){
-        this.lugar=LUGAR;
+    public void setId(String ID) {
+        this.id = ID;
     }
 
+    public void setTipo(String TIPO) {
+        this.tipo = TIPO;
+    }
 
+    public void setId(Jugador JUGADOR) {
+        this.jugador = JUGADOR;
+    }
+
+    public void setLugar(Casilla LUGAR) {
+        this.lugar = LUGAR;
+    }
 
     // Método que permite mover a un avatar a una casilla concreta.
-    public void moverAvatar(ArrayList<Casilla> casillas, int tirada) {
-        // Obtener el avatar del jugador
-        Jugador jugador =         // Obtener la posición actual del avatar
-        
-        int posicionActual = casillas.getPosicion();
+    public void moverAvatar(ArrayList<ArrayList<Casilla>> tablero, int valorTirada){
+    /*HACER DOS FORS ANIDADOS, EL PRIMERO PARA IR RECORRIENDO CADA GRUPO DEL TABLERO POR SEPARADO Y EL SEGUNDO PARA IR RECORRIENDO LAS CASILLAS
+    DE CADA GRUPO E IR HACIENDO GETPOSICIO0N PARA IR COMPARANDOLA CON EL VALOR DE LA NUEVAPOSICION
+    */
+        // Obtener la posición actual del lugar del avatar
+        int posicionActual = lugar.getPosicion();
+    
+        // Calcula la nueva posición después de mover
+        int nuevaPosicion = (posicionActual + valorTirada) % 40; // Usar el módulo para asegurarte de que vuelva al inicio si excede 39
 
-        // Calcular la nueva posición en el tablero
-        int nuevaPosicion = (posicionActual + tirada) % casillas.size(); // El tablero es circular
-
-        // Actualizar la posición del avatar
-        avatar.setPosicion(nuevaPosicion);
-
-        // Obtener la casilla en la nueva posición
-        Casilla nuevaCasilla = casillas.get(nuevaPosicion);
-
-        // Evaluar la casilla donde aterriza el avatar
-        boolean esSolvente = nuevaCasilla.evaluarCasilla(jugador, banca, tirada);
-
-        // Imprimir información sobre el movimiento
-        System.out.println(jugador.getNombre() + " ha movido su avatar a " + nuevaCasilla.getNombre());
-        
-        // Aquí puedes agregar lógica adicional si el jugador no es solvente
-        if (!esSolvente) {
-            System.out.println(jugador.getNombre() + " no puede cumplir con las deudas.");
+        //Iteramos sobre los lados del tablero con el indice i y sobre las casillas de cada lado con el indice j:
+        for(int i=0;i<tablero.size();i++){
+            for(int j=0;j<tablero.get(i).size();j++){
+                if(tablero.get(i).get(j).getPosicion()==nuevaPosicion){
+                    lugar=tablero.get(i).get(j);
+                }
+            }
         }
     }
 
-    
-
-
-    /* Método que permite generar un ID para un avatar. Solo lo usamos en esta clase (por ello es privado).
-    * El ID generado será una letra mayúscula. Parámetros:
-    * - Un arraylist de los avatares ya creados, con el objetivo de evitar que se generen dos ID iguales.
+    /*
+     * Método que permite generar un ID para un avatar. Solo lo usamos en esta clase
+     * (por ello es privado).
+     * El ID generado será una letra mayúscula. Parámetros:
+     * - Un arraylist de los avatares ya creados, con el objetivo de evitar que se
+     * generen dos ID iguales.
      */
     private void generarId(ArrayList<Avatar> avCreados) {
         Random random = new Random();
@@ -109,7 +103,8 @@ public class Avatar {
 
             boolean idExistente = false; // Inicializamos la verificación de existencia
 
-            // Comprobamos si el ID ya existe en los avatares creados usando un bucle for clásico
+            // Comprobamos si el ID ya existe en los avatares creados usando un bucle for
+            // clásico
             for (int i = 0; i < avCreados.size(); i++) {
                 if (avCreados.get(i).getId().equals(String.valueOf(id))) {
                     idExistente = true; // Si existe, marcamos la bandera
@@ -125,5 +120,4 @@ public class Avatar {
         }
     }
 
- 
 }
