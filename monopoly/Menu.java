@@ -146,7 +146,7 @@ public class Menu {
             if (palabras.length >= 4 && palabras[1].equals("jugador")) {
                 String nombre = palabras[2];
                 String tipoAvatar = palabras[3];
-                Jugador jugador= new Jugador(nombre, tipoAvatar,, avatares);
+                Jugador jugador= new Jugador(nombre, tipoAvatar,tablero.getPosiciones().get(0).get(0), avatares);
             } else {
                 System.out.println("Comando incompleto o incorrecto para crear jugador.");
             }
