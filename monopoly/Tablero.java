@@ -136,34 +136,37 @@ public class Tablero {
     //Para imprimir el tablero, modificamos el método toString().
     @Override
     public String toString(){
+        int i;
         StringBuilder sb = new StringBuilder();
         sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
         for(Casilla ladonorte:posiciones.get(2)){
-            sb.append("|").append(ladonorte.getNombre()).append("|\n");
+            sb.append("|").append(ladonorte.getNombre());
+            for(Avatar avatar:ladonorte.getAvatares()){
+                sb.append(String.format("&%s", avatar.getId())).append("|\n");
+            }
         }
         sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
-        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(0), posiciones.get(3).get(0)));
-        sb.append("------\t\t\t\t\t\t\t------\n");
-        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(1), posiciones.get(3).get(1)));
-        sb.append("------\t\t\t\t\t\t\t------\n");
-        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(2), posiciones.get(3).get(2)));
-        sb.append("------\t\t\t\t\t\t\t------\n");
-        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(3), posiciones.get(3).get(3)));
-        sb.append("------\t\t\t\t\t\t\t------\n");
-        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(4), posiciones.get(3).get(4)));
-        sb.append("------\t\t\t\t\t\t\t------\n");
-        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(5), posiciones.get(3).get(5)));
-        sb.append("------\t\t\t\t\t\t\t------\n");
-        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(6), posiciones.get(3).get(6)));
-        sb.append("------\t\t\t\t\t\t\t------\n");
-        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(7), posiciones.get(3).get(7)));
-        sb.append("------\t\t\t\t\t\t\t------\n");
-        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(8), posiciones.get(3).get(8)));
-        sb.append("------\t\t\t\t\t\t\t------\n");
-        sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(9), posiciones.get(3).get(9)));
+        for(i = 0; i < 10; i++){
+            sb.append(String.format("|%s ", posiciones.get(1).get(i).getNombre()));
+            for(Avatar avatar:posiciones.get(1).get(i).getAvatares()){
+                sb.append(String.format("&%s|", avatar.getId()));
+            }
+            sb.append(String.format("\t\t\t\t\t\t\t|%s ", posiciones.get(3).get(i).getNombre()));
+            for(Avatar avatar:posiciones.get(3).get(i).getAvatares()){
+                sb.append(String.format("&%s|\n", avatar.getId()));
+            }
+            sb.append("------\t\t\t\t\t\t\t------\n");
+        }
         sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
-        for(Casilla ladonorte:posiciones.get(0)){
-            sb.append("|").append(ladonorte.getNombre()).append("|\n");
+
+        /*sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(0), posiciones.get(3).get(0)));
+        sb.append("------\t\t\t\t\t\t\t------\n");*/
+
+        for(Casilla ladosur:posiciones.get(0)){
+            sb.append("|").append(ladosur.getNombre());
+            for(Avatar avatar:ladosur.getAvatares()){
+                sb.append(String.format("&%s", avatar.getId())).append("|\n");
+            }
         }
         return sb.toString();
     }
