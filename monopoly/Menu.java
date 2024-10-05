@@ -196,7 +196,7 @@ public class Menu {
     private void descJugador(String[] palabras) {
         for(Jugador jugador:jugadores){
             if((jugador.getNombre()).equals(palabras[2])){
-                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + /*listarPropiedades() +*/ "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
+                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + jugador.getPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
             }
         }
     }
@@ -240,19 +240,19 @@ public class Menu {
         if (jugadores.get(turno).getEnCarcel()) {
             if (dadosdobles) {
                 System.out.println("Has sacado dobles y sales de la cárcel.");
-                jugadores.get(turno).setEnCarcel(false); // Sale de la cárcel
+                jugadores.get(turno).setEnCarcel(false);
             } else {
                 jugadores.get(turno).setTiradasCarcel(jugadores.get(turno).getTiradasCarcel() + 1);
                     if (jugadores.get(turno).getTiradasCarcel() >= 3) {
-                        System.out.println("Has fallado 3 veces. Pagas multa y sales de la cárcel.");
+                        System.out.println("Has fallado 3 veces.");
                         jugadores.get(turno).setEnCarcel(false); // Sale de la cárcel después de pagar
                     }
-                    tirado = true; // El jugador ha tirado y no puede volver a tirar
-                    return; // No puede moverse
+                tirado = true;
+                return;
         }
     }
 
-    // Mover el avatar del jugador
+    
     Avatar avatarActual = jugadores.get(turno).getAvatar();
     avatarActual.moverAvatar(tablero.getPosiciones(), sumaDados);
 
@@ -304,6 +304,9 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
     private void listarJugadores() {
+        for(Jugador jugador:jugadores){
+            System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + jugador.getPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
+        }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
