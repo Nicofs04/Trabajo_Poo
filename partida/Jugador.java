@@ -34,6 +34,7 @@ public class Jugador {
 
         this.nombre = nombre;
         this.avatar = new Avatar(tipoAvatar, this, inicio, avCreados);
+        avCreados.add(avatar);
         this.fortuna = 9543076.28f;
         this.gastos = 0;
         this.enCarcel = false;
