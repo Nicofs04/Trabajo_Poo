@@ -160,7 +160,7 @@ public class Tablero {
         sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
 
         /*sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(0), posiciones.get(3).get(0)));
-        sb.append("------\t\t\t\t\t\t\t------\n");*/
+        sb.append("------\t\t\t\t\t\t\t------\n");*/ //NO BORRAR QUE ES PA VER
 
         for(Casilla ladosur:posiciones.get(0)){
             sb.append("|").append(ladosur.getNombre());

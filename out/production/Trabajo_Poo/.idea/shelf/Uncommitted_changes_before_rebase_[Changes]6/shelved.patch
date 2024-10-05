@@ -1,0 +1,116 @@
+Index: partida/Jugador.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package partida;\r\n\r\nimport java.util.ArrayList;\r\n\r\nimport monopoly.*;\r\n\r\n\r\npublic class Jugador {\r\n\r\n    //Atributos:\r\n    private String nombre; //Nombre del jugador\r\n    private Avatar avatar; //Avatar que tiene en la partida.\r\n    private float fortuna; //Dinero que posee.\r\n    private float gastos; //Gastos realizados a lo largo del juego.\r\n    private boolean enCarcel; //Será true si el jugador está en la carcel\r\n    private int tiradasCarcel; //Cuando está en la carcel, contará las tiradas sin éxito que ha hecho allí para intentar salir (se usa para limitar el numero de intentos).\r\n    private int vueltas; //Cuenta las vueltas dadas al tablero.\r\n    private ArrayList<Casilla> propiedades; //Propiedades que posee el jugador.\r\n\r\n    //Constructor vacío. Se usará para crear la banca.\r\n    public Jugador() {\r\n    }\r\n\r\n    /*Constructor principal. Requiere parámetros:\r\n    * Nombre del jugador, tipo del avatar que tendrá, casilla en la que empezará y ArrayList de\r\n    * avatares creados (usado para dos propósitos: evitar que dos jugadores tengan el mismo nombre y\r\n    * que dos avatares tengan mismo ID). Desde este constructor también se crea el avatar.\r\n     */\r\n\r\n    //SETTERS Y GETTERS\r\n\r\n    public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {\r\n    }\r\n\r\n    public String getNombre(){\r\n        return nombre;\r\n    }\r\n\r\n    public void setNombre(String nombre){\r\n        this.nombre = nombre;\r\n    }\r\n\r\n    public Avatar getAvatar(){\r\n        return avatar;\r\n    }\r\n\r\n    public void setAvatar(Avatar avatar){\r\n        this.avatar = avatar;\r\n    }\r\n\r\n    public float getFortuna(){\r\n        return fortuna;\r\n    }\r\n\r\n    public void setFortuna(float fortuna){\r\n        this.fortuna = fortuna;\r\n    }\r\n\r\n    public float getGastos(){\r\n        return gastos;\r\n    }\r\n\r\n    public void setGastos(float gastos){\r\n        this.gastos = gastos;\r\n    }\r\n\r\n    public boolean getEnCarcel(){\r\n        return enCarcel;\r\n    }\r\n\r\n    public void setEnCarcel(boolean enCarcel){\r\n        this.enCarcel = enCarcel;\r\n    }\r\n\r\n    public int getTiradasCarcel(){\r\n        return tiradasCarcel;\r\n    }\r\n\r\n    public void setTiradasCarcel(int tiradasCarcel){\r\n        this.tiradasCarcel = tiradasCarcel;\r\n    }\r\n\r\n    public int getVueltas(){\r\n        return vueltas;\r\n    }\r\n\r\n    public void setVueltas(int vueltas){\r\n        this.vueltas = vueltas;\r\n    }\r\n\r\n    public ArrayList<Casilla> getPropiedades(){\r\n        return propiedades;\r\n    }\r\n\r\n    public void setPropiedades(ArrayList<Casilla> propiedades){\r\n        this.propiedades = propiedades;\r\n    }\r\n\r\n    //Otros métodos:\r\n    //Método para añadir una propiedad al jugador. Como parámetro, la casilla a añadir.\r\n    public void anhadirPropiedad(Casilla casilla) {\r\n        propiedades.add(casilla);\r\n    }\r\n\r\n    //Método para eliminar una propiedad del arraylist de propiedades de jugador.\r\n    public void eliminarPropiedad(Casilla casilla) {\r\n        propiedades.remove(casilla);\r\n    }\r\n\r\n    //Método para añadir fortuna a un jugador\r\n    //Como parámetro se pide el valor a añadir. Si hay que restar fortuna, se pasaría un valor negativo.\r\n    public void sumarFortuna(float valor) {\r\n        this.fortuna += valor;\r\n    }\r\n    \r\n    //Método para sumar gastos a un jugador.\r\n    //Parámetro: valor a añadir a los gastos del jugador (será el precio de un solar, impuestos pagados...).\r\n    public void sumarGastos(float valor) {\r\n        this.gastos+=valor;\r\n    }\r\n\r\n    /*Método para establecer al jugador en la cárcel. \r\n    * Se requiere disponer de las casillas del tablero para ello (por eso se pasan como parámetro).*/\r\n    public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {\r\n        this.enCarcel=true;\r\n        \r\n\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/partida/Jugador.java b/partida/Jugador.java
+--- a/partida/Jugador.java	(revision 26d22bc662b1e1fb72e391c955488ba2492d8cdf)
++++ b/partida/Jugador.java	(date 1728059389523)
+@@ -26,11 +26,15 @@
+     * avatares creados (usado para dos propósitos: evitar que dos jugadores tengan el mismo nombre y
+     * que dos avatares tengan mismo ID). Desde este constructor también se crea el avatar.
+      */
+-
+-    //SETTERS Y GETTERS
+-
+     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
++        this.nombre = nombre;
++        Avatar avatar = new Avatar(tipoAvatar, this, inicio, );
++        this.avatar.tipo = tipoAvatar;
+     }
++
++
++
++    //SETTERS Y GETTERS
+ 
+     public String getNombre(){
+         return nombre;
+Index: monopoly/MonopolyETSE.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package monopoly;\r\nimport partida.Jugador;\r\nimport partida.Avatar;\r\nimport partida.Dado;\r\n\r\npublic class MonopolyETSE {\r\n\r\n    public static void main(String[] args) {\r\n        new Menu();\r\n\r\n\r\n\r\n\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/monopoly/MonopolyETSE.java b/monopoly/MonopolyETSE.java
+--- a/monopoly/MonopolyETSE.java	(revision 26d22bc662b1e1fb72e391c955488ba2492d8cdf)
++++ b/monopoly/MonopolyETSE.java	(date 1728054651634)
+@@ -6,8 +6,8 @@
+ public class MonopolyETSE {
+ 
+     public static void main(String[] args) {
+-        new Menu();
+-
++        Menu menu = new Menu();
++        System.out.println(menu);
+ 
+ 
+ 
+Index: monopoly/Menu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package monopoly;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Scanner;\r\n\r\nimport partida.*;\r\n\r\npublic class Menu {\r\n\r\n    //Atributos\r\n    private ArrayList<Jugador> jugadores; //Jugadores de la partida.\r\n    private ArrayList<Avatar> avatares; //Avatares en la partida.\r\n    private int turno = 0; //Índice correspondiente a la posición en el arrayList del jugador (y el avatar) que tienen el turno\r\n    private int lanzamientos; //Variable para contar el número de lanzamientos de un jugador en un turno.\r\n    private Tablero tablero; //Tablero en el que se juega.\r\n    private Dado dado1; //Dos dados para lanzar y avanzar casillas.\r\n    private Dado dado2;\r\n    private Jugador banca; //El jugador banca.\r\n    private boolean tirado; //Booleano para comprobar si el jugador que tiene el turno ha tirado o no.\r\n    private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.\r\n    private boolean dadosdobles;\r\n\r\n    public Menu(){\r\n        this.jugadores = new ArrayList<Jugador>();\r\n        this.avatares = new ArrayList<Avatar>();\r\n        this.banca = new Jugador();\r\n        this.tablero = new Tablero(banca);\r\n        this.dado1 = new Dado();\r\n        this.dado2 = new Dado();\r\n    }\r\n\r\n    public ArrayList<Jugador> getJugadores(){\r\n        return jugadores;\r\n    }\r\n\r\n    public void setJugadores(ArrayList<Jugador> jugadores){\r\n        this.jugadores = jugadores;\r\n    }\r\n\r\n    public ArrayList<Avatar> getAvatares(){\r\n        return avatares;\r\n    }\r\n\r\n    public void setAvatares(ArrayList<Avatar> avatares){\r\n        this.avatares = avatares;\r\n    }\r\n\r\n    public int getTurno(){\r\n        return turno;\r\n    }\r\n\r\n    public void setTurno(int turno){\r\n        this.turno = turno;\r\n    }\r\n\r\n    public int getLanzamientos(){\r\n        return lanzamientos;\r\n    }\r\n\r\n    public void setLanzamientos(int lanzamientos){\r\n        this.lanzamientos = lanzamientos;\r\n    }\r\n\r\n    public Tablero getTablero(){\r\n        return tablero;\r\n    }\r\n\r\n    public void setTablero(Tablero tablero){\r\n        this.tablero = tablero;\r\n    }\r\n\r\n    public Dado getDado1(){\r\n        return dado1;\r\n    }\r\n\r\n    public void setDado1(Dado dado1){\r\n        this.dado1 = dado1;\r\n    }\r\n\r\n    public Dado getDado2(){\r\n        return dado2;\r\n    }\r\n\r\n    public void setDado2(Dado dado2){\r\n        this.dado2 = dado2;\r\n    }\r\n\r\n    public Jugador getBanca(){\r\n        return banca;\r\n    }\r\n\r\n    public void setBanca(Jugador banca){\r\n        this.banca = banca;\r\n    }\r\n\r\n    public boolean getTirado(){\r\n        return tirado;\r\n    }\r\n\r\n    public void setTirado(boolean tirado){\r\n        this.tirado = tirado;\r\n    }\r\n\r\n    public boolean getSolvente(){\r\n        return solvente;\r\n    }\r\n\r\n    public void setSolvente(boolean solvente){\r\n        this.solvente = solvente;\r\n    }\r\n\r\n    // Método para inciar una partida: crea los jugadores y avatares.\r\n    private void iniciarPartida() {\r\n        new Menu();\r\n        jugadores.add(banca);\r\n\r\n        Scanner scanner = new Scanner(System.in);\r\n        String comando = scanner.nextLine();\r\n        analizarComando(comando);\r\n    }\r\n    \r\n    /*Método que interpreta el comando introducido y toma la accion correspondiente.\r\n    * Parámetro: cadena de caracteres (el comando).\r\n    */\r\n    private void analizarComando(String comando) {\r\n        String[] palabras = comando.split(\" \");\r\n        String metodo = palabras[0] + \" \" + palabras[1];\r\n        String nombre = palabras[2];\r\n        String avatar = palabras[3];\r\n\r\n        if(metodo.equals(\"crear jugador\")){\r\n\r\n        }else if(metodo.equals(\"\"))\r\n    }\r\n\r\n    /*Método que realiza las acciones asociadas al comando 'describir jugador'.\r\n    * Parámetro: comando introducido\r\n     */\r\n    private void descJugador(String[] palabras) {\r\n        for(Jugador jugador:jugadores){\r\n            if((jugador.getNombre()).equals(partes[2])){\r\n                System.out.println(\"{\\nnombre: \" + jugador.getNombre() + \",\\navatar: \" + jugador.getAvatar() + \",\\nfortuna: \" + jugador.getFortuna() + \",\\npropiedades: \" + listarPropiedades() + \"\\nhipotecas: []\" + \"\\nedificios: []\" + \"\\n}\\n\");\r\n            }\r\n        }\r\n    }\r\n\r\n    /*Método que realiza las acciones asociadas al comando 'describir avatar'.\r\n    * Parámetro: id del avatar a describir.\r\n    */\r\n    private void descAvatar(String ID) {\r\n        for(Avatar avatar:avatares){\r\n            if((avatar.getId()).equals(ID)){\r\n                System.out.println(\"{\\nid: \" + avatar.getId() + \",\\ntipo: \" + avatar.getTipo() + \",\\ncasilla: \" + avatar.getCasilla() + \",\\njugador: \" + avatar.getJugador() + \"\\n}\\n\");\r\n            }\r\n        }\r\n    }\r\n\r\n    /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.\r\n    * Parámetros: nombre de la casilla a describir.\r\n    */\r\n    private void descCasilla(String nombre) {\r\n        Casilla casilla = tablero.encontrar_casilla(nombre);\r\n        System.out.println(casilla); //tengo la funcion hecha en casilla.java\r\n    }\r\n\r\n    //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.\r\n    private void lanzarDados() {\r\n\r\n        dado1.hacerTirada();\r\n        dado2.hacerTirada();\r\n\r\n        dadosdobles=dado1.equals(dado2);\r\n        if (dadosdobles) {\r\n            System.out.println(\"Sacaste dobles\");\r\n        }\r\n\r\n   }\r\n\r\n    /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.\r\n    * Parámetro: cadena de caracteres con el nombre de la casilla.\r\n     */\r\n    private void comprar(String nombre) {\r\n\r\n    }\r\n\r\n    //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. \r\n    private void salirCarcel() {\r\n    }\r\n\r\n    // Método que realiza las acciones asociadas al comando 'listar enventa'.\r\n    private void listarVenta() {\r\n    }\r\n\r\n    // Método que realiza las acciones asociadas al comando 'listar jugadores'.\r\n    private void listarJugadores() {\r\n    }\r\n\r\n    // Método que realiza las acciones asociadas al comando 'listar avatares'.\r\n    private void listarAvatares() {\r\n    }\r\n\r\n    // Método que realiza las acciones asociadas al comando 'acabar turno'.\r\n    private void acabarTurno() {\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/monopoly/Menu.java b/monopoly/Menu.java
+--- a/monopoly/Menu.java	(revision 26d22bc662b1e1fb72e391c955488ba2492d8cdf)
++++ b/monopoly/Menu.java	(date 1728055592981)
+@@ -128,9 +128,28 @@
+         String nombre = palabras[2];
+         String avatar = palabras[3];
+ 
+-        if(metodo.equals("crear jugador")){
++        switch(metodo){
++            case "crear jugador":
++                new Jugador()
++                break;
++            case "describir jugador":
++                descJugador(palabras);
++                break;
++            case "describir avatar":
++                descAvatar(palabras);
++                break;
++            case "describir":
++
+ 
+-        }else if(metodo.equals(""))
++
++        }
++
++
++        /*if(metodo.equals("crear jugador")){
++
++        }else if(metodo.equals("descJugador")){
++            descJugador(palabras);
++        }*/
+     }
+ 
+     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
+@@ -138,8 +157,8 @@
+      */
+     private void descJugador(String[] palabras) {
+         for(Jugador jugador:jugadores){
+-            if((jugador.getNombre()).equals(partes[2])){
+-                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + listarPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
++            if((jugador.getNombre()).equals(palabras[2])){
++                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + /*listarPropiedades() +*/ "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
+             }
+         }
+     }
+@@ -147,10 +166,10 @@
+     /*Método que realiza las acciones asociadas al comando 'describir avatar'.
+     * Parámetro: id del avatar a describir.
+     */
+-    private void descAvatar(String ID) {
++    private void descAvatar(String[] palabras) {
+         for(Avatar avatar:avatares){
+-            if((avatar.getId()).equals(ID)){
+-                System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + avatar.getCasilla() + ",\njugador: " + avatar.getJugador() + "\n}\n");
++            if((avatar.getId()).equals(palabras[2])){
++                System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + /*avatar.getCasilla() +*/ ",\njugador: " + avatar.getJugador() + "\n}\n");
+             }
+         }
+     }

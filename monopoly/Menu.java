@@ -130,7 +130,7 @@ public class Menu {
 
         switch(metodo){
             case "crear jugador":
-                new Jugador(nombre, ;
+                //new Jugador(nombre, ;
                 break;
             case "describir jugador":
                 descJugador(palabras);
@@ -184,7 +184,7 @@ public class Menu {
     */
     private void descCasilla(String nombre) {
         Casilla casilla = tablero.encontrar_casilla(nombre);
-        System.out.println(casilla); //tengo la funcion hecha en casilla.java
+        System.out.println(casilla); //tengo la funcion hecha en Casilla.java
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
@@ -218,6 +218,7 @@ public class Menu {
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
+        jugadores.get(turno)
 
     }
 
