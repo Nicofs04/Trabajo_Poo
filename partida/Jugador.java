@@ -145,7 +145,7 @@ public class Jugador {
         this.enCarcel = true;
         //Actualizar la casilla actual a la carcel.
         this.avatar.lugar= tablero.get(1).get(10);
-
+            //
     }
 
 }
