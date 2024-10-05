@@ -133,69 +133,97 @@ public class Menu {
     private void analizarComando(String comando) {
         String[] palabras = comando.split(" ");
 
-    // Si el comando tiene menos de 2 palabras, no puede ser válido.
-    if (palabras.length < 2) {
+    // Si no hay palabras suficientes, no es un comando válido
+    if (palabras.length < 1) {
         System.out.println("Comando inválido.");
         return;
     }
 
-    // Determinar el método (la acción que se va a realizar)
-    String metodo = palabras[0] + " " + palabras[1];
+    String metodo = palabras[0];
 
-    // Dependiendo del comando, la cantidad de palabras puede variar, así que manejamos posibles casos
     switch (metodo) {
-        case "crear jugador":
-            if (palabras.length >= 3) {
+        case "crear":
+            if (palabras.length >= 4 && palabras[1].equals("jugador")) {
                 String nombre = palabras[2];
-                new Jugador(nombre); // Suponiendo que Jugador tiene este constructor
-                System.out.println("Jugador " + nombre + " creado.");
+                String tipoAvatar = palabras[3];
+                crearJugador(nombre, tipoAvatar); // Método que crea un jugador
             } else {
-                System.out.println("Comando incompleto para crear jugador.");
+                System.out.println("Comando incompleto o incorrecto para crear jugador.");
             }
             break;
 
-        case "describir jugador":
-            if (palabras.length >= 3) {
-                descJugador(palabras[2]); // Llama al método que describe un jugador
+        case "jugador":
+            jugadores.get(turno).getNombre(); // Método que indica el jugador con el turno actual
+            break;
+
+        case "listar":
+            if (palabras.length >= 2) {
+                if (palabras[1].equals("jugadores")) {
+                    listarJugadores(); // Listar jugadores
+                } else if (palabras[1].equals("avatares")) {
+                    listarAvatares(); // Listar avatares
+                } else {
+                    System.out.println("Comando desconocido para listar.");
+                }
             } else {
-                System.out.println("Comando incompleto para describir jugador.");
+                System.out.println("Comando incompleto para listar.");
             }
             break;
 
-        case "describir avatar":
-            if (palabras.length >= 3) {
-                descAvatar(palabras[2]); // Llama al método que describe un avatar
+        case "lanzar":
+            if (palabras.length == 2 && palabras[1].equals("dados")) {
+                lanzarDados(); // Método que gestiona el lanzamiento de dados
             } else {
-                System.out.println("Comando incompleto para describir avatar.");
+                System.out.println("Comando incorrecto para lanzar dados.");
+            }
+            break;
+
+        case "acabar":
+            if (palabras.length == 2 && palabras[1].equals("turno")) {
+                acabarTurno(); // Método que finaliza el turno actual
+            } else {
+                System.out.println("Comando incorrecto para acabar turno.");
+            }
+            break;
+
+        case "salir":
+            if (palabras.length == 3 && palabras[1].equals("carcel")) {
+                salirCarcel(); // Método para salir de la cárcel
+            } else {
+                System.out.println("Comando incorrecto para salir de la cárcel.");
             }
             break;
 
         case "describir":
-            if (palabras.length >= 2) {
-                // Aquí puedes usar el nombre de la entidad a describir
-                // Por ejemplo, si es una casilla o algún otro objeto del juego
-                String nombreEntidad = palabras[2]; 
-                // Lógica para describir la entidad
+            if (palabras.length == 2) {
+                String nombreCasilla = palabras[1];
+                descCasilla(nombreCasilla); // Método para describir una casilla
             } else {
-                System.out.println("Comando incompleto para describir.");
+                System.out.println("Comando incompleto para describir casilla.");
             }
             break;
 
-        case "lanzar dados":
-            lanzarDados(); // Método que gestiona el lanzamiento de dados
+        case "comprar":
+            if (palabras.length == 2) {
+                String nombreCasilla = palabras[1];
+                comprar(nombreCasilla); // Método para comprar una propiedad
+            } else {
+                System.out.println("Comando incompleto para comprar propiedad.");
+            }
+            break;
+
+        case "listar propiedadesenventa":
+            listarVenta(); // Método para listar propiedades en venta
+            break;
+
+        case "vertablero":
+            tablero.mostrarTablero(); // Método para visualizar el tablero
             break;
 
         default:
             System.out.println("Comando no reconocido.");
             break;
     }
-
-
-        /*if(metodo.equals("crear jugador")){
-
-        }else if(metodo.equals("descJugador")){
-            descJugador(palabras);
-        }*/
     }
 
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
