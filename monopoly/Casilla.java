@@ -252,30 +252,42 @@ public class Casilla {
         // DOY POR HECHO QUE EL JUGADOR BANCA DE LLAMA "Banca", si no habría que pasarle
         // la banca como parámetro a la función
         if (((this.tipo == "Solar") || (this.tipo == "Servicios") || (this.tipo == "Transporte"))&& (this.duenho.getNombre() == "Banca")) {
-            System.out.println("Nombre de la casilla a la venta: "+this.nombre);
-            System.out.println("Tipo de la casilla a la venta: "+this.tipo);
-            System.out.println("Valor de la casilla a la venta: "+this.valor);
-            System.out.println("Posicion de la casilla a la venta: "+this.posicion);
-            System.out.println("Nombre del dueño de la casilla: "+this.duenho.getNombre());
-            System.out.println("Grupo");
-            System.out.println("Impuesto por caer en la casilla: "+this.impuesto);
-            System.out.println("Valor de hipoteca "+this.hipoteca);
-            for(int i=0;i<this.avatares.size();i++){
+            if(this.tipo=="Solar"){
+                System.out.println("Nombre de la casilla a la venta: "+this.nombre);
+                System.out.println("Tipo de la casilla a la venta: "+this.tipo);
+                System.out.println("Valor de la casilla a la venta: "+this.valor);
+                System.out.println("Posicion de la casilla a la venta: "+this.posicion);
+                System.out.println("Nombre del dueño de la casilla: "+this.duenho.getNombre());
+                System.out.println("Grupo de la casilla a la venta: "+this.grupo.getColorGrupo());
+                System.out.println("Impuesto por caer en la casilla: "+this.impuesto);
+                System.out.println("Valor de hipoteca "+this.hipoteca);
 
+                System.out.println("Avatares en la casilla:");
+                for(int i=0;i<this.avatares.size();i++){
+                    System.out.println("Avatar"+i+":"+this.avatares.get(i).getId());
+                }
 
-
-                
+            }else{
+                System.out.println("Nombre de la casilla a la venta: "+this.nombre);
+                System.out.println("Tipo de la casilla a la venta: "+this.tipo);
+                System.out.println("Valor de la casilla a la venta: "+this.valor);
+                System.out.println("Posicion de la casilla a la venta: "+this.posicion);
+                System.out.println("Nombre del dueño de la casilla: "+this.duenho.getNombre());
+                System.out.println("Impuesto por caer en la casilla: "+this.impuesto);
+                System.out.println("Valor de hipoteca "+this.hipoteca);
+                for(int i=0;i<this.avatares.size();i++){
+                    System.out.println("Avatar"+i+":"+this.avatares.get(i).getId());
+                }
             }
 
-            return String.format("Nombre: %s, Edad: %d, Altura: %.2f", this.nombre, this.tipo, this.valor, this.posicion, this.duenho.getNombre());
-
-        }else{ 
-            return String.format("Esta casilla no está a la venta\n");
+        }else{
+            String.format("Esta casilla no está a la venta\n");
         }
     }
+
 
     public String generarCasilla(int posicion) {
         return this.nombre;
     }
-
 }
+
