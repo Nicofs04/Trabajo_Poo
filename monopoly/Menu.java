@@ -109,6 +109,14 @@ public class Menu {
         this.solvente = solvente;
     }
 
+    public boolean getDadosdobles(){
+        return dadosdobles;
+    }
+
+    public void setDadosdobles(boolean dadosdobles){
+        this.dadosdobles = dadosdobles;
+    }
+
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
         new Menu();
