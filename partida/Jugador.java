@@ -141,7 +141,11 @@ public class Jugador {
      * como parámetro).
      */
     public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
+
+        //Poner enCarcel como true.
         this.enCarcel = true;
+        //Actualizar la casilla actual a la carcel.
+        this.avatar.lugar=
 
     }
 
