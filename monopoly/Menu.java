@@ -371,6 +371,7 @@ public class Menu {
                 }
             }
         }
+        System.out.println(sb.toString());
     }
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
