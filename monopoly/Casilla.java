@@ -134,7 +134,7 @@ public class Casilla {
     }
 
     @Override
-    public String toString() {
+    public String toString() { falta poner si es delujo o parking...
         return "tipo: " + getTipo() + ",\n grupo: " + getGrupo() + ",\n propietario: " + getDuenho() + ",\n valor: "
                 + getValor() + ",\n alquiler: " + "220000" +
                 ",\n valor hotel: " + "1560000" + ",\n valor casa: " + "1560000" + ",\n valor piscina: " + "1040000"
@@ -319,6 +319,7 @@ public class Casilla {
         }else{
             String.format("Esta casilla no está a la venta\n");
         }
+        return sb.toString();
     }
 
 
