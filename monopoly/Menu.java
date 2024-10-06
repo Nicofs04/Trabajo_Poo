@@ -352,7 +352,25 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
     private void listarVenta() {
-        
+        int i;
+        StringBuilder sb = new StringBuilder();
+
+        for(i = 0; i < 4; i++){
+            for(Casilla casilla:tablero.getPosiciones().get(i)){
+                if(casilla.getDuenho().getNombre().equals("banca")){
+                    if(casilla.getTipo().equals("solar")){
+                        sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
+                        sb.append(String.format("{\n grupo: %s,\n", casilla.getGrupo().getColorGrupo()));
+                        sb.append(String.format("{\n valor: %s,\n", casilla.getValor()));
+                        sb.append("},\n");
+                    }else{
+                        sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
+                        sb.append(String.format("{\n valor: %s,\n", casilla.getValor()));
+                        sb.append("},\n");
+                    }
+                }
+            }
+        }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.

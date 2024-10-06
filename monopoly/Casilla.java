@@ -242,7 +242,7 @@ public class Casilla {
     public String infoCasilla() {
         StringBuilder info = new StringBuilder();
     
-        if (this.tipo.equals("Solar")) {
+        if (this.tipo.equals("solar")) {
             info.append("Nombre de la casilla: ").append(this.nombre).append("\n");
             info.append("Tipo de la casilla: ").append(this.tipo).append("\n");
             info.append("Valor de la casilla: ").append(this.valor).append("\n");
