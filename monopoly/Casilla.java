@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Casilla{
+
+
     // Atributos:
     private String nombre; // Nombre de la casilla
     private String tipo; // Tipo de casilla (Solar, Especial, Transporte, Servicios, Comunidad).
@@ -135,8 +137,7 @@ public class Casilla{
         this.avatares = avatares;
     }
 
-<<<<<<< HEAD
-=======
+
     @Override
     public String toString() { //falta poner si es delujo o parking...
         return "tipo: " + getTipo() + ",\n grupo: " + getGrupo() + ",\n propietario: " + getDuenho() + ",\n valor: "
@@ -149,7 +150,6 @@ public class Casilla{
                 "15400000" + ",\n alquiler piscina: " + "5500000" + ",\n alquiler pista de deporte: " + "5500000";
     }
 
->>>>>>> origin/main
     // Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
         this.avatares.add(av);
