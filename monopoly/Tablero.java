@@ -166,7 +166,7 @@ public class Tablero {
         sb.append("------\t\t\t\t\t\t\t------\n");*/ //NO BORRAR QUE ES PA VER
         
         for(Casilla ladosur:posiciones.get(0)){
-                sb.append("|").append(posiciones.get(0).get(i).getNombre());
+                sb.append("|").append(ladosur.getNombre());
 
             sb.append("  ");
             /*for(Avatar avatar:ladosur.getAvatares()){
