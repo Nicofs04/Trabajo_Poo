@@ -18,6 +18,7 @@ public class Tablero {
         this.posiciones = new ArrayList<ArrayList<Casilla>>();
         this.grupos = new HashMap<String, Grupo>();
         this.banca = banca;
+        generarCasillas();
     }
 
     public ArrayList<ArrayList<Casilla>> getPosiciones(){

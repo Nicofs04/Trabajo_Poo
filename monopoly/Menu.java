@@ -27,6 +27,7 @@ public class Menu {
         this.tablero = new Tablero(banca);
         this.dado1 = new Dado();
         this.dado2 = new Dado();
+        iniciarPartida();
     }
 
     public ArrayList<Jugador> getJugadores(){
@@ -119,11 +120,6 @@ public class Menu {
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
-        new Menu();
-        avatares = new ArrayList<Avatar>();
-        jugadores = new ArrayList<Jugador>();
-
-
         Scanner scanner = new Scanner(System.in);
         String comando = scanner.nextLine();
         analizarComando(comando);
