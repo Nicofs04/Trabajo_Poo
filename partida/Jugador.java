@@ -38,6 +38,10 @@ public class Jugador {
      * que dos avatares tengan mismo ID). Desde este constructor también se crea el
      * avatar.
      */
+
+     //CREO QUE LA COMPROBACION DE QUE NO TENGAN EL MISMO NOMBRE SE HACE DESDE EL MAIN, ya que el constructor no puede devolver ningun valor
+     // y ademas tampoco se genera de forma aleatoria el nombre, por lo que no podemos crear otra funcion auxiliar como si lo hicimos con el
+     // ID de los avatares
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
 
         this.nombre = nombre;
