@@ -135,6 +135,18 @@ public class Casilla{
         this.avatares = avatares;
     }
 
+    @Override
+    public String toString() { falta poner si es delujo o parking...
+        return "tipo: " + getTipo() + ",\n grupo: " + getGrupo() + ",\n propietario: " + getDuenho() + ",\n valor: "
+                + getValor() + ",\n alquiler: " + "220000" +
+                ",\n valor hotel: " + "1560000" + ",\n valor casa: " + "1560000" + ",\n valor piscina: " + "1040000"
+                + ",\n valor pista de deportes: "
+                + "3250000" + ",\n alquiler de una casa: " + "1100000" + ",\n alquiler dos casas: " + "3300000" +
+                ",\n alquiler tres casas: " + "7700000" + ",\n alquiler cuatro casas: " + "11000000"
+                + ",\n alquiler hotel: " +
+                "15400000" + ",\n alquiler piscina: " + "5500000" + ",\n alquiler pista de deporte: " + "5500000";
+    }
+
     // Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
         this.avatares.add(av);
@@ -155,77 +167,10 @@ public class Casilla{
      * deudas), y false
      * en caso de no cumplirlas.
      */
-
-    // FALTAN HACER RETOQUES A TABLERO PARA QUE FUNCIONE
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
-        //NO EVALUAMOS EN ESTA FUNCION LAS CASILLAS: Salida(especial), Carcel(especial)
-        //PARKING, en este caso siempre va a ser true ya que la recaudacion de impuestos siempre va a ser >=0
-        Casilla c = actual.getAvatar().getLugar();
-        switch (c.getTipo()) {
-            case "solar":
-                if(actual.getFortuna()<this.impuesto){
-                    System.out.println("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                    return false;
-                    //Acabaría la partida para este jugador
-                }else{
-                    actual.setFortuna(actual.getFortuna()-this.impuesto);
-                    this.duenho.setFortuna((duenho.getFortuna()+this.impuesto));
-                    return true;
-                }
-            case "servicio": //NO SE SI HAY QUE HACER LO DE LAS TIRADAS
-                if(actual.getFortuna()<this.impuesto){
-                    System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                    return false;
-                    //Acabaría la partida para este jugador
-                }else{
-                    actual.setFortuna(actual.getFortuna()-this.impuesto);
-                    this.duenho.setFortuna((duenho.getFortuna()+this.impuesto));
-                    return true;
-                }
-            case "transporte":
-            if(actual.getFortuna()<this.impuesto){
-                System.out.println("El jugador no tiene dinero suficiente para pagar el transporte, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                return false;
-                //Acabaría la partida para este jugador
-            }else{
-                actual.setFortuna(actual.getFortuna()-this.impuesto);
-                this.duenho.setFortuna((duenho.getFortuna()+this.impuesto));
-                return true;
-            }
-            //No es para esta entrega
-            case "suerte":
-                break;
-            //No es para esta entrega
-            case "caja":
-                break;
-            case "impuesto":
-                if(actual.getFortuna()<this.impuesto){
-                    System.out.println("El jugador no tiene dinero suficiente para pagar los impuestos, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                    return false;
-                    //Acabaría la partida para este jugador
-                }else{
-                    actual.setFortuna(actual.getFortuna()-this.impuesto);
-                    //Le pagamos a la banca:
-                    banca.setFortuna(banca.getFortuna()+this.impuesto);
-                    return true;
-                }
-            case "especial":
-                //PARKING
-                if((this.tipo=="especial" && this.posicion==20)){
-                    actual.setFortuna(actual.getFortuna()+this.valor);
-                    this.valor=0;
-                    return true;
-                //IR A CARCEL
-                }else if(this.tipo=="especial"&& this.posicion==30){
-                    //Necesito un tablero
-                    actual.encarcelar(/*tablero */);
-                    return true;
-            default:
-                System.out.println("El tipo de la casilla está mal definido");
+        
 
-        }
-
-    }
+    }*/
 
     /*
      * Método usado para comprar una casilla determinada. Parámetros:
@@ -351,7 +296,7 @@ public class Casilla{
                 sb.append(String.format("Valor de la casilla a la venta: %s", this.getValor()));
                 sb.append(String.format("Posición de la casilla a la venta: %s", this.getPosicion()));
                 sb.append(String.format("Nombre del dueño de la casilla: %s", this.getDuenho().getNombre()));
-                sb.append(String.format("Grupo de la casilla a la venta: %s", this.getGrupo()));
+                sb.append(String.format("Grupo de la casilla a la venta: %s", this.getColorGrupo()));
                 sb.append(String.format("Impuesto por caer en la casilla: %s", this.getImpuesto()));
                 sb.append(String.format("Valor de hipoteca: %s", this.getHipoteca()));
                 sb.append("Avatares: ");

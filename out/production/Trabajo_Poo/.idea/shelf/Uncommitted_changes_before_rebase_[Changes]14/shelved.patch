@@ -1,0 +1,197 @@
+Index: monopoly/MonopolyETSE.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package monopoly;\r\nimport partida.Jugador;\r\nimport partida.Avatar;\r\nimport partida.Dado;\r\n\r\npublic class MonopolyETSE {\r\n\r\n    public static void main(String[] args) {\r\n        Menu menu = new Menu();\r\n        System.out.println(menu);\r\n\r\n\r\n\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/monopoly/MonopolyETSE.java b/monopoly/MonopolyETSE.java
+--- a/monopoly/MonopolyETSE.java	(revision 153cb706e2cd4f18f3785b8b819f1a27c71bc42e)
++++ b/monopoly/MonopolyETSE.java	(date 1728139250347)
+@@ -6,8 +6,11 @@
+ public class MonopolyETSE {
+ 
+     public static void main(String[] args) {
+-        Menu menu = new Menu();
+-        System.out.println(menu);
++        //Menu menu = new Menu();
++        //System.out.println(menu);
++        Jugador banca = new Jugador();
++        Tablero tablero = new Tablero(banca);
++        System.out.println(tablero);
+ 
+ 
+ 
+Index: monopoly/Tablero.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package monopoly;\r\n\r\nimport partida.*;\r\n\r\nimport java.lang.reflect.Array;\r\nimport java.util.ArrayList;\r\nimport java.util.HashMap;\r\n\r\n\r\npublic class Tablero {\r\n    //Atributos.\r\n    private ArrayList<ArrayList<Casilla>> posiciones; //Posiciones del tablero: se define como un arraylist de arraylists de casillas (uno por cada lado del tablero).\r\n    private HashMap<String, Grupo> grupos; //Grupos del tablero, almacenados como un HashMap con clave String (será el color del grupo).\r\n    private Jugador banca; //Un jugador que será la banca.\r\n\r\n    //Constructor: únicamente le pasamos el jugador banca (que se creará desde el menú).\r\n    public Tablero(Jugador banca) {\r\n        this.posiciones = new ArrayList<ArrayList<Casilla>>();\r\n        this.grupos = new HashMap<String, Grupo>();\r\n        this.banca = banca;\r\n    }\r\n\r\n    public ArrayList<ArrayList<Casilla>> getPosiciones(){\r\n        return posiciones;\r\n    }\r\n\r\n    public void setPosiciones(ArrayList<ArrayList<Casilla>> posiciones){\r\n        this.posiciones = posiciones;\r\n    }\r\n\r\n    public HashMap<String, Grupo> getGrupos(){\r\n        return grupos;\r\n    }\r\n\r\n    public void setGrupos(HashMap<String,Grupo> grupos){\r\n        this.grupos = grupos;\r\n    }\r\n\r\n    public Jugador getBanca(){\r\n        return banca;\r\n    }\r\n\r\n    public void setBanca(Jugador banca){\r\n        this.banca = banca;\r\n    }\r\n    \r\n    //Método para crear todas las casillas del tablero. Formado a su vez por cuatro métodos (1/lado).\r\n    private void generarCasillas() {\r\n        this.insertarLadoSur();\r\n        this.insertarLadoOeste();\r\n        this.insertarLadoNorte();\r\n        this.insertarLadoEste();\r\n    }\r\n\r\n\r\n    //Método para insertar las casillas del lado norte.\r\n    private void insertarLadoNorte() {\r\n        ArrayList<Casilla> arrayCasillasNorte = new ArrayList<Casilla>();\r\n        arrayCasillasNorte.add(new Casilla(\"Parking\", \"especial\", 20, banca));\r\n        arrayCasillasNorte.add(new Casilla(\"solar12\",\"solar\", 21, 0, banca));\r\n        arrayCasillasNorte.add(new Casilla(\"suerte\", \"suerte\",22, banca));\r\n        arrayCasillasNorte.add(new Casilla(\"solar13\", \"solar\",23, 0, banca));\r\n        arrayCasillasNorte.add(new Casilla(\"solar14\", \"solar\",24, 0, banca));\r\n        arrayCasillasNorte.add(new Casilla(\"trans3\", \"transporte\",25, 0, banca));\r\n        arrayCasillasNorte.add(new Casilla(\"solar15\", \"solar\",26, 0, banca));\r\n        arrayCasillasNorte.add(new Casilla(\"solar16\", \"solar\",27, 0, banca));\r\n        arrayCasillasNorte.add(new Casilla(\"serv2\", \"servicio\",28, 0, banca));\r\n        arrayCasillasNorte.add(new Casilla(\"solar17\", \"solar\",29, 0, banca));\r\n        posiciones.add(arrayCasillasNorte);\r\n        Grupo rojo = new Grupo(arrayCasillasNorte.get(1),arrayCasillasNorte.get(3), arrayCasillasNorte.get(4), \"RED\");\r\n        grupos.put(\"ROJO\", rojo);\r\n        Grupo amarillo = new Grupo(arrayCasillasNorte.get(6),arrayCasillasNorte.get(7), arrayCasillasNorte.get(9), \"BROWN\");\r\n        grupos.put(\"AMARILLO\", amarillo);\r\n    }\r\n\r\n    //Método para insertar las casillas del lado sur.\r\n    private void insertarLadoSur() {\r\n        ArrayList<Casilla> arrayCasillasSur = new ArrayList<Casilla>();\r\n        arrayCasillasSur.add(new Casilla(\"salida\",\"especial\",0, banca));\r\n        arrayCasillasSur.add(new Casilla(\"solar1\",\"solar\",1,0, banca));\r\n        arrayCasillasSur.add(new Casilla(\"caja\",\"caja\",2, banca));\r\n        arrayCasillasSur.add(new Casilla(\"solar2\",\"solar\",3,87030, banca));\r\n        arrayCasillasSur.add(new Casilla(\"imp1\",4,0, banca));\r\n        arrayCasillasSur.add(new Casilla(\"trans1\",\"transporte\",5,87030, banca));\r\n        arrayCasillasSur.add(new Casilla(\"solar3\",\"solar\",6,0, banca));\r\n        arrayCasillasSur.add(new Casilla(\"suerte\",\"suerte\",7, banca));\r\n        arrayCasillasSur.add(new Casilla(\"solar4\",\"solar\",8,0, banca));\r\n        arrayCasillasSur.add(new Casilla(\"solar5\",\"solar\",9,0, banca));\r\n        posiciones.add(arrayCasillasSur);\r\n        Grupo negro = new Grupo(arrayCasillasSur.get(1),arrayCasillasSur.get(3),\"BLACK\");\r\n        grupos.put(\"NEGRO\", negro);\r\n        Grupo cyan = new Grupo(arrayCasillasSur.get(6),arrayCasillasSur.get(7), arrayCasillasSur.get(9), \"CYAN\");\r\n        grupos.put(\"CYAN\", cyan);\r\n    }\r\n\r\n    //Método que inserta casillas del lado oeste.\r\n    private void insertarLadoOeste() {\r\n        ArrayList<Casilla> arrayCasillasOeste = new ArrayList<Casilla>();\r\n        arrayCasillasOeste.add(new Casilla(\"carcel\", \"especial\", 10, banca));\r\n        arrayCasillasOeste.add(new Casilla(\"solar6\", \"solar\", 11, 0, banca));\r\n        arrayCasillasOeste.add(new Casilla(\"serv1\", \"servicio\", 12, 0, banca));\r\n        arrayCasillasOeste.add(new Casilla(\"solar7\", \"solar\", 13, 0, banca));\r\n        arrayCasillasOeste.add(new Casilla(\"solar8\", \"solar\", 14, 0, banca));\r\n        arrayCasillasOeste.add(new Casilla(\"trans2\", \"transporte\", 15, 0, banca));\r\n        arrayCasillasOeste.add(new Casilla(\"solar9\", \"solar\", 16, 0, banca));\r\n        arrayCasillasOeste.add(new Casilla(\"caja\", \"caja\", 17, banca));\r\n        arrayCasillasOeste.add(new Casilla(\"solar10\", \"solar\", 18, 0, banca));\r\n        arrayCasillasOeste.add(new Casilla(\"solar11\", \"solar\", 19, 0, banca));\r\n        posiciones.add(arrayCasillasOeste);\r\n        Grupo violeta = new Grupo(arrayCasillasOeste.get(1),arrayCasillasOeste.get(3), arrayCasillasOeste.get(4), \"PURPLE\");\r\n        grupos.put(\"VIOLETA\", violeta);\r\n        Grupo blanco = new Grupo(arrayCasillasOeste.get(6),arrayCasillasOeste.get(7), arrayCasillasOeste.get(9), \"WHITE\");\r\n        grupos.put(\"BLANCO\", blanco);\r\n    }\r\n\r\n    //Método que inserta las casillas del lado este.\r\n    private void insertarLadoEste() {\r\n        ArrayList<Casilla> arrayCasillasEste = new ArrayList<Casilla>();\r\n        arrayCasillasEste.add(new Casilla(\"ircarcel\",\"especial\",30,banca));\r\n        arrayCasillasEste.add(new Casilla(\"solar18\",\"solar\",31,0,banca));\r\n        arrayCasillasEste.add(new Casilla(\"solar19\",\"solar\",32,0,banca));\r\n        arrayCasillasEste.add(new Casilla(\"caja\",\"caja\",33,banca));\r\n        arrayCasillasEste.add(new Casilla(\"solar20\",\"solar\",34,0,banca));\r\n        arrayCasillasEste.add(new Casilla(\"trans4\",\"transporte\",35,0,banca));\r\n        arrayCasillasEste.add(new Casilla(\"suerte\",\"suerte\",36,banca));\r\n        arrayCasillasEste.add(new Casilla(\"solar21\",\"solar\",37,0,banca));\r\n        arrayCasillasEste.add(new Casilla(\"imp1\",38,0,banca));\r\n        arrayCasillasEste.add(new Casilla(\"solar21\",\"solar\",39,0,banca));\r\n        posiciones.add(arrayCasillasEste);\r\n        Grupo verde = new Grupo(arrayCasillasEste.get(1),arrayCasillasEste.get(3), arrayCasillasEste.get(4), \"GREEN\");\r\n        grupos.put(\"VERDE\", verde);\r\n        Grupo azul = new Grupo(arrayCasillasEste.get(6),arrayCasillasEste.get(7),\"BLUE\");\r\n        grupos.put(\"AZUL\", azul);\r\n    }\r\n\r\n    //Para imprimir el tablero, modificamos el método toString().\r\n    @Override\r\n    public String toString(){\r\n        int i;\r\n        StringBuilder sb = new StringBuilder();\r\n        sb.append(\"------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\\n\");\r\n        for(Casilla ladonorte:posiciones.get(2)){\r\n            sb.append(\"|\").append(ladonorte.getNombre());\r\n            for(Avatar avatar:ladonorte.getAvatares()){\r\n                sb.append(String.format(\"&%s\", avatar.getId())).append(\"|\\n\");\r\n            }\r\n        }\r\n        sb.append(\"------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\\n\");\r\n        for(i = 0; i < 10; i++){\r\n            sb.append(String.format(\"|%s \", posiciones.get(1).get(i).getNombre()));\r\n            for(Avatar avatar:posiciones.get(1).get(i).getAvatares()){\r\n                sb.append(String.format(\"&%s|\", avatar.getId()));\r\n            }\r\n            sb.append(String.format(\"\\t\\t\\t\\t\\t\\t\\t|%s \", posiciones.get(3).get(i).getNombre()));\r\n            for(Avatar avatar:posiciones.get(3).get(i).getAvatares()){\r\n                sb.append(String.format(\"&%s|\\n\", avatar.getId()));\r\n            }\r\n            sb.append(\"------\\t\\t\\t\\t\\t\\t\\t------\\n\");\r\n        }\r\n        sb.append(\"------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\\n\");\r\n\r\n        /*sb.append(String.format(\"|%s|\\t\\t\\t\\t\\t\\t\\t|%s|\\n\", posiciones.get(1).get(0), posiciones.get(3).get(0)));\r\n        sb.append(\"------\\t\\t\\t\\t\\t\\t\\t------\\n\");*/\r\n\r\n        for(Casilla ladosur:posiciones.get(0)){\r\n            sb.append(\"|\").append(ladosur.getNombre());\r\n            for(Avatar avatar:ladosur.getAvatares()){\r\n                sb.append(String.format(\"&%s\", avatar.getId())).append(\"|\\n\");\r\n            }\r\n        }\r\n        return sb.toString();\r\n    }\r\n    \r\n    //Método usado para buscar la casilla con el nombre pasado como argumento:\r\n    public Casilla encontrar_casilla(String nombre){\r\n        for(ArrayList<Casilla> lados:posiciones){\r\n            for (Casilla casilla:lados){\r\n                if (nombre.equals(casilla.getNombre())){\r\n                    return casilla;\r\n                }\r\n            }\r\n        }\r\n        System.out.println(\"No se ha encontrado la casilla\\n\");\r\n        return null;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/monopoly/Tablero.java b/monopoly/Tablero.java
+--- a/monopoly/Tablero.java	(revision 153cb706e2cd4f18f3785b8b819f1a27c71bc42e)
++++ b/monopoly/Tablero.java	(date 1728138906247)
+@@ -160,7 +160,7 @@
+         sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
+ 
+         /*sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(0), posiciones.get(3).get(0)));
+-        sb.append("------\t\t\t\t\t\t\t------\n");*/
++        sb.append("------\t\t\t\t\t\t\t------\n");*/ //NO BORRAR QUE ES PA VER
+ 
+         for(Casilla ladosur:posiciones.get(0)){
+             sb.append("|").append(ladosur.getNombre());
+Index: monopoly/Menu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package monopoly;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Scanner;\r\n\r\nimport partida.*;\r\n\r\npublic class Menu {\r\n\r\n    //Atributos\r\n    private ArrayList<Jugador> jugadores; //Jugadores de la partida.\r\n    private ArrayList<Avatar> avatares; //Avatares en la partida.\r\n    private int turno = 0; //Índice correspondiente a la posición en el arrayList del jugador (y el avatar) que tienen el turno\r\n    private int lanzamientos; //Variable para contar el número de lanzamientos de un jugador en un turno.\r\n    private Tablero tablero; //Tablero en el que se juega.\r\n    private Dado dado1; //Dos dados para lanzar y avanzar casillas.\r\n    private Dado dado2;\r\n    private Jugador banca; //El jugador banca.\r\n    private boolean tirado; //Booleano para comprobar si el jugador que tiene el turno ha tirado o no.\r\n    private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.\r\n    private boolean dadosdobles;\r\n\r\n    public Menu(){\r\n        this.jugadores = new ArrayList<Jugador>();\r\n        this.avatares = new ArrayList<Avatar>();\r\n        this.banca = new Jugador();\r\n        this.tablero = new Tablero(banca);\r\n        this.dado1 = new Dado();\r\n        this.dado2 = new Dado();\r\n    }\r\n\r\n    public ArrayList<Jugador> getJugadores(){\r\n        return jugadores;\r\n    }\r\n\r\n    public void setJugadores(ArrayList<Jugador> jugadores){\r\n        this.jugadores = jugadores;\r\n    }\r\n\r\n    public ArrayList<Avatar> getAvatares(){\r\n        return avatares;\r\n    }\r\n\r\n    public void setAvatares(ArrayList<Avatar> avatares){\r\n        this.avatares = avatares;\r\n    }\r\n\r\n    public int getTurno(){\r\n        return turno;\r\n    }\r\n\r\n    public void setTurno(int turno){\r\n        this.turno = turno;\r\n    }\r\n\r\n    public int getLanzamientos(){\r\n        return lanzamientos;\r\n    }\r\n\r\n    public void setLanzamientos(int lanzamientos){\r\n        this.lanzamientos = lanzamientos;\r\n    }\r\n\r\n    public Tablero getTablero(){\r\n        return tablero;\r\n    }\r\n\r\n    public void setTablero(Tablero tablero){\r\n        this.tablero = tablero;\r\n    }\r\n\r\n    public Dado getDado1(){\r\n        return dado1;\r\n    }\r\n\r\n    public void setDado1(Dado dado1){\r\n        this.dado1 = dado1;\r\n    }\r\n\r\n    public Dado getDado2(){\r\n        return dado2;\r\n    }\r\n\r\n    public void setDado2(Dado dado2){\r\n        this.dado2 = dado2;\r\n    }\r\n\r\n    public Jugador getBanca(){\r\n        return banca;\r\n    }\r\n\r\n    public void setBanca(Jugador banca){\r\n        this.banca = banca;\r\n    }\r\n\r\n    public boolean getTirado(){\r\n        return tirado;\r\n    }\r\n\r\n    public void setTirado(boolean tirado){\r\n        this.tirado = tirado;\r\n    }\r\n\r\n    public boolean getSolvente(){\r\n        return solvente;\r\n    }\r\n\r\n    public void setSolvente(boolean solvente){\r\n        this.solvente = solvente;\r\n    }\r\n\r\n    // Método para inciar una partida: crea los jugadores y avatares.\r\n    private void iniciarPartida() {\r\n        new Menu();\r\n        jugadores.add(banca);\r\n\r\n        Scanner scanner = new Scanner(System.in);\r\n        String comando = scanner.nextLine();\r\n        analizarComando(comando);\r\n    }\r\n    \r\n    /*Método que interpreta el comando introducido y toma la accion correspondiente.\r\n    * Parámetro: cadena de caracteres (el comando).\r\n    */\r\n    private void analizarComando(String comando) {\r\n        String[] palabras = comando.split(\" \");\r\n        String metodo = palabras[0] + \" \" + palabras[1];\r\n        String nombre = palabras[2];\r\n        String avatar = palabras[3];\r\n\r\n        switch(metodo){\r\n            case \"crear jugador\":\r\n                new Jugador(nombre, ;\r\n                break;\r\n            case \"describir jugador\":\r\n                descJugador(palabras);\r\n                break;\r\n            case \"describir avatar\":\r\n                descAvatar(palabras);\r\n                break;\r\n            case \"describir\":\r\n\r\n                break;\r\n            case \"lanzar dados\":\r\n                lanzarDados();\r\n                break;\r\n\r\n\r\n\r\n        }\r\n\r\n\r\n        /*if(metodo.equals(\"crear jugador\")){\r\n\r\n        }else if(metodo.equals(\"descJugador\")){\r\n            descJugador(palabras);\r\n        }*/\r\n    }\r\n\r\n    /*Método que realiza las acciones asociadas al comando 'describir jugador'.\r\n    * Parámetro: comando introducido\r\n     */\r\n    private void descJugador(String[] palabras) {\r\n        for(Jugador jugador:jugadores){\r\n            if((jugador.getNombre()).equals(palabras[2])){\r\n                System.out.println(\"{\\nnombre: \" + jugador.getNombre() + \",\\navatar: \" + jugador.getAvatar() + \",\\nfortuna: \" + jugador.getFortuna() + \",\\npropiedades: \" + /*listarPropiedades() +*/ \"\\nhipotecas: []\" + \"\\nedificios: []\" + \"\\n}\\n\");\r\n            }\r\n        }\r\n    }\r\n\r\n    /*Método que realiza las acciones asociadas al comando 'describir avatar'.\r\n    * Parámetro: id del avatar a describir.\r\n    */\r\n    private void descAvatar(String[] palabras) {\r\n        for(Avatar avatar:avatares){\r\n            if((avatar.getId()).equals(palabras[2])){\r\n                System.out.println(\"{\\nid: \" + avatar.getId() + \",\\ntipo: \" + avatar.getTipo() + \",\\ncasilla: \" + /*avatar.getCasilla() +*/ \",\\njugador: \" + avatar.getJugador() + \"\\n}\\n\");\r\n            }\r\n        }\r\n    }\r\n\r\n    /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.\r\n    * Parámetros: nombre de la casilla a describir.\r\n    */\r\n    private void descCasilla(String nombre) {\r\n        Casilla casilla = tablero.encontrar_casilla(nombre);\r\n        System.out.println(casilla); //tengo la funcion hecha en casilla.java\r\n    }\r\n\r\n    //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.\r\n    private void lanzarDados() {\r\n        int contador=0;\r\n        do{\r\n            dado1.hacerTirada();\r\n            dado2.hacerTirada();\r\n\r\n            System.out.println(\"Dado 1: \"+dado1.getValor());\r\n            System.out.println(\"Dado 2: \"+dado2.getValor());\r\n            dadosdobles=dado1.equals(dado2);\r\n            if (dadosdobles) {\r\n                System.out.println(\"Sacaste dobles\");\r\n                contador++;\r\n                if (contador==3) {\r\n                    System.out.println(\"Sacaste dobles 3 veces, serás enviado a la cárcel\");\r\n                    //ircarcel\r\n                    break;\r\n                }\r\n            }else{\r\n                contador=0;\r\n                }\r\n            moverAvatar(tablero,dado1.getValor()+dado2.getValor());     \r\n        //evalur casilla\r\n\r\n    }while(dadosdobles);\r\n   }\r\n\r\n    /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.\r\n    * Parámetro: cadena de caracteres con el nombre de la casilla.\r\n     */\r\n    private void comprar(String nombre) {\r\n\r\n    }\r\n\r\n    //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. \r\n    private void salirCarcel() {\r\n    }\r\n\r\n    // Método que realiza las acciones asociadas al comando 'listar enventa'.\r\n    private void listarVenta() {\r\n    }\r\n\r\n    // Método que realiza las acciones asociadas al comando 'listar jugadores'.\r\n    private void listarJugadores() {\r\n    }\r\n\r\n    // Método que realiza las acciones asociadas al comando 'listar avatares'.\r\n    private void listarAvatares() {\r\n    }\r\n\r\n    // Método que realiza las acciones asociadas al comando 'acabar turno'.\r\n    private void acabarTurno() {\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/monopoly/Menu.java b/monopoly/Menu.java
+--- a/monopoly/Menu.java	(revision 153cb706e2cd4f18f3785b8b819f1a27c71bc42e)
++++ b/monopoly/Menu.java	(date 1728140179674)
+@@ -130,7 +130,7 @@
+ 
+         switch(metodo){
+             case "crear jugador":
+-                new Jugador(nombre, ;
++                //new Jugador(nombre, ;
+                 break;
+             case "describir jugador":
+                 descJugador(palabras);
+@@ -184,7 +184,7 @@
+     */
+     private void descCasilla(String nombre) {
+         Casilla casilla = tablero.encontrar_casilla(nombre);
+-        System.out.println(casilla); //tengo la funcion hecha en casilla.java
++        System.out.println(casilla); //tengo la funcion hecha en Casilla.java
+     }
+ 
+     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
+@@ -218,6 +218,7 @@
+     * Parámetro: cadena de caracteres con el nombre de la casilla.
+      */
+     private void comprar(String nombre) {
++        jugadores.get(turno)
+ 
+     }
+ 
+Index: out/production/Trabajo_Poo/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"05c7bc73-9af0-48dd-a707-1a4d634f1589\" name=\"Changes\" comment=\"\">\n      <change beforePath=\"$PROJECT_DIR$/monopoly/MonopolyETSE.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/monopoly/MonopolyETSE.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;Nicofs04&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/Nicofs04/Trabajo_Poo.git&quot;,\n    &quot;accountId&quot;: &quot;f77c096a-7efc-4be3-bbc2-44ff770b31d4&quot;\n  }\n}</component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 6\n}</component>\n  <component name=\"ProjectId\" id=\"2msUgAFCuL7KPi1ejqWAxBLqfro\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\n    &quot;last_opened_file_path&quot;: &quot;/home/nico/Escritorio/Trabajo_Poo&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11\" />\n        <option value=\"bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"05c7bc73-9af0-48dd-a707-1a4d634f1589\" name=\"Changes\" comment=\"\" />\n      <created>1727864886315</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1727864886315</updated>\n      <workItem from=\"1727864888569\" duration=\"7233000\" />\n      <workItem from=\"1728052391712\" duration=\"2180000\" />\n    </task>\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/out/production/Trabajo_Poo/.idea/workspace.xml b/out/production/Trabajo_Poo/.idea/workspace.xml
+--- a/out/production/Trabajo_Poo/.idea/workspace.xml	(revision 153cb706e2cd4f18f3785b8b819f1a27c71bc42e)
++++ b/out/production/Trabajo_Poo/.idea/workspace.xml	(date 1728139254898)
+@@ -6,6 +6,7 @@
+   <component name="ChangeListManager">
+     <list default="true" id="05c7bc73-9af0-48dd-a707-1a4d634f1589" name="Changes" comment="">
+       <change beforePath="$PROJECT_DIR$/monopoly/MonopolyETSE.java" beforeDir="false" afterPath="$PROJECT_DIR$/monopoly/MonopolyETSE.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/monopoly/Tablero.java" beforeDir="false" afterPath="$PROJECT_DIR$/monopoly/Tablero.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -13,7 +14,13 @@
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="main" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="UPDATE_TYPE" value="REBASE" />
+   </component>
+   <component name="GitHubPullRequestSearchHistory">{
+   &quot;lastFilter&quot;: {
+@@ -35,20 +42,21 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;/home/nico/Escritorio/Trabajo_Poo&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "Application.MonopolyETSE.executor": "Run",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "git-widget-placeholder": "main",
++    "kotlin-language-version-configured": "true",
++    "last_opened_file_path": "/home/nico/Escritorio/Trabajo_Poo",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "vue.rearranger.settings.migration": "true"
+   }
+-}</component>
++}]]></component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+@@ -66,7 +74,9 @@
+       <option name="presentableId" value="Default" />
+       <updated>1727864886315</updated>
+       <workItem from="1727864888569" duration="7233000" />
+-      <workItem from="1728052391712" duration="2180000" />
++      <workItem from="1728052391712" duration="4631000" />
++      <workItem from="1728079708136" duration="2123000" />
++      <workItem from="1728125695940" duration="8537000" />
+     </task>
+     <servers />
+   </component>
+@@ -74,11 +84,38 @@
+     <option name="version" value="3" />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
++    <option name="RECENT_FILTERS">
++      <map>
++        <entry key="Branch">
++          <value>
++            <list>
++              <RecentGroup>
++                <option name="FILTER_VALUES">
++                  <option value="origin/main" />
++                </option>
++              </RecentGroup>
++            </list>
++          </value>
++        </entry>
++      </map>
++    </option>
+     <option name="TAB_STATES">
+       <map>
+         <entry key="MAIN">
+           <value>
+-            <State />
++            <State>
++              <option name="FILTERS">
++                <map>
++                  <entry key="branch">
++                    <value>
++                      <list>
++                        <option value="origin/main" />
++                      </list>
++                    </value>
++                  </entry>
++                </map>
++              </option>
++            </State>
+           </value>
+         </entry>
+       </map>

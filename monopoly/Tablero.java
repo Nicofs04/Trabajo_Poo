@@ -139,36 +139,81 @@ public class Tablero {
     public String toString(){
         int i;
         StringBuilder sb = new StringBuilder();
-        sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
+        sb.append("______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
         for(Casilla ladonorte:posiciones.get(2)){
             sb.append("|").append(ladonorte.getNombre());
+            sb.append("  ");
             /*for(Avatar avatar:ladonorte.getAvatares()){
                 sb.append(String.format("&%s", avatar.getId())).append("|\n");
             }*/
+            sb.append("|");
         }
-        sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
-        for(i = 0; i < 10; i++){
-            sb.append(String.format("|%s ", posiciones.get(1).get(i).getNombre()));
-            /*for(Avatar avatar:posiciones.get(1).get(i).getAvatares()){
-                sb.append(String.format("&%s|", avatar.getId()));
-            }*/
-            sb.append(String.format("\t\t\t\t\t\t\t|%s ", posiciones.get(3).get(i).getNombre()));
-            /*for(Avatar avatar:posiciones.get(3).get(i).getAvatares()){
-                sb.append(String.format("&%s|\n", avatar.getId()));
-            }*/
-            sb.append("------\t\t\t\t\t\t\t------\n");
+        sb.append("|\n______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
+        if(posiciones.get(1).get(0).getAvatares() == null || posiciones.get(3).get(0) == null){
+            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(9).getNombre(), posiciones.get(3).get(0).getNombre()));
+
+        }else{
+            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(9).getNombre(), posiciones.get(1).get(0).getAvatares(), posiciones.get(3).get(0).getNombre(), posiciones.get(3).get(0).getAvatares()));
+        }if(posiciones.get(1).get(1).getAvatares() == null || posiciones.get(3).get(1) == null){
+            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(8).getNombre(), posiciones.get(3).get(1).getNombre()));
+
+        }else{
+            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(8).getNombre(), posiciones.get(1).get(1).getAvatares(), posiciones.get(3).get(1).getNombre(), posiciones.get(3).get(1).getAvatares()));
+        }if(posiciones.get(1).get(2).getAvatares() == null || posiciones.get(3).get(2) == null){
+            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(7).getNombre(), posiciones.get(3).get(2).getNombre()));
+
+        }else{
+            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(7).getNombre(), posiciones.get(1).get(2).getAvatares(), posiciones.get(3).get(2).getNombre(), posiciones.get(3).get(2).getAvatares()));
+        }if(posiciones.get(1).get(3).getAvatares() == null || posiciones.get(3).get(3) == null){
+            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(6).getNombre(), posiciones.get(3).get(3).getNombre()));
+
+        }else{
+            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(6).getNombre(), posiciones.get(1).get(3).getAvatares(), posiciones.get(3).get(3).getNombre(), posiciones.get(3).get(3).getAvatares()));
+        }if(posiciones.get(1).get(0).getAvatares() == null || posiciones.get(3).get(4) == null){
+            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(5).getNombre(), posiciones.get(3).get(4).getNombre()));
+
+        }else{
+            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(5).getNombre(), posiciones.get(1).get(4).getAvatares(), posiciones.get(3).get(4).getNombre(), posiciones.get(3).get(4).getAvatares()));
+        }if(posiciones.get(1).get(5).getAvatares() == null || posiciones.get(3).get(5) == null){
+            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(4).getNombre(), posiciones.get(3).get(5).getNombre()));
+
+        }else{
+            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(4).getNombre(), posiciones.get(1).get(5).getAvatares(), posiciones.get(3).get(5).getNombre(), posiciones.get(1).get(5).getAvatares()));
+        }if(posiciones.get(1).get(6).getAvatares() == null || posiciones.get(3).get(6) == null){
+            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(3).getNombre(), posiciones.get(3).get(6).getNombre()));
+
+        }else{
+            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(3).getNombre(), posiciones.get(1).get(6).getAvatares(), posiciones.get(3).get(6).getNombre(), posiciones.get(1).get(6).getAvatares()));
+        }if(posiciones.get(1).get(7).getAvatares() == null || posiciones.get(3).get(7) == null){
+            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(2).getNombre(), posiciones.get(3).get(7).getNombre()));
+
+        }else{
+            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(2).getNombre(), posiciones.get(1).get(7).getAvatares(), posiciones.get(3).get(7).getNombre(), posiciones.get(1).get(7).getAvatares()));
+        }if(posiciones.get(1).get(8).getAvatares() == null || posiciones.get(3).get(8) == null){
+            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(1).getNombre(), posiciones.get(3).get(8).getNombre()));
+
+        }else{
+            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(1).getNombre(), posiciones.get(1).get(8).getAvatares(), posiciones.get(3).get(8).getNombre(), posiciones.get(1).get(8).getAvatares()));
+        }if(posiciones.get(1).get(9).getAvatares() == null || posiciones.get(3).get(9) == null){
+            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(0).getNombre(), posiciones.get(3).get(9).getNombre()));
+
+        }else{
+            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(0).getNombre(), posiciones.get(1).get(9).getAvatares(), posiciones.get(3).get(9).getNombre(), posiciones.get(1).get(9).getAvatares()));
         }
-        sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
+        sb.append(" ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼\n");
 
         /*sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(0), posiciones.get(3).get(0)));
         sb.append("------\t\t\t\t\t\t\t------\n");*/ //NO BORRAR QUE ES PA VER
 
-        for(Casilla ladosur:posiciones.get(0)){
+        for (i = posiciones.get(0).size() - 1; i >= 0; i--) {
+            Casilla ladosur = posiciones.get(0).get(i);
             sb.append("|").append(ladosur.getNombre());
-            /*for(Avatar avatar:ladosur.getAvatares()){
-                sb.append(String.format("&%s", avatar.getId())).append("|\n");
-            }*/
+
+            sb.append("   ");
         }
+
+        sb.append("|");
+        sb.append("\n ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺\n");
         return sb.toString();
     }
     
