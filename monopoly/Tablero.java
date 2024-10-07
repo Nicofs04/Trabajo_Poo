@@ -189,12 +189,12 @@ public class Tablero {
         }else{
             sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(3).getNombre(), posiciones.get(1).get(3).getAvatares(), posiciones.get(3).get(7).getNombre(), posiciones.get(3).get(7).getAvatares()));
 
-        }if(posiciones.get(1).get(2).getAvatares() == null || posiciones.get(3).get(8) == null){
+        }if(posiciones.get(1).get(2).getAvatares() == null || posiciones.get(3).get(8).getAvatares() == null){
             sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(2).getNombre(), posiciones.get(3).get(8).getNombre()));
         }else{
             sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(2).getNombre(), posiciones.get(1).get(2).getAvatares(), posiciones.get(3).get(8).getNombre(), posiciones.get(3).get(8).getAvatares()));
 
-        }if(posiciones.get(1).get(1).getAvatares() == null || posiciones.get(3).get(9) == null){
+        }if(posiciones.get(1).get(1).getAvatares() == null || posiciones.get(3).get(9).getAvatares() == null){
             sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(1).getNombre(), posiciones.get(3).get(9).getNombre()));
         }else{
             sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(1).getNombre(), posiciones.get(1).get(1).getAvatares(), posiciones.get(3).get(9).getNombre(), posiciones.get(3).get(9).getAvatares()));
