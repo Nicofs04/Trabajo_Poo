@@ -149,7 +149,7 @@ public class Tablero {
             sb.append("|");
         }
         sb.append("|\n______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
-        for(i = 0; i < 10; i++){
+        for(i = 0; i < 9; i++){
             sb.append(String.format("|%s", posiciones.get(1).get(i).getNombre()));
             /*for(Avatar avatar:posiciones.get(1).get(i).getAvatares()){
                 sb.append(String.format("&%s|", avatar.getId()));
@@ -166,7 +166,7 @@ public class Tablero {
         sb.append("------\t\t\t\t\t\t\t------\n");*/ //NO BORRAR QUE ES PA VER
         
         for(Casilla ladosur:posiciones.get(0)){
-                sb.append("|").append(posiciones.get(0).get(i));
+                sb.append("|").append(posiciones.get(0).get(i).getNombre());
 
             sb.append("  ");
             /*for(Avatar avatar:ladosur.getAvatares()){
