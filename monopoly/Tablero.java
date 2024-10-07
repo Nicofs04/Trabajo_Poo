@@ -18,6 +18,7 @@ public class Tablero {
         this.posiciones = new ArrayList<ArrayList<Casilla>>();
         this.grupos = new HashMap<String, Grupo>();
         this.banca = banca;
+        generarCasillas();
     }
 
     public ArrayList<ArrayList<Casilla>> getPosiciones(){
@@ -141,20 +142,20 @@ public class Tablero {
         sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
         for(Casilla ladonorte:posiciones.get(2)){
             sb.append("|").append(ladonorte.getNombre());
-            for(Avatar avatar:ladonorte.getAvatares()){
+            /*for(Avatar avatar:ladonorte.getAvatares()){
                 sb.append(String.format("&%s", avatar.getId())).append("|\n");
-            }
+            }*/
         }
         sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
         for(i = 0; i < 10; i++){
             sb.append(String.format("|%s ", posiciones.get(1).get(i).getNombre()));
-            for(Avatar avatar:posiciones.get(1).get(i).getAvatares()){
+            /*for(Avatar avatar:posiciones.get(1).get(i).getAvatares()){
                 sb.append(String.format("&%s|", avatar.getId()));
-            }
+            }*/
             sb.append(String.format("\t\t\t\t\t\t\t|%s ", posiciones.get(3).get(i).getNombre()));
-            for(Avatar avatar:posiciones.get(3).get(i).getAvatares()){
+            /*for(Avatar avatar:posiciones.get(3).get(i).getAvatares()){
                 sb.append(String.format("&%s|\n", avatar.getId()));
-            }
+            }*/
             sb.append("------\t\t\t\t\t\t\t------\n");
         }
         sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
@@ -164,9 +165,9 @@ public class Tablero {
 
         for(Casilla ladosur:posiciones.get(0)){
             sb.append("|").append(ladosur.getNombre());
-            for(Avatar avatar:ladosur.getAvatares()){
+            /*for(Avatar avatar:ladosur.getAvatares()){
                 sb.append(String.format("&%s", avatar.getId())).append("|\n");
-            }
+            }*/
         }
         return sb.toString();
     }

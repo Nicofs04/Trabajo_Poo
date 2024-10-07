@@ -134,7 +134,7 @@ public class Casilla {
     }
 
     @Override
-    public String toString() {
+    public String toString() { falta poner si es delujo o parking...
         return "tipo: " + getTipo() + ",\n grupo: " + getGrupo() + ",\n propietario: " + getDuenho() + ",\n valor: "
                 + getValor() + ",\n alquiler: " + "220000" +
                 ",\n valor hotel: " + "1560000" + ",\n valor casa: " + "1560000" + ",\n valor piscina: " + "1040000"
@@ -233,6 +233,7 @@ public class Casilla {
     // Si la casilla en la que cae el avatar es Parking, entonces deberá de recibir
     // el bote almacenado por el pago de impuestos o tasas.
     public void sumarValor(float suma) {
+        this.valor+=suma;
     }
 
     /*
@@ -242,7 +243,7 @@ public class Casilla {
     public String infoCasilla() {
         StringBuilder info = new StringBuilder();
     
-        if (this.tipo.equals("Solar")) {
+        if (this.tipo.equals("solar")) {
             info.append("Nombre de la casilla: ").append(this.nombre).append("\n");
             info.append("Tipo de la casilla: ").append(this.tipo).append("\n");
             info.append("Valor de la casilla: ").append(this.valor).append("\n");
@@ -295,10 +296,10 @@ public class Casilla {
                 sb.append(String.format("Valor de la casilla a la venta: %s", this.getValor()));
                 sb.append(String.format("Posición de la casilla a la venta: %s", this.getPosicion()));
                 sb.append(String.format("Nombre del dueño de la casilla: %s", this.getDuenho().getNombre()));
-                sb.append(String.format("Grupo de la casilla a la venta: %s", this.grupo.getColorGrupo()));
+                sb.append(String.format("Grupo de la casilla a la venta: %s", this.getColorGrupo()));
                 sb.append(String.format("Impuesto por caer en la casilla: %s", this.getImpuesto()));
                 sb.append(String.format("Valor de hipoteca: %s", this.getHipoteca()));
-                sb.append(String.format("Avatares: "));
+                sb.append("Avatares: ");
                 for(Avatar avatar:avatares){
                     sb.append(String.format("%s\t", avatar.getId()));
                 }
@@ -321,6 +322,7 @@ public class Casilla {
         }else{
             String.format("Esta casilla no está a la venta\n");
         }
+        return sb.toString();
     }
 
 

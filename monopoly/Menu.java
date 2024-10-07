@@ -27,6 +27,7 @@ public class Menu {
         this.tablero = new Tablero(banca);
         this.dado1 = new Dado();
         this.dado2 = new Dado();
+        iniciarPartida();
     }
 
     public ArrayList<Jugador> getJugadores(){
@@ -119,11 +120,6 @@ public class Menu {
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
-        new Menu();
-        avatares = new ArrayList<Avatar>();
-        jugadores = new ArrayList<Jugador>();
-
-
         Scanner scanner = new Scanner(System.in);
         String comando = scanner.nextLine();
         analizarComando(comando);
@@ -138,7 +134,6 @@ public class Menu {
     // Si no hay palabras suficientes, no es un comando válido
     if (palabras.length < 1) {
         System.out.println("Comando inválido.");
-        return;
     }
 
     String metodo = palabras[0];
@@ -150,81 +145,82 @@ public class Menu {
                 String tipoAvatar = palabras[3];
                 Jugador jugador= new Jugador(nombre, tipoAvatar, tablero.getPosiciones().get(0).get(0), avatares);
                 jugadores.add(jugador);
+                System.out.println("Jugador creado con éxito.\n");
             } else {
-                System.out.println("Comando incompleto o incorrecto para crear jugador.");
+                System.out.println("Comando incompleto o incorrecto para crear jugador.\n");
             }
             break;
-
         case "jugador":
-            jugadores.get(turno).getNombre(); // Método que indica el jugador con el turno actual
+            System.out.println(jugadores.get(turno).getNombre());
+            System.out.println(jugadores.get(turno).getAvatar());
             break;
-
         case "listar":
-            if (palabras.length >= 2) {
+            if (palabras.length == 2) {
                 if (palabras[1].equals("jugadores")) {
-                    listarJugadores(); // Listar jugadores
+                    listarJugadores();
                 } else if (palabras[1].equals("avatares")) {
-                    listarAvatares(); // Listar avatares
+                    listarAvatares();
                 } else {
-                    System.out.println("Comando desconocido para listar.");
+                    System.out.println("Error, comando desconocido.\n");
                 }
             } else {
-                System.out.println("Comando incompleto para listar.");
+                System.out.println("Error, comando desconocido.\n");
             }
             break;
-
         case "lanzar":
             if (palabras.length == 2 && palabras[1].equals("dados")) {
-                lanzarDados(); // Método que gestiona el lanzamiento de dados
+                lanzarDados();
             } else {
-                System.out.println("Comando incorrecto para lanzar dados.");
+                System.out.println("Error, comando desconocido.\n");
             }
             break;
-
         case "acabar":
             if (palabras.length == 2 && palabras[1].equals("turno")) {
-                acabarTurno(); // Método que finaliza el turno actual
+                acabarTurno();
             } else {
-                System.out.println("Comando incorrecto para acabar turno.");
+                System.out.println("Error, comando desconocido.\n");
             }
             break;
-
         case "salir":
-            if (palabras.length == 3 && palabras[1].equals("carcel")) {
-                salirCarcel(); // Método para salir de la cárcel
+            if (palabras.length == 2 && palabras[1].equals("carcel")) {
+                salirCarcel();
             } else {
-                System.out.println("Comando incorrecto para salir de la cárcel.");
+                System.out.println("Error, comando desconocido.\n");
             }
             break;
-
         case "describir":
             if (palabras.length == 2) {
                 String nombreCasilla = palabras[1];
-                descCasilla(nombreCasilla); // Método para describir una casilla
-            } else {
-                System.out.println("Comando incompleto para describir casilla.");
+                descCasilla(nombreCasilla);
+            }else if(palabras.length == 3){
+                if(palabras[1].equals("jugador")){
+                    String[] nombreJugador = new String[]{palabras[2]};
+                    descJugador(nombreJugador);
+                }else if(palabras[1].equals("avatar")){
+                    String[] idAvatar = new String[]{palabras[2]};
+                    descAvatar(idAvatar);
+                }
+            }else {
+                System.out.println("Error, comando desconocido.\n");
             }
             break;
-
         case "comprar":
             if (palabras.length == 2) {
                 String nombreCasilla = palabras[1];
-                comprar(nombreCasilla); // Método para comprar una propiedad
+                comprar(nombreCasilla);
             } else {
-                System.out.println("Comando incompleto para comprar propiedad.");
+                System.out.println("Error, comando desconocido.\n");
             }
             break;
-
-        case "listar propiedadesenventa":
-            listarVenta(); // Método para listar propiedades en venta
+        case "listar enventa":
+            listarVenta();
             break;
-
-        case "vertablero":
-            tablero.toString(); // Método para visualizar el tablero
+        case "ver":
+            System.out.println(tablero.toString());
             break;
 
         default:
-            System.out.println("Comando no reconocido.");
+            System.out.println("Error, comando desconocido.\n");
             break;
     }
     }
@@ -337,6 +333,7 @@ public class Menu {
         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - tablero.encontrar_casilla(nombre).getValor());
         jugadores.get(turno).anhadirPropiedad(tablero.encontrar_casilla(nombre));
         tablero.encontrar_casilla(nombre).setDuenho(jugadores.get(turno));
+        System.out.println("Casilla comprada con éxito.\n");
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
@@ -346,6 +343,26 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
     private void listarVenta() {
+        int i;
+        StringBuilder sb = new StringBuilder();
+
+        for(i = 0; i < 4; i++){
+            for(Casilla casilla:tablero.getPosiciones().get(i)){
+                if(casilla.getDuenho().getNombre().equals("banca")){
+                    if(casilla.getTipo().equals("solar")){
+                        sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
+                        sb.append(String.format("{\n grupo: %s,\n", casilla.getGrupo().getColorGrupo()));
+                        sb.append(String.format("{\n valor: %s,\n", casilla.getValor()));
+                        sb.append("},\n");
+                    }else{
+                        sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
+                        sb.append(String.format("{\n valor: %s,\n", casilla.getValor()));
+                        sb.append("},\n");
+                    }
+                }
+            }
+        }
+        System.out.println(sb.toString());
     }
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
