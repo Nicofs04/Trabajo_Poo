@@ -200,7 +200,7 @@ public class Tablero {
             sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(1).getNombre(), posiciones.get(1).get(1).getAvatares(), posiciones.get(3).get(9).getNombre(), posiciones.get(3).get(9).getAvatares()));
         }
 
-        sb.append(" ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼⎼\n");
+        sb.append("———————————————————————————————————————————————————————————————————————————————————————————————————————\n");
 
         if(posiciones.get(1).get(0).getAvatares() == null ){
             sb.append(String.format("|%s   |", posiciones.get(1).get(0).getNombre()));
