@@ -139,14 +139,14 @@ public class Tablero {
     public String toString(){
         int i;
         StringBuilder sb = new StringBuilder();
-        sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
+        sb.append("______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
         for(Casilla ladonorte:posiciones.get(2)){
             sb.append("|").append(ladonorte.getNombre());
             /*for(Avatar avatar:ladonorte.getAvatares()){
                 sb.append(String.format("&%s", avatar.getId())).append("|\n");
             }*/
         }
-        sb.append("|\n------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
+        sb.append("|\n______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
         for(i = 0; i < 10; i++){
             sb.append(String.format("|%s", posiciones.get(1).get(i).getNombre()));
             /*for(Avatar avatar:posiciones.get(1).get(i).getAvatares()){
@@ -156,20 +156,20 @@ public class Tablero {
             /*for(Avatar avatar:posiciones.get(3).get(i).getAvatares()){
                 sb.append(String.format("&%s|\n", avatar.getId()));
             }*/
-            sb.append("------\t\t\t\t\t\t\t\t    ------\n");
+            
         }
-        
+        sb.append("|\n______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
 
         /*sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(0), posiciones.get(3).get(0)));
         sb.append("------\t\t\t\t\t\t\t------\n");*/ //NO BORRAR QUE ES PA VER
-
+        
         for(Casilla ladosur:posiciones.get(0)){
             sb.append("|").append(ladosur.getNombre());
             /*for(Avatar avatar:ladosur.getAvatares()){
                 sb.append(String.format("&%s", avatar.getId())).append("|\n");
             }*/
         }
-        sb.append("\n------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
+        sb.append("\n______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
         return sb.toString();
     }
     
