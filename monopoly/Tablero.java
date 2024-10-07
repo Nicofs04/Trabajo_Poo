@@ -158,7 +158,7 @@ public class Tablero {
             }*/
             sb.append("------\t\t\t\t\t\t\t\t    ------\n");
         }
-        sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
+        
 
         /*sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(0), posiciones.get(3).get(0)));
         sb.append("------\t\t\t\t\t\t\t------\n");*/ //NO BORRAR QUE ES PA VER
@@ -169,6 +169,7 @@ public class Tablero {
                 sb.append(String.format("&%s", avatar.getId())).append("|\n");
             }*/
         }
+        sb.append("\n------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
         return sb.toString();
     }
     
