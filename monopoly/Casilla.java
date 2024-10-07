@@ -139,15 +139,32 @@ public class Casilla{
 
 
     @Override
-    public String toString() { //falta poner si es delujo o parking...
-        return "tipo: " + getTipo() + ",\n grupo: " + getGrupo() + ",\n propietario: " + getDuenho() + ",\n valor: "
-                + getValor() + ",\n alquiler: " + "220000" +
-                ",\n valor hotel: " + "1560000" + ",\n valor casa: " + "1560000" + ",\n valor piscina: " + "1040000"
-                + ",\n valor pista de deportes: "
-                + "3250000" + ",\n alquiler de una casa: " + "1100000" + ",\n alquiler dos casas: " + "3300000" +
-                ",\n alquiler tres casas: " + "7700000" + ",\n alquiler cuatro casas: " + "11000000"
-                + ",\n alquiler hotel: " +
-                "15400000" + ",\n alquiler piscina: " + "5500000" + ",\n alquiler pista de deporte: " + "5500000";
+    public String toString() {
+        if(this.tipo=="solar"){
+            return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor() + ",\n Propietario: "
+            + getDuenho() + ",\n Posición:"+getPosicion()+",\n Grupo:"+getGrupo()+",\n Impuesto:"+getImpuesto()+ ",\n alquiler: " + "220000" +
+            ",\n valor hotel: " + "1560000" + ",\n valor casa: " + "1560000" + ",\n valor piscina: " + "1040000"
+            + ",\n valor pista de deportes: "
+            + "3250000" + ",\n alquiler de una casa: " + "1100000" + ",\n alquiler dos casas: " + "3300000" +
+            ",\n alquiler tres casas: " + "7700000" + ",\n alquiler cuatro casas: " + "11000000"
+            + ",\n alquiler hotel: " +
+            "15400000" + ",\n alquiler piscina: " + "5500000" + ",\n alquiler pista de deporte: " + "5500000";
+        }else if(this.tipo=="transporte"||this.tipo== "servicio"){
+            return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor() + ",\n Propietario: "
+            + getDuenho() + ",\n Posición:"+getPosicion()+",\n Impuesto:"+getImpuesto();
+        }else if(this.tipo=="impuesto"){
+            return "tipo: " + getTipo() + ",\n Impuesto:"+getImpuesto();
+
+        }else if(this.tipo=="especial"&&this.posicion==20){
+            //FALTA JUGADORES
+            return "bote: "+getValor()+",\n jugadores:" +;
+        }else if(this.tipo=="especial"&&this.posicion==10){
+            //FALTA PRECIO PARA SALIR Y JUGADORES
+            return "salir: "+ +",\n jugadores:"+ ;
+        }else if(this.tipo=="especial"&&this.posicion==0){
+            //FALTA JUGADORES
+            return "nombre: "+getNombre()+",\n jugadores:"+ +;
+        }
     }
 
     // Método utilizado para añadir un avatar al array de avatares en casilla.
@@ -309,39 +326,8 @@ public class Casilla{
      * Devuelve una cadena con información específica de cada tipo de casilla.
      */
     public String infoCasilla() {
-        StringBuilder info = new StringBuilder();
-
-        if (this.tipo.equals("solar")) {
-            info.append("Nombre de la casilla: ").append(this.nombre).append("\n");
-            info.append("Tipo de la casilla: ").append(this.tipo).append("\n");
-            info.append("Valor de la casilla: ").append(this.valor).append("\n");
-            info.append("Posición de la casilla: ").append(this.posicion).append("\n");
-            info.append("Nombre del dueño de la casilla: ").append(this.duenho.getNombre()).append("\n");
-            info.append("Grupo de la casilla: ").append(this.grupo.getColorGrupo()).append("\n");
-            info.append("Impuesto por caer en la casilla: ").append(this.impuesto).append("\n");
-            info.append("Valor de hipoteca: ").append(this.hipoteca).append("\n");
-
-            info.append("Avatares en la casilla:\n");
-            for (int i = 0; i < this.avatares.size(); i++) {
-                info.append("Avatar ").append(i).append(": ").append(this.avatares.get(i).getId()).append("\n");
-            }
-
-        } else {
-            info.append("Nombre de la casilla: ").append(this.nombre).append("\n");
-            info.append("Tipo de la casilla: ").append(this.tipo).append("\n");
-            info.append("Valor de la casilla: ").append(this.valor).append("\n");
-            info.append("Posición de la casilla: ").append(this.posicion).append("\n");
-            info.append("Nombre del dueño de la casilla: ").append(this.duenho.getNombre()).append("\n");
-            info.append("Impuesto por caer en la casilla: ").append(this.impuesto).append("\n");
-            info.append("Valor de hipoteca: ").append(this.hipoteca).append("\n");
-
-            info.append("Avatares en la casilla:\n");
-            for (int i = 0; i < this.avatares.size(); i++) {
-                info.append("Avatar ").append(i).append(": ").append(this.avatares.get(i).getId()).append("\n");
-            }
-        }
-        // CREO QUE ESTA MAL
-        return info.toString();
+        String informacion =this.toString();
+        return informacion;
     }
 
     /*
@@ -354,44 +340,14 @@ public class Casilla{
         // "comprarCasilla"
         // DOY POR HECHO QUE EL JUGADOR BANCA DE LLAMA "banca", si no habría que pasarle
         // la banca como parámetro a la función
-        StringBuilder sb = new StringBuilder();
         if (((this.tipo == "Solar") || (this.tipo == "Servicios") || (this.tipo == "Transporte"))
                 && (this.duenho.getNombre() == "Banca")) {
-            if (this.tipo == "Solar") {
-
-                sb.append(String.format("Nombre de la casilla a la venta: %s", this.getNombre()));
-                sb.append(String.format("Tipo de la casilla a la venta: %s", this.getTipo()));
-                sb.append(String.format("Valor de la casilla a la venta: %s", this.getValor()));
-                sb.append(String.format("Posición de la casilla a la venta: %s", this.getPosicion()));
-                sb.append(String.format("Nombre del dueño de la casilla: %s", this.getDuenho().getNombre()));
-                sb.append(String.format("Grupo de la casilla a la venta: %s", this.getGrupo()));
-                sb.append(String.format("Grupo de la casilla a la venta: %s", this.getGrupo().getColorGrupo()));
-                sb.append(String.format("Impuesto por caer en la casilla: %s", this.getImpuesto()));
-                sb.append(String.format("Valor de hipoteca: %s", this.getHipoteca()));
-                sb.append("Avatares: ");
-                for (Avatar avatar : avatares) {
-                    sb.append(String.format("%s\t", avatar.getId()));
-                }
-            } else {
-                sb.append(String.format("Nombre de la casilla a la venta: %s", this.getNombre()));
-                sb.append(String.format("Tipo de la casilla a la venta: %s", this.getTipo()));
-                sb.append(String.format("Valor de la casilla a la venta: %s", this.getValor()));
-                sb.append(String.format("Posición de la casilla a la venta: %s", this.getPosicion()));
-                sb.append(String.format("Nombre del dueño de la casilla: %s", this.getDuenho().getNombre()));
-                sb.append(String.format("Impuesto por caer en la casilla: %s", this.getImpuesto()));
-                sb.append(String.format("Valor de hipoteca: %s", this.getHipoteca()));
-                sb.append(String.format("Avatares: "));
-                for (Avatar avatar : avatares) {
-                    sb.append(String.format("%s\t"));
-                }
-            }
-            // CREO QUE ESTA MAL
-            return sb.toString();
-
+                String texto= this.toString();
+                return texto;
         } else {
-            String.format("Esta casilla no está a la venta\n");
+            String texto =String.format("Esta casilla no está a la venta\n");
+            return texto;
         }
-        return sb.toString();
     }
 
     public String generarCasilla(int posicion) {
