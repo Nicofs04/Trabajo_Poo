@@ -142,9 +142,11 @@ public class Tablero {
         sb.append("______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
         for(Casilla ladonorte:posiciones.get(2)){
             sb.append("|").append(ladonorte.getNombre());
+            sb.append("  ");
             /*for(Avatar avatar:ladonorte.getAvatares()){
                 sb.append(String.format("&%s", avatar.getId())).append("|\n");
             }*/
+            sb.append("|");
         }
         sb.append("|\n______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
         for(i = 0; i < 10; i++){
@@ -158,18 +160,22 @@ public class Tablero {
             }*/
             
         }
-        sb.append("|\n______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
+        sb.append("|\n ⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼ ⎼⎼⎼⎼⎼⎼⎼⎼\n");
 
         /*sb.append(String.format("|%s|\t\t\t\t\t\t\t|%s|\n", posiciones.get(1).get(0), posiciones.get(3).get(0)));
         sb.append("------\t\t\t\t\t\t\t------\n");*/ //NO BORRAR QUE ES PA VER
         
         for(Casilla ladosur:posiciones.get(0)){
-            sb.append("|").append(ladosur.getNombre());
+                sb.append("|").append(posiciones.get(0).get(i));
+
+            sb.append("  ");
             /*for(Avatar avatar:ladosur.getAvatares()){
-                sb.append(String.format("&%s", avatar.getId())).append("|\n");
+                sb.append(String.format("&%s", avatar.getId()));
             }*/
+            sb.append("|");
+
         }
-        sb.append("\n______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
+        sb.append("\n ⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺\n");
         return sb.toString();
     }
     

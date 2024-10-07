@@ -134,7 +134,7 @@ public class Casilla {
     }
 
     @Override
-    public String toString() { falta poner si es delujo o parking...
+    public String toString() { //falta poner si es delujo o parking...
         return "tipo: " + getTipo() + ",\n grupo: " + getGrupo() + ",\n propietario: " + getDuenho() + ",\n valor: "
                 + getValor() + ",\n alquiler: " + "220000" +
                 ",\n valor hotel: " + "1560000" + ",\n valor casa: " + "1560000" + ",\n valor piscina: " + "1040000"
@@ -165,10 +165,10 @@ public class Casilla {
      * deudas), y false
      * en caso de no cumplirlas.
      */
-    public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
+    /*public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
         
 
-    }
+    }*/
 
     /*
      * Método usado para comprar una casilla determinada. Parámetros:
@@ -296,7 +296,7 @@ public class Casilla {
                 sb.append(String.format("Valor de la casilla a la venta: %s", this.getValor()));
                 sb.append(String.format("Posición de la casilla a la venta: %s", this.getPosicion()));
                 sb.append(String.format("Nombre del dueño de la casilla: %s", this.getDuenho().getNombre()));
-                sb.append(String.format("Grupo de la casilla a la venta: %s", this.getColorGrupo()));
+                sb.append(String.format("Grupo de la casilla a la venta: %s", this.getGrupo().getColorGrupo()));
                 sb.append(String.format("Impuesto por caer en la casilla: %s", this.getImpuesto()));
                 sb.append(String.format("Valor de hipoteca: %s", this.getHipoteca()));
                 sb.append("Avatares: ");
