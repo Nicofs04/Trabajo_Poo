@@ -133,18 +133,6 @@ public class Casilla {
         this.avatares = avatares;
     }
 
-    @Override
-    public String toString() { falta poner si es delujo o parking...
-        return "tipo: " + getTipo() + ",\n grupo: " + getGrupo() + ",\n propietario: " + getDuenho() + ",\n valor: "
-                + getValor() + ",\n alquiler: " + "220000" +
-                ",\n valor hotel: " + "1560000" + ",\n valor casa: " + "1560000" + ",\n valor piscina: " + "1040000"
-                + ",\n valor pista de deportes: "
-                + "3250000" + ",\n alquiler de una casa: " + "1100000" + ",\n alquiler dos casas: " + "3300000" +
-                ",\n alquiler tres casas: " + "7700000" + ",\n alquiler cuatro casas: " + "11000000"
-                + ",\n alquiler hotel: " +
-                "15400000" + ",\n alquiler piscina: " + "5500000" + ",\n alquiler pista de deporte: " + "5500000";
-    }
-
     // Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
         this.avatares.add(av);
@@ -296,7 +284,7 @@ public class Casilla {
                 sb.append(String.format("Valor de la casilla a la venta: %s", this.getValor()));
                 sb.append(String.format("Posición de la casilla a la venta: %s", this.getPosicion()));
                 sb.append(String.format("Nombre del dueño de la casilla: %s", this.getDuenho().getNombre()));
-                sb.append(String.format("Grupo de la casilla a la venta: %s", this.getColorGrupo()));
+                sb.append(String.format("Grupo de la casilla a la venta: %s", this.getGrupo()));
                 sb.append(String.format("Impuesto por caer en la casilla: %s", this.getImpuesto()));
                 sb.append(String.format("Valor de hipoteca: %s", this.getHipoteca()));
                 sb.append("Avatares: ");
