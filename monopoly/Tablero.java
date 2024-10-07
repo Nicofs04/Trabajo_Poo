@@ -146,17 +146,17 @@ public class Tablero {
                 sb.append(String.format("&%s", avatar.getId())).append("|\n");
             }*/
         }
-        sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
+        sb.append("|\n------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
         for(i = 0; i < 10; i++){
-            sb.append(String.format("|%s ", posiciones.get(1).get(i).getNombre()));
+            sb.append(String.format("|%s", posiciones.get(1).get(i).getNombre()));
             /*for(Avatar avatar:posiciones.get(1).get(i).getAvatares()){
                 sb.append(String.format("&%s|", avatar.getId()));
             }*/
-            sb.append(String.format("\t\t\t\t\t\t\t|%s ", posiciones.get(3).get(i).getNombre()));
+            sb.append(String.format("\t\t\t\t\t\t\t\t    |%s \n", posiciones.get(3).get(i).getNombre()));
             /*for(Avatar avatar:posiciones.get(3).get(i).getAvatares()){
                 sb.append(String.format("&%s|\n", avatar.getId()));
             }*/
-            sb.append("------\t\t\t\t\t\t\t------\n");
+            sb.append("------\t\t\t\t\t\t\t\t    ------\n");
         }
         sb.append("------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------\n");
 
