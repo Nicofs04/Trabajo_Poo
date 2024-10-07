@@ -4,8 +4,7 @@ import partida.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Casilla{
-
+public class Casilla {
 
     // Atributos:
     private String nombre; // Nombre de la casilla
@@ -137,33 +136,74 @@ public class Casilla{
         this.avatares = avatares;
     }
 
-
     @Override
     public String toString() {
-        if(this.tipo=="solar"){
-            return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor() + ",\n Propietario: "
-            + getDuenho() + ",\n Posición:"+getPosicion()+",\n Grupo:"+getGrupo()+",\n Impuesto:"+getImpuesto()+ ",\n alquiler: " + "220000" +
-            ",\n valor hotel: " + "1560000" + ",\n valor casa: " + "1560000" + ",\n valor piscina: " + "1040000"
-            + ",\n valor pista de deportes: "
-            + "3250000" + ",\n alquiler de una casa: " + "1100000" + ",\n alquiler dos casas: " + "3300000" +
-            ",\n alquiler tres casas: " + "7700000" + ",\n alquiler cuatro casas: " + "11000000"
-            + ",\n alquiler hotel: " +
-            "15400000" + ",\n alquiler piscina: " + "5500000" + ",\n alquiler pista de deporte: " + "5500000";
-        }else if(this.tipo=="transporte"||this.tipo== "servicio"){
-            return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor() + ",\n Propietario: "
-            + getDuenho() + ",\n Posición:"+getPosicion()+",\n Impuesto:"+getImpuesto();
-        }else if(this.tipo=="impuesto"){
-            return "tipo: " + getTipo() + ",\n Impuesto:"+getImpuesto();
+        if (this.tipo == "solar") {
+            return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor()
+                    + ",\n Propietario: "
+                    + getDuenho() + ",\n Posición:" + getPosicion() + ",\n Grupo:" + getGrupo() + ",\n Impuesto:"
+                    + getImpuesto() + ",\n alquiler: " + "220000" +
+                    ",\n valor hotel: " + "1560000" + ",\n valor casa: " + "1560000" + ",\n valor piscina: " + "1040000"
+                    + ",\n valor pista de deportes: "
+                    + "3250000" + ",\n alquiler de una casa: " + "1100000" + ",\n alquiler dos casas: " + "3300000" +
+                    ",\n alquiler tres casas: " + "7700000" + ",\n alquiler cuatro casas: " + "11000000"
+                    + ",\n alquiler hotel: " +
+                    "15400000" + ",\n alquiler piscina: " + "5500000" + ",\n alquiler pista de deporte: " + "5500000";
+        } else if (this.tipo == "transporte" || this.tipo == "servicio") {
+            return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor()
+                    + ",\n Propietario: "
+                    + getDuenho() + ",\n Posición:" + getPosicion() + ",\n Impuesto:" + getImpuesto();
+        } else if (this.tipo == "impuesto") {
+            return "tipo: " + getTipo() + ",\n Impuesto:" + getImpuesto();
 
-        }else if(this.tipo=="especial"&&this.posicion==20){
-            //FALTA JUGADORES
-            return "bote: "+getValor()+",\n jugadores:" +;
-        }else if(this.tipo=="especial"&&this.posicion==10){
-            //FALTA PRECIO PARA SALIR Y JUGADORES
-            return "salir: "+ +",\n jugadores:"+ ;
-        }else if(this.tipo=="especial"&&this.posicion==0){
-            //FALTA JUGADORES
-            return "nombre: "+getNombre()+",\n jugadores:"+ +;
+        } else if (this.tipo == "especial" && this.posicion == 20) {
+            // LISTA DE LOS JUGADORES
+            StringBuilder jugadoresEnCasilla = new StringBuilder();
+            for (int i = 0; i < this.avatares.size(); i++) {
+                jugadoresEnCasilla.append(avatares.get(i).getJugador().getNombre()).append(", "); // Cambia getNombre
+                                                                                                  // por el método que
+                                                                                                  // devuelva el nombre
+                                                                                                  // del jugador
+            }
+
+            // Eliminar la última coma y espacio
+            if (jugadoresEnCasilla.length() > 0) {
+                jugadoresEnCasilla.setLength(jugadoresEnCasilla.length() - 2);
+            }
+
+            return "bote: " + getValor() + ",\n jugadores:" + jugadoresEnCasilla;
+        } else if (this.tipo == "especial" && this.posicion == 10) {
+            // FALTA PRECIO PARA SALIR
+            // LISTA DE LOS JUGADORES
+            StringBuilder jugadoresEnCasilla = new StringBuilder();
+            for (int i = 0; i < this.avatares.size(); i++) {
+                jugadoresEnCasilla.append(avatares.get(i).getJugador().getNombre()).append(", "); // Cambia getNombre
+                                                                                                  // por el método que
+                                                                                                  // devuelva el nombre
+                                                                                                  // del jugador
+            }
+
+            // Eliminar la última coma y espacio
+            if (jugadoresEnCasilla.length() > 0) {
+                jugadoresEnCasilla.setLength(jugadoresEnCasilla.length() - 2);
+            }
+
+            return "salir: " +/*PRECIO PARA SALIR */ +",\n jugadores:" + jugadoresEnCasilla;
+        } else if (this.tipo == "especial" && this.posicion == 0) {
+            // LISTA DE LOS JUGADORES
+            StringBuilder jugadoresEnCasilla = new StringBuilder();
+            for (int i = 0; i < this.avatares.size(); i++) {
+                jugadoresEnCasilla.append(avatares.get(i).getJugador().getNombre()).append(", "); // Cambia getNombre
+                                                                                                  // por el método que
+                                                                                                  // devuelva el nombre
+                                                                                                  // del jugador
+            }
+
+            // Eliminar la última coma y espacio
+            if (jugadoresEnCasilla.length() > 0) {
+                jugadoresEnCasilla.setLength(jugadoresEnCasilla.length() - 2);
+            }
+            return "nombre: " + getNombre() + ",\n jugadores:" + jugadoresEnCasilla;
         }
     }
 
@@ -326,7 +366,7 @@ public class Casilla{
      * Devuelve una cadena con información específica de cada tipo de casilla.
      */
     public String infoCasilla() {
-        String informacion =this.toString();
+        String informacion = this.toString();
         return informacion;
     }
 
@@ -342,10 +382,10 @@ public class Casilla{
         // la banca como parámetro a la función
         if (((this.tipo == "Solar") || (this.tipo == "Servicios") || (this.tipo == "Transporte"))
                 && (this.duenho.getNombre() == "Banca")) {
-                String texto= this.toString();
-                return texto;
+            String texto = this.toString();
+            return texto;
         } else {
-            String texto =String.format("Esta casilla no está a la venta\n");
+            String texto = String.format("Esta casilla no está a la venta\n");
             return texto;
         }
     }
