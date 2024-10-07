@@ -215,7 +215,7 @@ public class Menu {
         case "listar enventa":
             listarVenta();
             break;
-        case "ver tablero":
+        case "ver":
             System.out.println(tablero.toString());
             break;
 
