@@ -144,8 +144,9 @@ public class Jugador {
     public void encarcelar(ArrayList<ArrayList<Casilla>> tablero) {
         //Poner enCarcel como true.
         this.enCarcel = true;
-        //Actualizar la casilla actual a la carcel.
-        this.avatar.setLugar(tablero.get(1).get(0));
+        int posicionCarcel=10;
+        //Moverlo a la carcel
+        this.avatar.moverAvatar(tablero, this.avatar.getLugar().getPosicion()-posicionCarcel);
     }
 
 }

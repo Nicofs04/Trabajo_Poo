@@ -125,7 +125,7 @@ public class Tablero {
         arrayCasillasEste.add(new Casilla("trans4","transporte",35,0,banca));
         arrayCasillasEste.add(new Casilla("suerte","suerte",36,banca));
         arrayCasillasEste.add(new Casilla("solar21","solar",37,0,banca));
-        arrayCasillasEste.add(new Casilla("imp1",38,0,banca));
+        arrayCasillasEste.add(new Casilla("imp2",38,0,banca));
         arrayCasillasEste.add(new Casilla("solar21","solar",39,0,banca));
         posiciones.add(arrayCasillasEste);
         Grupo verde = new Grupo(arrayCasillasEste.get(1),arrayCasillasEste.get(3), arrayCasillasEste.get(4), "GREEN");
