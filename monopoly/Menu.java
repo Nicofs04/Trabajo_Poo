@@ -216,20 +216,15 @@ public class Menu {
                 System.out.println("Error, comando desconocido.\n");
             }
             break;
-
-        default:
-            System.out.println("Error, comando desconocido.\n");
-            break;
-    }
-
-    metodo = palabras[0] + " " + palabras[1]; //para comandos distintos
-
-    switch (metodo){
         case "listar enventa":
             listarVenta();
             break;
         case "ver tablero":
             System.out.println(tablero.toString());
+            break;
+
+        default:
+            System.out.println("Error, comando desconocido.\n");
             break;
     }
     }
