@@ -139,10 +139,10 @@ public class Tablero {
     public String toString(){
         int i;
         StringBuilder sb = new StringBuilder();
-        sb.append("______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
+        sb.append("——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
         for(Casilla ladonorte:posiciones.get(2)){
             sb.append("|").append(ladonorte.getNombre());
-            sb.append("  ");
+            sb.append("      ");
             /*for(Avatar avatar:ladonorte.getAvatares()){
                 sb.append(String.format("&%s", avatar.getId())).append("|\n");
             }*/
@@ -153,11 +153,11 @@ public class Tablero {
         }else{
             sb.append(String.format("|%s   &%s|\n", posiciones.get(3).get(0).getNombre(), posiciones.get(3).get(0).getAvatares()));
         }
-        sb.append("⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺\n");
+        sb.append("——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
         if(posiciones.get(1).get(9).getAvatares() == null || posiciones.get(3).get(1).getAvatares() == null){
-            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(9).getNombre(), posiciones.get(3).get(1).getNombre()));
+            sb.append(String.format("|%s        |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s        |\n", posiciones.get(1).get(9).getNombre(), posiciones.get(3).get(1).getNombre()));
         }else{
-            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(9).getNombre(), posiciones.get(1).get(9).getAvatares(), posiciones.get(3).get(1).getNombre(), posiciones.get(3).get(1).getAvatares()));
+            sb.append(String.format("|%s      &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(9).getNombre(), posiciones.get(1).get(9).getAvatares(), posiciones.get(3).get(1).getNombre(), posiciones.get(3).get(1).getAvatares()));
 
         }if(posiciones.get(1).get(8).getAvatares() == null || posiciones.get(3).get(2).getAvatares() == null){
             sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(8).getNombre(), posiciones.get(3).get(2).getNombre()));
@@ -195,12 +195,12 @@ public class Tablero {
             sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(2).getNombre(), posiciones.get(1).get(2).getAvatares(), posiciones.get(3).get(8).getNombre(), posiciones.get(3).get(8).getAvatares()));
 
         }if(posiciones.get(1).get(1).getAvatares() == null || posiciones.get(3).get(9).getAvatares() == null){
-            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(1).getNombre(), posiciones.get(3).get(9).getNombre()));
+            sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(1).getNombre(), posiciones.get(3).get(9).getNombre()));
         }else{
-            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(1).getNombre(), posiciones.get(1).get(1).getAvatares(), posiciones.get(3).get(9).getNombre(), posiciones.get(3).get(9).getAvatares()));
+            sb.append(String.format("|%s   &%s|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  &%s|\n", posiciones.get(1).get(1).getNombre(), posiciones.get(1).get(1).getAvatares(), posiciones.get(3).get(9).getNombre(), posiciones.get(3).get(9).getAvatares()));
         }
 
-        sb.append("———————————————————————————————————————————————————————————————————————————————————————————————————————\n");
+        sb.append("——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
 
         if(posiciones.get(1).get(0).getAvatares() == null ){
             sb.append(String.format("|%s   |", posiciones.get(1).get(0).getNombre()));
@@ -222,7 +222,7 @@ public class Tablero {
         }
 
         sb.append("|");
-        sb.append("\n ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺ ⎺⎺⎺⎺⎺⎺⎺⎺⎺\n");
+        sb.append("\n ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
         return sb.toString();
     }
     

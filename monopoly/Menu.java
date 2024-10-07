@@ -120,16 +120,23 @@ public class Menu {
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
+    
+    while (true) {
+        
+    
         Scanner scanner = new Scanner(System.in);
         String comando = scanner.nextLine();
         analizarComando(comando);
+        
     }
+}
     
     /*Método que interpreta el comando introducido y toma la accion correspondiente.
     * Parámetro: cadena de caracteres (el comando).
     */
     private void analizarComando(String comando) {
-        String[] palabras = comando.split(" ");
+        
+    String[] palabras = comando.split(" ");
 
     // Si no hay palabras suficientes, no es un comando válido
     if (palabras.length < 1) {
