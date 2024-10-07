@@ -166,6 +166,7 @@ public class Casilla {
      * en caso de no cumplirlas.
      */
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
+        
 
     }
 
@@ -270,7 +271,7 @@ public class Casilla {
                 info.append("Avatar ").append(i).append(": ").append(this.avatares.get(i).getId()).append("\n");
             }
         }
-    
+        //CREO QUE ESTA MAL
         return info.toString();
     }
     
@@ -294,7 +295,7 @@ public class Casilla {
                 sb.append(String.format("Valor de la casilla a la venta: %s", this.getValor()));
                 sb.append(String.format("Posición de la casilla a la venta: %s", this.getPosicion()));
                 sb.append(String.format("Nombre del dueño de la casilla: %s", this.getDuenho().getNombre()));
-                sb.append(String.format("Grupo de la casilla a la venta: %s", this.getColorGrupo()));
+                sb.append(String.format("Grupo de la casilla a la venta: %s", this.grupo.getColorGrupo()));
                 sb.append(String.format("Impuesto por caer en la casilla: %s", this.getImpuesto()));
                 sb.append(String.format("Valor de hipoteca: %s", this.getHipoteca()));
                 sb.append(String.format("Avatares: "));
@@ -314,6 +315,8 @@ public class Casilla {
                     sb.append(String.format("%s\t"));
                 }
             }
+            //CREO QUE ESTA MAL
+            return sb.toString();
 
         }else{
             String.format("Esta casilla no está a la venta\n");
