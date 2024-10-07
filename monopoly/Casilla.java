@@ -170,7 +170,6 @@ public class Casilla{
      * deudas), y false
      * en caso de no cumplirlas.
      */
-<<<<<<< HEAD
 
     // FALTAN HACER RETOQUES A TABLERO PARA QUE FUNCIONE
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
@@ -240,12 +239,6 @@ public class Casilla{
                 System.out.println("El tipo de la casilla está mal definido");
 
         }
-=======
-    /*public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
-        
->>>>>>> origin/main
-
-    }*/
 
     /*
      * Método usado para comprar una casilla determinada. Parámetros:
@@ -371,11 +364,8 @@ public class Casilla{
                 sb.append(String.format("Valor de la casilla a la venta: %s", this.getValor()));
                 sb.append(String.format("Posición de la casilla a la venta: %s", this.getPosicion()));
                 sb.append(String.format("Nombre del dueño de la casilla: %s", this.getDuenho().getNombre()));
-<<<<<<< HEAD
                 sb.append(String.format("Grupo de la casilla a la venta: %s", this.getGrupo()));
-=======
                 sb.append(String.format("Grupo de la casilla a la venta: %s", this.getGrupo().getColorGrupo()));
->>>>>>> origin/main
                 sb.append(String.format("Impuesto por caer en la casilla: %s", this.getImpuesto()));
                 sb.append(String.format("Valor de hipoteca: %s", this.getHipoteca()));
                 sb.append("Avatares: ");
