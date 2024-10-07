@@ -148,6 +148,7 @@ public class Tablero {
             }*/
             sb.append("|");
         }
+        sb.append(String.format("|%s   |\n", posiciones.get(3).get(0).getNombre()));
         sb.append("|\n______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______\n");
         if(posiciones.get(1).get(0).getAvatares() == null || posiciones.get(3).get(0) == null){
             sb.append(String.format("|%s   |\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |%s  |\n", posiciones.get(1).get(9).getNombre(), posiciones.get(3).get(0).getNombre()));
