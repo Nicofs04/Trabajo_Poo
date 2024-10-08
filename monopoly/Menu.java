@@ -219,7 +219,7 @@ public class Menu {
                 System.out.println("Error, comando desconocido.\n");
             }
             break;
-        case "listar enventa":
+        case "listarenventa":
             listarVenta();
             break;
         case "ver":
@@ -237,8 +237,8 @@ public class Menu {
      */
     private void descJugador(String[] palabras) {
         for(Jugador jugador:jugadores){
-            if((jugador.getNombre()).equals(palabras[2])){
-                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + jugador.getPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
+            if((jugador.getNombre()).equals(palabras[0])){
+                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar().getId() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + jugador.getPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
             }
         }
     }
@@ -248,7 +248,7 @@ public class Menu {
     */
     private void descAvatar(String[] palabras) {
         for(Avatar avatar:avatares){
-            if((avatar.getId()).equals(palabras[2])){
+            if((avatar.getId()).equals(palabras[0])){
                 System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + avatar.getLugar() + ",\njugador: " + avatar.getJugador() + "\n}\n");
             }
         }
@@ -375,7 +375,7 @@ public class Menu {
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
     private void listarJugadores() {
         for(Jugador jugador:jugadores){
-            System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + jugador.getPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
+            System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar().getId() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + jugador.getPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
         }
     }
 
