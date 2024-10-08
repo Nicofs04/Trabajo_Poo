@@ -159,7 +159,7 @@ public class Menu {
             break;
         case "jugador":
             System.out.println(jugadores.get(turno).getNombre());
-            System.out.println(jugadores.get(turno).getAvatar());
+            System.out.println(jugadores.get(turno).getAvatar().getId());
             break;
         case "listar":
             if (palabras.length == 2) {
