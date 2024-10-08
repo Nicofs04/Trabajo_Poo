@@ -199,7 +199,7 @@ public class Menu {
         case "describir":
             if (palabras.length == 2) {
                 String nombreCasilla = palabras[1];
-                tablero.encontrar_casilla(nombreCasilla).infoCasilla();
+                descCasilla(nombreCasilla);
             }else if(palabras.length == 3){
                 if(palabras[1].equals("jugador")){
                     String[] nombreJugador = new String[]{palabras[2]};
@@ -260,7 +260,7 @@ public class Menu {
     */
     private void descCasilla(String nombre) {
         Casilla casilla = tablero.encontrar_casilla(nombre);
-        System.out.println(casilla); //tengo la funcion hecha en Casilla.java
+        casilla.infoCasilla(); //tengo la funcion hecha en Casilla.java
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
