@@ -18,7 +18,6 @@ public class Casilla {
                             // solares/servicios/transportes o impuestos.
     private float hipoteca; // Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares; // Avatares que están situados en la casilla.
-    private Scanner scanner = new Scanner(System.in);
 
     private ArrayList<ArrayList<Casilla>> tablero; // TABLERO, NECESARIO PARA LA FUNCION EVALUARCASILLA
 
