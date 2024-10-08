@@ -378,8 +378,6 @@ public class Casilla {
         // Para mostrar la informacion tiene que estar en venta, y para estar en venta,
         // el dueño tiene que ser la banca y cumplir los requisitos del primer if de
         // "comprarCasilla"
-        // DOY POR HECHO QUE EL JUGADOR BANCA DE LLAMA "banca", si no habría que pasarle
-        // la banca como parámetro a la función
         if (((this.tipo == "Solar") || (this.tipo == "Servicios") || (this.tipo == "Transporte"))
                 && (this.duenho.getNombre() == "Banca")) {
             String texto = this.toString();
