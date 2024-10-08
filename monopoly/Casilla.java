@@ -283,7 +283,7 @@ public class Casilla {
                     this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
                     return true;
                 }
-                //No es para esta entrega
+            //No es para esta entrega
             case "suerte":
                 break;
             //No es para esta entrega

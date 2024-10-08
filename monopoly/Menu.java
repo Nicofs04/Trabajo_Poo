@@ -304,18 +304,17 @@ public class Menu {
         if(avatarActual.getLugar().getNombre().equals("ircarcel")){
             System.out.println("Has caído en la carcel.\n");
             jugadores.get(turno).encarcelar(tablero.getPosiciones());
-            jugadores.get(turno).setEnCarcel(true);
         }else{
             jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
             System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.\n");
-            jugadores.get(turno).sumarFortuna(200); // Suponiendo que reciben 200 por pasar la salida
+            jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); // Suponiendo que reciben 200 por pasar la salida
         }
     }
 
     // Evaluar la casilla en la que ha caído
-    // Aquí puedes incluir la lógica para evaluar la casilla (si es propiedad, pagar renta, etc.)
+    jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(jugadores.get(turno), banca, sumaDados);
 
-    setTirado(true); // El jugador ya ha lanzado los dados en este turno
+    setTirado(true); //El jugador ya ha lanzado los dados en este turno
 
     // Si sacó dobles, puede volver a tirar
     if (getDadosdobles()) {
