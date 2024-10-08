@@ -381,8 +381,8 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     private void listarAvatares() {
-        for(Avatar avatar:avatares){
-            System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + avatar.getLugar() + ",\njugador: " + avatar.getJugador() + "\n}\n");
+        for(int i=0;i<avatares.size();i++){
+            System.out.println("{\nid: " + avatares.get(i).getId() + ",\ntipo: " + avatares.get(i).getTipo() + ",\ncasilla: " + avatares.get(i).getLugar() + ",\njugador: " + avatares.get(i).getJugador() + "\n}\n");
         }
     }
 
