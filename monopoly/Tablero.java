@@ -146,13 +146,13 @@ public class Tablero {
         if(posiciones.get(2).get(0).getAvatares() == null ){
             sb.append(String.format("│%s      │", posiciones.get(2).get(0).getNombre()));
             }else{
-                sb.append(String.format("│%s    &%s│", posiciones.get(2).get(0).getNombre(), posiciones.get(2).get(0).getAvatares()));
+                sb.append(String.format("│%s%s    %s&%s│",Valor.RED, posiciones.get(2).get(0).getNombre(),Valor.RESET ,posiciones.get(2).get(0).getAvatares()));
             }
 
          if(posiciones.get(2).get(1).getAvatares() == null ){
-            sb.append(String.format("│%s      │", posiciones.get(2).get(1).getNombre()));
+            sb.append(String.format("│%s%s      %s│", Valor.RED, posiciones.get(2).get(1).getNombre(), Valor.RESET));
             }else{
-                sb.append(String.format("│%s     &%s│", posiciones.get(2).get(1).getNombre(), posiciones.get(2).get(1).getAvatares()));
+                sb.append(String.format("│%s%s    %s&%s│",Valor.RED, posiciones.get(2).get(1).getNombre(),Valor.RESET ,posiciones.get(2).get(1).getAvatares()));
             }
 
         if(posiciones.get(2).get(2).getAvatares() == null ){
@@ -161,15 +161,15 @@ public class Tablero {
                 sb.append(String.format("│%s      &%s│", posiciones.get(2).get(2).getNombre(), posiciones.get(2).get(2).getAvatares()));
             }
         if(posiciones.get(2).get(3).getAvatares() == null ){
-                sb.append(String.format("│%s      │", posiciones.get(2).get(3).getNombre()));
+            sb.append(String.format("│%s%s      %s│", Valor.RED, posiciones.get(2).get(3).getNombre(), Valor.RESET));
                 }else{
-                    sb.append(String.format("│%s    &%s│", posiciones.get(2).get(3).getNombre(), posiciones.get(2).get(3).getAvatares()));
+                    sb.append(String.format("│%s%s    %s&%s│",Valor.RED, posiciones.get(2).get(3).getNombre(),Valor.RESET ,posiciones.get(2).get(3).getAvatares()));
                 }
     
         if(posiciones.get(2).get(4).getAvatares() == null ){
-                sb.append(String.format("│%s       │", posiciones.get(2).get(4).getNombre()));
+            sb.append(String.format("│%s%s      %s│", Valor.RED, posiciones.get(2).get(4).getNombre(), Valor.RESET));
                 }else{
-                    sb.append(String.format("│%s     &%s│", posiciones.get(2).get(4).getNombre(), posiciones.get(2).get(4).getAvatares()));
+                    sb.append(String.format("│%s%s    %s&%s│",Valor.RED, posiciones.get(2).get(4).getNombre(),Valor.RESET ,posiciones.get(2).get(4).getAvatares()));
                 }
     
         if(posiciones.get(2).get(5).getAvatares() == null ){
