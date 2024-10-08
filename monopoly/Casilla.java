@@ -136,6 +136,28 @@ public class Casilla {
         this.avatares = avatares;
     }
 
+    //Devuelve el valor que se le suma a los jugadores por pasar por la casilla de salida
+    public float valorSalida(ArrayList<ArrayList<Casilla>> tablero){
+        float valorSalida;
+        float suma=0;
+        int contador_iteraciones=0;
+        for(int i=0;i<tablero.size();i++){
+            for(int j=0;j<tablero.get(i).size();j++){
+                suma+=tablero.get(i).get(j).getValor();
+                contador_iteraciones++;
+            }
+        }
+        valorSalida=suma/contador_iteraciones;
+        return valorSalida;
+    }
+
+    //Devuelve el valor que hay que pagar para salir de la carcel
+    public float valorCarcel(ArrayList<ArrayList<Casilla>> tablero){
+        float valorCarcel;
+        valorCarcel=valorSalida(tablero)*(25/100);
+        return valorCarcel;
+    }
+
     @Override
     public String toString() {
         if (this.tipo == "solar") {
@@ -173,8 +195,6 @@ public class Casilla {
 
             return "bote: " + getValor() + ",\n jugadores:" + jugadoresEnCasilla;
         } else if (this.tipo == "especial" && this.posicion == 10) {
-            // FALTA PRECIO PARA SALIR
-            // LISTA DE LOS JUGADORES
             StringBuilder jugadoresEnCasilla = new StringBuilder();
             for (int i = 0; i < this.avatares.size(); i++) {
                 jugadoresEnCasilla.append(avatares.get(i).getJugador().getNombre()).append(", "); // Cambia getNombre
@@ -188,7 +208,7 @@ public class Casilla {
                 jugadoresEnCasilla.setLength(jugadoresEnCasilla.length() - 2);
             }
 
-            return "salir: " +/*PRECIO PARA SALIR */ ",\n jugadores:" + jugadoresEnCasilla;
+            return "salir: " +this.valorCarcel(this.tablero)+ ",\n jugadores:" + jugadoresEnCasilla;
         } else if (this.tipo == "especial" && this.posicion == 0) {
             // LISTA DE LOS JUGADORES
             StringBuilder jugadoresEnCasilla = new StringBuilder();
