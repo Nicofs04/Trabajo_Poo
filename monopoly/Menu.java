@@ -407,7 +407,7 @@ public class Menu {
         setTirado(false);
         setLanzamientos(0);
         setDadosdobles(false);
-        if (jugadores.get(turno).getFortuna()<0) {
+        if (jugadores.get(turno).getFortuna()<0) { //ERROR
             setSolvente(false);
         }else{
             setSolvente(false);
