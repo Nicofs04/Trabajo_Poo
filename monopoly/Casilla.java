@@ -261,6 +261,7 @@ public class Casilla {
                 } else {
                     actual.setFortuna(actual.getFortuna() - this.impuesto);
                     this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
+                    System.out.println("Se han pagado "+this.impuesto +"€ de alquiler");
                     return true;
                 }
             case "servicio": //NO SE SI HAY QUE HACER LO DE LAS TIRADAS
@@ -271,6 +272,7 @@ public class Casilla {
                 } else {
                     actual.setFortuna(actual.getFortuna() - this.impuesto);
                     this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
+                    System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
                     return true;
                 }
             case "transporte":
@@ -281,6 +283,7 @@ public class Casilla {
                 } else {
                     actual.setFortuna(actual.getFortuna() - this.impuesto);
                     this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
+                    System.out.println("Se han pagado "+this.impuesto +"€ por el uso del transporte");
                     return true;
                 }
             //No es para esta entrega
@@ -298,18 +301,21 @@ public class Casilla {
                     actual.setFortuna(actual.getFortuna() - this.impuesto);
                     //Le pagamos a la banca:
                     banca.setFortuna(banca.getFortuna() + this.impuesto);
+                    System.out.println("El jugador paga "+this.impuesto +"€");
                     return true;
                 }
             case "especial":
                 //PARKING
                 if ((this.tipo == "especial" && this.posicion == 20)) {
                     actual.setFortuna(actual.getFortuna() + this.valor);
+                    float bote=this.valor;
                     this.valor = 0;
+                    System.out.println("El jugador recibe"+bote+ " el bote de la banca.");
                     return true;
                     //IR A CARCEL
                 } else if (this.tipo == "especial" && this.posicion == 30) {
-                    //Necesito un tablero
                     actual.encarcelar(tablero);
+                    System.out.println("El avatar se coloca en la casilla de Cárcel.");
                     return true;
                 }
             default:

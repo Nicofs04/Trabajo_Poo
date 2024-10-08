@@ -178,6 +178,7 @@ public class Menu {
         case "lanzar":
             if (palabras.length == 2 && palabras[1].equals("dados")) {
                 lanzarDados();
+                
             } else {
                 System.out.println("Error, comando desconocido.\n");
             }
@@ -279,7 +280,7 @@ public class Menu {
         int sumaDados = dado1.getValor() + dado2.getValor();
         setDadosdobles(dado1.equals(dado2));
 
-    
+        //Si el jugador está en la carcel:
         if (jugadores.get(turno).getEnCarcel()) {
             if (getDadosdobles()) {
                 System.out.println("Has sacado dobles y sales de la cárcel.");
@@ -295,9 +296,13 @@ public class Menu {
         }
     }
 
+    String posicionActual=jugadores.get(turno).getAvatar().getLugar().getNombre();
+
     
     Avatar avatarActual = jugadores.get(turno).getAvatar();
     avatarActual.moverAvatar(tablero.getPosiciones(), sumaDados);
+
+    String posicionFinal=jugadores.get(turno).getAvatar().getLugar().getNombre();
 
     // Verificar si el jugador ha dado la vuelta al tablero
     if (avatarActual.getLugar().getPosicion() < sumaDados) {
@@ -330,7 +335,14 @@ public class Menu {
         }
     } else {
         setLanzamientos(0); // Resetear el contador de lanzamientos dobles
+
     }
+    //Repintamos el tablero
+    tablero.toString();
+    //Imprimimos el mensaje final:
+    System.out.println("El avatar: "+jugadores.get(turno).getAvatar().getId()+", avanza "+sumaDados+" posiciones, desde "+posicionActual+" hasta "+posicionFinal);
+
+    
 }
 
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
