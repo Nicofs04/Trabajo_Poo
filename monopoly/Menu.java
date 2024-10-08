@@ -199,7 +199,7 @@ public class Menu {
         case "describir":
             if (palabras.length == 2) {
                 String nombreCasilla = palabras[1];
-                descCasilla(nombreCasilla);
+                tablero.encontrar_casilla(nombreCasilla).infoCasilla();
             }else if(palabras.length == 3){
                 if(palabras[1].equals("jugador")){
                     String[] nombreJugador = new String[]{palabras[2]};
@@ -338,12 +338,9 @@ public class Menu {
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
-        jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - tablero.encontrar_casilla(nombre).getValor());
-        jugadores.get(turno).anhadirPropiedad(tablero.encontrar_casilla(nombre));
-        tablero.encontrar_casilla(nombre).setDuenho(jugadores.get(turno));
+        tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
         System.out.println("Casilla comprada con éxito.\n");
     }
-
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
     private void salirCarcel() {
         jugadores.get(turno).setEnCarcel(false);
