@@ -120,16 +120,23 @@ public class Menu {
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
+    
+    while (true) {
+        
+    
         Scanner scanner = new Scanner(System.in);
         String comando = scanner.nextLine();
         analizarComando(comando);
+        
     }
+}
     
     /*Método que interpreta el comando introducido y toma la accion correspondiente.
     * Parámetro: cadena de caracteres (el comando).
     */
     private void analizarComando(String comando) {
-        String[] palabras = comando.split(" ");
+        
+    String[] palabras = comando.split(" ");
 
     // Si no hay palabras suficientes, no es un comando válido
     if (palabras.length < 1) {
@@ -212,7 +219,7 @@ public class Menu {
                 System.out.println("Error, comando desconocido.\n");
             }
             break;
-        case "listar enventa":
+        case "listarenventa":
             listarVenta();
             break;
         case "ver":
@@ -230,8 +237,8 @@ public class Menu {
      */
     private void descJugador(String[] palabras) {
         for(Jugador jugador:jugadores){
-            if((jugador.getNombre()).equals(palabras[2])){
-                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + jugador.getPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
+            if((jugador.getNombre()).equals(palabras[0])){
+                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar().getId() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + jugador.getPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
             }
         }
     }
@@ -241,7 +248,7 @@ public class Menu {
     */
     private void descAvatar(String[] palabras) {
         for(Avatar avatar:avatares){
-            if((avatar.getId()).equals(palabras[2])){
+            if((avatar.getId()).equals(palabras[0])){
                 System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + avatar.getLugar() + ",\njugador: " + avatar.getJugador() + "\n}\n");
             }
         }
@@ -368,7 +375,7 @@ public class Menu {
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
     private void listarJugadores() {
         for(Jugador jugador:jugadores){
-            System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + jugador.getPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
+            System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar().getId() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + jugador.getPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
         }
     }
 
