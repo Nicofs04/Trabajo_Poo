@@ -143,14 +143,10 @@ public class Tablero {
     
         //LADO NORTE    
 
-        sb.append(posiciones.get(2).get(0).generarCasilla(posiciones.get(2).get(0).getPosicion()));
+        sb.append(posiciones.get(2).get(0).generarCasilla());
 
-         if(posiciones.get(2).get(1).getAvatares().isEmpty() ){
-            sb.append(String.format("│%s%s      %s│", Valor.RED, posiciones.get(2).get(1).getNombre(), Valor.RESET));
-            }else{
-                sb.append(String.format("│%s%s    %s&%s│",Valor.RED, posiciones.get(2).get(1).getNombre(),Valor.RESET ,posiciones.get(2).get(1).getAvatares()));
-            }
-
+        sb.append(posiciones.get(2).get(1).generarCasilla());
+        
         if(posiciones.get(2).get(2).getAvatares().isEmpty() ){
                 sb.append(String.format("│%s        │", posiciones.get(2).get(2).getNombre()));
             }else{
@@ -421,8 +417,8 @@ public class Tablero {
                 sb.append(String.format("│%s%s       %s│", Valor.BLACK, posiciones.get(0).get(1).getNombre(), Valor.RESET));
                     }else{
                         sb.append(String.format("│%s%s    %s&%s│",Valor.BLACK, posiciones.get(0).get(1).getNombre(),Valor.RESET ,posiciones.get(0).get(1).getAvatares()));                        }                            
-                
-                        sb.append(posiciones.get(0).get(0).generarCasilla(posiciones.get(0).get(0).getPosicion()));
+                    
+                        sb.append(posiciones.get(0).get(0).generarCasilla());
         sb.append("\n ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
         return sb.toString();
     }

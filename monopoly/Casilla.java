@@ -420,22 +420,64 @@ public class Casilla {
         }
     }
 
-    public String generarCasilla(int posicion) {
+    public String generarCasilla() {
+        
+        
         StringBuilder sb = new StringBuilder();
         
-        sb.append(String.format("│%s", this.getNombre()));
-
-        for(Avatar avatar:avatares){
-            if (avatares.isEmpty()){
-            }else{
-            avatar.getId();
-            sb.append(String.format("&%s", avatar.getId()));
+        if (!avatares.isEmpty()){
+            sb.append("&");
+            for(Avatar avatar:avatares){
+                  avatar.getId();
+                  sb.append(avatar.getId());
             }
         }
 
-        sb.append(String.format("│"));
+
+        String color = "";
+            if (this.getGrupo() != null) {
+                String colorGrupo = this.getGrupo().getColorGrupo(); 
+                    switch (colorGrupo) {
+                        case "RED":
+                            color = Valor.RED;
+                            break;
+                        case "GREEN":
+                           color =  Valor.GREEN;
+                            break;
+                        case "YELLOW":
+                            color = Valor.YELLOW;
+                            break;
+                        case "BLUE":
+                            color = Valor.BLUE; 
+                            break;
+                        case "PURPLE":
+                            color = Valor.PURPLE;
+                            break;
+                        case "CYAN":
+                            color = Valor.CYAN;
+                            break;
+                        case "BLACK":
+                            color = Valor.BLACK;
+                            break;
+                        default:
+                            color = "RESET";
+                            break;
+        }
+    }
+
+
+        String representacionCasilla;
+
+        if (this.getGrupo() == null) {
+            representacionCasilla = String.format("%-10s%5s",this.getNombre(),sb);    
+        }else{
+    
+            representacionCasilla = String.format("%s%-10s%s%5s",color,this.getNombre(),sb,Valor.RESET);
+        }
+
         
-        return sb.toString();
+        
+        return representacionCasilla;
     }
 
 }
