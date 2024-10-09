@@ -126,18 +126,19 @@ public class Menu {
         System.out.println("                MENÚ                ");
         System.out.println("=====================================\n");
 
-        System.out.println("1. Jugador del turno actual       -> Comando: 'jugador'");
-        System.out.println("2. Listar jugadores               -> Comando: 'listar jugadores'");
-        System.out.println("3. Listar avatares                -> Comando: 'listar avatares'");
-        System.out.println("4. Lanzar dados                   -> Comando: 'lanzar dados'");
-        System.out.println("5. Acabar turno                   -> Comando: 'acabar'");
-        System.out.println("6. Salir de la cárcel             -> Comando: 'salir'");
-        System.out.println("7. Describir casilla              -> Comando: 'describir casilla'");
-        System.out.println("8. Describir jugador              -> Comando: 'describir jugador'");
-        System.out.println("9. Describir avatar               -> Comando: 'describir avatar'");
-        System.out.println("10. Comprar casilla               -> Comando: 'comprar 'nombreCasilla'");
-        System.out.println("11. Listar casillas en venta      -> Comando: 'listarenventa'");
-        System.out.println("12. Ver tablero                   -> Comando: 'ver'\n");
+        System.out.println("1. Crear un jugador               -> Comando: 'crear jugador NombreJugador tipoAvatar'");
+        System.out.println("2. Jugador del turno actual       -> Comando: 'jugador'");
+        System.out.println("3. Listar jugadores               -> Comando: 'listar jugadores'");
+        System.out.println("4. Listar avatares                -> Comando: 'listar avatares'");
+        System.out.println("5. Lanzar dados                   -> Comando: 'lanzar dados'");
+        System.out.println("6. Acabar turno                   -> Comando: 'acabar'");
+        System.out.println("7. Salir de la cárcel             -> Comando: 'salir'");
+        System.out.println("8. Describir casilla              -> Comando: 'describir casilla'");
+        System.out.println("9. Describir jugador              -> Comando: 'describir jugador'");
+        System.out.println("10. Describir avatar               -> Comando: 'describir avatar'");
+        System.out.println("11. Comprar casilla               -> Comando: 'comprar 'nombreCasilla'");
+        System.out.println("12. Listar casillas en venta      -> Comando: 'listarenventa'");
+        System.out.println("13. Ver tablero                   -> Comando: 'ver'\n");
 
         System.out.println("=====================================");
         System.out.println("Selecciona una opción para continuar.");
@@ -409,7 +410,7 @@ public class Menu {
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     private void listarAvatares() {
         for(int i=0;i<avatares.size();i++){
-            System.out.println("{\nid: " + avatares.get(i).getId() + ",\ntipo: " + avatares.get(i).getTipo() + ",\ncasilla: " + avatares.get(i).getLugar() + ",\njugador: " + avatares.get(i).getJugador() + "\n}\n");
+            System.out.println("{\nid: " + avatares.get(i).getId() + ",\ntipo: " + avatares.get(i).getTipo() + ",\ncasilla: " + avatares.get(i).getLugar().getNombre() + ",\njugador: " + avatares.get(i).getJugador().getNombre()+ "\n}\n");
         }
     }
 
