@@ -42,7 +42,7 @@ public class Jugador {
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
         this.nombre = nombre;
         this.avatar = new Avatar(tipoAvatar, this, inicio, avCreados);
-        this.fortuna = 9543076.28f;
+        this.fortuna = Valor.FORTUNA_INICIAL;
         this.gastos = 0;
         this.enCarcel = false;
         this.tiradasCarcel = 0;

@@ -36,6 +36,7 @@ public class Casilla {
         this.posicion = posicion;
         this.valor = valor;
         this.duenho = duenho;
+        this.avatares = new ArrayList<>();
     }
 
     /*
@@ -47,6 +48,7 @@ public class Casilla {
         this.posicion = posicion;
         this.impuesto = impuesto;
         this.duenho = duenho;
+        this.avatares = new ArrayList<>();
     }
 
     /*
@@ -60,6 +62,7 @@ public class Casilla {
         this.tipo = tipo;
         this.posicion = posicion;
         this.duenho = duenho;
+        this.avatares = new ArrayList<>();
     }
 
     public String getNombre() {
