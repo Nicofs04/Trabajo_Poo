@@ -68,9 +68,7 @@ public class Avatar {
 
     // Método que permite mover a un avatar a una casilla concreta.
     public void moverAvatar(ArrayList<ArrayList<Casilla>> tablero, int valorTirada){
-    /*HACER DOS FORS ANIDADOS, EL PRIMERO PARA IR RECORRIENDO CADA GRUPO DEL TABLERO POR SEPARADO Y EL SEGUNDO PARA IR RECORRIENDO LAS CASILLAS
-    DE CADA GRUPO E IR HACIENDO GETPOSICION PARA IR COMPARANDOLA CON EL VALOR DE LA NUEVAPOSICION
-    */
+    
         // Obtener la posición actual del lugar del avatar
         int posicionActual = lugar.getPosicion();
     
@@ -102,21 +100,20 @@ public class Avatar {
             // Genera un ID aleatorio entre 'A' y 'Z'
             id = (char) ('A' + random.nextInt(26)); // 'A' es el 65 en ASCII
 
-            boolean idExistente = false; // Inicializamos la verificación de existencia
+            boolean idExistente = false;
 
-            // Comprobamos si el ID ya existe en los avatares creados usando un bucle for
-            // clásico
+            // Comprobamos si el ID ya existe en los avatares 
             for (int i = 0; i < avCreados.size(); i++) {
                 if (avCreados.get(i).getId().equals(String.valueOf(id))) {
-                    idExistente = true; // Si existe, marcamos la bandera
-                    break; // Salimos del bucle
+                    idExistente = true; 
+                    break; 
                 }
             }
 
             // Si el ID no existe, lo asignamos al avatar actual
             if (!idExistente) {
-                this.id = String.valueOf(id); // Asigna el ID al atributo de la clase
-                break; // Salimos del bucle
+                this.id = String.valueOf(id); 
+                break; 
             }
         }
     }
