@@ -23,9 +23,9 @@ public class Avatar {
      * avatares creados (usado para crear un ID distinto del de los demás avatares).
      */
     public Avatar(String tipo, Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
-        this.tipo = tipo;
-        this.jugador = jugador;
-        this.lugar = lugar;
+        this.setTipo(tipo);
+        this.setJugador(jugador);
+        this.setLugar(lugar);
         generarId(avCreados);
         avCreados.add(this);
     }
@@ -64,6 +64,9 @@ public class Avatar {
 
     public void setLugar(Casilla LUGAR) {
         this.lugar = LUGAR;
+    }
+    public void setJugador(Jugador jugador){
+        this.jugador=jugador;
     }
 
     // Método que permite mover a un avatar a una casilla concreta.
