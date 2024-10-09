@@ -460,6 +460,9 @@ public class Casilla {
                         case "BLACK":
                             color = Valor.BLACK;
                             break;
+                        case "WHITE":
+                            color = Valor.WHITE;
+                            break;
                         default:
                             color = "RESET";
                             break;
