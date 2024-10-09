@@ -4,13 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05c7bc73-9af0-48dd-a707-1a4d634f1589" name="Changes" comment="" />
+    <list default="true" id="05c7bc73-9af0-48dd-a707-1a4d634f1589" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/out/production/Trabajo_Poo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Trabajo_Poo/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Trabajo_Poo/monopoly/Casilla.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Trabajo_Poo/monopoly/Casilla.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Trabajo_Poo/monopoly/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Trabajo_Poo/monopoly/Menu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Trabajo_Poo/monopoly/Tablero.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Trabajo_Poo/monopoly/Tablero.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
@@ -101,6 +119,8 @@
       <workItem from="1728383336381" duration="638000" />
       <workItem from="1728383985270" duration="3504000" />
       <workItem from="1728387500642" duration="39000" />
+      <workItem from="1728405271785" duration="6881000" />
+      <workItem from="1728464968645" duration="875000" />
     </task>
     <servers />
   </component>
@@ -144,16 +164,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$USER_HOME$/.jdks/corretto-21.0.4/lib/src.zip!/java.base/jdk/internal/util/Preconditions.java</url>
-          <line>301</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

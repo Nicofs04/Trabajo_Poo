@@ -102,7 +102,7 @@ public class Casilla {
         this.duenho = duenho;
     }
 
-    public Grupo getGrupo() { 
+    public Grupo getGrupo() { // mirar la clase grupo(puse public class en lugar de class a secas)
         return grupo;
     }
 
@@ -130,8 +130,8 @@ public class Casilla {
         return avatares;
     }
 
-    public void setAvatares(ArrayList<Avatar> avatares) { 
-                                                    
+    public void setAvatares(ArrayList<Avatar> avatares) { // AL SER UN ARRAY TENGO QUE ITERAR CADA UNA DE SUS POSICIONES
+                                                          // O ASÍ ESTÁ BIEN?
         this.avatares = avatares;
     }
 
@@ -247,7 +247,7 @@ public class Casilla {
      * en caso de no cumplirlas.
      */
 
-    
+    // FALTAN HACER RETOQUES A TABLERO PARA QUE FUNCIONE
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
         //NO EVALUAMOS EN ESTA FUNCION LAS CASILLAS: Salida(especial), Carcel(especial)
         //PARKING, en este caso siempre va a ser true ya que la recaudacion de impuestos siempre va a ser >=0
@@ -264,7 +264,7 @@ public class Casilla {
                     System.out.println("Se han pagado "+this.impuesto +"€ de alquiler");
                     return true;
                 }
-            case "servicio":
+            case "servicio": //NO SE SI HAY QUE HACER LO DE LAS TIRADAS
                 if (actual.getFortuna() < this.impuesto) {
                     System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                     return false;
@@ -348,7 +348,7 @@ public class Casilla {
 
                 // JUGADOR SOLICITANTE
 
-                // "quitar dinero"
+                // "quitar pasta"
                 solicitante.setFortuna(solicitante.getFortuna() - this.valor);
 
                 // "sumar gastos"
