@@ -406,12 +406,6 @@ public class Menu {
         setTirado(false);
         setLanzamientos(0);
         setDadosdobles(false);
-        if (jugadores.get(turno).getFortuna()<0) { //ERROR
-            setSolvente(false);
-        }else{
-            setSolvente(false);
-        }
-
-        System.out.println("El turno actual será de:" + jugadores.get(turno+1).getNombre());
+        
     }
 }
