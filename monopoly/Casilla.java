@@ -421,7 +421,18 @@ public class Casilla {
     }
 
     public String generarCasilla(int posicion) {
-        return this.nombre;
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(String.format("│%s", this.getNombre()));
+
+        for(Avatar avatar:avatares){
+            avatar.getId();
+            sb.append(String.format("%s", avatar.getId()));
+        }
+
+        sb.append(String.format("│"));
+        
+        return sb.toString();
     }
 
 }
