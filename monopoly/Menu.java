@@ -122,16 +122,26 @@ public class Menu {
     private void iniciarPartida() {
     
     while (true) {
-        System.out.println("MENÚ:\n\n");
-        System.out.println("Jugador del turno actual, comando: jugador");
-        System.out.println("Listar jugadores o avatares, comando: listar jugadores/listar avatares ");
-        System.out.println("Lanzar dados, comando: lanzar dados");
-        System.out.println("Acabar turno, comando: acabar ");
-        System.out.println("Salir de la cárcel, comando: salir");
-        System.out.println("Describir casilla, jugador o avatar: comando describir casilla/describir jugador/describir avatar");
-        System.out.println("Comprar casilla, comando: comprar nombreCasilla");
-        System.out.println("Listar casillas en venta, comando: listarenventa");
-        System.out.println("Ver tablero, comando: ver");
+        System.out.println("=====================================");
+        System.out.println("                MENÚ                ");
+        System.out.println("=====================================\n");
+
+        System.out.println("1. Jugador del turno actual       -> Comando: 'jugador'");
+        System.out.println("2. Listar jugadores               -> Comando: 'listar jugadores'");
+        System.out.println("3. Listar avatares                -> Comando: 'listar avatares'");
+        System.out.println("4. Lanzar dados                   -> Comando: 'lanzar dados'");
+        System.out.println("5. Acabar turno                   -> Comando: 'acabar'");
+        System.out.println("6. Salir de la cárcel             -> Comando: 'salir'");
+        System.out.println("7. Describir casilla              -> Comando: 'describir casilla'");
+        System.out.println("8. Describir jugador              -> Comando: 'describir jugador'");
+        System.out.println("9. Describir avatar               -> Comando: 'describir avatar'");
+        System.out.println("10. Comprar casilla               -> Comando: 'comprar 'nombreCasilla'");
+        System.out.println("11. Listar casillas en venta      -> Comando: 'listarenventa'");
+        System.out.println("12. Ver tablero                   -> Comando: 'ver'\n");
+
+        System.out.println("=====================================");
+        System.out.println("Selecciona una opción para continuar.");
+        System.out.println("=====================================\n");
 
         Scanner scanner = new Scanner(System.in);
         String comando = scanner.nextLine();
