@@ -368,8 +368,12 @@ public class Menu {
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
-        tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
-        System.out.println("Casilla comprada con éxito.\n");
+        if(nombre==jugadores.get(turno).getAvatar().getLugar().getNombre()){
+            tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
+            System.out.println("Casilla comprada con éxito.\n");
+        }else{
+            System.out.println("No puedes comprar una casilla en la que no estás");
+        }
     }
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
     private void salirCarcel() {
