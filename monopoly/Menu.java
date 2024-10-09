@@ -376,6 +376,12 @@ public class Menu {
         //Si el jugador está en la cárcel
         if(jugadores.get(turno).getAvatar().getLugar().getNombre()=="carcel"){
             jugadores.get(turno).setEnCarcel(false);
+            //Si está en la cárcel y además le llega el dinero:
+            if(jugadores.get(turno).getFortuna()>=jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())){
+                jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones()));
+            }else{
+                System.out.println("No tienes dinero suficiente para salir de la cárcel.");
+            }
         }else{
             //Si el jugador no está en la cárcel
             System.out.println("El jugador no está en la cárcel\n");
