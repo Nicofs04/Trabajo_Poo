@@ -123,8 +123,15 @@ public class Menu {
     
     while (true) {
         System.out.println("MENÚ:\n\n");
-        System.out.println("");
-        
+        System.out.println("Jugador del turno actual, comando: jugador");
+        System.out.println("Listar jugadores o avatares, comando: listar jugadores/listar avatares ");
+        System.out.println("Lanzar dados, comando: lanzar dados");
+        System.out.println("Acabar turno, comando: acabar ");
+        System.out.println("Salir de la cárcel, comando: salir");
+        System.out.println("Describir casilla, jugador o avatar: comando describir casilla/describir jugador/describir avatar");
+        System.out.println("Comprar casilla, comando: comprar nombreCasilla");
+        System.out.println("Listar casillas en venta, comando: listarenventa");
+        System.out.println("Ver tablero, comando: ver");
 
         Scanner scanner = new Scanner(System.in);
         String comando = scanner.nextLine();
