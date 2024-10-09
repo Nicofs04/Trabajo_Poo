@@ -343,7 +343,7 @@ public class Casilla {
          */
         public void comprarCasilla (Jugador solicitante, Jugador banca){
             // Comprobamos que sea una casilla "comprable"
-            if (((this.tipo.equals("Solar")) || (this.tipo.equals("Servicios")) || (this.tipo.equals("Transporte")))
+            if (((this.tipo.equals("solar")) || (this.tipo.equals("servicios")) || (this.tipo.equals("transporte")))
                     && (solicitante.getFortuna() >= this.valor) && (this.duenho == banca)) {
 
                 // JUGADOR SOLICITANTE
@@ -366,7 +366,7 @@ public class Casilla {
                         + solicitante.getAvatar().getLugar().getNombre() + "por " + this.valor);
                 System.out.println("Su fortuna actual es:" + solicitante.getFortuna());
 
-            } else if ((this.tipo != "Solar") && (this.tipo != "Servicios") && (this.tipo != "Transporte")) {
+            } else if ((this.tipo != "solar") && (this.tipo != "servicios") && (this.tipo != "transporte")) {
                 // En caso de que no sea de ninguno de estos tipos, la propiedad no se podrá
                 // comprar
                 System.out.println(
