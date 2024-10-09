@@ -473,7 +473,7 @@ public class Casilla {
             representacionCasilla = String.format("%-10s%5s",this.getNombre(),sb);    
         }else{
     
-            representacionCasilla = String.format("%s%-10s%s%5s",color,this.getNombre(),sb,Valor.RESET);
+            representacionCasilla = String.format("%s%-10s%s%5s",color,this.getNombre(),Valor.RESET,sb);
         }
 
         
