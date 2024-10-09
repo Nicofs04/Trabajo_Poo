@@ -432,6 +432,7 @@ public class Casilla {
                   sb.append(avatar.getId());
             }
         }
+        
 
 
         String color = "";
