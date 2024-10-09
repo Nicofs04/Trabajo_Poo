@@ -28,6 +28,7 @@ public class Avatar {
         this.setLugar(lugar);
         generarId(avCreados);
         avCreados.add(this);
+        lugar.anhadirAvatar(this);
     }
 
     // GETTERS
