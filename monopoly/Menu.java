@@ -135,7 +135,7 @@ public class Menu {
         System.out.println("7. Salir de la cárcel             -> Comando: 'salir'");
         System.out.println("8. Describir casilla              -> Comando: 'describir casilla'");
         System.out.println("9. Describir jugador              -> Comando: 'describir jugador'");
-        System.out.println("10. Describir avatar               -> Comando: 'describir avatar'");
+        System.out.println("10. Describir avatar              -> Comando: 'describir avatar'");
         System.out.println("11. Comprar casilla               -> Comando: 'comprar 'nombreCasilla'");
         System.out.println("12. Listar casillas en venta      -> Comando: 'listarenventa'");
         System.out.println("13. Ver tablero                   -> Comando: 'ver'\n");
