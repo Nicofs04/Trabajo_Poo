@@ -78,7 +78,7 @@ public class Avatar {
     
         // Calcula la nueva posición después de mover
         int nuevaPosicion = (posicionActual + valorTirada) % 40; // Usar el módulo para asegurarte de que vuelva al inicio si excede 39
-
+        lugar.eliminarAvatar(this);
         //Iteramos sobre los lados del tablero con el indice i y sobre las casillas de cada lado con el indice j:
         for(int i=0;i<tablero.size();i++){
             for(int j=0;j<tablero.get(i).size();j++){
@@ -88,6 +88,7 @@ public class Avatar {
             }
         }
         lugar.anhadirAvatar(this);
+        
     }
 
     /*
