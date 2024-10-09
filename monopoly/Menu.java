@@ -131,8 +131,8 @@ public class Menu {
         System.out.println("3. Listar jugadores               -> Comando: 'listar jugadores'");
         System.out.println("4. Listar avatares                -> Comando: 'listar avatares'");
         System.out.println("5. Lanzar dados                   -> Comando: 'lanzar dados'");
-        System.out.println("6. Acabar turno                   -> Comando: 'acabar'");
-        System.out.println("7. Salir de la cárcel             -> Comando: 'salir'");
+        System.out.println("6. Acabar turno                   -> Comando: 'acabar turno'");
+        System.out.println("7. Salir de la cárcel             -> Comando: 'salir carcel'");
         System.out.println("8. Describir casilla              -> Comando: 'describir casilla'");
         System.out.println("9. Describir jugador              -> Comando: 'describir jugador'");
         System.out.println("10. Describir avatar              -> Comando: 'describir avatar'");
@@ -373,7 +373,13 @@ public class Menu {
     }
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
     private void salirCarcel() {
-        jugadores.get(turno).setEnCarcel(false);
+        //Si el jugador está en la cárcel
+        if(jugadores.get(turno).getAvatar().getLugar().getNombre()=="carcel"){
+            jugadores.get(turno).setEnCarcel(false);
+        }else{
+            //Si el jugador no está en la cárcel
+            System.out.println("El jugador no está en la cárcel\n");
+        }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
