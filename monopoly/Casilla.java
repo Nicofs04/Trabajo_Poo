@@ -426,8 +426,11 @@ public class Casilla {
         sb.append(String.format("│%s", this.getNombre()));
 
         for(Avatar avatar:avatares){
+            if (avatares.isEmpty()){
+            }else{
             avatar.getId();
-            sb.append(String.format("%s", avatar.getId()));
+            sb.append(String.format("&%s", avatar.getId()));
+            }
         }
 
         sb.append(String.format("│"));
