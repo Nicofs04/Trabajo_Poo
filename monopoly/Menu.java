@@ -122,8 +122,10 @@ public class Menu {
     private void iniciarPartida() {
     
     while (true) {
+        System.out.println("MENÚ:\n\n");
+        System.out.println("");
         
-    
+
         Scanner scanner = new Scanner(System.in);
         String comando = scanner.nextLine();
         analizarComando(comando);

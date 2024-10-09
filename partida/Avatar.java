@@ -87,6 +87,7 @@ public class Avatar {
                 }
             }
         }
+        lugar.anhadirAvatar(this);
     }
 
     /*
