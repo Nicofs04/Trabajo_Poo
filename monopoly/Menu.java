@@ -133,9 +133,9 @@ public class Menu {
         System.out.println("5. Lanzar dados                   -> Comando: 'lanzar dados'");
         System.out.println("6. Acabar turno                   -> Comando: 'acabar turno'");
         System.out.println("7. Salir de la cárcel             -> Comando: 'salir carcel'");
-        System.out.println("8. Describir casilla              -> Comando: 'describir casilla'");
-        System.out.println("9. Describir jugador              -> Comando: 'describir jugador'");
-        System.out.println("10. Describir avatar              -> Comando: 'describir avatar'");
+        System.out.println("8. Describir casilla              -> Comando: 'describir nombreCasilla'");
+        System.out.println("9. Describir jugador              -> Comando: 'describir jugador nombreJugador'");
+        System.out.println("10. Describir avatar              -> Comando: 'describir avatar idAvatar'");
         System.out.println("11. Comprar casilla               -> Comando: 'comprar 'nombreCasilla'");
         System.out.println("12. Listar casillas en venta      -> Comando: 'listarenventa'");
         System.out.println("13. Ver tablero                   -> Comando: 'ver'\n");
@@ -215,10 +215,14 @@ public class Menu {
             }
             break;
         case "salir":
-            if (palabras.length == 2 && palabras[1].equals("carcel")) {
-                salirCarcel();
-            } else {
-                System.out.println("Error, comando desconocido.\n");
+            if(jugadores.size()>0){
+                if (palabras.length == 2 && palabras[1].equals("carcel")) {
+                    salirCarcel();
+                } else {
+                    System.out.println("Error, comando desconocido.\n");
+                }
+            }else{
+                System.out.println("No hay jugadores creados en la partida");
             }
             break;
         case "describir":
@@ -275,7 +279,7 @@ public class Menu {
     private void descAvatar(String[] palabras) {
         for(Avatar avatar:avatares){
             if((avatar.getId()).equals(palabras[0])){
-                System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + avatar.getLugar() + ",\njugador: " + avatar.getJugador() + "\n}\n");
+                System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + avatar.getLugar().getNombre() + ",\njugador: " + avatar.getJugador().getNombre() + "\n}\n");
             }
         }
     }
@@ -285,7 +289,11 @@ public class Menu {
     */
     private void descCasilla(String nombre) {
         Casilla casilla = tablero.encontrar_casilla(nombre);
-        casilla.infoCasilla(); //tengo la funcion hecha en Casilla.java
+        if (casilla==null){
+            System.out.println("Esa casilla no existe");
+        } else{
+            System.out.println(casilla.infoCasilla());
+        }   
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
@@ -373,12 +381,8 @@ public class Menu {
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
-        if(nombre==jugadores.get(turno).getAvatar().getLugar().getNombre()){
-            tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
-            System.out.println("Casilla comprada con éxito.\n");
-        }else{
-            System.out.println("No puedes comprar una casilla en la que no estás");
-        }
+        tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
+        System.out.println("Casilla comprada con éxito.\n");
     }
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
     private void salirCarcel() {
