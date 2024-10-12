@@ -178,8 +178,13 @@ public class Menu {
             }
             break;
         case "jugador":
-            System.out.println("Nombre:"+jugadores.get(turno).getNombre());
-            System.out.println("Avatar: "+jugadores.get(turno).getAvatar().getId());
+            if(jugadores.size()>0){
+                System.out.println("Nombre:"+jugadores.get(turno).getNombre());
+                System.out.println("Avatar: "+jugadores.get(turno).getAvatar().getId());
+
+            }else{
+                System.out.println("No hay ningún jugador creado en la partida");
+            }
             break;
         case "listar":
             if (palabras.length == 2) {
