@@ -44,6 +44,32 @@ public class Tablero {
     public void setBanca(Jugador banca){
         this.banca = banca;
     }
+
+    public void calcularCasillas(ArrayList<Jugador> jugadores){
+        int i;
+        boolean todos4vueltas = true;
+
+        for(Jugador jugador:jugadores){
+            if(jugador.getVueltas() < 4){
+                todos4vueltas = false;
+                break; //salimos del if para que un jugador que tenga más de 4 vueltas no pueda cambiar el valor del booleano (tienen que tener todos más de 4 vueltas)
+            }
+        }
+
+        if(todos4vueltas){
+            for(Jugador jugador:jugadores){
+                jugador.setVueltas(jugador.getVueltas() - 4);
+            }
+
+            for(i = 0; i< 4; i++){
+                for(Casilla casilla:posiciones.get(i)){
+                    casilla.setValor(casilla.getValor() * 1.05f);
+                }
+            }
+
+            todos4vueltas = false;
+        }
+    }
     
     //Método para crear todas las casillas del tablero. Formado a su vez por cuatro métodos (1/lado).
     private void generarCasillas() {

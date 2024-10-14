@@ -345,6 +345,7 @@ public class Menu {
             jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
             System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.\n");
             jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); // Suponiendo que reciben 200 por pasar la salida
+            tablero.calcularCasillas(jugadores);
         }
     }
 
