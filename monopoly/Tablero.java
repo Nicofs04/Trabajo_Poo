@@ -165,288 +165,274 @@ public class Tablero {
     public String toString(){
         int i;
         StringBuilder sb = new StringBuilder();
-        sb.append("——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
+        sb.append("\n—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
     
         //LADO NORTE    
 
+        sb.append("│");
+
         sb.append(posiciones.get(2).get(0).generarCasilla());
 
-        sb.append(posiciones.get(2).get(1).generarCasilla());
-        
-        if(posiciones.get(2).get(2).getAvatares().isEmpty() ){
-                sb.append(String.format("│%s        │", posiciones.get(2).get(2).getNombre()));
-            }else{
-                sb.append(String.format("│%s      &%s│", posiciones.get(2).get(2).getNombre(), posiciones.get(2).get(2).getAvatares()));
-            }
-        if(posiciones.get(2).get(3).getAvatares().isEmpty() ){
-            sb.append(String.format("│%s%s      %s│", Valor.RED, posiciones.get(2).get(3).getNombre(), Valor.RESET));
-                }else{
-                    sb.append(String.format("│%s%s    %s&%s│",Valor.RED, posiciones.get(2).get(3).getNombre(),Valor.RESET ,posiciones.get(2).get(3).getAvatares()));
-                }
-    
-        if(posiciones.get(2).get(4).getAvatares().isEmpty() ){
-            sb.append(String.format("│%s%s      %s│", Valor.RED, posiciones.get(2).get(4).getNombre(), Valor.RESET));
-                }else{
-                    sb.append(String.format("│%s%s    %s&%s│",Valor.RED, posiciones.get(2).get(4).getNombre(),Valor.RESET ,posiciones.get(2).get(4).getAvatares()));
-                }
-    
-        if(posiciones.get(2).get(5).getAvatares().isEmpty() ){
-                    sb.append(String.format("│%s       │", posiciones.get(2).get(5).getNombre()));
-                }else{
-                    sb.append(String.format("│%s    &%s│", posiciones.get(2).get(5).getNombre(), posiciones.get(2).get(5).getAvatares()));
-                }
-        if(posiciones.get(2).get(6).getAvatares().isEmpty() ){
-                sb.append(String.format("│%s%s      %s│", Valor.YELLOW, posiciones.get(2).get(6).getNombre(), Valor.RESET));
-                    }else{
-                        sb.append(String.format("│%s%s    %s&%s│",Valor.YELLOW, posiciones.get(2).get(6).getNombre(),Valor.RESET ,posiciones.get(2).get(6).getAvatares()));
-                    }
-        
-        if(posiciones.get(2).get(7).getAvatares().isEmpty() ){
-            sb.append(String.format("│%s%s      %s│", Valor.YELLOW, posiciones.get(2).get(7).getNombre(), Valor.RESET));
-        }else{
-            sb.append(String.format("│%s%s    %s&%s│",Valor.YELLOW, posiciones.get(2).get(7).getNombre(),Valor.RESET ,posiciones.get(2).get(7).getAvatares()));
-        }
-        if(posiciones.get(2).get(8).getAvatares().isEmpty() ){
-                sb.append(String.format("│%s        │", posiciones.get(2).get(8).getNombre()));
-        }else{
-                sb.append(String.format("│%s      &%s│", posiciones.get(2).get(8).getNombre(), posiciones.get(2).get(8).getAvatares()));
-                  }
-            
-        if(posiciones.get(2).get(9).getAvatares().isEmpty() ){
-                sb.append(String.format("│%s%s      %s│", Valor.YELLOW, posiciones.get(2).get(9).getNombre(), Valor.RESET));
-        }else{
-                sb.append(String.format("│%s%s    %s&%s│",Valor.YELLOW, posiciones.get(2).get(9).getNombre(),Valor.RESET ,posiciones.get(2).get(9).getAvatares()));
-                        }
+        sb.append("│");
 
+        sb.append(posiciones.get(2).get(1).generarCasilla());
+
+        sb.append("│");
+
+        sb.append(posiciones.get(2).get(2).generarCasilla());
+        
+        sb.append("│");
+
+        sb.append(posiciones.get(2).get(3).generarCasilla());
+
+        sb.append("│");
+
+        sb.append(posiciones.get(2).get(4).generarCasilla());
+
+        sb.append("│");
+
+        sb.append(posiciones.get(2).get(5).generarCasilla());
+        
+        sb.append("│");
+
+        sb.append(posiciones.get(2).get(6).generarCasilla());
+
+        sb.append("│");
+
+        sb.append(posiciones.get(2).get(7).generarCasilla());
+        
+        sb.append("│");
+
+        sb.append(posiciones.get(2).get(8).generarCasilla());
+        
+        sb.append("│");
+
+        sb.append(posiciones.get(2).get(9).generarCasilla());
+        
 
         //LADO OESTE Y ESTE
 
-        if(posiciones.get(3).get(0).getAvatares().isEmpty() ){
-        sb.append(String.format("│%s     |\n", posiciones.get(3).get(0).getNombre()));
-        }else{
-            sb.append(String.format("|%s   &%s│\n", posiciones.get(3).get(0).getNombre(), posiciones.get(3).get(0).getAvatares()));
-        }
-        sb.append("——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
+        sb.append("│");
+
+        sb.append(posiciones.get(3).get(0).generarCasilla());
+
+        sb.append("│");
+
+        sb.append("\n—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
         
-        if(posiciones.get(1).get(9).getAvatares().isEmpty()){
-            sb.append(String.format("│%s%s      %s│", Valor.WHITE, posiciones.get(1).get(9).getNombre(), Valor.RESET));
-        }else{
-            sb.append(String.format("│%s%s    %s&%s│",Valor.WHITE, posiciones.get(1).get(9).getNombre(),Valor.RESET ,posiciones.get(1).get(9).getAvatares()));
+        sb.append("│");
 
-        }
+        sb.append(posiciones.get(1).get(9).generarCasilla());
+
+        sb.append("│");
+
+        sb.append("                                                                                                                                               ");
+
+        sb.append("│");
         
-        sb.append("                                                                                                                                        ");
+        sb.append(posiciones.get(3).get(1).generarCasilla());
 
+        sb.append("│");
 
-        if (posiciones.get(3).get(1).getAvatares().isEmpty()) {
-            sb.append(String.format("│%s%s      %s│", Valor.GREEN, posiciones.get(3).get(1).getNombre(), Valor.RESET));
-        }else{
-            sb.append(String.format("│%s%s    %s&%s│",Valor.GREEN, posiciones.get(3).get(1).getNombre(),Valor.RESET ,posiciones.get(3).get(1).getAvatares()));
+        sb.append("\n—————————————————                                                                                                                                               —————————————————\n");
 
-        }
         
-        sb.append("\n———————————————                                                                                                                                        ——————————————— \n");
+        sb.append("│");
 
-        if(posiciones.get(1).get(8).getAvatares().isEmpty()){
-            sb.append(String.format("│%s%s      %s│", Valor.WHITE, posiciones.get(1).get(8).getNombre(), Valor.RESET));
-        }else{
-            sb.append(String.format("│%s%s    %s&%s│",Valor.WHITE, posiciones.get(1).get(8).getNombre(),Valor.RESET ,posiciones.get(1).get(8).getAvatares()));
+        sb.append(posiciones.get(1).get(8).generarCasilla());
 
-        }
+        sb.append("│");
+
+        sb.append("                                                                                                                                               ");
+
+        sb.append("│");
         
-        sb.append("                                                                                                                                        ");
+        sb.append(posiciones.get(3).get(2).generarCasilla());
 
-        if (posiciones.get(3).get(2).getAvatares().isEmpty()) {
-            sb.append(String.format("│%s%s      %s│", Valor.GREEN, posiciones.get(3).get(2).getNombre(), Valor.RESET));
-        }else{
-            sb.append(String.format("│%s%s    %s&%s│",Valor.GREEN, posiciones.get(3).get(2).getNombre(),Valor.RESET ,posiciones.get(3).get(2).getAvatares()));
+        sb.append("│");
 
-        }
+        sb.append("\n—————————————————                                                                                                                                               —————————————————\n");
         
-        sb.append("\n———————————————                                                                                                                                        ——————————————— \n");
+        //tercer piso        
+
+        sb.append("│");
+
+        sb.append(posiciones.get(1).get(7).generarCasilla());
+
+        sb.append("│");
+
+        sb.append("                                                                                                                                               ");
+
+        sb.append("│");
         
-        if(posiciones.get(1).get(7).getAvatares().isEmpty()){
-            sb.append(String.format("│%s         │", posiciones.get(1).get(7).getNombre()));
-        }else{
-            sb.append(String.format("│%s       &%s│", posiciones.get(1).get(7).getNombre(), posiciones.get(1).get(7).getAvatares()));
+        sb.append(posiciones.get(3).get(3).generarCasilla());
 
-        }
+        sb.append("│");
+
+        sb.append("\n—————————————————                                                                                                                                               —————————————————\n");
+
+        //cuarto piso        
+
+        sb.append("│");
+
+        sb.append(posiciones.get(1).get(6).generarCasilla());
+
+        sb.append("│");
+
+        sb.append("                                                                                                                                               ");
+
+        sb.append("│");
         
-        sb.append("                                                                                                                                        ");
+        sb.append(posiciones.get(3).get(4).generarCasilla());
 
-        if (posiciones.get(3).get(3).getAvatares().isEmpty()) {
-            sb.append(String.format("│%s         │\n", posiciones.get(3).get(3).getNombre()));
-        }else{
-            sb.append(String.format("│%s       &%s│\n", posiciones.get(3).get(3).getNombre(),posiciones.get(3).get(3).getAvatares()));
+        sb.append("│");
 
-        }
+        sb.append("\n—————————————————                                                                                                                                               —————————————————\n");
+
+         
+        //quinto piso        
+
+         sb.append("│");
+
+         sb.append(posiciones.get(1).get(5).generarCasilla());
+ 
+         sb.append("│");
+ 
+         sb.append("                                                                                                                                               ");
+ 
+         sb.append("│");
+         
+         sb.append(posiciones.get(3).get(5).generarCasilla());
+ 
+         sb.append("│");
+ 
+         sb.append("\n—————————————————                                                                                                                                               —————————————————\n");
+
+          //sexto piso        
+
+        sb.append("│");
+
+        sb.append(posiciones.get(1).get(4).generarCasilla());
+
+        sb.append("│");
+
+        sb.append("                                                                                                                                               ");
+
+        sb.append("│");
         
-        sb.append("———————————————                                                                                                                                        ——————————————— \n");
+        sb.append(posiciones.get(3).get(6).generarCasilla());
+
+        sb.append("│");
+
+        sb.append("\n—————————————————                                                                                                                                               —————————————————\n");
+
+         //septimo piso        
+
+         sb.append("│");
+
+         sb.append(posiciones.get(1).get(3).generarCasilla());
+ 
+         sb.append("│");
+ 
+         sb.append("                                                                                                                                               ");
+ 
+         sb.append("│");
+         
+         sb.append(posiciones.get(3).get(7).generarCasilla());
+ 
+         sb.append("│");
+ 
+         sb.append("\n—————————————————                                                                                                                                               —————————————————\n");
+
+          //octavo piso        
+
+        sb.append("│");
+
+        sb.append(posiciones.get(1).get(2).generarCasilla());
+
+        sb.append("│");
+
+        sb.append("                                                                                                                                               ");
+
+        sb.append("│");
         
-        if(posiciones.get(1).get(6).getAvatares().isEmpty()){
-            sb.append(String.format("│%s%s       %s│", Valor.WHITE, posiciones.get(1).get(6).getNombre(), Valor.RESET));
-        }else{
-            sb.append(String.format("│%s%s    %s&%s│",Valor.WHITE, posiciones.get(1).get(6).getNombre(),Valor.RESET ,posiciones.get(1).get(6).getAvatares()));
+        sb.append(posiciones.get(3).get(8).generarCasilla());
 
-        }
-        
-        sb.append("                                                                                                                                        ");
-        
-        if (posiciones.get(3).get(4).getAvatares().isEmpty()) {
-            sb.append(String.format("│%s%s      %s│", Valor.GREEN, posiciones.get(3).get(4).getNombre(), Valor.RESET));
-        }else{
-            sb.append(String.format("│%s%s    %s&%s│",Valor.GREEN, posiciones.get(3).get(4).getNombre(),Valor.RESET ,posiciones.get(3).get(4).getAvatares()));
-        }
-        
-        sb.append("\n———————————————                                                                                                                                        ——————————————— \n");
-        
-        if(posiciones.get(1).get(5).getAvatares().isEmpty()){
-            sb.append(String.format("│%s       │", posiciones.get(1).get(5).getNombre()));
-        }else{
-            sb.append(String.format("│%s     &%s│", posiciones.get(1).get(5).getNombre(), posiciones.get(1).get(5).getAvatares()));
+        sb.append("│");
 
-        }
+        sb.append("\n—————————————————                                                                                                                                               —————————————————\n");
 
-        sb.append("                                                                                                                                        ");
-       
-        if (posiciones.get(3).get(5).getAvatares().isEmpty()) {
-            sb.append(String.format("│%s       │\n", posiciones.get(3).get(5).getNombre()));
-        }else{
-            sb.append(String.format("│%s     &%s│\n", posiciones.get(3).get(5).getNombre(),posiciones.get(3).get(5).getAvatares()));
-        }
-        
-        sb.append("———————————————                                                                                                                                        ——————————————— \n");
-        
-        if(posiciones.get(1).get(4).getAvatares().isEmpty()){
-            sb.append(String.format("│%s%s       %s│", Valor.PURPLE, posiciones.get(1).get(4).getNombre(), Valor.RESET));
-        }else{
-            sb.append(String.format("│%s%s    %s&%s│",Valor.PURPLE, posiciones.get(1).get(4).getNombre(),Valor.RESET ,posiciones.get(1).get(4).getAvatares()));
+         //noveno piso        
 
-        }
+         sb.append("│");
 
-        sb.append("                                                                                                                                        ");
-       
-        if (posiciones.get(3).get(6).getAvatares().isEmpty()) {
-            sb.append(String.format("│%s       │\n", posiciones.get(3).get(6).getNombre()));
-        }else{
-            sb.append(String.format("│%s     &%s│\n", posiciones.get(3).get(6).getNombre(),posiciones.get(3).get(6).getAvatares()));
-        }
-
-        sb.append("———————————————                                                                                                                                        ——————————————— \n");
-
-        if(posiciones.get(1).get(3).getAvatares().isEmpty()){
-            sb.append(String.format("│%s%s       %s│", Valor.PURPLE, posiciones.get(1).get(3).getNombre(), Valor.RESET));
-        }else{
-            sb.append(String.format("│%s%s    %s&%s│",Valor.PURPLE, posiciones.get(1).get(3).getNombre(),Valor.RESET ,posiciones.get(1).get(3).getAvatares()));
-
-        }
-
-        sb.append("                                                                                                                                        ");
-       
-        if (posiciones.get(3).get(7).getAvatares().isEmpty()) {
-            sb.append(String.format("│%s%s      %s│", Valor.BLUE, posiciones.get(3).get(7).getNombre(), Valor.RESET));
-        }else{
-            sb.append(String.format("│%s%s    %s&%s│",Valor.BLUE, posiciones.get(3).get(7).getNombre(),Valor.RESET ,posiciones.get(3).get(7).getAvatares()));
-        }
-
-        sb.append("\n———————————————                                                                                                                                        ——————————————— \n");
-
-        if(posiciones.get(1).get(2).getAvatares().isEmpty()){
-            sb.append(String.format("│%s        │", posiciones.get(1).get(2).getNombre()));
-        }else{
-            sb.append(String.format("│%s      &%s│", posiciones.get(1).get(2).getNombre(), posiciones.get(1).get(2).getAvatares()));
-
-        }
-
-        sb.append("                                                                                                                                        ");
-       
-        if (posiciones.get(3).get(8).getAvatares().isEmpty()) {
-            sb.append(String.format("│%s         │\n", posiciones.get(3).get(8).getNombre()));
-        }else{
-            sb.append(String.format("│%s        &%s│\n", posiciones.get(3).get(8).getNombre(),posiciones.get(3).get(8).getAvatares()));
-        }
-
-        sb.append("———————————————                                                                                                                                        ——————————————— \n");
-
-        if(posiciones.get(1).get(1).getAvatares().isEmpty()){
-            sb.append(String.format("│%s%s       %s│", Valor.PURPLE, posiciones.get(1).get(1).getNombre(), Valor.RESET));
-        }else{
-            sb.append(String.format("│%s%s    %s&%s│",Valor.PURPLE, posiciones.get(1).get(1).getNombre(),Valor.RESET ,posiciones.get(1).get(1).getAvatares()));
-
-        }
-
-        sb.append("                                                                                                                                        ");
-       
-        if (posiciones.get(3).get(9).getAvatares().isEmpty()) {
-            sb.append(String.format("│%s%s      %s│", Valor.BLUE, posiciones.get(3).get(9).getNombre(), Valor.RESET));
-                }else{
-                    sb.append(String.format("│%s%s    %s&%s│",Valor.BLUE, posiciones.get(3).get(9).getNombre(),Valor.RESET ,posiciones.get(3).get(9).getAvatares()));
-                }
-        
-
-        sb.append("\n——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
-
-        if(posiciones.get(1).get(0).getAvatares().isEmpty() ){
-            sb.append(String.format("|%s       │", posiciones.get(1).get(0).getNombre()));
-        }else{
-            sb.append(String.format("|%s     &%s│", posiciones.get(1).get(0).getNombre(), posiciones.get(1).get(0).getAvatares()));
-            }
-        
-
+         sb.append(posiciones.get(1).get(1).generarCasilla());
+ 
+         sb.append("│");
+ 
+         sb.append("                                                                                                                                               ");
+ 
+         sb.append("│");
+         
+         sb.append(posiciones.get(3).get(9).generarCasilla());
+ 
+         sb.append("│");
+ 
+         
         //LADO SUR
 
-        if(posiciones.get(0).get(9).getAvatares().isEmpty() ){
-            sb.append(String.format("│%s%s        %s│", Valor.CYAN, posiciones.get(0).get(9).getNombre(), Valor.RESET));           }
-            else{
-                sb.append(String.format("│%s%s     %s&%s│",Valor.CYAN, posiciones.get(1).get(1).getNombre(),Valor.RESET ,posiciones.get(0).get(9).getAvatares()));
-            }
+        sb.append("\n—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
     
-             if(posiciones.get(0).get(8).getAvatares().isEmpty() ){
-                sb.append(String.format("│%s%s        %s│", Valor.CYAN, posiciones.get(0).get(8).getNombre(), Valor.RESET));
-            }else{
-                sb.append(String.format("│%s%s    %s&%s│",Valor.CYAN, posiciones.get(0).get(8).getNombre(),Valor.RESET ,posiciones.get(0).get(8).getAvatares()));
-            }
-    
-            if(posiciones.get(0).get(7).getAvatares().isEmpty() ){
-                    sb.append(String.format("│%s       │", posiciones.get(0).get(7).getNombre()));
-                }else{
-                    sb.append(String.format("│%s     &%s│", posiciones.get(0).get(7).getNombre(), posiciones.get(0).get(7).getAvatares()));
-                }
-            if(posiciones.get(0).get(6).getAvatares().isEmpty() ){
-                sb.append(String.format("│%s%s       %s│", Valor.CYAN, posiciones.get(0).get(6).getNombre(), Valor.RESET));
-            }else{
-                sb.append(String.format("│%s%s    %s&%s│",Valor.CYAN, posiciones.get(0).get(6).getNombre(),Valor.RESET ,posiciones.get(0).get(6).getAvatares()));
-            }
+
+        sb.append("│");
+
+        sb.append(posiciones.get(1).get(0).generarCasilla());
+
+        sb.append("│");
+
+        sb.append(posiciones.get(0).get(9).generarCasilla());
+
+        sb.append("│");
+
+        sb.append(posiciones.get(0).get(8).generarCasilla());
+
+        sb.append("│");
+
+        sb.append(posiciones.get(0).get(7).generarCasilla());
         
-            if(posiciones.get(0).get(5).getAvatares().isEmpty() ){
-                    sb.append(String.format("│%s       │", posiciones.get(0).get(5).getNombre()));
-                    }else{
-                        sb.append(String.format("│%s     &%s│", posiciones.get(0).get(5).getNombre(), posiciones.get(0).get(5).getAvatares()));
-                    }
+        sb.append("│");
+
+        sb.append(posiciones.get(0).get(6).generarCasilla());
+
+        sb.append("│");
+
+        sb.append(posiciones.get(0).get(5).generarCasilla());
+
+        sb.append("│");
+
+        sb.append(posiciones.get(0).get(4).generarCasilla());
         
-            if(posiciones.get(0).get(4).getAvatares().isEmpty() ){
-                        sb.append(String.format("│%s         │", posiciones.get(0).get(4).getNombre()));
-                    }else{
-                        sb.append(String.format("│%s       &%s│", posiciones.get(0).get(4).getNombre(), posiciones.get(0).get(4).getAvatares()));
-                    }
-            if(posiciones.get(0).get(3).getAvatares().isEmpty() ){
-                sb.append(String.format("│%s%s      %s│", Valor.BLACK, posiciones.get(0).get(3).getNombre(), Valor.RESET));
-                                    }else{
-                                        sb.append(String.format("│%s%s    %s&%s│",Valor.BLACK, posiciones.get(0).get(3).getNombre(),Valor.RESET ,posiciones.get(0).get(3).getAvatares()));                        }
-            
-            if(posiciones.get(0).get(2).getAvatares().isEmpty() ){
-                            sb.append(String.format("│%s         │", posiciones.get(0).get(2).getNombre()));
-                        }else{
-                            sb.append(String.format("│%s       &%s│", posiciones.get(0).get(2).getNombre(), posiciones.get(0).get(2).getAvatares()));
-                        }
-            if(posiciones.get(0).get(1).getAvatares().isEmpty() ){
-                sb.append(String.format("│%s%s       %s│", Valor.BLACK, posiciones.get(0).get(1).getNombre(), Valor.RESET));
-                    }else{
-                        sb.append(String.format("│%s%s    %s&%s│",Valor.BLACK, posiciones.get(0).get(1).getNombre(),Valor.RESET ,posiciones.get(0).get(1).getAvatares()));                        }                            
-                    
-                        sb.append(posiciones.get(0).get(0).generarCasilla());
-        sb.append("\n ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
-        return sb.toString();
+        sb.append("│");
+
+        sb.append(posiciones.get(0).get(3).generarCasilla());
+
+        sb.append("│");
+
+        sb.append(posiciones.get(0).get(2).generarCasilla());
+        
+        sb.append("│");
+
+        sb.append(posiciones.get(0).get(1).generarCasilla());
+        
+        sb.append("│");
+
+        sb.append(posiciones.get(0).get(0).generarCasilla());
+
+        sb.append("│");
+        
+        sb.append("\n—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
+
+               return sb.toString();
     }
     
     //Método usado para buscar la casilla con el nombre pasado como argumento:
