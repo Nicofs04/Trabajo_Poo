@@ -256,8 +256,8 @@ public class Casilla {
         //PARKING, en este caso siempre va a ser true ya que la recaudacion de impuestos siempre va a ser >=0
         Casilla c = actual.getAvatar().getLugar();
 
-        if (c.getTipo().isEmpty()) {
-            if (c.getNombre().equals("impuesto")) {
+        
+            if (c.getNombre().equals("imp1") || c.getNombre().equals("imp2")) {
                 if (actual.getFortuna() < this.impuesto) {
                     System.out.println("El jugador no tiene dinero suficiente para pagar los impuestos, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                     return false;
@@ -269,7 +269,7 @@ public class Casilla {
                     System.out.println("El jugador paga "+this.impuesto +"€");
                     return true;
                 }
-            }
+            
             
         }else{
         switch (c.getTipo()) {
@@ -335,7 +335,8 @@ public class Casilla {
                 System.out.println("El tipo de la casilla está mal definido");
                 break;
         }
-        return false;
+    
+    
     }
     return false;
 }
