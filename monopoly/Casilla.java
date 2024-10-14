@@ -255,6 +255,23 @@ public class Casilla {
         //NO EVALUAMOS EN ESTA FUNCION LAS CASILLAS: Salida(especial), Carcel(especial)
         //PARKING, en este caso siempre va a ser true ya que la recaudacion de impuestos siempre va a ser >=0
         Casilla c = actual.getAvatar().getLugar();
+
+        if (c.getTipo().isEmpty()) {
+            if (c.getNombre().equals("impuesto")) {
+                if (actual.getFortuna() < this.impuesto) {
+                    System.out.println("El jugador no tiene dinero suficiente para pagar los impuestos, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                    return false;
+                    //Acabaría la partida para este jugador
+                } else {
+                    actual.setFortuna(actual.getFortuna() - this.impuesto);
+                    //Le pagamos a la banca:
+                    banca.setFortuna(banca.getFortuna() + this.impuesto);
+                    System.out.println("El jugador paga "+this.impuesto +"€");
+                    return true;
+                }
+            }
+            
+        }else{
         switch (c.getTipo()) {
             case "solar":
                 if (actual.getFortuna() < this.impuesto) {
@@ -295,18 +312,6 @@ public class Casilla {
             //No es para esta entrega
             case "caja":
                 break;
-            case "impuesto":
-                if (actual.getFortuna() < this.impuesto) {
-                    System.out.println("El jugador no tiene dinero suficiente para pagar los impuestos, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                    return false;
-                    //Acabaría la partida para este jugador
-                } else {
-                    actual.setFortuna(actual.getFortuna() - this.impuesto);
-                    //Le pagamos a la banca:
-                    banca.setFortuna(banca.getFortuna() + this.impuesto);
-                    System.out.println("El jugador paga "+this.impuesto +"€");
-                    return true;
-                }
             case "especial":
                 //PARKING
                 if ((this.tipo == "especial" && this.posicion == 20)) {
@@ -320,6 +325,11 @@ public class Casilla {
                     actual.encarcelar(tablero);
                     System.out.println("El avatar se coloca en la casilla de Cárcel.");
                     return true;
+                } else if (this.tipo == "especial" && this.posicion == 0) {
+                    return true;
+                }else if (this.tipo == "especial" && this.posicion == 10) {
+                    System.out.println("Has caído en la cárcel pero solo de visita, no estás encarcelado");
+                    return true;
                 }
             default:
                 System.out.println("El tipo de la casilla está mal definido");
@@ -327,6 +337,8 @@ public class Casilla {
         }
         return false;
     }
+    return false;
+}
 
         /*
          * Método usado para comprar una casilla determinada. Parámetros:

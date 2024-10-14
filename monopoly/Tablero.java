@@ -107,7 +107,7 @@ public class Tablero {
         arrayCasillasSur.add(new Casilla("solar1","solar",1, 600000, banca));
         arrayCasillasSur.add(new Casilla("caja","caja",2, banca));
         arrayCasillasSur.add(new Casilla("solar2","solar",3, 600000, banca));
-        arrayCasillasSur.add(new Casilla("imp1",4,0, banca));
+        arrayCasillasSur.add(new Casilla("imp1",4,(Valor.SUMA_VUELTA)*0.5f, banca));
         arrayCasillasSur.add(new Casilla("trans1","transporte",5, Valor.SUMA_VUELTA, banca));
         arrayCasillasSur.add(new Casilla("solar3","solar",6, 520000, banca));
         arrayCasillasSur.add(new Casilla("suerte","suerte",7, banca));
@@ -151,7 +151,7 @@ public class Tablero {
         arrayCasillasEste.add(new Casilla("trans4","transporte",35, Valor.SUMA_VUELTA, banca));
         arrayCasillasEste.add(new Casilla("suerte","suerte",36,banca));
         arrayCasillasEste.add(new Casilla("solar21","solar",37, 3764911.02f,banca));
-        arrayCasillasEste.add(new Casilla("imp2",38,0,banca));
+        arrayCasillasEste.add(new Casilla("imp2",38,Valor.SUMA_VUELTA,banca));
         arrayCasillasEste.add(new Casilla("solar22","solar",39, 3764911.02f,banca));
         posiciones.add(arrayCasillasEste);
         Grupo verde = new Grupo(arrayCasillasEste.get(1),arrayCasillasEste.get(3), arrayCasillasEste.get(4), "GREEN");
