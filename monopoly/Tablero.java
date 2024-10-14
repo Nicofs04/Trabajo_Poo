@@ -116,7 +116,7 @@ public class Tablero {
         posiciones.add(arrayCasillasSur);
         Grupo negro = new Grupo(arrayCasillasSur.get(1),arrayCasillasSur.get(3),"BLACK");
         grupos.put("NEGRO", negro);
-        Grupo cyan = new Grupo(arrayCasillasSur.get(6),arrayCasillasSur.get(7), arrayCasillasSur.get(9), "CYAN");
+        Grupo cyan = new Grupo(arrayCasillasSur.get(6),arrayCasillasSur.get(8), arrayCasillasSur.get(9), "CYAN");
         grupos.put("CYAN", cyan);
     }
 
@@ -136,7 +136,7 @@ public class Tablero {
         posiciones.add(arrayCasillasOeste);
         Grupo violeta = new Grupo(arrayCasillasOeste.get(1),arrayCasillasOeste.get(3), arrayCasillasOeste.get(4), "PURPLE");
         grupos.put("VIOLETA", violeta);
-        Grupo blanco = new Grupo(arrayCasillasOeste.get(6),arrayCasillasOeste.get(7), arrayCasillasOeste.get(9), "WHITE");
+        Grupo blanco = new Grupo(arrayCasillasOeste.get(6),arrayCasillasOeste.get(8), arrayCasillasOeste.get(9), "WHITE");
         grupos.put("BLANCO", blanco);
     }
 
@@ -156,7 +156,7 @@ public class Tablero {
         posiciones.add(arrayCasillasEste);
         Grupo verde = new Grupo(arrayCasillasEste.get(1),arrayCasillasEste.get(3), arrayCasillasEste.get(4), "GREEN");
         grupos.put("VERDE", verde);
-        Grupo azul = new Grupo(arrayCasillasEste.get(6),arrayCasillasEste.get(7),"BLUE");
+        Grupo azul = new Grupo(arrayCasillasEste.get(7),arrayCasillasEste.get(9),"BLUE");
         grupos.put("AZUL", azul);
     }
 
