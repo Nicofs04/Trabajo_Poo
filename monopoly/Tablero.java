@@ -96,7 +96,7 @@ public class Tablero {
         posiciones.add(arrayCasillasNorte);
         Grupo rojo = new Grupo(arrayCasillasNorte.get(1),arrayCasillasNorte.get(3), arrayCasillasNorte.get(4), "RED");
         grupos.put("ROJO", rojo);
-        Grupo amarillo = new Grupo(arrayCasillasNorte.get(6),arrayCasillasNorte.get(7), arrayCasillasNorte.get(9), "BROWN");
+        Grupo amarillo = new Grupo(arrayCasillasNorte.get(6),arrayCasillasNorte.get(7), arrayCasillasNorte.get(9), "YELLOW");
         grupos.put("AMARILLO", amarillo);
     }
 

@@ -383,7 +383,7 @@ public class Menu {
      */
     private void comprar(String nombre) {
         tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
-        System.out.println("Casilla comprada con éxito.\n");
+        
     }
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
     private void salirCarcel() {

@@ -165,7 +165,7 @@ public class Casilla {
         if (this.tipo == "solar") {
             return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor()
                     + ",\n Propietario: "
-                    + getDuenho().getNombre() + ",\n Posición:" + getPosicion() + ",\n Grupo:" + getGrupo().getColorGrupo() + ",\n Impuesto:"
+                    + getDuenho().getNombre() + ",\n Posición:" + getPosicion() + ",\n Grupo:" + getGrupo() + ",\n Impuesto:"
                     + getImpuesto() + ",\n alquiler: " + "220000" +
                     ",\n valor hotel: " + "1560000" + ",\n valor casa: " + "1560000" + ",\n valor piscina: " + "1040000"
                     + ",\n valor pista de deportes: "
