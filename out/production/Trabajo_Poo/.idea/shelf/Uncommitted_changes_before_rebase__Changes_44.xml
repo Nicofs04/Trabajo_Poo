@@ -1,9 +1,0 @@
-<changelist name="Uncommitted_changes_before_rebase_[Changes]44" date="1728316375147" recycled="true" deleted="true">
-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]44/shelved.patch" />
-  <option name="DESCRIPTION" value="Uncommitted changes before rebase [Changes]" />
-  <binary>
-    <option name="BEFORE_PATH" value="out/production/Trabajo_Poo/monopoly/Tablero.class" />
-    <option name="AFTER_PATH" value="out/production/Trabajo_Poo/monopoly/Tablero.class" />
-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]44/Tablero.class" />
-  </binary>
-</changelist>
