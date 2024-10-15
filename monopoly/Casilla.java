@@ -162,7 +162,7 @@ public class Casilla {
     //Devuelve el valor que hay que pagar para salir de la carcel
     public float valorCarcel(ArrayList<ArrayList<Casilla>> tablero){
         float valorCarcel;
-        valorCarcel=valorSalida(tablero)*(25/100);
+        valorCarcel = valorSalida(tablero) * (25.0f / 100.0f);
         return valorCarcel;
     }
 
