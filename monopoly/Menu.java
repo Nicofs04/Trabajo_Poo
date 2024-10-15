@@ -292,6 +292,7 @@ public class Menu {
         if (casilla==null){
             System.out.println("Esa casilla no existe");
         } else{
+            casilla.setTablero(tablero.getPosiciones());
             System.out.println(casilla.infoCasilla());
         }   
     }

@@ -137,6 +137,10 @@ public class Casilla {
                                                     
         this.avatares = avatares;
     }
+    public void setTablero(ArrayList<ArrayList<Casilla>> tablero) { 
+                                                    
+        this.tablero= tablero;
+    }
 
     //Devuelve el valor que se le suma a los jugadores por pasar por la casilla de salida
     public float valorSalida(ArrayList<ArrayList<Casilla>> tablero){
@@ -145,7 +149,9 @@ public class Casilla {
         int contador_iteraciones=0;
         for(int i=0;i<tablero.size();i++){
             for(int j=0;j<tablero.get(i).size();j++){
-                suma+=tablero.get(i).get(j).getValor();
+                if(tablero.get(i).get(j).getTipo()=="solar"){
+                    suma+=tablero.get(i).get(j).getValor();
+                }
                 contador_iteraciones++;
             }
         }
@@ -210,7 +216,7 @@ public class Casilla {
                 jugadoresEnCasilla.setLength(jugadoresEnCasilla.length() - 2);
             }
 
-            return "salir: " +this.valorCarcel(this.tablero)+ ",\n jugadores:" + jugadoresEnCasilla;
+            return "salir: " +valorCarcel(this.tablero)+ ",\n jugadores:" + jugadoresEnCasilla;
         } else if (this.tipo == "especial" && this.posicion == 0) {
             // LISTA DE LOS JUGADORES
             StringBuilder jugadoresEnCasilla = new StringBuilder();
