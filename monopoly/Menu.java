@@ -360,7 +360,7 @@ public class Menu {
         }else{
             jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
             System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.\n");
-            jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); // Suponiendo que reciben 200 por pasar la salida
+            jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); 
             tablero.calcularCasillas(jugadores);
         }
     }
@@ -387,7 +387,7 @@ public class Menu {
 
     }
     //Repintamos el tablero
-    tablero.toString();
+    System.out.println(tablero.toString());
     //Imprimimos el mensaje final:
     System.out.println("El avatar: "+jugadores.get(turno).getAvatar().getId()+", avanza "+sumaDados+" posiciones, desde "+posicionActual+" hasta "+posicionFinal);
 
