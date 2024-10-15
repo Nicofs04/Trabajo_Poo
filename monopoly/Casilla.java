@@ -378,8 +378,8 @@ public class Casilla {
                 // BANCA, aunque realmente es innecesario
                 banca.setFortuna(banca.getFortuna() + this.valor);
 
-                System.out.println("El jugador " + solicitante.getNombre() + "compra la casilla "
-                        + solicitante.getAvatar().getLugar().getNombre() + "por " + this.valor);
+                System.out.println("El jugador " + solicitante.getNombre() + " compra la casilla "
+                        + this.getNombre() + " por " + this.valor);
                 System.out.println("Su fortuna actual es:" + solicitante.getFortuna());
 
             } else if ((this.tipo != "solar") && (this.tipo != "servicios") && (this.tipo != "transporte")) {
