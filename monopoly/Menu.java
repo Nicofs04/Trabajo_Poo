@@ -303,11 +303,27 @@ public class Menu {
             return;
         }
         
-        dado1.hacerTirada();
+
+        //LANZAR DADOS ALEATORIOS
+        /*dado1.hacerTirada();
         dado2.hacerTirada();
 
         System.out.println("Dado 1: " + dado1.getValor());
-        System.out.println("Dado 2: " + dado2.getValor());
+        System.out.println("Dado 2: " + dado2.getValor());*/
+
+        
+        
+        //LANZAR DADOS MANUAL
+        
+        
+        Scanner scanner = new Scanner(System.in);    
+        System.out.println("Introduce dado1: ");
+        int da = scanner.nextInt();
+        dado1.setValor(da);
+        System.out.println("Introduce dado2: ");
+        int da2 = scanner.nextInt();
+        dado2.setValor(da2);
+
 
         int sumaDados = dado1.getValor() + dado2.getValor();
         setDadosdobles(dado1.equals(dado2));
