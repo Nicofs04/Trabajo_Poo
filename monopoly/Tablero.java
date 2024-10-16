@@ -163,7 +163,6 @@ public class Tablero {
     //Para imprimir el tablero, modificamos el método toString().
     @Override
     public String toString(){
-        int i;
         StringBuilder sb = new StringBuilder();
         sb.append("\n—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————\n");
     
