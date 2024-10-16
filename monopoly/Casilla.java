@@ -277,16 +277,7 @@ public class Casilla {
                         actual.setFortuna(actual.getFortuna()-this.impuesto);
                         System.out.println("El jugador paga "+this.impuesto +"€");
                         return true;
-
-
-                    }   
-                 
-                    
-                } else {
-                    actual.setFortuna(actual.getFortuna() - this.impuesto);
-                    this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
-                    System.out.println("Se han pagado "+this.impuesto +"€ de alquiler");
-                    return true;
+                    }      
                 }
             case "servicio":
                 if (actual.getFortuna() < this.impuesto) {
@@ -328,7 +319,7 @@ public class Casilla {
                         System.out.println("El jugador paga "+this.impuesto +"€");
                         return true;
                         }
-                        
+
             case "especial":
                 //PARKING
                 if ((this.tipo == "especial" && this.posicion == 20)) {
