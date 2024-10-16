@@ -37,6 +37,7 @@ public class Casilla {
         this.valor = valor;
         this.duenho = duenho;
         this.avatares = new ArrayList<>();
+        this.impuesto = (valor)*(0.10f);
     }
 
     /*
@@ -282,15 +283,17 @@ public class Casilla {
         switch (c.getTipo()) {
             case "solar":
                 
-                if (!c.getDuenho().equals(actual) || !c.getDuenho().equals(banca) ) {
-                    
-                    
-                }   
-                 
+                if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ) {
+                    float alquiler = this.impuesto;
+                    actual.setFortuna(actual.getFortuna()-alquiler);
                     if (actual.getFortuna() < this.impuesto) {
                         System.out.println("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                         return false;
                     //Acabaría la partida para este jugador
+                    
+                }   
+                 
+                    
                 } else {
                     actual.setFortuna(actual.getFortuna() - this.impuesto);
                     this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
