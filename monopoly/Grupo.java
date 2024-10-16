@@ -23,7 +23,7 @@ public class Grupo {
         miembros.add(cas1);
         miembros.add(cas2);
         this.numCasillas=2;
-        this.setColorGrupo(colorGrupo);
+        this.colorGrupo = colorGrupo;
         cas1.setGrupo(this);
         cas2.setGrupo(this);
     }
@@ -37,7 +37,7 @@ public class Grupo {
         miembros.add(cas2);
         miembros.add(cas3);
         this.numCasillas=3;
-        this.setColorGrupo(colorGrupo);
+        this.colorGrupo = colorGrupo;
         cas1.setGrupo(this);
         cas2.setGrupo(this);
         cas3.setGrupo(this);
