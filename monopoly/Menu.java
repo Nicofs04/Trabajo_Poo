@@ -491,4 +491,29 @@ public class Menu {
         setDadosdobles(false);
         
     }
+
+    private void edificarCasa(){
+
+
+    }
+    private void edificarHotel(){
+
+        
+    }
+    private void edificarPiscina(){
+
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }

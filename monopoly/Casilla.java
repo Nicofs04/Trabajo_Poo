@@ -266,8 +266,7 @@ public class Casilla {
 
 
         switch (c.getTipo()) {
-            case "solar":
-                
+            case "solar":               
                 if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ) {
                     if (actual.getFortuna() < this.impuesto) {
                         System.out.println("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
@@ -280,26 +279,33 @@ public class Casilla {
                     }      
                 }
             case "servicio":
-                if (actual.getFortuna() < this.impuesto) {
-                    System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                    return false;
-                    //Acabaría la partida para este jugador
-                } else {
-                    actual.setFortuna(actual.getFortuna() - this.impuesto);
-                    this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
-                    System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
-                    return true;
+                if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ){
+
+                
+                    if (actual.getFortuna() < this.impuesto) {
+                        System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                        return false;
+                        //Acabaría la partida para este jugador
+                    } else {
+                        actual.setFortuna(actual.getFortuna() - this.impuesto);
+                        this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
+                        System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
+                        return true;
+                    }
                 }
             case "transporte":
-                if (actual.getFortuna() < this.impuesto) {
-                    System.out.println("El jugador no tiene dinero suficiente para pagar el transporte, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                    return false;
-                    //Acabaría la partida para este jugador
-                } else {
-                    actual.setFortuna(actual.getFortuna() - this.impuesto);
-                    this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
-                    System.out.println("Se han pagado "+this.impuesto +"€ por el uso del transporte");
-                    return true;
+                if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ){
+
+                    if (actual.getFortuna() < this.impuesto) {
+                        System.out.println("El jugador no tiene dinero suficiente para pagar el transporte, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                        return false;
+                        //Acabaría la partida para este jugador
+                    } else {
+                        actual.setFortuna(actual.getFortuna() - this.impuesto);
+                        this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
+                        System.out.println("Se han pagado "+this.impuesto +"€ por el uso del transporte");
+                        return true;
+                    }
                 }
             //No es para esta entrega
             case "suerte":
