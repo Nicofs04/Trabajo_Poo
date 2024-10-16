@@ -45,6 +45,7 @@ public class Casilla {
      */
     public Casilla(String nombre, int posicion, float impuesto, Jugador duenho) {
         this.nombre = nombre;
+        this.tipo="impuesto";
         this.posicion = posicion;
         this.impuesto = impuesto;
         this.duenho = duenho;
@@ -280,9 +281,15 @@ public class Casilla {
         }else{
         switch (c.getTipo()) {
             case "solar":
-                if (actual.getFortuna() < this.impuesto) {
-                    System.out.println("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                    return false;
+                
+                if (!c.getDuenho().equals(actual) || !c.getDuenho().equals(banca) ) {
+                    
+                    
+                }   
+                 
+                    if (actual.getFortuna() < this.impuesto) {
+                        System.out.println("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                        return false;
                     //Acabaría la partida para este jugador
                 } else {
                     actual.setFortuna(actual.getFortuna() - this.impuesto);
