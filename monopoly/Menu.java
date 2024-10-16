@@ -169,14 +169,21 @@ public class Menu {
         case "crear":
             if (palabras.length >= 4 && palabras[1].equals("jugador")) {
                 String nombre = palabras[2];
-                String tipoAvatar = palabras[3];
-                Jugador jugador= new Jugador(nombre, tipoAvatar, tablero.getPosiciones().get(0).get(0), avatares);
-                jugadores.add(jugador);
-                System.out.println("Jugador creado con éxito.\n");
+                String tipoAvatar = new String();
+    
+                if(palabras[3].equals("sombrero") || palabras[3].equals("esfinge") || palabras[3].equals("coche") || palabras[3].equals("pelota")) {
+                    tipoAvatar = palabras[3];
+                    Jugador jugador = new Jugador(nombre, tipoAvatar, tablero.getPosiciones().get(0).get(0), avatares);
+                    jugadores.add(jugador);
+                    System.out.println("Jugador creado con éxito.\n");
+                } else {
+                    System.out.println("El avatar debe ser del tipo pelota, esfinge, coche o sombrero.\n");
+                }
             } else {
                 System.out.println("Comando incompleto o incorrecto para crear jugador.\n");
             }
             break;
+    
         case "jugador":
             if(jugadores.size()>0){
                 System.out.println("Nombre:"+jugadores.get(turno).getNombre());
@@ -437,13 +444,18 @@ public class Menu {
                 if(casilla.getDuenho().getNombre().equals("banca")){
                     if(casilla.getTipo().equals("solar")){
                         sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
-                        sb.append(String.format("{\n grupo: %s,\n", casilla.getGrupo().getColorGrupo()));
-                        sb.append(String.format("{\n valor: %s,\n", casilla.getValor()));
+                        sb.append(String.format("\n grupo: %s,\n", casilla.getGrupo().getColorGrupo()));
+                        sb.append(String.format("\n valor: %s,\n", casilla.getValor()));
                         sb.append("},\n");
-                    }else{
+                    }else if(casilla.getTipo().equals("servicio")){
                         sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
-                        sb.append(String.format("{\n valor: %s,\n", casilla.getValor()));
+                        sb.append(String.format("\n valor: %s,\n", casilla.getValor()));
                         sb.append("},\n");
+                    }else if(casilla.getTipo().equals("transporte")){
+                        sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
+                        sb.append(String.format("\n valor: %s,\n", casilla.getValor()));
+                        sb.append("},\n");
+
                     }
                 }
             }
