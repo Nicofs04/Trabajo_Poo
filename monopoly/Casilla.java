@@ -264,13 +264,7 @@ public class Casilla {
         //PARKING, en este caso siempre va a ser true ya que la recaudacion de impuestos siempre va a ser >=0
         Casilla c = actual.getAvatar().getLugar();
 
-        
-            if (c.getNombre().equals("imp1") || c.getNombre().equals("imp2")) {
-                
-                    
-            
-            
-        }else{
+
         switch (c.getTipo()) {
             case "solar":
                 
@@ -334,7 +328,7 @@ public class Casilla {
                         System.out.println("El jugador paga "+this.impuesto +"€");
                         return true;
                         }
-                break;
+                        
             case "especial":
                 //PARKING
                 if ((this.tipo == "especial" && this.posicion == 20)) {
@@ -360,7 +354,7 @@ public class Casilla {
         }
     
     
-    }
+    
     return false;
 }
 
