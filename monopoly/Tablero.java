@@ -154,7 +154,7 @@ public class Tablero {
         arrayCasillasEste.add(new Casilla("imp2",38,Valor.SUMA_VUELTA,banca));
         arrayCasillasEste.add(new Casilla("solar22","solar",39, 3764911.02f,banca));
         posiciones.add(arrayCasillasEste);
-        Grupo verde = new Grupo(arrayCasillasEste.get(1),arrayCasillasEste.get(3), arrayCasillasEste.get(4), "GREEN");
+        Grupo verde = new Grupo(arrayCasillasEste.get(1),arrayCasillasEste.get(2), arrayCasillasEste.get(4), "GREEN");
         grupos.put("VERDE", verde);
         Grupo azul = new Grupo(arrayCasillasEste.get(7),arrayCasillasEste.get(9),"BLUE");
         grupos.put("AZUL", azul);
