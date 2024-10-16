@@ -399,14 +399,14 @@ public class Menu {
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
-        if(tirado){
-            if(nombre.equals(jugadores.get(turno).getAvatar().getLugar().getNombre())){
+        if(nombre.equals(jugadores.get(turno).getAvatar().getLugar().getNombre())){
+            if(tirado){
                 tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
             }else{
-                System.out.println("Debes de estar sobre esa casilla para comprarla");
+                System.out.println("Primero debes tirar los dados");
             }
         }else{
-            System.out.println("Primero debes tirar los dados");
+            System.out.println("Debes de estar sobre esa casilla para comprarla");
         }
         
     }
