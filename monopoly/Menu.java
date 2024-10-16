@@ -169,14 +169,21 @@ public class Menu {
         case "crear":
             if (palabras.length >= 4 && palabras[1].equals("jugador")) {
                 String nombre = palabras[2];
-                String tipoAvatar = palabras[3];
-                Jugador jugador= new Jugador(nombre, tipoAvatar, tablero.getPosiciones().get(0).get(0), avatares);
-                jugadores.add(jugador);
-                System.out.println("Jugador creado con éxito.\n");
+                String tipoAvatar = new String();
+    
+                if(palabras[3].equals("sombrero") || palabras[3].equals("esfinge") || palabras[3].equals("coche") || palabras[3].equals("pelota")) {
+                    tipoAvatar = palabras[3];
+                    Jugador jugador = new Jugador(nombre, tipoAvatar, tablero.getPosiciones().get(0).get(0), avatares);
+                    jugadores.add(jugador);
+                    System.out.println("Jugador creado con éxito.\n");
+                } else {
+                    System.out.println("El avatar debe ser del tipo pelota, esfinge, coche o sombrero.\n");
+                }
             } else {
                 System.out.println("Comando incompleto o incorrecto para crear jugador.\n");
             }
             break;
+    
         case "jugador":
             if(jugadores.size()>0){
                 System.out.println("Nombre:"+jugadores.get(turno).getNombre());
