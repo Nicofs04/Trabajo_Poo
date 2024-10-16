@@ -444,13 +444,18 @@ public class Menu {
                 if(casilla.getDuenho().getNombre().equals("banca")){
                     if(casilla.getTipo().equals("solar")){
                         sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
-                        sb.append(String.format("{\n grupo: %s,\n", casilla.getGrupo().getColorGrupo()));
-                        sb.append(String.format("{\n valor: %s,\n", casilla.getValor()));
+                        sb.append(String.format("\n grupo: %s,\n", casilla.getGrupo().getColorGrupo()));
+                        sb.append(String.format("\n valor: %s,\n", casilla.getValor()));
                         sb.append("},\n");
-                    }else{
+                    }else if(casilla.getTipo().equals("servicio")){
                         sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
-                        sb.append(String.format("{\n valor: %s,\n", casilla.getValor()));
+                        sb.append(String.format("\n valor: %s,\n", casilla.getValor()));
                         sb.append("},\n");
+                    }else if(casilla.getTipo().equals("transporte")){
+                        sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
+                        sb.append(String.format("\n valor: %s,\n", casilla.getValor()));
+                        sb.append("},\n");
+
                     }
                 }
             }
