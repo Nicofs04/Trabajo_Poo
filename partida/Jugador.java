@@ -151,9 +151,11 @@ public class Jugador {
     public void encarcelar(ArrayList<ArrayList<Casilla>> tablero) {
         //Poner enCarcel como true.
         this.enCarcel = true;
-        int posicionCarcel=10;
         //Moverlo a la carcel
-        this.avatar.moverAvatar(tablero, this.avatar.getLugar().getPosicion()-posicionCarcel);
+        Casilla carcel = tablero.get(1).get(0);
+        this.avatar.setLugar(carcel);
+        carcel.anhadirAvatar(this.getAvatar()); //añadimos el avatar al array de avatares en cárcel
+        
     }
 
 }
