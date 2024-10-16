@@ -82,7 +82,7 @@ public class Avatar {
 
         if (nuevaPosicion == 30) {
             System.out.println("Has caído en la carcel.\n");
-            lugar=tablero.get(3).get(0);
+            lugar=tablero.get(1).get(0);
             
         }else{
 
