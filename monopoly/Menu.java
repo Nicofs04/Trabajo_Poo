@@ -399,7 +399,9 @@ public class Menu {
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
-        tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
+        if(tirado){
+            tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
+        }
         
     }
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 

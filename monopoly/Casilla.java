@@ -365,41 +365,39 @@ public class Casilla {
          * la propiedad y darle la pasta y hay que asignar el nuevo dueño a la casilla,
          * que será el solicitante
          */
-        public void comprarCasilla (Jugador solicitante, Jugador banca){
-            // Comprobamos que sea una casilla "comprable"
-            if (((this.tipo.equals("solar")) || (this.tipo.equals("servicios")) || (this.tipo.equals("transporte")))
-                    && (solicitante.getFortuna() >= this.valor) && (this.duenho == banca)) {
+    public void comprarCasilla (Jugador solicitante, Jugador banca){
+        // Comprobamos que sea una casilla "comprable"
+        if (((this.tipo.equals("solar")) || (this.tipo.equals("servicio")) || (this.tipo.equals("transporte")))
+                && (solicitante.getFortuna() >= this.valor) && (this.duenho == banca)) {
 
-                // JUGADOR SOLICITANTE
+            // JUGADOR SOLICITANTE
 
-                // "quitar dinero"
-                solicitante.setFortuna(solicitante.getFortuna() - this.valor);
+            // "quitar dinero"
+            solicitante.setFortuna(solicitante.getFortuna() - this.valor);
 
-                // "sumar gastos"
-                solicitante.setGastos(solicitante.getGastos() + this.valor);
+            // "sumar gastos"
+            solicitante.setGastos(solicitante.getGastos() + this.valor);
 
-                // "asignarle la propiedad"
-                // Primero tenemos que cambiarle el dueño a la casilla
-                this.duenho = solicitante;
-                solicitante.getPropiedades().add(this);
+            // "asignarle la propiedad"
+            // Primero tenemos que cambiarle el dueño a la casilla
+            this.duenho = solicitante;
+            solicitante.getPropiedades().add(this);
+                
+            // BANCA, aunque realmente es innecesario
+            banca.setFortuna(banca.getFortuna() + this.valor);
 
-                // BANCA, aunque realmente es innecesario
-                banca.setFortuna(banca.getFortuna() + this.valor);
+            System.out.println("El jugador " + solicitante.getNombre() + " compra la casilla "
+                    + this.getNombre() + " por " + this.valor);
+            System.out.println("Su fortuna actual es:" + solicitante.getFortuna());
 
-                System.out.println("El jugador " + solicitante.getNombre() + " compra la casilla "
-                        + this.getNombre() + " por " + this.valor);
-                System.out.println("Su fortuna actual es:" + solicitante.getFortuna());
-
-            } else if ((this.tipo != "solar") && (this.tipo != "servicios") && (this.tipo != "transporte")) {
-                // En caso de que no sea de ninguno de estos tipos, la propiedad no se podrá
-                // comprar
-                System.out.println(
-                        "Esta propiedad no se puede comprar, para poder comprar una propiedad debe de ser de uno de los siguientes tipos: SOLAR, TRANSPORTE, SERVICIOS\n");
-            } else {
-                System.out.println("No tienes dinero suficiente como para comprar esta propiedad\n");
-            }
-
+        } else if ((this.tipo != "solar") && (this.tipo != "servicios") && (this.tipo != "transporte")) {
+            // En caso de que no sea de ninguno de estos tipos, la propiedad no se podrá
+            // comprar
+            System.out.println("Esta propiedad no se puede comprar, para poder comprar una propiedad debe de ser de uno de los siguientes tipos: SOLAR, TRANSPORTE, SERVICIOS\n");
+        } else {
+            System.out.println("No tienes dinero suficiente como para comprar esta propiedad\n");
         }
+    }
 
     /*
      * Método para añadir valor a una casilla. Utilidad:
