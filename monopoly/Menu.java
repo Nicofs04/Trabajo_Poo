@@ -400,7 +400,13 @@ public class Menu {
      */
     private void comprar(String nombre) {
         if(tirado){
-            tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
+            if(nombre.equals(jugadores.get(turno).getAvatar().getLugar().getNombre())){
+                tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
+            }else{
+                System.out.println("Debes de estar sobre esa casilla para comprarla");
+            }
+        }else{
+            System.out.println("Primero debes tirar los dados");
         }
         
     }
