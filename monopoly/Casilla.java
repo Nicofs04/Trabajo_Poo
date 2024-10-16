@@ -341,7 +341,7 @@ public class Casilla {
                     return true;
                 } else if (this.tipo == "especial" && this.posicion == 0) {
                     return true;
-                }else if (this.tipo == "especial" && this.posicion == 10) {
+                }else if (this.tipo == "especial" && this.posicion == 10 && !actual.getEnCarcel()) {
                     System.out.println("Has caído en la cárcel pero solo de visita, no estás encarcelado");
                     return true;
                 }
