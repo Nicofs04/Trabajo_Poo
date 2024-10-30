@@ -107,7 +107,7 @@ public class Casilla {
         this.duenho = duenho;
     }
 
-    public Grupo getGrupo() { 
+    public Grupo getGrupo() { // mirar la clase grupo(puse public class en lugar de class a secas)
         return grupo;
     }
 
@@ -135,8 +135,8 @@ public class Casilla {
         return avatares;
     }
 
-    public void setAvatares(ArrayList<Avatar> avatares) { 
-                                                    
+    public void setAvatares(ArrayList<Avatar> avatares) { // AL SER UN ARRAY TENGO QUE ITERAR CADA UNA DE SUS POSICIONES
+                                                          // O ASÍ ESTÁ BIEN?
         this.avatares = avatares;
     }
     public void setTablero(ArrayList<ArrayList<Casilla>> tablero) { 
@@ -258,7 +258,7 @@ public class Casilla {
      * en caso de no cumplirlas.
      */
 
-    
+    // FALTAN HACER RETOQUES A TABLERO PARA QUE FUNCIONE
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
         //NO EVALUAMOS EN ESTA FUNCION LAS CASILLAS: Salida(especial), Carcel(especial)
         //PARKING, en este caso siempre va a ser true ya que la recaudacion de impuestos siempre va a ser >=0
@@ -278,20 +278,16 @@ public class Casilla {
                         return true;
                     }      
                 }
-            case "servicio":
-                if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ){
-
-                
-                    if (actual.getFortuna() < this.impuesto) {
-                        System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                        return false;
-                        //Acabaría la partida para este jugador
-                    } else {
-                        actual.setFortuna(actual.getFortuna() - this.impuesto);
-                        this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
-                        System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
-                        return true;
-                    }
+            case "servicio": //NO SE SI HAY QUE HACER LO DE LAS TIRADAS
+                if (actual.getFortuna() < this.impuesto) {
+                    System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                    return false;
+                    //Acabaría la partida para este jugador
+                } else {
+                    actual.setFortuna(actual.getFortuna() - this.impuesto);
+                    this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
+                    System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
+                    return true;
                 }
             case "transporte":
                 if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ){
@@ -378,8 +374,8 @@ public class Casilla {
 
             // JUGADOR SOLICITANTE
 
-            // "quitar dinero"
-            solicitante.setFortuna(solicitante.getFortuna() - this.valor);
+                // "quitar pasta"
+                solicitante.setFortuna(solicitante.getFortuna() - this.valor);
 
             // "sumar gastos"
             solicitante.setGastos(solicitante.getGastos() + this.valor);
