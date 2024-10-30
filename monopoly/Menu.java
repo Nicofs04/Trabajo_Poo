@@ -139,6 +139,17 @@ public class Menu {
         System.out.println("11. Comprar casilla               -> Comando: 'comprar 'nombreCasilla'");
         System.out.println("12. Listar casillas en venta      -> Comando: 'listarenventa'");
         System.out.println("13. Ver tablero                   -> Comando: 'ver'\n");
+        System.out.println("14. Construir un edificio         -> Comando: 'edificar tipoEdificacion'\n");
+        System.out.println("15. Listar edificios construidos  -> Comando: 'listar edificios'\n");
+        System.out.println("16. Listar edificios construidos en grupo        -> Comando: 'listar edificios colorGrupo'\n");
+        System.out.println("17. Hipotecar una propiedad       -> Comando: 'hipotecar nombrePropiedad'\n");
+        System.out.println("18. Declararse en bancarrota      -> Comando: 'bancarrota'\n");
+        System.out.println("19. Deshipotecar una propiedad    -> Comando: 'deshipotecar nombrePropiedad'\n");
+        System.out.println("20. Vender edificios              -> Comando: 'vender tipoEdificacion nombrePropiedad numeroElementosAvender'\n");
+        System.out.println("21. Mostrar estadísticas de un jugador         -> Comando: 'estadisticas nombreJugador'\n");
+        System.out.println("22. Mostrar estadísticas del juego        -> Comando: 'estadisticas'\n");
+        System.out.println("23. Cambiar modo de movimiento de los avatares         -> Comando: 'cambiar modo'\n");
+               
 
         System.out.println("=====================================");
         System.out.println("Selecciona una opción para continuar.");
@@ -346,58 +357,61 @@ public class Menu {
                     if (jugadores.get(turno).getTiradasCarcel() >= 3) {
                         System.out.println("Has fallado 3 veces.");
                         jugadores.get(turno).setEnCarcel(false); // Sale de la cárcel después de pagar
+                    }else{
+                        System.out.println("No puedes moverte porque estás en la cárcel");
                     }
                 setTirado(true);
                 return;
-        }
-    }
-
-    String posicionActual=jugadores.get(turno).getAvatar().getLugar().getNombre();
+            }
+        }else{ //Si el jugador no está en la cárcel
+            String posicionActual=jugadores.get(turno).getAvatar().getLugar().getNombre();
 
     
-    Avatar avatarActual = jugadores.get(turno).getAvatar();
-    avatarActual.moverAvatar(tablero.getPosiciones(), sumaDados);
+            Avatar avatarActual = jugadores.get(turno).getAvatar();
+            avatarActual.moverAvatar(tablero.getPosiciones(), sumaDados);
 
-    String posicionFinal=jugadores.get(turno).getAvatar().getLugar().getNombre();
+            String posicionFinal=jugadores.get(turno).getAvatar().getLugar().getNombre();
 
-    // Verificar si el jugador ha dado la vuelta al tablero
-    if (avatarActual.getLugar().getPosicion() < sumaDados) {
-        if(avatarActual.getLugar().getNombre().equals("ircarcel")){
-            System.out.println("Has caído en la carcel.\n");
-            jugadores.get(turno).encarcelar(tablero.getPosiciones());
-        }else{
-            jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
-            System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.\n");
-            jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); 
-            tablero.calcularCasillas(jugadores);
+            // Verificar si el jugador ha dado la vuelta al tablero
+            if (avatarActual.getLugar().getPosicion() < sumaDados) {
+                if(avatarActual.getLugar().getNombre().equals("ircarcel")){
+                    System.out.println("Has caído en la carcel.\n");
+                    jugadores.get(turno).encarcelar(tablero.getPosiciones());
+                }else{
+                jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
+                System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.\n");
+                jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); 
+                tablero.calcularCasillas(jugadores);
+                }
+            }
+
+            // Evaluar la casilla en la que ha caído
+            jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(jugadores.get(turno), banca, sumaDados);
+
+            setTirado(true); //El jugador ya ha lanzado los dados en este turno
+
+            // Si sacó dobles, puede volver a tirar
+            if (getDadosdobles()) {
+                System.out.println("Has sacado dobles, puedes lanzar de nuevo.");
+                setTirado(false); // Permitir volver a tirar
+                setLanzamientos(getLanzamientos()+1);
+
+                // Si sacó dobles 3 veces, va a la cárcel
+                if (getLanzamientos() == 3) {
+                    System.out.println("Has sacado dobles 3 veces seguidas, vas a la cárcel.");
+                    jugadores.get(turno).encarcelar(tablero.getPosiciones());
+                    setTirado(true);
+                }
+            } else {
+                setLanzamientos(0); // Resetear el contador de lanzamientos dobles
+
+            }
+            //Repintamos el tablero
+            System.out.println(tablero.toString());
+            //Imprimimos el mensaje final:
+            System.out.println("El avatar: "+jugadores.get(turno).getAvatar().getId()+", avanza "+sumaDados+" posiciones, desde "+posicionActual+" hasta "+posicionFinal);    
+
         }
-    }
-
-    // Evaluar la casilla en la que ha caído
-    jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(jugadores.get(turno), banca, sumaDados);
-
-    setTirado(true); //El jugador ya ha lanzado los dados en este turno
-
-    // Si sacó dobles, puede volver a tirar
-    if (getDadosdobles()) {
-        System.out.println("Has sacado dobles, puedes lanzar de nuevo.");
-        setTirado(false); // Permitir volver a tirar
-        setLanzamientos(getLanzamientos()+1);
-
-        // Si sacó dobles 3 veces, va a la cárcel
-        if (getLanzamientos() == 3) {
-            System.out.println("Has sacado dobles 3 veces seguidas, vas a la cárcel.");
-            jugadores.get(turno).encarcelar(tablero.getPosiciones());
-            setTirado(true);
-        }
-    } else {
-        setLanzamientos(0); // Resetear el contador de lanzamientos dobles
-
-    }
-    //Repintamos el tablero
-    System.out.println(tablero.toString());
-    //Imprimimos el mensaje final:
-    System.out.println("El avatar: "+jugadores.get(turno).getAvatar().getId()+", avanza "+sumaDados+" posiciones, desde "+posicionActual+" hasta "+posicionFinal);
 
     
 }
@@ -493,8 +507,13 @@ public class Menu {
     }
 
     private void edificarCasa(){
-
-
+        if(tirado){
+        //Actualizacion de fortuna del jugador
+                
+        }else{
+            System.out.println("Primero debes tirar los dados");
+        }
+        
     }
     private void edificarHotel(){
 
