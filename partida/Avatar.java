@@ -28,6 +28,7 @@ public class Avatar {
         this.lugar = lugar;
         generarId(avCreados);
         avCreados.add(this);
+        lugar.anhadirAvatar(this);
     }
 
     // GETTERS
@@ -65,6 +66,9 @@ public class Avatar {
     public void setLugar(Casilla LUGAR) {
         this.lugar = LUGAR;
     }
+    public void setJugador(Jugador jugador){
+        this.jugador=jugador;
+    }
 
     // Método que permite mover a un avatar a una casilla concreta.
     public void moverAvatar(ArrayList<ArrayList<Casilla>> tablero, int valorTirada){
@@ -74,6 +78,13 @@ public class Avatar {
     
         // Calcula la nueva posición después de mover
         int nuevaPosicion = (posicionActual + valorTirada) % 40; // Usar el módulo para asegurarte de que vuelva al inicio si excede 39
+        lugar.eliminarAvatar(this);
+
+        if (nuevaPosicion == 30) {
+            System.out.println("Has caído en la carcel.\n");
+            lugar=tablero.get(1).get(0);
+            
+        }else{
 
         //Iteramos sobre los lados del tablero con el indice i y sobre las casillas de cada lado con el indice j:
         for(int i=0;i<tablero.size();i++){
@@ -83,6 +94,9 @@ public class Avatar {
                 }
             }
         }
+    }
+        lugar.anhadirAvatar(this);
+        
     }
 
     /*

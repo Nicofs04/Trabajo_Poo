@@ -3,7 +3,7 @@ package monopoly;
 
 public class Valor {
     //Se incluyen una serie de constantes útiles para no repetir valores.
-    public static final float FORTUNA_BANCA = 50000;
+    public static final float FORTUNA_BANCA = 500000000;
     public static final float FORTUNA_INICIAL = 9543076.28f; // Cantidad que recibe cada jugador al comenzar la partida
     public static final float SUMA_VUELTA = 1301328.584f; // Cantidad que recibe un jugador al pasar pos la Salida
     
