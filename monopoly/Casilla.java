@@ -278,7 +278,6 @@ public class Casilla {
                         return true;
                     }      
                 }
-<<<<<<< HEAD
             case "servicio": //NO SE SI HAY QUE HACER LO DE LAS TIRADAS
                 if (actual.getFortuna() < this.impuesto) {
                     System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
@@ -289,22 +288,6 @@ public class Casilla {
                     this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
                     System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
                     return true;
-=======
-            case "servicio":
-                if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ){
-
-                
-                    if (actual.getFortuna() < this.impuesto) {
-                        System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                        return false;
-                        //Acabaría la partida para este jugador
-                    } else {
-                        actual.setFortuna(actual.getFortuna() - this.impuesto);
-                        this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
-                        System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
-                        return true;
-                    }
->>>>>>> origin/main
                 }
             case "transporte":
                 if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ){
@@ -391,13 +374,8 @@ public class Casilla {
 
             // JUGADOR SOLICITANTE
 
-<<<<<<< HEAD
                 // "quitar pasta"
                 solicitante.setFortuna(solicitante.getFortuna() - this.valor);
-=======
-            // "quitar dinero"
-            solicitante.setFortuna(solicitante.getFortuna() - this.valor);
->>>>>>> origin/main
 
             // "sumar gastos"
             solicitante.setGastos(solicitante.getGastos() + this.valor);
