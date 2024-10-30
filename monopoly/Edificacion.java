@@ -7,10 +7,13 @@ public class Edificacion {
     private String tipo;
     private Casilla casilla;
 
+    
+
     public Edificacion(Casilla casilla,String tipo){
 
         this.casilla = casilla;
         this.tipo = tipo;
+        
         
     }
 
@@ -29,8 +32,6 @@ public class Edificacion {
     public void setTipo(String tipo){
         this.tipo=tipo;
     }
-
-    
     
 
 

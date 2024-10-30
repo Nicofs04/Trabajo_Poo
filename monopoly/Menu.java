@@ -19,6 +19,7 @@ public class Menu {
     private boolean tirado; //Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
     private boolean dadosdobles;
+    
 
     public Menu(){
         this.jugadores = new ArrayList<Jugador>();
@@ -136,19 +137,19 @@ public class Menu {
         System.out.println("8. Describir casilla              -> Comando: 'describir nombreCasilla'");
         System.out.println("9. Describir jugador              -> Comando: 'describir jugador nombreJugador'");
         System.out.println("10. Describir avatar              -> Comando: 'describir avatar idAvatar'");
-        System.out.println("11. Comprar casilla               -> Comando: 'comprar nombreCasilla'");
+        System.out.println("11. Comprar casilla               -> Comando: 'comprar 'nombreCasilla'");
         System.out.println("12. Listar casillas en venta      -> Comando: 'listarenventa'");
-        System.out.println("13. Ver tablero                   -> Comando: 'ver'");
-        System.out.println("14. Construir un edificio         -> Comando: 'edificar tipoEdificacion'");
-        System.out.println("15. Listar edificios construidos  -> Comando: 'listar edificios'");
-        System.out.println("16. Listar edificios construidos en grupo        -> Comando: 'listar edificios colorGrupo'");
-        System.out.println("17. Hipotecar una propiedad       -> Comando: 'hipotecar nombrePropiedad'");
-        System.out.println("18. Declararse en bancarrota      -> Comando: 'bancarrota'");
-        System.out.println("19. Deshipotecar una propiedad    -> Comando: 'deshipotecar nombrePropiedad'");
-        System.out.println("20. Vender edificios              -> Comando: 'vender tipoEdificacion nombrePropiedad numeroElementosAvender'");
-        System.out.println("21. Mostrar estadísticas de un jugador         -> Comando: 'estadisticas nombreJugador'");
-        System.out.println("22. Mostrar estadísticas del juego        -> Comando: 'estadisticas'");
-        System.out.println("23. Cambiar modo de movimiento de los avatares         -> Comando: 'cambiar modo'");
+        System.out.println("13. Ver tablero                   -> Comando: 'ver'\n");
+        System.out.println("14. Construir un edificio         -> Comando: 'edificar tipoEdificacion'\n");
+        System.out.println("15. Listar edificios construidos  -> Comando: 'listar edificios'\n");
+        System.out.println("16. Listar edificios construidos en grupo        -> Comando: 'listar edificios colorGrupo'\n");
+        System.out.println("17. Hipotecar una propiedad       -> Comando: 'hipotecar nombrePropiedad'\n");
+        System.out.println("18. Declararse en bancarrota      -> Comando: 'bancarrota'\n");
+        System.out.println("19. Deshipotecar una propiedad    -> Comando: 'deshipotecar nombrePropiedad'\n");
+        System.out.println("20. Vender edificios              -> Comando: 'vender tipoEdificacion nombrePropiedad numeroElementosAvender'\n");
+        System.out.println("21. Mostrar estadísticas de un jugador         -> Comando: 'estadisticas nombreJugador'\n");
+        System.out.println("22. Mostrar estadísticas del juego        -> Comando: 'estadisticas'\n");
+        System.out.println("23. Cambiar modo de movimiento de los avatares         -> Comando: 'cambiar modo'\n");
                
 
         System.out.println("=====================================");
@@ -194,6 +195,7 @@ public class Menu {
                 System.out.println("Comando incompleto o incorrecto para crear jugador.\n");
             }
             break;
+    
         case "jugador":
             if(jugadores.size()>0){
                 System.out.println("Nombre:"+jugadores.get(turno).getNombre());
@@ -209,16 +211,11 @@ public class Menu {
                     listarJugadores();
                 } else if (palabras[1].equals("avatares")) {
                     listarAvatares();
-                }else if(palabras[1].equals("edificios")){
-                    //Completar con listarEdificios
-                    listarEdificios();
-                }else if(palabras.length==2){
-                    listarEdificiosGrupo();
-
-                }else{
-                System.out.println("Error, comando desconocido.\n");
-                
+                } else {
+                    System.out.println("Error, comando desconocido.\n");
                 }
+            } else {
+                System.out.println("Error, comando desconocido.\n");
             }
             break;
         case "lanzar":
@@ -277,67 +274,7 @@ public class Menu {
         case "ver":
             System.out.println(tablero.toString());
             break;
-        case "edificar":
-            if(palabras.length==2){
-                String tipoEdificacion=palabras[1];
-                if(tipoEdificacion.equals("casa")){
-                    edificarCasa();
-                }else if(tipoEdificacion.equals("hotel")){
-                    edificarHotel();
-                }else if(tipoEdificacion.equals("piscina")){
-                    edificarPiscina();
 
-                }else if(tipoEdificacion.equals("deporte")){
-                    edificarDeporte();
-                }
-            }
-            break;
-        case "hipotecar":
-            if(palabras.length==2){
-                hipotecar();
-
-            }else{
-                System.out.println("Error, comando desconocido");
-            }
-            break;
-        case "bancarrota":
-            bancarrota();
-
-            break;
-        case "deshipotecar":
-            if(palabras.length==2){
-                deshipotecar();
-            }else{
-                System.out.println("Error, comando desconocido");
-            }
-            break;    
-        case "vender":
-            if(palabras.length==4){
-                venderEdificios();
-            }else{
-                System.out.println("Error, comando desconocido");
-
-            }
-
-            break;
-        case "estadisticas":
-            if(palabras.length==1){
-                estadisticasJuego();
-            }else if(palabras.length==2){
-                estadisticasJugador();
-            }else{
-                System.out.println("Error, comando desconocido");
-            }
-        case "cambiar":
-            if(palabras.length==2){
-                cambiarModoMovimiento();
-            }else{
-                System.out.println("Error, comando desconocido");
-
-            }
-
-
-            break;
         default:
             System.out.println("Error, comando desconocido.\n");
             break;
@@ -570,91 +507,51 @@ public class Menu {
         
     }
 
-
-    private void listarEdificios(){
-
-
-
-    }
-
-    private void listarEdificiosGrupo(){
-
-
-
-
-    }
-
     private void edificarCasa(){
-
-
+        Edificacion casa = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "casa");
+        
+        
+        
+        if(tirado){
+        
+                
+        }else{
+            System.out.println("Primero debes tirar los dados");
+        }
+        
     }
-
     private void edificarHotel(){
+        
+        Edificacion hotel = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "hotel");
+        int contarcasas=0;
 
+        for(Edificacion edificacion : jugadores.get(turno).getAvatar().getLugar().getEdificacion()){
+            if (edificacion.getTipo().equals("casa")) {
+                contarcasas++;
+            }
+        }
 
-    }
-
-    private void edificarPiscina(){
-
-
-    }
-
-    private void edificarDeporte(){
-
-
-    }
-
-    private void hipotecar(){
-
-
-    }
-
-    private void bancarrota(){
-
-
-    }
-
-    private void deshipotecar(){
-
-
-    }
-
-    private void venderEdificios(){
-
-    }
-
-    private void estadisticasJugador(){
-
-
-
-    }
-
-    private void estadisticasJuego(){
-
-
-    }
-
-    private void cambiarModoMovimiento(){
-
-
-    }
-
-
-    private void barajar(){
-
-
-    }
-
-    private void elegirCarta(){
-
-
-    }
-
+            
+        }
     
-    private void realizarAccion(){
+
+    private void edificarPiscina(){}
+    private void edificarPista(){
+        Edificacion pista = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "pista");
 
         
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
