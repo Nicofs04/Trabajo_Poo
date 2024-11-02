@@ -21,6 +21,7 @@ public class Casilla {
     private ArrayList<Avatar> avatares; // Avatares que están situados en la casilla.
 
     private ArrayList<ArrayList<Casilla>> tablero; // TABLERO, NECESARIO PARA LA FUNCION EVALUARCASILLA
+    private ArrayList<Edificacion> edificaciones;
 
     // Constructores:
     public Casilla() {
@@ -38,6 +39,7 @@ public class Casilla {
         this.valor = valor;
         this.duenho = duenho;
         this.avatares = new ArrayList<>();
+        this.edificaciones = new ArrayList<Edificacion>();
         this.impuesto = (valor)*(0.10f);
     }
 
@@ -143,6 +145,14 @@ public class Casilla {
     public void setTablero(ArrayList<ArrayList<Casilla>> tablero) { 
                                                     
         this.tablero= tablero;
+    }
+
+    public void anhadirEdificacion(Edificacion edificacion){
+        this.edificaciones.add(edificacion);
+    }
+
+    public ArrayList<Edificacion> getEdificacion(){
+        return this.edificaciones;
     }
 
     //Devuelve el valor que se le suma a los jugadores por pasar por la casilla de salida
@@ -538,7 +548,113 @@ public class Casilla {
         Collections.shuffle(baraja);
     }
 
+
+
+
+public int contarCasas(){
+    int contador=0;
+    for (Edificacion edificacion: edificaciones){
+        if(edificacion.getTipo().equals("casa")){
+            contador++;
+        }
+    }
+    return contador;
 }
+
+public int contarHoteles(){
+    int contador=0;
+    for (Edificacion edificacion: edificaciones){
+        if(edificacion.getTipo().equals("hotel")){
+            contador++;
+        }
+    }
+    return contador;
+}
+
+public int contarPiscinas(){
+    int contador=0;
+    for (Edificacion edificacion: edificaciones){
+        if(edificacion.getTipo().equals("piscinas")){
+            contador++;
+        }
+    }
+    return contador;
+}
+
+public int contarPistas(){
+    int contador=0;
+    for (Edificacion edificacion: edificaciones){
+        if(edificacion.getTipo().equals("pistas")){
+            contador++;
+        }
+    }
+    return contador;
+}
+
+
+
+
+public float sumarImpuestoedificios(){
+
+    float suma=0;
+    int casas=0,hotel=0,piscina=0,pista=0;
+
+    for(Edificacion edificacion: edificaciones){
+        casas = contarCasas();
+        hotel=contarHoteles();
+        piscina=contarPiscinas();
+        pista=contarPistas();
+    }
+            if (casas==1) {
+                suma += this.impuesto*5;
+            }
+            else if (casas==2) {
+                suma += this.impuesto*15;
+            }
+            else if (casas==3) {
+                suma += this.impuesto*35;
+            }
+            else if (casas==4) {
+                suma += this.impuesto*50;
+            }
+            if (hotel==1) {
+                suma+=this.impuesto*70;
+            }
+            else if (hotel==2) {
+                suma+=this.impuesto*140;
+            }
+            else if (hotel==3){
+                suma+=this.impuesto*210;
+            }
+            if (piscina==1) {
+                suma+=this.impuesto*25;
+            }
+            else if (piscina==2) {
+                suma+=this.impuesto*50;
+            }
+            else if (piscina==3){
+                suma+=this.impuesto*150;
+            }
+            if (pista==1) {
+                suma+=this.impuesto*25;
+            }
+            else if (pista==2){
+                suma+=this.impuesto*50;
+            }
+            else if (pista==3){
+                suma+=this.impuesto*150;
+            }
+
+            return suma;
+    }
+
+
+}
+
+
+
+
+
 
 
 
