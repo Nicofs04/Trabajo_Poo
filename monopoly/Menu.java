@@ -530,6 +530,9 @@ public class Menu {
                 contarcasas++;
             }
         }
+        if (contarcasas<=4) {
+            System.out.println("No puedes edificar un hotel hasta que tengas construidas al menos 4 casas");
+        }
 
             
         }

@@ -482,8 +482,6 @@ public class Casilla {
             }
         }
         
-
-
         String color = "";
             if (this.getGrupo() != null) {
                 String colorGrupo = this.getGrupo().getColorGrupo(); 
@@ -518,7 +516,6 @@ public class Casilla {
         }
     }
 
-
         String representacionCasilla;
 
         if (this.getGrupo() == null) {
@@ -526,10 +523,7 @@ public class Casilla {
         }else{
     
             representacionCasilla = String.format("%s%-10s%s%5s",color,this.getNombre(),Valor.RESET,sb);
-        }
-
-        
-        
+        }   
         return representacionCasilla;
     }
 
@@ -547,9 +541,6 @@ public class Casilla {
     public void barajar(ArrayList<Integer> baraja){
         Collections.shuffle(baraja);
     }
-
-
-
 
 public int contarCasas(){
     int contador=0;
@@ -591,14 +582,9 @@ public int contarPistas(){
     return contador;
 }
 
-
-
-
 public float sumarImpuestoedificios(){
-
     float suma=0;
     int casas=0,hotel=0,piscina=0,pista=0;
-
     for(Edificacion edificacion: edificaciones){
         casas = contarCasas();
         hotel=contarHoteles();
@@ -617,37 +603,17 @@ public float sumarImpuestoedificios(){
             else if (casas==4) {
                 suma += this.impuesto*50;
             }
-            if (hotel==1) {
-                suma+=this.impuesto*70;
+            if (hotel >= 1) {
+                suma += this.impuesto * 70 * hotel;
             }
-            else if (hotel==2) {
-                suma+=this.impuesto*140;
+            if (piscina >= 1) {
+                suma += this.impuesto * 25 * piscina;
             }
-            else if (hotel==3){
-                suma+=this.impuesto*210;
+            if (pista >= 1) {
+                suma += this.impuesto * 25 * pista;
             }
-            if (piscina==1) {
-                suma+=this.impuesto*25;
-            }
-            else if (piscina==2) {
-                suma+=this.impuesto*50;
-            }
-            else if (piscina==3){
-                suma+=this.impuesto*150;
-            }
-            if (pista==1) {
-                suma+=this.impuesto*25;
-            }
-            else if (pista==2){
-                suma+=this.impuesto*50;
-            }
-            else if (pista==3){
-                suma+=this.impuesto*150;
-            }
-
             return suma;
     }
-
 
 }
 
