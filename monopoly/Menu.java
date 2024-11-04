@@ -362,6 +362,7 @@ public class Menu {
 
                 //Repintamos el tablero
                 System.out.println(tablero.toString());
+
                 //Imprimimos el mensaje final:
                 System.out.println("El avatar: "+jugadores.get(turno).getAvatar().getId()+", avanza "+sumaDados+" posiciones, desde "+posicionActual+" hasta "+posicionFinal);    
 
@@ -369,7 +370,22 @@ public class Menu {
                 jugadores.get(turno).setTiradasCarcel(jugadores.get(turno).getTiradasCarcel() + 1);
                     if (jugadores.get(turno).getTiradasCarcel() >= 3) {
                         System.out.println("Has fallado 3 veces.");
+
                         jugadores.get(turno).setEnCarcel(false);
+                        
+                        //Calculamos la posición inicial
+                        String posicionActual = jugadores.get(turno).getAvatar().getLugar().getNombre();
+                        jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
+
+                        //Calculamos la posición final
+                        String posicionFinal = jugadores.get(turno).getAvatar().getLugar().getNombre();
+
+                        //Repintamos el tablero
+                        System.out.println(tablero.toString());
+
+                        
+                        //Imprimimos el mensaje final:
+                        System.out.println("El avatar: "+jugadores.get(turno).getAvatar().getId()+", avanza "+sumaDados+" posiciones, desde "+posicionActual+" hasta "+posicionFinal);
                     }else{
                         System.out.println("No puedes moverte porque estás en la cárcel");
                     }

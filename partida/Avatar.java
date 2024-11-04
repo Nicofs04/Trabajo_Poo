@@ -80,11 +80,11 @@ public class Avatar {
         int nuevaPosicion = (posicionActual + valorTirada) % 40; // Usar el módulo para asegurarte de que vuelva al inicio si excede 39
         lugar.eliminarAvatar(this);
 
-        if (nuevaPosicion == 30) {
+        /*if (nuevaPosicion == 30) {
             System.out.println("Has caído en la carcel.\n");
             lugar=tablero.get(1).get(0);
             
-        }else{
+        }else{*/
 
         //Iteramos sobre los lados del tablero con el indice i y sobre las casillas de cada lado con el indice j:
         for(int i=0;i<tablero.size();i++){
@@ -94,7 +94,7 @@ public class Avatar {
                 }
             }
         }
-    }
+    //}
         lugar.anhadirAvatar(this);
         
     }

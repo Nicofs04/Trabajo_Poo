@@ -159,4 +159,5 @@ public class Jugador {
         this.avatar.setLugar(carcel);
         carcel.anhadirAvatar(this.avatar); //añadimos el avatar al array de avatares en cárcel
     }
+
 }
