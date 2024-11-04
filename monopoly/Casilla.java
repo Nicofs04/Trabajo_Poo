@@ -318,7 +318,7 @@ public class Casilla {
             case "suerte":
                 //Barajar cartas
                 ArrayList<Integer> baraja=new ArrayList<Integer>();
-                baraja=generarArrayBaraja();
+                //baraja=generarArrayBaraja();
 
 
                 //Elegir carta

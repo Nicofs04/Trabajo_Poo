@@ -394,12 +394,12 @@ public class Menu {
             }
         }else{ //Si el jugador no está en la cárcel
             String posicionActual=jugadores.get(turno).getAvatar().getLugar().getNombre();
+            int pos_ini = jugadores.get(turno).getAvatar().getLugar().getPosicion();
 
     
             Avatar avatarActual = jugadores.get(turno).getAvatar();
             avatarActual.moverAvatar(tablero.getPosiciones(), sumaDados);
 
-            String posicionFinal=jugadores.get(turno).getAvatar().getLugar().getNombre();
 
             
             // Evaluar la casilla en la que ha caído
@@ -413,10 +413,12 @@ public class Menu {
                     jugadores.get(turno).encarcelar(tablero.getPosiciones());
                 }else{*/
                     jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
+
                     System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.\n");
+
                     jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); 
-                    tablero.calcularCasillas(jugadores);
-                
+                    
+                    tablero.calcularCasillas(jugadores); //calculamos el nuevo valor que reciben los jugadores al pasar por la casilla inicio
             }
 
 
@@ -424,7 +426,6 @@ public class Menu {
 
             // Si sacó dobles, puede volver a tirar
             if (getDadosdobles()) {
-                System.out.println("Has sacado dobles, puedes lanzar de nuevo.");
                 setTirado(false); // Permitir volver a tirar
                 setLanzamientos(getLanzamientos()+1);
 
@@ -433,15 +434,29 @@ public class Menu {
                     System.out.println("Has sacado dobles 3 veces seguidas, vas a la cárcel.");
                     jugadores.get(turno).encarcelar(tablero.getPosiciones());
                     setTirado(true);
+                }else{
+                    System.out.println("Has sacado dobles, puedes lanzar de nuevo.");
                 }
-                } else {
-                    setLanzamientos(0); // Resetear el contador de lanzamientos dobles
-
+            } else {
+                setLanzamientos(0); // Resetear el contador de lanzamientos dobles
             }
+            
+            String posicionFinal=jugadores.get(turno).getAvatar().getLugar().getNombre(); //definimos aquí la posiciónFinal por si el jugador va a la cárcel
+
+            
+            int pos_fin = jugadores.get(turno).getAvatar().getLugar().getPosicion();
+            int num_casillas;
+            //calculamos las casillas avanzadas
+            if(pos_ini < pos_fin){
+                num_casillas = pos_fin - pos_ini;
+            }else{ //si pasamos la casilla inicio
+                num_casillas = (40 - pos_ini) + pos_fin; //40 es el num total de casillas, a este num le restamos la posición inicial para saber cuantas casillas nos quedaban hasta la casilla inicio y, después le sumamos las que avanzamos desde la casilla inicio
+            }
+
             //Repintamos el tablero
             System.out.println(tablero.toString());
             //Imprimimos el mensaje final:
-            System.out.println("El avatar: "+jugadores.get(turno).getAvatar().getId()+", avanza "+sumaDados+" posiciones, desde "+posicionActual+" hasta "+posicionFinal);    
+            System.out.println("El avatar: "+jugadores.get(turno).getAvatar().getId()+", avanza "+num_casillas+" posiciones, desde "+posicionActual+" hasta "+posicionFinal);    
 
         }
 
