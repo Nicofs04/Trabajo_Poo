@@ -19,7 +19,6 @@ public class Menu {
     private boolean tirado; //Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
     private boolean dadosdobles;
-    
 
     public Menu(){
         this.jugadores = new ArrayList<Jugador>();
@@ -352,12 +351,25 @@ public class Menu {
         if (jugadores.get(turno).getEnCarcel()) {
             if (getDadosdobles()) {
                 System.out.println("Has sacado dobles y sales de la cárcel.");
+
                 jugadores.get(turno).setEnCarcel(false);
+
+                String posicionActual = jugadores.get(turno).getAvatar().getLugar().getNombre();
+                
+                jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
+
+                String posicionFinal = jugadores.get(turno).getAvatar().getLugar().getNombre();
+
+                //Repintamos el tablero
+                System.out.println(tablero.toString());
+                //Imprimimos el mensaje final:
+                System.out.println("El avatar: "+jugadores.get(turno).getAvatar().getId()+", avanza "+sumaDados+" posiciones, desde "+posicionActual+" hasta "+posicionFinal);    
+
             } else {
                 jugadores.get(turno).setTiradasCarcel(jugadores.get(turno).getTiradasCarcel() + 1);
                     if (jugadores.get(turno).getTiradasCarcel() >= 3) {
                         System.out.println("Has fallado 3 veces.");
-                        jugadores.get(turno).setEnCarcel(false); // Sale de la cárcel después de pagar
+                        jugadores.get(turno).setEnCarcel(false);
                     }else{
                         System.out.println("No puedes moverte porque estás en la cárcel");
                     }
@@ -373,21 +385,24 @@ public class Menu {
 
             String posicionFinal=jugadores.get(turno).getAvatar().getLugar().getNombre();
 
+            
+            // Evaluar la casilla en la que ha caído
+            jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero, jugadores.get(turno), banca, sumaDados);
+
             // Verificar si el jugador ha dado la vuelta al tablero
             if (avatarActual.getLugar().getPosicion() < sumaDados) {
-                if(avatarActual.getLugar().getNombre().equals("ircarcel")){
+                //if(avatarActual.getLugar().getNombre().equals("ircarcel")){
+                /*if(avatarActual.getLugar().getPosicion() == 30){
                     System.out.println("Has caído en la carcel.\n");
                     jugadores.get(turno).encarcelar(tablero.getPosiciones());
-                }else{
-                jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
-                System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.\n");
-                jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); 
-                tablero.calcularCasillas(jugadores);
-                }
+                }else{*/
+                    jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
+                    System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.\n");
+                    jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); 
+                    tablero.calcularCasillas(jugadores);
+                
             }
 
-            // Evaluar la casilla en la que ha caído
-            jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(jugadores.get(turno), banca, sumaDados);
 
             setTirado(true); //El jugador ya ha lanzado los dados en este turno
 
@@ -403,8 +418,8 @@ public class Menu {
                     jugadores.get(turno).encarcelar(tablero.getPosiciones());
                     setTirado(true);
                 }
-            } else {
-                setLanzamientos(0); // Resetear el contador de lanzamientos dobles
+                } else {
+                    setLanzamientos(0); // Resetear el contador de lanzamientos dobles
 
             }
             //Repintamos el tablero
@@ -435,13 +450,15 @@ public class Menu {
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
     private void salirCarcel() {
         //Si el jugador está en la cárcel
-        if(jugadores.get(turno).getAvatar().getLugar().getNombre()=="carcel"){
-            jugadores.get(turno).setEnCarcel(false);
+        //if(jugadores.get(turno).getAvatar().getLugar().getNombre()=="carcel"){
+        if(jugadores.get(turno).getAvatar().getLugar().getPosicion() == 10){
             //Si está en la cárcel y además le llega el dinero:
             if(jugadores.get(turno).getFortuna()>=jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())){
                 jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones()));
+                jugadores.get(turno).setEnCarcel(false);
             }else{
                 System.out.println("No tienes dinero suficiente para salir de la cárcel.");
+                //falta poner que pierde la partida
             }
         }else{
             //Si el jugador no está en la cárcel
@@ -508,12 +525,8 @@ public class Menu {
     }
 
     private void edificarCasa(){
-        Edificacion casa = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "casa");
-        
-        
-        
         if(tirado){
-        
+        //Actualizacion de fortuna del jugador
                 
         }else{
             System.out.println("Primero debes tirar los dados");
@@ -521,30 +534,13 @@ public class Menu {
         
     }
     private void edificarHotel(){
-        
-        Edificacion hotel = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "hotel");
-        int contarcasas=0;
-
-        for(Edificacion edificacion : jugadores.get(turno).getAvatar().getLugar().getEdificacion()){
-            if (edificacion.getTipo().equals("casa")) {
-                contarcasas++;
-            }
-        }
-        if (contarcasas<=4) {
-            System.out.println("No puedes edificar un hotel hasta que tengas construidas al menos 4 casas");
-        }
-
-            
-        }
-    
-
-    private void edificarPiscina(){}
-    private void edificarPista(){
-        Edificacion pista = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "pista");
 
         
     }
+    private void edificarPiscina(){
 
+        
+    }
 
 
 
