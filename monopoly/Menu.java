@@ -539,10 +539,13 @@ public class Menu {
         setDadosdobles(false);
         
     }
-
     private void edificarCasa(){
+        Edificacion casa = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "casa");
+        
+        
+        
         if(tirado){
-        //Actualizacion de fortuna del jugador
+        
                 
         }else{
             System.out.println("Primero debes tirar los dados");
@@ -550,20 +553,29 @@ public class Menu {
         
     }
     private void edificarHotel(){
+        
+        Edificacion hotel = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "hotel");
+        int contarcasas=0;
+
+        for(Edificacion edificacion : jugadores.get(turno).getAvatar().getLugar().getEdificacion()){
+            if (edificacion.getTipo().equals("casa")) {
+                contarcasas++;
+            }
+        }
+        if (contarcasas<=4) {
+            System.out.println("No puedes edificar un hotel hasta que tengas construidas al menos 4 casas");
+        }
+
+            
+        }
+    
+
+    private void edificarPiscina(){}
+    private void edificarPista(){
+        Edificacion pista = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "pista");
 
         
     }
-    private void edificarPiscina(){
-
-        
-    }
-
-
-
-
-
-
-
 
 
 
