@@ -642,6 +642,38 @@ public void hipotecarPropiedad(Casilla casilla){
     casilla.setHipotecado(true);
 }
 
+public float valorHipoteca(Casilla casilla){
+    float valor;
+    switch (casilla.getGrupo().getColorGrupo()) {
+        case "BLACK":
+            valor = 600000;
+            break;
+        case "CYAN":
+            valor = 520000;
+            break;
+        case "PURPLE":
+            valor = 676000;
+            break;
+        case "WHITE":
+            break;
+        case "GREEN":
+            
+            break;
+        case "BLUE":
+            
+            break;
+        case "RED":
+            
+            break;
+        case "YELLOW":
+            
+            break;
+    
+        default:
+            break;
+    }
+}
+
 public void Hacienda(Jugador jugador, Tablero tablero){
     
     if((!jugador.getPropiedades().isEmpty())){ //mientras el jugador tenga propiedades
