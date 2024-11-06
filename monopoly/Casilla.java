@@ -610,6 +610,18 @@ public class Casilla {
 
     }
 
+    public void cambiarcasas(){
+        int casa = contarCasas();
+        if (casa==4) {
+            for (Edificacion edificacion: edificaciones){
+                if (edificacion.getTipo().equals("casa")) {
+                    edificaciones.remove(edificacion);
+                }
+            }
+        }
+    }
+    
+    
     public int contarCasas(){
     int contador=0;
     for (Edificacion edificacion: edificaciones){
@@ -681,5 +693,35 @@ public class Casilla {
         }
         return suma;
         }
-
+        public void hipetecarPropiedad(Jugador jugador){
+    
+        }
+        
+        public void Hacienda(Jugador jugador, Tablero tablero){
+            
+            while((jugador.getFortuna() < 0) && (!jugador.getPropiedades().isEmpty())){ //mientras el jugador tenga deudas y propiedades
+        
+                System.out.println("Que casilla desea hipotecar?");
+                Scanner scanner = new Scanner(System.in);
+                String nombre = scanner.nextLine();
+        
+            if(tablero.encontrar_casilla(nombre) == null){ //verificamos que la casilla exista
+                    System.out.println("No se ha podido encontrar la casilla\n");
+                }else{
+                    for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
+                        if (casilla.getNombre().equals(nombre)){
+                            if(jugador.getAvatar().getLugar().getEdificacion().isEmpty()){ //verificamos que no tenga edificaciones en la casilla
+                                
+                            }else{
+                                System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla\n");
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        
+        
+        
+        }
 }
