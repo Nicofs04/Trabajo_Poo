@@ -689,6 +689,98 @@ public class Menu {
 }
 
 
+    //Ordenamos aleatoriamente esos números en el array de enteros
+    public void barajar(ArrayList<Integer> baraja){
+        Collections.shuffle(baraja);
+    }
+
+    public int elegirCarta() {
+        int num = 0; // Inicializar 'num' para que no haya error en la primera comprobación
+        Scanner scanner = new Scanner(System.in);
+
+        // Bucle que se repetirá hasta que el usuario ingrese un número válido
+        while (num < 1 || num > 6) {
+            System.out.println("Introduce un número del 1 al 6:");
+            if (scanner.hasNextInt()) { // Verificar que la entrada sea un entero
+                num = scanner.nextInt();
+            } else {
+                System.out.println("Entrada no válida. Por favor, introduce un número.");
+                scanner.next(); // Limpiar la entrada inválida del escáner
+            }
+        }
+        return num;
+    }
+
+    //Implementa la accion según el tipo de carta que sea y según la carta que sea dentro de cada tipo
+    public void accionCarta(String tipo,int num){
+        switch (tipo) {
+            case "suerte":
+                switch (num) {
+                    //Moverse a trans1 y cobrar la salida si pasamos por ella
+                    case 1 :
+                        System.out.println("Coges una avion a trans1");
+                        int tirada1=Math.abs(this.jugadores.get(turno).getAvatar().getLugar().getPosicion()-5);
+                        int posicion=jugadores.get(turno).getAvatar().getLugar().getPosicion();
+                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada1);
+                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada1);
+                        //Si pasa por la casilla de salida le sumamos el valor:
+                        if(posicion>5 || posicion<0){
+                            jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                            System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+
+                        }
+                        break;
+                    //Moverse a solar15 sin cobrar la salida aunque pasemos por ella
+                    case 2:
+                        System.out.println("");
+                        int tirada2=Math.abs(this.jugadores.get(turno).getAvatar().getLugar().getPosicion()-26);
+                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada2);
+                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada2);
+                
+                        
+                        break;
+                    //Se vende el billete de avion a solar 17, por lo que se reciben 500000€
+                    case 3:
+                        System.out.println("Billete de avión para solar 17 vendido por 500000€");
+                        this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna()+500000f);
+                        break;
+                    case 4:
+
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    default:
+                        break;
+                }
+                
+                break;
+            case "caja":
+            switch (num) {
+                case 1 :
+                    break;
+                case 2:
+                    break;  
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                default:
+                    break;
+            }
+
+            default:
+                break;
+        }
+
+    }
+
+
 
 
 
