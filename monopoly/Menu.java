@@ -703,7 +703,7 @@ public class Menu {
         return num;
     }
 
-    //Implementa la accion según el tipo de carta que sea y según la carta que sea dentro de cada tipo
+    //Implementa la accion según el tipo de carta que sea y según la carta que sea dentro de cada tipo.
     public void accionCarta(String tipo,int num){
         switch (tipo) {
             case "suerte":
