@@ -465,7 +465,6 @@ public class Casilla {
 
     public String generarCasilla() {
         
-        
         StringBuilder sb = new StringBuilder();
         
         if (!avatares.isEmpty()){
@@ -475,8 +474,6 @@ public class Casilla {
                   sb.append(avatar.getId());
             }
         }
-        
-
 
         String color = "";
             if (this.getGrupo() != null) {
@@ -522,8 +519,6 @@ public class Casilla {
             representacionCasilla = String.format("%s%-10s%s%5s",color,this.getNombre(),Valor.RESET,sb);
         }
 
-        
-        
         return representacionCasilla;
     }
 
@@ -542,6 +537,20 @@ public class Casilla {
         Collections.shuffle(baraja);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public int contarCasas(){
     int contador=0;
     for (Edificacion edificacion: edificaciones){
@@ -550,68 +559,101 @@ public class Casilla {
         }
     }
     return contador;
+}
+
+public int contarHoteles(){
+    int contador=0;
+    for (Edificacion edificacion: edificaciones){
+        if(edificacion.getTipo().equals("hotel")){
+            contador++;
+        }
+    }
+    return contador;
+}
+
+public int contarPiscinas(){
+    int contador=0;
+    for (Edificacion edificacion: edificaciones){
+        if(edificacion.getTipo().equals("piscinas")){
+            contador++;
+        }
+    }
+    return contador;
+}
+
+public int contarPistas(){
+    int contador=0;
+    for (Edificacion edificacion: edificaciones){
+        if(edificacion.getTipo().equals("pistas")){
+            contador++;
+        }
+    }
+    return contador;
+}
+
+public float sumarImpuestoedificios(){
+    float suma=0;
+    int casas=0,hotel=0,piscina=0,pista=0;
+    casas = contarCasas();
+    hotel=contarHoteles();
+    piscina=contarPiscinas();
+    pista=contarPistas();
+    
+    if (casas==1) {
+        suma += this.impuesto*5;
+    }
+    else if (casas==2) {
+        suma += this.impuesto*15;
+    }
+    else if (casas==3) {
+        suma += this.impuesto*35;
+    }
+    else if (casas==4) {
+        suma += this.impuesto*50;
+    }
+    if (hotel >= 1) {
+        suma += this.impuesto * 70 * hotel;
+    }
+    if (piscina >= 1) {
+        suma += this.impuesto * 25 * piscina;
+    }
+    if (pista >= 1) {
+        suma += this.impuesto * 25 * pista;
+    }
+    return suma;
     }
 
-    public int contarHoteles(){
-        int contador=0;
-        for (Edificacion edificacion: edificaciones){
-            if(edificacion.getTipo().equals("hotel")){
-                contador++;
+
+
+public void hipetecarPropiedad(Jugador jugador){
+    
+}
+
+public void Hacienda(Jugador jugador, Tablero tablero){
+    
+    while((jugador.getFortuna() < 0) && (!jugador.getPropiedades().isEmpty())){ //mientras el jugador tenga deudas y propiedades
+
+        System.out.println("Que casilla desea hipotecar?");
+        Scanner scanner = new Scanner(System.in);
+        String nombre = scanner.nextLine();
+
+    if(tablero.encontrar_casilla(nombre) == null){ //verificamos que la casilla exista
+            System.out.println("No se ha podido encontrar la casilla\n");
+        }else{
+            for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
+                if (casilla.getNombre().equals(nombre)){
+                    if(jugador.getAvatar().getLugar().getEdificacion().isEmpty()){ //verificamos que no tenga edificaciones en la casilla
+                        
+                    }else{
+                        System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla\n");
                     }
-            }
-            return contador;
-        }
-
-    public int contarPiscinas(){
-        int contador=0;
-        for (Edificacion edificacion: edificaciones){
-            if(edificacion.getTipo().equals("piscinas")){
-                contador++;
+                }
+                break;
             }
         }
-        return contador;
     }
 
-    public int contarPistas(){
-        int contador=0;
-        for (Edificacion edificacion: edificaciones){
-            if(edificacion.getTipo().equals("pistas")){
-                contador++;
-            }
-        }
-        return contador;
-    }
 
-    public float sumarImpuestoedificios(){
-        float suma=0;
-        int casas=0,hotel=0,piscina=0,pista=0;
-        casas = contarCasas();
-        hotel=contarHoteles();
-        piscina=contarPiscinas();
-        pista=contarPistas();
-        
-        if (casas==1) {
-            suma += this.impuesto*5;
-        }
-        else if (casas==2) {
-            suma += this.impuesto*15;
-        }
-        else if (casas==3) {
-            suma += this.impuesto*35;
-        }
-        else if (casas==4) {
-            suma += this.impuesto*50;
-        }
-        if (hotel >= 1) {
-            suma += this.impuesto * 70 * hotel;
-        }
-        if (piscina >= 1) {
-            suma += this.impuesto * 25 * piscina;
-        }
-        if (pista >= 1) {
-            suma += this.impuesto * 25 * pista;
-        }
-        return suma;
-        }
 
+}
 }
