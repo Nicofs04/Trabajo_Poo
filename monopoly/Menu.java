@@ -256,9 +256,9 @@ public class Menu {
                     descAvatar(idAvatar);
                 }else if(palabras[1].equals("edificios")){
                     //Completar con listarEdificios
-                    listarEdificios();
+                    //listarEdificios();
                 }else if(palabras.length==2){
-                    listarEdificiosGrupo();
+                    //listarEdificiosGrupo();
                 }
             }else {
                 System.out.println("Error, comando desconocido.\n");
@@ -295,26 +295,26 @@ public class Menu {
             break;
         case "hipotecar":
             if(palabras.length==2){
-                hipotecar();
+                //hipotecar();
 
             }else{
                 System.out.println("Error, comando desconocido");
             }
             break;
         case "bancarrota":
-            bancarrota();
+            //bancarrota();
 
             break;
         case "deshipotecar":
             if(palabras.length==2){
-                deshipotecar();
+              //  deshipotecar();
             }else{
                 System.out.println("Error, comando desconocido");
             }
             break;    
         case "vender":
             if(palabras.length==4){
-                venderEdificios();
+                //venderEdificios();
             }else{
                 System.out.println("Error, comando desconocido");
 
@@ -323,15 +323,15 @@ public class Menu {
             break;
         case "estadisticas":
             if(palabras.length==1){
-                estadisticasJuego();
+                //estadisticasJuego();
             }else if(palabras.length==2){
-                estadisticasJugador();
+                //estadisticasJugador();
             }else{
                 System.out.println("Error, comando desconocido");
             }
         case "cambiar":
             if(palabras.length==2){
-                cambiarModoMovimiento();
+                //cambiarModoMovimiento();
             }else{
                 System.out.println("Error, comando desconocido");
 
@@ -622,36 +622,65 @@ public class Menu {
         setDadosdobles(false);
         
     }
+
+
+
+    private int contarCasasActuales() {
+        return jugadores.get(turno).getAvatar().getLugar().contarCasas();
+    }
+
+    private int contarHotelesActuales() {
+        return jugadores.get(turno).getAvatar().getLugar().contarHoteles();
+    }
+
+    private int contarPiscinasActuales() {
+        return jugadores.get(turno).getAvatar().getLugar().contarPiscinas();
+    }
+
+    private int contarPistasActuales() {
+        return jugadores.get(turno).getAvatar().getLugar().contarPistas();
+    }
+
+
+
+
+
+
     private void edificarCasa(){
         Edificacion casa = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "casa");
-        
-        
-        
-        if(tirado){
-        
-                
-        }else{
-            System.out.println("Primero debes tirar los dados");
-        }
-        
-    }
-    private void edificarHotel(){
-        
-        Edificacion hotel = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "hotel");
-        int contarcasas=0;
+        int contarcasas=contarCasasActuales();
 
         for(Edificacion edificacion : jugadores.get(turno).getAvatar().getLugar().getEdificacion()){
             if (edificacion.getTipo().equals("casa")) {
                 contarcasas++;
             }
         }
-        if (contarcasas<=4) {
+        if (contarcasas<4) {
+            jugadores.get(turno).getAvatar().getLugar().anhadirEdificacion(casa);
+            System.out.println("Se ha construido la casa correctamente, en la casilla "+ jugadores.get(turno).getAvatar().getLugar().getNombre()+"hay "+contarcasas+1+"casas construidas");
+        }if (contarcasas==4) {
+            System.out.println("Has alcanzado el número máximo de casas que puedes construir");
+        
+        }
+        
+        
+    }
+    private void edificarHotel(){
+        
+        Edificacion hotel = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "hotel");
+        int contarcasas=contarCasasActuales();
+        int contarhoteles=contarHotelesActuales();
+
+
+        if (contarcasas<4 && contarhoteles==0) {
             System.out.println("No puedes edificar un hotel hasta que tengas construidas al menos 4 casas");
         }
-
-            
+        if (contarcasas==4 && contarhoteles==0) {
+            jugadores.get(turno).getAvatar().getLugar().anhadirEdificacion(hotel);
+            System.out.println("Se ha construido el hotel correctamente, en la casilla "+ jugadores.get(turno).getAvatar().getLugar().getNombre()+"hay "+contarcasas+1+"casas construidas");   
+        }            
         }
-    
+
 
     private void edificarPiscina(){}
     private void edificarPista(){

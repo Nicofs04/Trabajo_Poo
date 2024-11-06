@@ -542,7 +542,21 @@ public class Casilla {
         Collections.shuffle(baraja);
     }
 
-public int contarCasas(){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public int contarCasas(){
     int contador=0;
     for (Edificacion edificacion: edificaciones){
         if(edificacion.getTipo().equals("casa")){
