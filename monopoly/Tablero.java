@@ -63,7 +63,7 @@ public class Tablero {
 
             for(i = 0; i< 4; i++){
                 for(Casilla casilla:posiciones.get(i)){
-                    if(casilla.getDuenho().equals(banca)){
+                    if(casilla.getDuenho().equals(banca)){ //chequeamos que la casilla no esté comprada
                         casilla.setValor(casilla.getValor() * 1.05f);
                     }
                 }

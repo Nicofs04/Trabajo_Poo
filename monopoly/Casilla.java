@@ -656,7 +656,7 @@ public void Hacienda(Jugador jugador, Tablero tablero){
             for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
                 if (casilla.getNombre().equals(nombre)){
                     if(casilla.getEdificacion().isEmpty()){ //verificamos que no tenga edificaciones en la casilla
-                        
+                        jugador.setFortuna((casilla.getValor())/2);
                         hipotecarPropiedad(casilla);
                     }else{
                         System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla\n");
