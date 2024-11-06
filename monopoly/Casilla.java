@@ -542,20 +542,6 @@ public class Casilla {
         Collections.shuffle(baraja);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public int contarCasas(){
     int contador=0;
     for (Edificacion edificacion: edificaciones){
@@ -564,68 +550,68 @@ public class Casilla {
         }
     }
     return contador;
-}
+    }
 
-public int contarHoteles(){
-    int contador=0;
-    for (Edificacion edificacion: edificaciones){
-        if(edificacion.getTipo().equals("hotel")){
-            contador++;
+    public int contarHoteles(){
+        int contador=0;
+        for (Edificacion edificacion: edificaciones){
+            if(edificacion.getTipo().equals("hotel")){
+                contador++;
+                    }
+            }
+            return contador;
         }
-    }
-    return contador;
-}
 
-public int contarPiscinas(){
-    int contador=0;
-    for (Edificacion edificacion: edificaciones){
-        if(edificacion.getTipo().equals("piscinas")){
-            contador++;
+    public int contarPiscinas(){
+        int contador=0;
+        for (Edificacion edificacion: edificaciones){
+            if(edificacion.getTipo().equals("piscinas")){
+                contador++;
+            }
         }
+        return contador;
     }
-    return contador;
-}
 
-public int contarPistas(){
-    int contador=0;
-    for (Edificacion edificacion: edificaciones){
-        if(edificacion.getTipo().equals("pistas")){
-            contador++;
+    public int contarPistas(){
+        int contador=0;
+        for (Edificacion edificacion: edificaciones){
+            if(edificacion.getTipo().equals("pistas")){
+                contador++;
+            }
         }
+        return contador;
     }
-    return contador;
-}
 
-public float sumarImpuestoedificios(){
-    float suma=0;
-    int casas=0,hotel=0,piscina=0,pista=0;
-    casas = contarCasas();
-    hotel=contarHoteles();
-    piscina=contarPiscinas();
-    pista=contarPistas();
-    
-    if (casas==1) {
-        suma += this.impuesto*5;
-    }
-    else if (casas==2) {
-        suma += this.impuesto*15;
-    }
-    else if (casas==3) {
-        suma += this.impuesto*35;
-    }
-    else if (casas==4) {
-        suma += this.impuesto*50;
-    }
-    if (hotel >= 1) {
-        suma += this.impuesto * 70 * hotel;
-    }
-    if (piscina >= 1) {
-        suma += this.impuesto * 25 * piscina;
-    }
-    if (pista >= 1) {
-        suma += this.impuesto * 25 * pista;
-    }
-    return suma;
-    }
+    public float sumarImpuestoedificios(){
+        float suma=0;
+        int casas=0,hotel=0,piscina=0,pista=0;
+        casas = contarCasas();
+        hotel=contarHoteles();
+        piscina=contarPiscinas();
+        pista=contarPistas();
+        
+        if (casas==1) {
+            suma += this.impuesto*5;
+        }
+        else if (casas==2) {
+            suma += this.impuesto*15;
+        }
+        else if (casas==3) {
+            suma += this.impuesto*35;
+        }
+        else if (casas==4) {
+            suma += this.impuesto*50;
+        }
+        if (hotel >= 1) {
+            suma += this.impuesto * 70 * hotel;
+        }
+        if (piscina >= 1) {
+            suma += this.impuesto * 25 * piscina;
+        }
+        if (pista >= 1) {
+            suma += this.impuesto * 25 * pista;
+        }
+        return suma;
+        }
 
 }
