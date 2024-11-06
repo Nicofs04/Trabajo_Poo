@@ -686,7 +686,7 @@ public class Menu {
 
         
     }
-}
+
 
 
     //Ordenamos aleatoriamente esos números en el array de enteros
@@ -779,6 +779,7 @@ public class Menu {
         }
 
     }
+}
 
 
 
