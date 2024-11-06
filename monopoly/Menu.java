@@ -640,44 +640,67 @@ public class Menu {
     private int contarPistasActuales() {
         return jugadores.get(turno).getAvatar().getLugar().contarPistas();
     }
-
-
-
-
-
-
-    private void edificarCasa(){
-        Edificacion casa = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "casa");
-        int contarcasas=contarCasasActuales();
-
-        for(Edificacion edificacion : jugadores.get(turno).getAvatar().getLugar().getEdificacion()){
-            if (edificacion.getTipo().equals("casa")) {
-                contarcasas++;
-            }
-        }
-        if (contarcasas<4) {
-            jugadores.get(turno).getAvatar().getLugar().anhadirEdificacion(casa);
-            System.out.println("Se ha construido la casa correctamente, en la casilla "+ jugadores.get(turno).getAvatar().getLugar().getNombre()+"hay "+contarcasas+1+"casas construidas");
-        }if (contarcasas==4) {
-            System.out.println("Has alcanzado el número máximo de casas que puedes construir");
+    
+    private ArrayList<Integer> limiteGrupo() {
+        int numCasillas = jugadores.get(turno).getAvatar().getLugar().getGrupo().getNumCasillas();
+        ArrayList<Integer> limit = new ArrayList<>();
         
+        if (numCasillas == 2) {
+            // Límite de casas, hoteles, piscinas y pistas para un grupo de 2 casillas.
+            limit.add(2); // Máximo de hoteles
+            limit.add(2); // Máximo de piscinas
+            limit.add(2); // Máximo de pistas
+        } else if (numCasillas == 3) {
+            // Límite de casas, hoteles, piscinas y pistas para un grupo de 3 casillas.
+            limit.add(3); // Máximo de hoteles
+            limit.add(3); // Máximo de piscinas
+            limit.add(3); // Máximo de pistas
+        } else {
+            // Manejo de otros casos o grupos más grandes si es necesario.
+            System.out.println("Número de casillas en el grupo no soportado.");
         }
         
-        
+        return limit;
     }
+    
+
+
+
+
+
+    private void edificarCasa() {
+        Edificacion casa = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "casa");
+        int contarCasas = contarCasasActuales();
+        ArrayList<Integer> limite = limiteGrupo();
+        if (limite == null) {
+            System.out.println("No se pudo obtener el límite del grupo.");
+            return;
+        }
+
+        if (contarCasas >= 4) { // Verifica el límite de casas
+            System.out.println("Has alcanzado el número máximo de casas que puedes construir en este grupo.");
+            return;
+        }
+
+        jugadores.get(turno).getAvatar().getLugar().anhadirEdificacion(casa);
+        System.out.println("Se ha construido una casa correctamente en la casilla " + jugadores.get(turno).getAvatar().getLugar().getNombre() + ". Hay " + (contarCasas + 1) + " casas construidas.");
+    }
+    
     private void edificarHotel(){
         
         Edificacion hotel = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "hotel");
         int contarcasas=contarCasasActuales();
         int contarhoteles=contarHotelesActuales();
+        ArrayList<Integer> limite = limiteGrupo();
 
 
-        if (contarcasas<4 && contarhoteles==0) {
+        if (contarhoteles >= limite.get(0)) {
             System.out.println("No puedes edificar un hotel hasta que tengas construidas al menos 4 casas");
         }
-        if (contarcasas==4 && contarhoteles==0) {
+        if (contarcasas==4 && contarhoteles < limite.get(0)) {
             jugadores.get(turno).getAvatar().getLugar().anhadirEdificacion(hotel);
             System.out.println("Se ha construido el hotel correctamente, en la casilla "+ jugadores.get(turno).getAvatar().getLugar().getNombre()+"hay "+contarcasas+1+"casas construidas");   
+            jugadores.get(turno).getAvatar().getLugar(). //eliminar casas
         }            
         }
 
