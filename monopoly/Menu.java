@@ -1,6 +1,7 @@
 package monopoly;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 import partida.*;
@@ -718,13 +719,13 @@ public class Menu {
                 switch (num) {
                     //Moverse a trans1 y cobrar la salida si pasamos por ella
                     case 1 :
-                        System.out.println("Coges una avion a trans1");
+                        System.out.println("Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra la cantidad habitual.");
                         int tirada1=Math.abs(this.jugadores.get(turno).getAvatar().getLugar().getPosicion()-5);
-                        int posicion=jugadores.get(turno).getAvatar().getLugar().getPosicion();
+                        int posicion1=jugadores.get(turno).getAvatar().getLugar().getPosicion();
                         this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada1);
                         this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada1);
                         //Si pasa por la casilla de salida le sumamos el valor:
-                        if(posicion>5 || posicion<0){
+                        if(posicion1>5 || posicion1<0){
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
                             System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
 
@@ -732,7 +733,7 @@ public class Menu {
                         break;
                     //Moverse a solar15 sin cobrar la salida aunque pasemos por ella
                     case 2:
-                        System.out.println("");
+                        System.out.println("Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin pasar por la casilla de Salida\n"); 
                         int tirada2=Math.abs(this.jugadores.get(turno).getAvatar().getLugar().getPosicion()-26);
                         this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada2);
                         this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada2);
@@ -741,15 +742,32 @@ public class Menu {
                         break;
                     //Se vende el billete de avion a solar 17, por lo que se reciben 500000€
                     case 3:
-                        System.out.println("Billete de avión para solar 17 vendido por 500000€");
+                        System.out.println("Vendes tu billete de avión para Solar17 en una subasta por Internet. Cobra 500000€.");
                         this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna()+500000f);
                         break;
                     case 4:
+                        System.out.println("Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.");
+                        int tirada4=Math.abs(this.jugadores.get(turno).getAvatar().getLugar().getPosicion()-6);
+                        int posicion4=jugadores.get(turno).getAvatar().getLugar().getPosicion();
+                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada4);
+                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada4);
+                        //Si pasa por la casilla de salida le sumamos el valor:
+                        if(posicion4>6 || posicion4<0){
+                            jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                            System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+
+                        }
 
                         break;
                     case 5:
+                        System.out.println("Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.");
+                        int tirada5=Math.abs(this.jugadores.get(turno).getAvatar().getLugar().getPosicion()-10);
+                        this.jugadores.get(turno).encarcelar(tablero.getPosiciones());
+
                         break;
                     case 6:
+                        System.out.println("Has ganado el bote de la lotería! Recibe 1000000€.");
+                        this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna()+1000000f);
                         break;
                     default:
                         break;
@@ -759,16 +777,22 @@ public class Menu {
             case "caja":
             switch (num) {
                 case 1 :
+                    System.out.println("Paga 500000€ por un fin de semana en un balneario de 5 estrellas.");
                     break;
                 case 2:
+                    System.out.println("Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual\n");
                     break;  
                 case 3:
+                    System.out.println("Colócate en la casilla de Salida. Cobra la cantidad habitual");
                     break;
                 case 4:
+                    System.out.println("Tu compañía de Internet obtiene beneficios. Recibe 2000000€");
                     break;
                 case 5:
+                    System.out.println("Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14");
                     break;
                 case 6:
+                    System.out.println("Alquilas a tus compañeros una villa en Solar7 durante una semana. Paga 200000€ a cada jugador");
                     break;
                 default:
                     break;
