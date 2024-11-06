@@ -553,19 +553,16 @@ public class Casilla {
         Collections.shuffle(baraja);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void cambiarcasas(){
+        int casa = contarCasas();
+        if (casa==4) {
+            for (Edificacion edificacion: edificaciones){
+                if (edificacion.getTipo().equals("casa")) {
+                    edificaciones.remove(edificacion);
+                }
+            }
+        }
+    }
 
     public int contarCasas(){
     int contador=0;
