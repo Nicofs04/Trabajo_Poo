@@ -63,7 +63,9 @@ public class Tablero {
 
             for(i = 0; i< 4; i++){
                 for(Casilla casilla:posiciones.get(i)){
-                    casilla.setValor(casilla.getValor() * 1.05f);
+                    if(casilla.getDuenho().equals(banca)){
+                        casilla.setValor(casilla.getValor() * 1.05f);
+                    }
                 }
             }
 

@@ -647,7 +647,7 @@ public void hipotecarPropiedad(Casilla casilla){
 
 public void Hacienda(Jugador jugador, Tablero tablero){
     
-    if((!jugador.getPropiedades().isEmpty())){ //mientras el jugador tenga deudas y propiedades
+    if((!jugador.getPropiedades().isEmpty())){ //mientras el jugador tenga propiedades
 
         System.out.println("Que casilla desea hipotecar?");
         Scanner scanner = new Scanner(System.in);
