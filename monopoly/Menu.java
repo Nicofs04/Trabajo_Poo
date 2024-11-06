@@ -254,6 +254,11 @@ public class Menu {
                 }else if(palabras[1].equals("avatar")){
                     String[] idAvatar = new String[]{palabras[2]};
                     descAvatar(idAvatar);
+                }else if(palabras[1].equals("edificios")){
+                    //Completar con listarEdificios
+                    listarEdificios();
+                }else if(palabras.length==2){
+                    listarEdificiosGrupo();
                 }
             }else {
                 System.out.println("Error, comando desconocido.\n");
@@ -273,6 +278,64 @@ public class Menu {
         case "ver":
             System.out.println(tablero.toString());
             break;
+        case "edificar":
+            if(palabras.length==2){
+                String tipoEdificacion=palabras[1];
+                if(tipoEdificacion.equals("casa")){
+                    edificarCasa();
+                }else if(tipoEdificacion.equals("hotel")){
+                    edificarHotel();
+                }else if(tipoEdificacion.equals("piscina")){
+                    edificarPiscina();
+
+                }else if(tipoEdificacion.equals("deporte")){
+                    edificarPista();
+                }
+            }
+            break;
+        case "hipotecar":
+            if(palabras.length==2){
+                hipotecar();
+
+            }else{
+                System.out.println("Error, comando desconocido");
+            }
+            break;
+        case "bancarrota":
+            bancarrota();
+
+            break;
+        case "deshipotecar":
+            if(palabras.length==2){
+                deshipotecar();
+            }else{
+                System.out.println("Error, comando desconocido");
+            }
+            break;    
+        case "vender":
+            if(palabras.length==4){
+                venderEdificios();
+            }else{
+                System.out.println("Error, comando desconocido");
+
+            }
+
+            break;
+        case "estadisticas":
+            if(palabras.length==1){
+                estadisticasJuego();
+            }else if(palabras.length==2){
+                estadisticasJugador();
+            }else{
+                System.out.println("Error, comando desconocido");
+            }
+        case "cambiar":
+            if(palabras.length==2){
+                cambiarModoMovimiento();
+            }else{
+                System.out.println("Error, comando desconocido");
+
+            }
 
         default:
             System.out.println("Error, comando desconocido.\n");
@@ -462,6 +525,11 @@ public class Menu {
 
     
 }
+
+
+
+
+
 
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
     * Parámetro: cadena de caracteres con el nombre de la casilla.

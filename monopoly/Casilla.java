@@ -585,34 +585,33 @@ public int contarPistas(){
 public float sumarImpuestoedificios(){
     float suma=0;
     int casas=0,hotel=0,piscina=0,pista=0;
-    for(Edificacion edificacion: edificaciones){
-        casas = contarCasas();
-        hotel=contarHoteles();
-        piscina=contarPiscinas();
-        pista=contarPistas();
+    casas = contarCasas();
+    hotel=contarHoteles();
+    piscina=contarPiscinas();
+    pista=contarPistas();
+    
+    if (casas==1) {
+        suma += this.impuesto*5;
     }
-            if (casas==1) {
-                suma += this.impuesto*5;
-            }
-            else if (casas==2) {
-                suma += this.impuesto*15;
-            }
-            else if (casas==3) {
-                suma += this.impuesto*35;
-            }
-            else if (casas==4) {
-                suma += this.impuesto*50;
-            }
-            if (hotel >= 1) {
-                suma += this.impuesto * 70 * hotel;
-            }
-            if (piscina >= 1) {
-                suma += this.impuesto * 25 * piscina;
-            }
-            if (pista >= 1) {
-                suma += this.impuesto * 25 * pista;
-            }
-            return suma;
+    else if (casas==2) {
+        suma += this.impuesto*15;
+    }
+    else if (casas==3) {
+        suma += this.impuesto*35;
+    }
+    else if (casas==4) {
+        suma += this.impuesto*50;
+    }
+    if (hotel >= 1) {
+        suma += this.impuesto * 70 * hotel;
+    }
+    if (piscina >= 1) {
+        suma += this.impuesto * 25 * piscina;
+    }
+    if (pista >= 1) {
+        suma += this.impuesto * 25 * pista;
+    }
+    return suma;
     }
 
 }
