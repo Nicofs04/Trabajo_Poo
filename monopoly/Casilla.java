@@ -553,19 +553,16 @@ public class Casilla {
         Collections.shuffle(baraja);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void cambiarcasas(){
+        int casa = contarCasas();
+        if (casa==4) {
+            for (Edificacion edificacion: edificaciones){
+                if (edificacion.getTipo().equals("casa")) {
+                    edificaciones.remove(edificacion);
+                }
+            }
+        }
+    }
 
     public int contarCasas(){
     int contador=0;
@@ -647,7 +644,7 @@ public void hipotecarPropiedad(Casilla casilla){
 
 public void Hacienda(Jugador jugador, Tablero tablero){
     
-    if((!jugador.getPropiedades().isEmpty())){ //mientras el jugador tenga deudas y propiedades
+    if((!jugador.getPropiedades().isEmpty())){ //mientras el jugador tenga propiedades
 
         System.out.println("Que casilla desea hipotecar?");
         Scanner scanner = new Scanner(System.in);

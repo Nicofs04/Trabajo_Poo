@@ -654,21 +654,12 @@ public class Menu {
     
     
     private void edificarHotel(){
-        
         Edificacion hotel = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "hotel");
-        int contarcasas=contarCasasActuales();
-        int contarhoteles=contarHotelesActuales();
-        ArrayList<Integer> limite = limiteGrupo();
+        Casilla acual = jugadores.get(turno).getAvatar().getLugar();
 
 
-        if (contarhoteles >= limite.get(0)) {
-            System.out.println("No puedes edificar un hotel hasta que tengas construidas al menos 4 casas");
-        }
-        if (contarcasas==4 && contarhoteles < limite.get(1)) {
-            jugadores.get(turno).getAvatar().getLugar().anhadirEdificacion(hotel);
-            System.out.println("Se ha construido el hotel correctamente, en la casilla "+ jugadores.get(turno).getAvatar().getLugar().getNombre()+"hay "+contarcasas+1+"casas construidas");   
-            jugadores.get(turno).getAvatar().getLugar().cambiarcasas(); //eliminar casas
-        } 
+
+
         }
 
 
