@@ -294,42 +294,58 @@ public class Casilla {
 
         switch (c.getTipo()) {
             case "solar":               
-                if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ) {
-                    if (actual.getFortuna() < this.impuesto) {
-                        System.out.println("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                if(!c.getHipotecado()){ //verificamos que la casilla no este hipotecada
+                    if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ) {
+                    
+                        if (actual.getFortuna() < this.impuesto+sumarImpuestoedificios()) {
+
+                            System.out.println("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                            return false;
+                            //Acabaría la partida para este jugador
+                        }else{
+                            actual.setFortuna(actual.getFortuna()-this.impuesto);
+                            this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
+
+                            System.out.println("El jugador paga "+this.impuesto +"€");
+                            return true;
+                        }      
+                    }
+                }
+            break;
+            case "servicio":
+                if(!c.getHipotecado()){ //verificamos que la casilla no este hipotecada
+                    if(actual.getFortuna() < (this.impuesto)) {
+                        System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                    
                         return false;
                         //Acabaría la partida para este jugador
                     }else{
-                        actual.setFortuna(actual.getFortuna()-this.impuesto);
-                        System.out.println("El jugador paga "+this.impuesto +"€");
-                        return true;
-                    }      
-                }
-            case "servicio":
-            if (actual.getFortuna() < (this.impuesto+sumarImpuestoedificios())) {
-                    System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                    return false;
-                    //Acabaría la partida para este jugador
-                } else {
-                    actual.setFortuna(actual.getFortuna() - this.impuesto);
-                    this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
-                    System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
-                    return true;
-                }
-            case "transporte":
-                if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ){
-
-                    if (actual.getFortuna() < this.impuesto) {
-                        System.out.println("El jugador no tiene dinero suficiente para pagar el transporte, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                        return false;
-                        //Acabaría la partida para este jugador
-                    } else {
                         actual.setFortuna(actual.getFortuna() - this.impuesto);
                         this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
-                        System.out.println("Se han pagado "+this.impuesto +"€ por el uso del transporte");
+                    
+                        System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
+                    
                         return true;
                     }
                 }
+            break;
+            case "transporte":
+                if(!c.getHipotecado()){ //verificamos que la casilla no este hipotecada
+                    if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ){
+
+                        if (actual.getFortuna() < this.impuesto) {
+                            System.out.println("El jugador no tiene dinero suficiente para pagar el transporte, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                            return false;
+                            //Acabaría la partida para este jugador
+                        }else{
+                            actual.setFortuna(actual.getFortuna() - this.impuesto);
+                            this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
+                            System.out.println("Se han pagado "+this.impuesto +"€ por el uso del transporte");
+                            return true;
+                        }
+                    }
+                }
+            break;
             //No es para esta entrega
             case "suerte":
                 //Barajar cartas
@@ -344,23 +360,22 @@ public class Casilla {
 
                 //Realizar acción
 
-                break;
+            break;
             //No es para esta entrega
             case "caja":
-                break;
+            break;
             case "impuesto":
                 if (actual.getFortuna() < this.impuesto) {
-                            System.out.println("El jugador no tiene dinero suficiente para pagar los impuestos, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-                            return false;
-                            //Acabaría la partida para este jugador
-                } else {
-                        actual.setFortuna(actual.getFortuna() - this.impuesto);
-                        //Le pagamos a la banca:
-                        banca.setFortuna(banca.getFortuna() + this.impuesto);
-                        System.out.println("El jugador paga "+this.impuesto +"€");
-                        return true;
-                        }
-
+                    System.out.println("El jugador no tiene dinero suficiente para pagar los impuestos, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                    return false;
+                    //Acabaría la partida para este jugador
+                }else{
+                    actual.setFortuna(actual.getFortuna() - this.impuesto);
+                    //Le pagamos a la banca:
+                    banca.setFortuna(banca.getFortuna() + this.impuesto);
+                    System.out.println("El jugador paga "+this.impuesto +"€");
+                    return true;
+                }
             case "especial":
                 //PARKING
                 if ((this.tipo == "especial" && this.posicion == 20)) {
@@ -380,13 +395,11 @@ public class Casilla {
                     System.out.println("Has caído en la cárcel pero solo de visita, no estás encarcelado");
                     return true;
                 }
+            break;
             default:
                 System.out.println("El tipo de la casilla está mal definido");
-                break;
+            break;
         }
-    
-    
-    
     return false;
 }
 
@@ -643,7 +656,7 @@ public void hipotecarPropiedad(Casilla casilla){
 }
 
 public float valorHipoteca(Casilla casilla){
-    float valor;
+    float valor = 0;
     switch (casilla.getGrupo().getColorGrupo()) {
         case "BLACK":
             valor = 600000;
@@ -655,23 +668,25 @@ public float valorHipoteca(Casilla casilla){
             valor = 676000;
             break;
         case "WHITE":
+            valor = 878800;
             break;
         case "GREEN":
-            
+            valor = 1930723.6f;
             break;
         case "BLUE":
-            
+            valor = 3764911.02f;
             break;
         case "RED":
-            
+            valor = 1142440;
             break;
         case "YELLOW":
-            
+            valor = 1485172;
             break;
-    
         default:
+            System.out.println("No se ha encontrado el grupo");
             break;
     }
+    return valor;
 }
 
 public void Hacienda(Jugador jugador, Tablero tablero){
@@ -688,7 +703,7 @@ public void Hacienda(Jugador jugador, Tablero tablero){
             for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
                 if (casilla.getNombre().equals(nombre)){
                     if(casilla.getEdificacion().isEmpty()){ //verificamos que no tenga edificaciones en la casilla
-                        jugador.setFortuna((casilla.getValor())/2);
+                        jugador.setFortuna(valorHipoteca(casilla)/2);
                         hipotecarPropiedad(casilla);
                     }else{
                         System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla\n");
