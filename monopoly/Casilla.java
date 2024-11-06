@@ -465,6 +465,7 @@ public class Casilla {
 
     public String generarCasilla() {
         
+        
         StringBuilder sb = new StringBuilder();
         
         if (!avatares.isEmpty()){
@@ -474,6 +475,8 @@ public class Casilla {
                   sb.append(avatar.getId());
             }
         }
+        
+
 
         String color = "";
             if (this.getGrupo() != null) {
@@ -519,9 +522,12 @@ public class Casilla {
             representacionCasilla = String.format("%s%-10s%s%5s",color,this.getNombre(),Valor.RESET,sb);
         }
 
+        
+        
         return representacionCasilla;
     }
 
+    //Creamos un ArrayList de enteros del 1 al 6
     public static ArrayList<Integer> crearBaraja() {
         ArrayList<Integer> baraja = new ArrayList<>();
 
@@ -533,23 +539,76 @@ public class Casilla {
         return baraja;
     }
 
+    //Ordenamos aleatoriamente esos números en el array de enteros
     public void barajar(ArrayList<Integer> baraja){
         Collections.shuffle(baraja);
     }
 
+    public int elegirCarta() {
+        int num = 0; // Inicializar 'num' para que no haya error en la primera comprobación
+        Scanner scanner = new Scanner(System.in);
 
+        // Bucle que se repetirá hasta que el usuario ingrese un número válido
+        while (num < 1 || num > 6) {
+            System.out.println("Introduce un número del 1 al 6:");
+            if (scanner.hasNextInt()) { // Verificar que la entrada sea un entero
+                num = scanner.nextInt();
+            } else {
+                System.out.println("Entrada no válida. Por favor, introduce un número.");
+                scanner.next(); // Limpiar la entrada inválida del escáner
+            }
+        }
+        return num;
+    }
 
+    //Implementa la accion según el tipo de carta que sea y según la carta que sea dentro de cada tipo
+    public void accionCarta(String tipo,int num){
+        switch (tipo) {
+            case "suerte":
+                switch (num) {
+                    //Moverse a trans1 y evaluar la casilla
+                    case 1 :
+                    this.
+                         
+                        break;
+                    case 2:
+                        break;  
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    default:
+                        break;
+                }
+                
+                break;
+            case "caja":
+            switch (num) {
+                case 1 :
+                    break;
+                case 2:
+                    break;  
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                default:
+                    break;
+            }
 
+            default:
+                break;
+        }
 
-
-
-
-
-
-
-
-
-
+    }
 
     public int contarCasas(){
     int contador=0;
@@ -559,101 +618,68 @@ public class Casilla {
         }
     }
     return contador;
-}
-
-public int contarHoteles(){
-    int contador=0;
-    for (Edificacion edificacion: edificaciones){
-        if(edificacion.getTipo().equals("hotel")){
-            contador++;
-        }
-    }
-    return contador;
-}
-
-public int contarPiscinas(){
-    int contador=0;
-    for (Edificacion edificacion: edificaciones){
-        if(edificacion.getTipo().equals("piscinas")){
-            contador++;
-        }
-    }
-    return contador;
-}
-
-public int contarPistas(){
-    int contador=0;
-    for (Edificacion edificacion: edificaciones){
-        if(edificacion.getTipo().equals("pistas")){
-            contador++;
-        }
-    }
-    return contador;
-}
-
-public float sumarImpuestoedificios(){
-    float suma=0;
-    int casas=0,hotel=0,piscina=0,pista=0;
-    casas = contarCasas();
-    hotel=contarHoteles();
-    piscina=contarPiscinas();
-    pista=contarPistas();
-    
-    if (casas==1) {
-        suma += this.impuesto*5;
-    }
-    else if (casas==2) {
-        suma += this.impuesto*15;
-    }
-    else if (casas==3) {
-        suma += this.impuesto*35;
-    }
-    else if (casas==4) {
-        suma += this.impuesto*50;
-    }
-    if (hotel >= 1) {
-        suma += this.impuesto * 70 * hotel;
-    }
-    if (piscina >= 1) {
-        suma += this.impuesto * 25 * piscina;
-    }
-    if (pista >= 1) {
-        suma += this.impuesto * 25 * pista;
-    }
-    return suma;
     }
 
-
-
-public void hipetecarPropiedad(Jugador jugador){
-    
-}
-
-public void Hacienda(Jugador jugador, Tablero tablero){
-    
-    while((jugador.getFortuna() < 0) && (!jugador.getPropiedades().isEmpty())){ //mientras el jugador tenga deudas y propiedades
-
-        System.out.println("Que casilla desea hipotecar?");
-        Scanner scanner = new Scanner(System.in);
-        String nombre = scanner.nextLine();
-
-    if(tablero.encontrar_casilla(nombre) == null){ //verificamos que la casilla exista
-            System.out.println("No se ha podido encontrar la casilla\n");
-        }else{
-            for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
-                if (casilla.getNombre().equals(nombre)){
-                    if(jugador.getAvatar().getLugar().getEdificacion().isEmpty()){ //verificamos que no tenga edificaciones en la casilla
-                        
-                    }else{
-                        System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla\n");
+    public int contarHoteles(){
+        int contador=0;
+        for (Edificacion edificacion: edificaciones){
+            if(edificacion.getTipo().equals("hotel")){
+                contador++;
                     }
-                }
-                break;
+            }
+            return contador;
+        }
+
+    public int contarPiscinas(){
+        int contador=0;
+        for (Edificacion edificacion: edificaciones){
+            if(edificacion.getTipo().equals("piscinas")){
+                contador++;
             }
         }
+        return contador;
     }
 
+    public int contarPistas(){
+        int contador=0;
+        for (Edificacion edificacion: edificaciones){
+            if(edificacion.getTipo().equals("pistas")){
+                contador++;
+            }
+        }
+        return contador;
+    }
 
+    public float sumarImpuestoedificios(){
+        float suma=0;
+        int casas=0,hotel=0,piscina=0,pista=0;
+        casas = contarCasas();
+        hotel=contarHoteles();
+        piscina=contarPiscinas();
+        pista=contarPistas();
+        
+        if (casas==1) {
+            suma += this.impuesto*5;
+        }
+        else if (casas==2) {
+            suma += this.impuesto*15;
+        }
+        else if (casas==3) {
+            suma += this.impuesto*35;
+        }
+        else if (casas==4) {
+            suma += this.impuesto*50;
+        }
+        if (hotel >= 1) {
+            suma += this.impuesto * 70 * hotel;
+        }
+        if (piscina >= 1) {
+            suma += this.impuesto * 25 * piscina;
+        }
+        if (pista >= 1) {
+            suma += this.impuesto * 25 * pista;
+        }
+        return suma;
+        }
 
-}
 }
