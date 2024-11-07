@@ -467,7 +467,7 @@ public class Menu {
 
             
             // Evaluar la casilla en la que ha caído
-            jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero, jugadores.get(turno), banca, sumaDados);
+            jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero, jugadores.get(turno), banca, sumaDados,this);
 
             // Verificar si el jugador ha dado la vuelta al tablero
             if (avatarActual.getLugar().getPosicion() < sumaDados) {
@@ -681,28 +681,6 @@ public class Menu {
 
 
 
-    //Ordenamos aleatoriamente esos números en el array de enteros
-    public void barajar(ArrayList<Integer> baraja){
-        Collections.shuffle(baraja);
-    }
-
-    public int elegirCarta() {
-        int num = 0; // Inicializar 'num' para que no haya error en la primera comprobación
-        Scanner scanner = new Scanner(System.in);
-
-        // Bucle que se repetirá hasta que el usuario ingrese un número válido
-        while (num < 1 || num > 6) {
-            System.out.println("Introduce un número del 1 al 6:");
-            if (scanner.hasNextInt()) { // Verificar que la entrada sea un entero
-                num = scanner.nextInt();
-            } else {
-                System.out.println("Entrada no válida. Por favor, introduce un número.");
-                scanner.next(); // Limpiar la entrada inválida del escáner
-            }
-        }
-        return num;
-    }
-
     /*Implementa la accion según el tipo de carta que sea y según la carta que sea dentro de cada tipo.
     Tiene que calcularse de forma que si la posicion de la casilla a la que queremos ir es mayor que la del jugador que avance 
     la distancia que hay entre las dos y si no que avance la distancia hasta llegar a la salida y luego que avance
@@ -725,7 +703,7 @@ public class Menu {
                             tirada1=(40-posicion1)+5;
                         }
                         this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada1);
-                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada1);
+                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada1,this);
                         //Si pasa por la casilla de salida le sumamos el valor:
                         if(posicion1>5 || posicion1<0){
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
@@ -744,7 +722,7 @@ public class Menu {
                             tirada2=(40-posicion2)+26;
                         }
                         this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada2);
-                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada2);
+                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada2,this);
                 
                         
                         break;
@@ -763,7 +741,7 @@ public class Menu {
                             tirada3=(40-posicion3)+6;
                         }
                         this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada3);
-                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada3);
+                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada3,this);
                         //Si pasa por la casilla de salida le sumamos el valor:
                         if(posicion3>6 || posicion3<0){
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
@@ -806,7 +784,7 @@ public class Menu {
                     int posicion4=jugadores.get(turno).getAvatar().getLugar().getPosicion();
                     int tirada4=40-posicion4;
                     this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada4);
-                    this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada4);
+                    this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada4,this);
                     //Le sumamos el valor de la salida
                     if(posicion4>6 || posicion4<0){
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));

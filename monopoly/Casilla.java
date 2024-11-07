@@ -286,7 +286,7 @@ public class Casilla {
      */
 
     // FALTAN HACER RETOQUES A TABLERO PARA QUE FUNCIONE
-    public boolean evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada) {
+    public boolean evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada,Menu menu) {
         //NO EVALUAMOS EN ESTA FUNCION LAS CASILLAS: Salida(especial), Carcel(especial)
         //PARKING, en este caso siempre va a ser true ya que la recaudacion de impuestos siempre va a ser >=0
         Casilla c = actual.getAvatar().getLugar();
@@ -350,15 +350,20 @@ public class Casilla {
             case "suerte":
                 //Barajar cartas
                 ArrayList<Integer> baraja=new ArrayList<Integer>();
-                //baraja=generarArrayBaraja();
-
-
+                baraja= crearBaraja();
+                barajar(baraja);
                 //Elegir carta
                 System.out.println("Qué carta desea elegir?");
                 Scanner scanner = new Scanner(System.in);
                 int carta = scanner.nextInt();
-
+                while(carta>6 || carta<1){
+                    System.out.println("Introduce un nombre del 1 al 6");
+                    carta = scanner.nextInt();
+                }
+                int eleccion=0;
+                eleccion=baraja.get(carta);
                 //Realizar acción
+                menu.accionCarta(c.getTipo(),eleccion);
 
             break;
             //No es para esta entrega
@@ -566,6 +571,24 @@ public class Casilla {
         Collections.shuffle(baraja);
     }
 
+    
+    public int elegirCarta() {
+        int num = 0; // Inicializar 'num' para que no haya error en la primera comprobación
+        Scanner scanner = new Scanner(System.in);
+
+        // Bucle que se repetirá hasta que el usuario ingrese un número válido
+        while (num < 1 || num > 6) {
+            System.out.println("Introduce un número del 1 al 6:");
+            if (scanner.hasNextInt()) { // Verificar que la entrada sea un entero
+                num = scanner.nextInt();
+            } else {
+                System.out.println("Entrada no válida. Por favor, introduce un número.");
+                scanner.next(); // Limpiar la entrada inválida del escáner
+            }
+        }
+        return num;
+    }
+
     public void cambiarcasas(){
         int casa = contarCasas();
         if (casa==4) {
@@ -752,10 +775,5 @@ public int deshipotecar(Jugador jugador, Tablero tablero){
         return 0;
     }
 }
-
-
-
-
-
 
 }
