@@ -479,6 +479,17 @@ public class Casilla {
         return informacion;
     }
 
+    
+    public boolean estaEnVenta(){
+            if (((this.tipo == "Solar") || (this.tipo == "Servicios") || (this.tipo == "Transporte"))
+                    && (this.duenho.getNombre() == "Banca")) {
+                return true;
+            } else {
+                return false;
+
+            }
+    }
+
     /*
      * Método para mostrar información de una casilla en venta.
      * Valor devuelto: texto con esa información.

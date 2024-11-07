@@ -420,7 +420,7 @@ public class Menu {
 
                 String posicionActual = jugadores.get(turno).getAvatar().getLugar().getNombre();
                 
-                jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
+                jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados,this);
 
                 String posicionFinal = jugadores.get(turno).getAvatar().getLugar().getNombre();
 
@@ -439,7 +439,7 @@ public class Menu {
                         
                         //Calculamos la posición inicial
                         String posicionActual = jugadores.get(turno).getAvatar().getLugar().getNombre();
-                        jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
+                        jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados,this);
 
                         //Calculamos la posición final
                         String posicionFinal = jugadores.get(turno).getAvatar().getLugar().getNombre();
@@ -462,7 +462,7 @@ public class Menu {
 
     
             Avatar avatarActual = jugadores.get(turno).getAvatar();
-            avatarActual.moverAvatar(tablero.getPosiciones(), sumaDados);
+            avatarActual.moverAvatar(tablero.getPosiciones(), sumaDados,this);
 
 
             
@@ -702,7 +702,7 @@ public class Menu {
                         }else{
                             tirada1=(40-posicion1)+5;
                         }
-                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada1);
+                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada1,this);
                         this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada1,this);
                         //Si pasa por la casilla de salida le sumamos el valor:
                         if(posicion1>5 || posicion1<0){
@@ -721,7 +721,7 @@ public class Menu {
                         }else{
                             tirada2=(40-posicion2)+26;
                         }
-                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada2);
+                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada2,this);
                         this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada2,this);
                 
                         
@@ -740,7 +740,7 @@ public class Menu {
                         }else{
                             tirada3=(40-posicion3)+6;
                         }
-                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada3);
+                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada3,this);
                         this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada3,this);
                         //Si pasa por la casilla de salida le sumamos el valor:
                         if(posicion3>6 || posicion3<0){
@@ -783,7 +783,7 @@ public class Menu {
                     System.out.println("Colócate en la casilla de Salida. Cobra la cantidad habitual");
                     int posicion4=jugadores.get(turno).getAvatar().getLugar().getPosicion();
                     int tirada4=40-posicion4;
-                    this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada4);
+                    this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada4,this);
                     this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada4,this);
                     //Le sumamos el valor de la salida
                     if(posicion4>6 || posicion4<0){
