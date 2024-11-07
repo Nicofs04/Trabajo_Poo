@@ -697,13 +697,13 @@ public void Hacienda(Jugador jugador, Tablero tablero){
         Scanner scanner = new Scanner(System.in);
         String nombre = scanner.nextLine();
 
-    if(tablero.encontrar_casilla(nombre) == null){ //verificamos que la casilla exista
+        if(tablero.encontrar_casilla(nombre) == null){ //verificamos que la casilla exista
             System.out.println("No se ha podido encontrar la casilla\n");
         }else{
             for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
                 if (casilla.getNombre().equals(nombre)){
                     if(casilla.getEdificacion().isEmpty()){ //verificamos que no tenga edificaciones en la casilla
-                        jugador.setFortuna(jugador.getFortuna() - (valorHipoteca(casilla)/2));
+                        jugador.setFortuna(jugador.getFortuna() + (valorHipoteca(casilla)/2));
                         hipotecarPropiedad(casilla);
                     }else{
                         System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla\n");
