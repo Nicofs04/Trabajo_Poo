@@ -123,38 +123,38 @@ public class Menu {
     private void iniciarPartida() {
     
     while (true) {
-        System.out.println("=====================================");
-        System.out.println("                MENÚ                ");
+        System.out.println("=====================================\n");
+        System.out.println("                MENÚ                \n");
         System.out.println("=====================================\n");
 
-        System.out.println("1. Crear un jugador               -> Comando: 'crear jugador NombreJugador tipoAvatar'");
-        System.out.println("2. Jugador del turno actual       -> Comando: 'jugador'");
-        System.out.println("3. Listar jugadores               -> Comando: 'listar jugadores'");
-        System.out.println("4. Listar avatares                -> Comando: 'listar avatares'");
-        System.out.println("5. Lanzar dados                   -> Comando: 'lanzar dados'");
-        System.out.println("6. Acabar turno                   -> Comando: 'acabar turno'");
-        System.out.println("7. Salir de la cárcel             -> Comando: 'salir carcel'");
-        System.out.println("8. Describir casilla              -> Comando: 'describir nombreCasilla'");
-        System.out.println("9. Describir jugador              -> Comando: 'describir jugador nombreJugador'");
-        System.out.println("10. Describir avatar              -> Comando: 'describir avatar idAvatar'");
-        System.out.println("11. Comprar casilla               -> Comando: 'comprar 'nombreCasilla'");
-        System.out.println("12. Listar casillas en venta      -> Comando: 'listarenventa'");
-        System.out.println("13. Ver tablero                   -> Comando: 'ver'\n");
-        System.out.println("14. Construir un edificio         -> Comando: 'edificar tipoEdificacion'\n");
-        System.out.println("15. Listar edificios construidos  -> Comando: 'listar edificios'\n");
-        System.out.println("16. Listar edificios construidos en grupo        -> Comando: 'listar edificios colorGrupo'\n");
-        System.out.println("17. Hipotecar una propiedad       -> Comando: 'hipotecar nombrePropiedad'\n");
-        System.out.println("18. Declararse en bancarrota      -> Comando: 'bancarrota'\n");
-        System.out.println("19. Deshipotecar una propiedad    -> Comando: 'deshipotecar nombrePropiedad'\n");
-        System.out.println("20. Vender edificios              -> Comando: 'vender tipoEdificacion nombrePropiedad numeroElementosAvender'\n");
-        System.out.println("21. Mostrar estadísticas de un jugador         -> Comando: 'estadisticas nombreJugador'\n");
-        System.out.println("22. Mostrar estadísticas del juego        -> Comando: 'estadisticas'\n");
+        System.out.println("1. Crear un jugador                                    -> Comando: 'crear jugador NombreJugador tipoAvatar'");
+        System.out.println("2. Jugador del turno actual                            -> Comando: 'jugador'");
+        System.out.println("3. Listar jugadores                                    -> Comando: 'listar jugadores'");
+        System.out.println("4. Listar avatares                                     -> Comando: 'listar avatares'");
+        System.out.println("5. Lanzar dados                                        -> Comando: 'lanzar dados'");
+        System.out.println("6. Acabar turno                                        -> Comando: 'acabar turno'");
+        System.out.println("7. Salir de la cárcel                                  -> Comando: 'salir carcel'");
+        System.out.println("8. Describir casilla                                   -> Comando: 'describir nombreCasilla'");
+        System.out.println("9. Describir jugador                                   -> Comando: 'describir jugador nombreJugador'");
+        System.out.println("10. Describir avatar                                   -> Comando: 'describir avatar idAvatar'");
+        System.out.println("11. Comprar casilla                                    -> Comando: 'comprar 'nombreCasilla'");
+        System.out.println("12. Listar casillas en venta                           -> Comando: 'listarenventa'");
+        System.out.println("13. Ver tablero                                        -> Comando: 'ver'");
+        System.out.println("14. Construir un edificio                              -> Comando: 'edificar tipoEdificacion'");
+        System.out.println("15. Listar edificios construidos                       -> Comando: 'listar edificios'");
+        System.out.println("16. Listar edificios construidos en grupo              -> Comando: 'listar edificios colorGrupo'");
+        System.out.println("17. Hipotecar una propiedad                            -> Comando: 'hipotecar nombrePropiedad'");
+        System.out.println("18. Declararse en bancarrota                           -> Comando: 'bancarrota'");
+        System.out.println("19. Deshipotecar una propiedad                         -> Comando: 'deshipotecar nombrePropiedad'");
+        System.out.println("20. Vender edificios                                   -> Comando: 'vender tipoEdificacion nombrePropiedad numeroElementosAvender'");
+        System.out.println("21. Mostrar estadísticas de un jugador                 -> Comando: 'estadisticas nombreJugador'");
+        System.out.println("22. Mostrar estadísticas del juego                     -> Comando: 'estadisticas'");
         System.out.println("23. Cambiar modo de movimiento de los avatares         -> Comando: 'cambiar modo'\n");
                
 
-        System.out.println("=====================================");
-        System.out.println("Selecciona una opción para continuar.");
         System.out.println("=====================================\n");
+        System.out.println("Selecciona una opción para continuar.\n");
+        System.out.println("=====================================\n\n");
 
         Scanner scanner = new Scanner(System.in);
         String comando = scanner.nextLine();
