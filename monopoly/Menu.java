@@ -703,7 +703,13 @@ public class Menu {
         return num;
     }
 
-    //Implementa la accion según el tipo de carta que sea y según la carta que sea dentro de cada tipo.
+    /*Implementa la accion según el tipo de carta que sea y según la carta que sea dentro de cada tipo.
+    Tiene que calcularse de forma que si la posicion de la casilla a la que queremos ir es mayor que la del jugador que avance 
+    la distancia que hay entre las dos y si no que avance la distancia hasta llegar a la salida y luego que avance
+    hasta la posicion a la que queremos ir
+    
+    LAS CARTAS QUE REQUIEREN PAGAR ALGO NECESITAN LA IMPLEMENTACIÓN DE LA FUNCIÓN 'bancarrota()', mientras se deja indicado en los elses
+    correspondientes mediante un comentario*/
     public void accionCarta(String tipo,int num){
         switch (tipo) {
             case "suerte":
@@ -711,8 +717,13 @@ public class Menu {
                     //Moverse a trans1 y cobrar la salida si pasamos por ella
                     case 1 :
                         System.out.println("Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra la cantidad habitual.");
-                        int tirada1=Math.abs(this.jugadores.get(turno).getAvatar().getLugar().getPosicion()-5);
                         int posicion1=jugadores.get(turno).getAvatar().getLugar().getPosicion();
+                        int tirada1;
+                        if(5>posicion1){
+                            tirada1=(5-posicion1);
+                        }else{
+                            tirada1=(40-posicion1)+5;
+                        }
                         this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada1);
                         this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada1);
                         //Si pasa por la casilla de salida le sumamos el valor:
@@ -725,7 +736,13 @@ public class Menu {
                     //Moverse a solar15 sin cobrar la salida aunque pasemos por ella
                     case 2:
                         System.out.println("Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin pasar por la casilla de Salida\n"); 
-                        int tirada2=Math.abs(this.jugadores.get(turno).getAvatar().getLugar().getPosicion()-26);
+                        int tirada2;
+                        int posicion2=this.jugadores.get(turno).getAvatar().getLugar().getPosicion();
+                        if(26>posicion2){
+                            tirada2=(26-posicion2);
+                        }else{
+                            tirada2=(40-posicion2)+26;
+                        }
                         this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada2);
                         this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada2);
                 
@@ -738,12 +755,17 @@ public class Menu {
                         break;
                     case 4:
                         System.out.println("Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.");
-                        int tirada4=Math.abs(this.jugadores.get(turno).getAvatar().getLugar().getPosicion()-6);
-                        int posicion4=jugadores.get(turno).getAvatar().getLugar().getPosicion();
-                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada4);
-                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada4);
+                        int posicion3=jugadores.get(turno).getAvatar().getLugar().getPosicion();
+                        int tirada3;
+                        if(6>posicion3){
+                            tirada3=(6-posicion3);
+                        }else{
+                            tirada3=(40-posicion3)+6;
+                        }
+                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada3);
+                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada3);
                         //Si pasa por la casilla de salida le sumamos el valor:
-                        if(posicion4>6 || posicion4<0){
+                        if(posicion3>6 || posicion3<0){
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
                             System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
 
@@ -752,7 +774,6 @@ public class Menu {
                         break;
                     case 5:
                         System.out.println("Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.");
-                        int tirada5=Math.abs(this.jugadores.get(turno).getAvatar().getLugar().getPosicion()-10);
                         this.jugadores.get(turno).encarcelar(tablero.getPosiciones());
 
                         break;
@@ -769,21 +790,61 @@ public class Menu {
             switch (num) {
                 case 1 :
                     System.out.println("Paga 500000€ por un fin de semana en un balneario de 5 estrellas.");
+                    if(jugadores.get(turno).getFortuna()>=500000f){
+                        jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-500000f);
+
+                    }else{
+                        //bancarrota();
+                    }
                     break;
                 case 2:
                     System.out.println("Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual\n");
+                    this.jugadores.get(turno).encarcelar(tablero.getPosiciones());
                     break;  
                 case 3:
                     System.out.println("Colócate en la casilla de Salida. Cobra la cantidad habitual");
+                    int posicion4=jugadores.get(turno).getAvatar().getLugar().getPosicion();
+                    int tirada4=40-posicion4;
+                    this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada4);
+                    this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada4);
+                    //Le sumamos el valor de la salida
+                    if(posicion4>6 || posicion4<0){
+                        jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                        System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+
+                    }
                     break;
                 case 4:
                     System.out.println("Tu compañía de Internet obtiene beneficios. Recibe 2000000€");
+                    jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+2000000f);
                     break;
                 case 5:
                     System.out.println("Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14");
+                    if(jugadores.get(turno).getFortuna()>=1000000f){
+                        jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-1000000f);
+
+                    }else{
+                        //bancarrota();
+                    }
                     break;
                 case 6:
                     System.out.println("Alquilas a tus compañeros una villa en Solar7 durante una semana. Paga 200000€ a cada jugador");
+                    for(int i=0;i<jugadores.size();i++){
+                        if(i!=turno){
+                            //Si el jugador del turno tiene el dinero suficiente...
+                            if(jugadores.get(turno).getFortuna()>=200000f){
+                                //Les damos el dinero y se lo quitamos al jugador que le toca la carta.
+                                jugadores.get(i).setFortuna(jugadores.get(i).getFortuna()+200000f);
+                                jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-200000f);
+
+                            }else{
+                                //bancarrota();
+
+                            }
+
+                        }
+
+                    }
                     break;
                 default:
                     break;
@@ -795,6 +856,13 @@ public class Menu {
 
     }
 }
+
+
+
+
+
+
+
 
 
 
