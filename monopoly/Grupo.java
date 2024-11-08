@@ -91,4 +91,58 @@ public class Grupo {
         return true;
     }
 
+    public int contarCasasGrupo(){
+        int contador=0;
+        for (Casilla casilla : this.getMiembros()){
+                for(Edificacion edificacion : casilla.getEdificacion()){
+                    if (edificacion.getTipo().equals("casa")) {
+                        contador++;
+                    }
+                }
+        }
+        return contador;
+    }
+    
+    public int contarHotelesGrupo(){
+        int contador=0;
+        for (Casilla casilla : this.getMiembros()){
+                for(Edificacion edificacion : casilla.getEdificacion()){
+                    if (edificacion.getTipo().equals("hotel")) {
+                        contador++;
+                    }
+                }
+        }
+        return contador;
+    }
+    
+    public int contarPiscinasGrupo(){
+        int contador=0;
+        for (Casilla casilla : this.getMiembros()){
+                for(Edificacion edificacion : casilla.getEdificacion()){
+                    if (edificacion.getTipo().equals("piscina")) {
+                        contador++;
+                    }
+                }
+        }
+        return contador;
+    }
+    
+    public int contarPistasGrupo(){
+        int contador=0;
+        for (Casilla casilla : this.getMiembros()){
+                for(Edificacion edificacion : casilla.getEdificacion()){
+                    if (edificacion.getTipo().equals("pista")) {
+                        contador++;
+                    }
+                }
+        }
+        return contador;
+    }
+
+
+
+
+
+
+
 }

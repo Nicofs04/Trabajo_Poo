@@ -25,6 +25,8 @@ public class Casilla {
     
     private boolean hipotecado;
 
+    private int vecescaidas;
+
 
     // Constructores:
     public Casilla() {
@@ -168,6 +170,14 @@ public class Casilla {
 
     public void setHipotecado(boolean hipotecado){
         this.hipotecado = hipotecado;
+    }
+
+    public int getVecescaidas(){
+        return this.vecescaidas;
+    }
+
+    public void sumarVecescaidas(int vecescaidas){
+        this.vecescaidas += vecescaidas;
     }
 
 
@@ -650,39 +660,6 @@ public int contarPistas(){
     }
     return contador;
 }
-
-public float sumarImpuestoedificios(){
-    float suma=0;
-    int casas=0,hotel=0,piscina=0,pista=0;
-    casas = contarCasas();
-    hotel=contarHoteles();
-    piscina=contarPiscinas();
-    pista=contarPistas();
-    
-    if (casas==1) {
-        suma += this.impuesto*5;
-    }
-    else if (casas==2) {
-        suma += this.impuesto*15;
-    }
-    else if (casas==3) {
-        suma += this.impuesto*35;
-    }
-    else if (casas==4) {
-        suma += this.impuesto*50;
-    }
-    if (hotel >= 1) {
-        suma += this.impuesto * 70 * hotel;
-    }
-    if (piscina >= 1) {
-        suma += this.impuesto * 25 * piscina;
-    }
-    if (pista >= 1) {
-        suma += this.impuesto * 25 * pista;
-    }
-    return suma;
-    }
-
 
 
 public void hipotecarPropiedad(Casilla casilla){

@@ -629,55 +629,111 @@ public class Menu {
 //comprobar que haya menos de el límite máximo de hoteles en el grupo, si los hay, el máximo d casas son 3
 //si no hay el máximo de hoteles en el grupo, el máximo de casas son 4 (solo se puede sonstruir un hotel si hay 4 casas)
 
-    private void edificarCasa() {
-        Edificacion casa = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "casa");
-        Casilla actual = jugadores.get(turno).getAvatar().getLugar();
-        int limiteGrupo = jugadores.get(turno).getAvatar().getLugar().getGrupo().getNumCasillas();
-        int numCasas = actual.contarCasas();
-        int numHotel = actual.contarHoteles();
+private boolean comprobar(){
+    Casilla actual = jugadores.get(turno).getAvatar().getLugar();
+    boolean duenho; 
 
-        if (numCasas < 4) {
-            if (numHotel==limiteGrupo) {
-                if (numCasas<limiteGrupo) {
-                    actual.anhadirEdificacion(casa);
-                    System.out.println("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + numCasas + " casas construidas.");
-                }
-            }else{
+    if (actual.getGrupo().esDuenhoGrupo(jugadores.get(turno)) || actual.getVecescaidas()>2) {
+        return true;   
+    }
+    return false;
+}
+
+
+
+//comprobar que haya menos de el límite máximo de hoteles en el grupo, si los hay, el máximo d casas son 3
+//si no hay el máximo de hoteles en el grupo, el máximo de casas son 4 (solo se puede sonstruir un hotel si hay 4 casas)
+
+private void edificarCasa() {
+    Edificacion casa = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "casa");
+    Casilla actual = jugadores.get(turno).getAvatar().getLugar();
+    int limiteGrupo = jugadores.get(turno).getAvatar().getLugar().getGrupo().getNumCasillas();
+    int numCasas = actual.contarCasas();
+    int hotelgrupo = actual.getGrupo().contarHotelesGrupo();
+    int casasGrupo = actual.getGrupo().contarCasasGrupo();
+
+    if (comprobar()) {
+        
+    
+    if (numCasas < 4) {
+        if (hotelgrupo==limiteGrupo) {
+            if (casasGrupo<limiteGrupo) {
                 actual.anhadirEdificacion(casa);
-                System.out.println("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + numCasas + " casas construidas.");
-
+                System.out.println("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
             }
         }else{
-            System.out.println("Se alcanzó el límite máximo de casas a construir");
-        }    
-    }
-    
-    
-    private void edificarHotel(){
-        Edificacion hotel = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "hotel");
-        Casilla acual = jugadores.get(turno).getAvatar().getLugar();
-
-
-
+            actual.anhadirEdificacion(casa);
+            System.out.println("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
 
         }
+    }else{
+        System.out.println("Se alcanzó el límite máximo de casas a construir");
+    }    
+}
+}
 
 
-    private void edificarPiscina(){
-        Edificacion piscina = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "piscina");
-        int contarcasas = contarCasasActuales();
-        int contarhoteles = contarHotelesActuales();
+private void edificarHotel(){
+    Edificacion hotel = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "hotel");
+    Casilla actual = jugadores.get(turno).getAvatar().getLugar();
+    int limiteGrupo = jugadores.get(turno).getAvatar().getLugar().getGrupo().getNumCasillas();
+    int numCasas = actual.contarCasas();
+    int hotelgrupo = actual.getGrupo().contarHotelesGrupo();
 
 
-
-
-
+    if (hotelgrupo<limiteGrupo){
+        if (numCasas==4){
+            actual.anhadirEdificacion(hotel);
+            System.out.println("Se ha construido el hotel y se han quitado las 4 casas");
+            actual.cambiarcasas();
+        }else{
+            System.out.println("No hay 4 casas en la casilla como para construir el hotel");
+        }
+    }else{
+        System.out.println("Has alcanzado el limite máximo de hoteles en el grupo");
     }
-    private void edificarPista(){
-        Edificacion pista = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "pista");
+   
+}
 
-        
+
+private void edificarPiscina(){
+    Edificacion piscina = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "piscina");
+    Casilla actual = jugadores.get(turno).getAvatar().getLugar();
+    int limiteGrupo = jugadores.get(turno).getAvatar().getLugar().getGrupo().getNumCasillas();
+    int numCasas = actual.contarCasas();
+    int hotel = actual.contarHoteles();
+    int piscinagrupo = actual.getGrupo().contarPiscinasGrupo();
+
+    if (piscinagrupo<limiteGrupo){
+        if ((hotel>=1 && numCasas>1) || (hotel>=2)) {
+            actual.anhadirEdificacion(piscina);
+            System.out.println("Se ha construido la piscina");
+        }else{
+            System.out.println("Para construir una piscina necesitas 1 hotel y 2 casas o 2 o más hoteles");
+        }
+    }else{
+        System.out.println("Has alcanzado el máximo de piscinas en el grupo");
     }
+}
+
+private void edificarPista(){
+    Edificacion pista = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "piscina");
+    Casilla actual = jugadores.get(turno).getAvatar().getLugar();
+    int limiteGrupo = jugadores.get(turno).getAvatar().getLugar().getGrupo().getNumCasillas();
+    int hotel = actual.contarHoteles();
+    int pistasgrupo = actual.getGrupo().contarPistasGrupo();
+
+    if (pistasgrupo<limiteGrupo) {
+        if (hotel>=2) {
+            actual.anhadirEdificacion(pista);
+            System.out.println("Se ha construido la pista de deportes");
+        }else{
+            System.out.println("Necesitas al menos 2 hoteles para construir una pista de deportes");
+        }
+    }else{
+        System.out.println("Has alcanzado el máximo de pistas de deporte en el grupo");
+    }
+}
 
 
 
