@@ -313,8 +313,11 @@ public class Casilla {
                             return false;
                             //Acabaría la partida para este jugador
                         }else{
-                            actual.setFortuna(actual.getFortuna()-this.impuesto);
-                            this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
+                            actual.setFortuna(actual.getFortuna()-this.impuesto); //le restamos el alquiler pagado
+                            actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
+
+                            this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
+                            this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
 
                             System.out.println("El jugador paga "+this.impuesto +"€");
                             return true;
@@ -330,9 +333,12 @@ public class Casilla {
                         return false;
                         //Acabaría la partida para este jugador
                     }else{
-                        actual.setFortuna(actual.getFortuna() - this.impuesto);
-                        this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
-                    
+                        actual.setFortuna(actual.getFortuna() - this.impuesto); //le restamos el alquiler pagado
+                        actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
+
+                        this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
+                        this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
+
                         System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
                     
                         return true;
@@ -348,9 +354,14 @@ public class Casilla {
                             return false;
                             //Acabaría la partida para este jugador
                         }else{
-                            actual.setFortuna(actual.getFortuna() - this.impuesto);
-                            this.duenho.setFortuna((duenho.getFortuna() + this.impuesto));
+                            actual.setFortuna(actual.getFortuna() - this.impuesto); //le restamos el alquiler pagado
+                            actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
+
+                            this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
+                            this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
+
                             System.out.println("Se han pagado "+this.impuesto +"€ por el uso del transporte");
+                            
                             return true;
                         }
                     }
@@ -713,6 +724,7 @@ public void Hacienda(Jugador jugador, Tablero tablero){
         }else{
             for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
                 if (casilla.getNombre().equals(nombre)){
+                    
                     if(casilla.getEdificacion().isEmpty()){ //verificamos que no tenga edificaciones en la casilla
                         jugador.setFortuna(jugador.getFortuna() + (valorHipoteca(casilla)/2));
                         hipotecarPropiedad(casilla);
