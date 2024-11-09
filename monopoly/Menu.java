@@ -13,6 +13,7 @@ public class Menu {
     private ArrayList<Avatar> avatares; //Avatares en la partida.
     private int turno = 0; //Índice correspondiente a la posición en el arrayList del jugador (y el avatar) que tienen el turno
     private int lanzamientos; //Variable para contar el número de lanzamientos de un jugador en un turno.
+    private int lanzamientosDobles;//Num de veces seguidas que se han lanzado dobles
     private Tablero tablero; //Tablero en el que se juega.
     private Dado dado1; //Dos dados para lanzar y avanzar casillas.
     private Dado dado2;
@@ -61,6 +62,12 @@ public class Menu {
 
     public void setLanzamientos(int lanzamientos){
         this.lanzamientos = lanzamientos;
+    }
+    public int getLanzamientosDobles(){
+        return lanzamientosDobles;
+    }
+    public void setLanzamientosDobles(int lanzamientosDobles){
+        this.lanzamientosDobles=lanzamientosDobles;
     }
 
     public Tablero getTablero(){
@@ -385,6 +392,13 @@ public class Menu {
             System.out.println("Ya has lanzado los dados en este turno.");
             return;
         }
+        //Si existe una restricción de turnos sin tirar(mov avanzado coche), no podremos lanzar los dados
+        if(jugadores.get(turno).getAvatar().getRestriccionTiradas()!=0){
+            System.out.println("Debido a la restricción del mov avanzado de coche, tiene que esperar %d turnos para volver a lanzar los dados"+jugadores.get(turno).getAvatar().getRestriccionTiradas());
+            //Le restamos 1 a los turnos restantes para poder volver a tirar
+            jugadores.get(turno).getAvatar().setRestriccionTiradas(jugadores.get(turno).getAvatar().getRestriccionTiradas()-1);
+            return;
+        }
         
 
         //LANZAR DADOS ALEATORIOS
@@ -433,8 +447,8 @@ public class Menu {
             } else {
                 jugadores.get(turno).setTiradasCarcel(jugadores.get(turno).getTiradasCarcel() + 1);
                     if (jugadores.get(turno).getTiradasCarcel() >= 3) {
-                        System.out.println("Has fallado 3 veces.");
 
+                        System.out.println("Has fallado 3 veces.");
                         jugadores.get(turno).setEnCarcel(false);
                         
                         //Calculamos la posición inicial
@@ -456,7 +470,8 @@ public class Menu {
                 setTirado(true);
                 return;
             }
-        }else{ //Si el jugador no está en la cárcel
+        //JUGADOR NO ESTÁ EN LA CÁRCEL
+        }else{ 
             String posicionActual=jugadores.get(turno).getAvatar().getLugar().getNombre();
             int pos_ini = jugadores.get(turno).getAvatar().getLugar().getPosicion();
 
@@ -482,21 +497,18 @@ public class Menu {
 
                     jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); 
                     
-                    jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); //le sumamos a la estadística del dinero recibido por pasar por inicio
-
                     tablero.calcularCasillas(jugadores); //calculamos el nuevo valor que reciben los jugadores al pasar por la casilla inicio
             }
 
-
             setTirado(true); //El jugador ya ha lanzado los dados en este turno
 
-            // Si sacó dobles, puede volver a tirar
-            if (getDadosdobles()) {
+            //Sacó dobles y no es mov avanzado de coche
+            if (getDadosdobles()&&(jugadores.get(turno).getAvatar().getTipo().equals("coche")==true && getLanzamientos()<4 && jugadores.get(turno).getAvatar().getAvanzado()==1 && sumaDados>4)==false) {
                 setTirado(false); // Permitir volver a tirar
-                setLanzamientos(getLanzamientos()+1);
+                setLanzamientosDobles(getLanzamientosDobles()+1);
 
                 // Si sacó dobles 3 veces, va a la cárcel
-                if (getLanzamientos() == 3) {
+                if (getLanzamientosDobles() == 3) {
                     System.out.println("Has sacado dobles 3 veces seguidas, vas a la cárcel.");
                     jugadores.get(turno).encarcelar(tablero.getPosiciones());
                     setTirado(true);
@@ -504,9 +516,20 @@ public class Menu {
                     System.out.println("Has sacado dobles, puedes lanzar de nuevo.");
                 }
             } else {
-                setLanzamientos(0); // Resetear el contador de lanzamientos dobles
+                setLanzamientosDobles(0); // Resetear el contador de lanzamientos dobles
             }
-            
+
+            //Si el valor de la tirada es>4, es mov avanzado de coche y lanzamientos es  <4 veces, que es lo máximo peromitido-----> permitimos volver a lanzar los dados, es decir, setTirado()=false
+            if(jugadores.get(turno).getAvatar().getTipo().equals("coche")==true && getLanzamientos()<4 && jugadores.get(turno).getAvatar().getAvanzado()==1 && sumaDados>4){
+                setTirado(false);
+                setLanzamientos(getLanzamientos()+1);
+            //Si se ha acabado el turno del coche, el valor compras se reestablece a 0
+            }else{
+                setLanzamientos(0);
+                jugadores.get(turno).getAvatar().setCompras(0);
+                
+            }
+
             String posicionFinal=jugadores.get(turno).getAvatar().getLugar().getNombre(); //definimos aquí la posiciónFinal por si el jugador va a la cárcel
 
             
@@ -553,16 +576,11 @@ public class Menu {
     private void salirCarcel() {
         //Si el jugador está en la cárcel
         //if(jugadores.get(turno).getAvatar().getLugar().getNombre()=="carcel"){
-        if((jugadores.get(turno).getAvatar().getLugar().getPosicion() == 10) && (jugadores.get(turno).getEnCarcel())){
+        if(jugadores.get(turno).getAvatar().getLugar().getPosicion() == 10){
             //Si está en la cárcel y además le llega el dinero:
-            if(jugadores.get(turno).getFortuna() >= jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())){
-                
-                jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones()));
-                
+            if(jugadores.get(turno).getFortuna()>=jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())){
+                jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones()));
                 jugadores.get(turno).setEnCarcel(false);
-            
-                jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())); //añadimos al atributo dineroTasasEImpuestos el valor pagado por salir de la cárcel
-            
             }else{
                 System.out.println("No tienes dinero suficiente para salir de la cárcel.");
                 //falta poner que pierde la partida
@@ -617,7 +635,7 @@ public class Menu {
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
-    private void acabarTurno() {
+    public void acabarTurno() {
         
         turno++;
 
@@ -627,6 +645,7 @@ public class Menu {
 
         setTirado(false);
         setLanzamientos(0);
+        setLanzamientosDobles(0);
         setDadosdobles(false);
         
     }
@@ -770,7 +789,6 @@ private void edificarPista(){
                         //Si pasa por la casilla de salida le sumamos el valor:
                         if(posicion1>5 || posicion1<0){
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
-
                             System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
 
                         }
@@ -793,10 +811,7 @@ private void edificarPista(){
                     //Se vende el billete de avion a solar 17, por lo que se reciben 500000€
                     case 3:
                         System.out.println("Vendes tu billete de avión para Solar17 en una subasta por Internet. Cobra 500000€.");
-                        this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna() + 500000f);
-
-                        jugadores.get(turno).setDineroInversionesOBote(jugadores.get(turno).getDineroInversionesOBote() + 500000f); //añadimos al atributo dineroInversionesOBote el valor indicado
-
+                        this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna()+500000f);
                         break;
                     case 4:
                         System.out.println("Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.");
@@ -820,14 +835,11 @@ private void edificarPista(){
                     case 5:
                         System.out.println("Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.");
                         this.jugadores.get(turno).encarcelar(tablero.getPosiciones());
-                        
+
                         break;
                     case 6:
                         System.out.println("Has ganado el bote de la lotería! Recibe 1000000€.");
                         this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna()+1000000f);
-                        
-                        jugadores.get(turno).setDineroInversionesOBote(jugadores.get(turno).getDineroInversionesOBote() + 1000000f); //añadimos al atributo dineroInversionesOBote el valor indicado
-
                         break;
                     default:
                         break;
@@ -840,9 +852,6 @@ private void edificarPista(){
                     System.out.println("Paga 500000€ por un fin de semana en un balneario de 5 estrellas.");
                     if(jugadores.get(turno).getFortuna()>=500000f){
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-500000f);
-
-                        jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + 500000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
-
 
                     }else{
                         //bancarrota();
@@ -868,16 +877,11 @@ private void edificarPista(){
                 case 4:
                     System.out.println("Tu compañía de Internet obtiene beneficios. Recibe 2000000€");
                     jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+2000000f);
-
-                    jugadores.get(turno).setDineroInversionesOBote(jugadores.get(turno).getDineroInversionesOBote() + 2000000f); //añadimos al atributo dineroInversionesOBote el valor indicado
-                    
                     break;
                 case 5:
                     System.out.println("Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14");
                     if(jugadores.get(turno).getFortuna()>=1000000f){
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-1000000f);
-
-                        jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + 1000000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
 
                     }else{
                         //bancarrota();
@@ -888,13 +892,10 @@ private void edificarPista(){
                     for(int i=0;i<jugadores.size();i++){
                         if(i!=turno){
                             //Si el jugador del turno tiene el dinero suficiente...
-                            if(jugadores.get(turno).getFortuna() >= 200000f){
+                            if(jugadores.get(turno).getFortuna()>=200000f){
                                 //Les damos el dinero y se lo quitamos al jugador que le toca la carta.
                                 jugadores.get(i).setFortuna(jugadores.get(i).getFortuna()+200000f);
-
                                 jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-200000f);
-
-                                jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + 200000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
 
                             }else{
                                 //bancarrota();
