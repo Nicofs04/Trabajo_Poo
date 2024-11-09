@@ -415,15 +415,22 @@ public class Casilla {
                     actual.setFortuna(actual.getFortuna() - this.impuesto);
                     //Le pagamos a la banca:
                     banca.setFortuna(banca.getFortuna() + this.impuesto);
+
                     System.out.println("El jugador paga "+this.impuesto +"€");
+
+                    actual.setDineroTasasEImpuestos(actual.getDineroTasasEImpuestos() + this.impuesto); //le sumamos al atributo dineroTasasEImpuestos el impuesto de la casillas impuesto
+
                     return true;
                 }
             case "especial":
                 //PARKING
                 if ((this.tipo == "especial" && this.posicion == 20)) {
                     actual.setFortuna(actual.getFortuna() + this.valor);
+
                     float bote=this.valor;
+
                     this.valor = 0;
+                    
                     System.out.println("El jugador recibe"+bote+ " el bote de la banca.");
                     return true;
                     //IR A CARCEL

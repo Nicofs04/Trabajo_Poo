@@ -20,6 +20,8 @@ public class Jugador {
     private float dineroPagadoAlquileres;
     private float dineroCobradoAlquileres;
     private float dineroCobradoSalida;
+    private float dineroTasasEImpuestos;
+    private float dineroInversionesOBote;
 
     // Constructor vacío. Se usará para crear la banca.
     public Jugador() {
@@ -153,6 +155,22 @@ public class Jugador {
         this.dineroCobradoSalida = dineroCobradoSalida;
     }
 
+    public float getDineroTasasEImpuestos(){
+        return dineroTasasEImpuestos;
+    }
+
+    public void setDineroTasasEImpuestos(float dineroTasasEImpuestos){
+        this.dineroTasasEImpuestos = dineroTasasEImpuestos;
+    }
+
+    public float getDineroInversionesOBote(){
+        return dineroInversionesOBote;
+    }
+
+    public void setDineroInversionesOBote(float dineroInversionesOBote){
+        this.dineroInversionesOBote = dineroInversionesOBote;
+    }
+
     // Otros métodos:
     // Método para añadir una propiedad al jugador. Como parámetro, la casilla a
     // añadir.
@@ -201,7 +219,7 @@ public class Jugador {
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
         sb.append(String.format(" dineroInvertido: %d,", ));
-        sb.append(String.format(" pagoTasasEImpuestos: %d,", ));
+        sb.append(String.format(" pagoTasasEImpuestos: %f,", getDineroTasasEImpuestos()));
         sb.append(String.format(" pagoDeAlquileres: %f,", this.getDineroPagadoAlquileres()));
         sb.append(String.format(" cobroDeAlquileres: %f,", this.getDineroCobradoAlquileres()));
         sb.append(String.format(" pasarPorCasillaDeSalida: %d,", getDineroCobradoSalida()));
