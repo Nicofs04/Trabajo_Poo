@@ -218,13 +218,16 @@ public class Jugador {
     public void estadisticasJugador(){
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
-        sb.append(String.format(" dineroInvertido: %d,", ));
-        sb.append(String.format(" pagoTasasEImpuestos: %f,", getDineroTasasEImpuestos()));
-        sb.append(String.format(" pagoDeAlquileres: %f,", this.getDineroPagadoAlquileres()));
-        sb.append(String.format(" cobroDeAlquileres: %f,", this.getDineroCobradoAlquileres()));
-        sb.append(String.format(" pasarPorCasillaDeSalida: %d,", getDineroCobradoSalida()));
-        sb.append(String.format(" premiosInversionesOBote: %d", ));
-        sb.append(String.format(" vecesEnLaCarcel: %d", this.getVecesCarcel()));
+        sb.append(String.format(" dineroInvertido: %d,\n", ));
+        sb.append(String.format(" pagoTasasEImpuestos: %f,\n", getDineroTasasEImpuestos()));
+        sb.append(String.format(" pagoDeAlquileres: %f,\n", getDineroPagadoAlquileres()));
+        sb.append(String.format(" cobroDeAlquileres: %f,\n", getDineroCobradoAlquileres()));
+        sb.append(String.format(" pasarPorCasillaDeSalida: %f,\n", getDineroCobradoSalida()));
+        sb.append(String.format(" premiosInversionesOBote: %f, \n", getDineroInversionesOBote()));
+        sb.append(String.format(" vecesEnLaCarcel: %d\n", getVecesCarcel()));
+        sb.append("}\n");
+
+        System.out.println(sb.toString());
     }
 
 }
