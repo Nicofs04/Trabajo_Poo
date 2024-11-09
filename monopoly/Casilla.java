@@ -430,8 +430,11 @@ public class Casilla {
                     float bote=this.valor;
 
                     this.valor = 0;
-                    
+
                     System.out.println("El jugador recibe"+bote+ " el bote de la banca.");
+
+                    actual.setDineroInversionesOBote(actual.getDineroInversionesOBote() + bote); //añadimos al atributo dineroInversionesOBote el valor indicado
+
                     return true;
                     //IR A CARCEL
                 } else if (this.tipo == "especial" && this.posicion == 30) {
