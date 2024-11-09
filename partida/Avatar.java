@@ -82,7 +82,7 @@ public class Avatar {
                 if(tipo.equals("pelota")){
                     // Obtener la posición actual del lugar del avatar
                     int posicionActual = lugar.getPosicion();
-                    //Si valorTirada>4 va para delante y a partir del cuarto desplazamiento se para a evaluar cada casilla
+                    //Si valorTirada>4 va para delante y a partir del cuarto desplazamiento se para a evaluar cada casilla impar
                     //Si valorTirada<=4 va para atrás
                     if(valorTirada>4){
                         //Primero nos movemos 4 posiciones hacia delante seguidas:
@@ -127,7 +127,7 @@ public class Avatar {
                                 //1.
                                 }else{
                                     //el arg valorTirada de momento no lo usamos en evaluarCasilla
-                                    this.getLugar().evaluarCasilla(menu.getTablero().getPosiciones(),this.getJugador(),menu.getBanca(),valorTirada,menu);
+                                    this.getLugar().evaluarCasilla(menu.getTablero(),this.getJugador(),menu.getBanca(),valorTirada,menu);
                                 }
                             //Si es un índice par, no evaluamos la casilla.
                             }else{
