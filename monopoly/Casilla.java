@@ -311,7 +311,7 @@ public class Casilla {
                         }      
                     }
                 }
-            break;
+                break;
             case "servicio":
                 if(!c.getHipotecado()){ //verificamos que la casilla no este hipotecada
                     if(actual.getFortuna() < (this.impuesto)) {
@@ -328,7 +328,7 @@ public class Casilla {
                         return true;
                     }
                 }
-            break;
+                break;
             case "transporte":
                 if(!c.getHipotecado()){ //verificamos que la casilla no este hipotecada
                     if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ){
@@ -345,30 +345,46 @@ public class Casilla {
                         }
                     }
                 }
-            break;
+                break;
             //No es para esta entrega
             case "suerte":
                 //Barajar cartas
-                ArrayList<Integer> baraja=new ArrayList<Integer>();
-                baraja= crearBaraja();
-                barajar(baraja);
+                ArrayList<Integer> baraja1=new ArrayList<Integer>();
+                baraja1= crearBaraja();
+                barajar(baraja1);
                 //Elegir carta
                 System.out.println("Qué carta desea elegir?");
-                Scanner scanner = new Scanner(System.in);
-                int carta = scanner.nextInt();
-                while(carta>6 || carta<1){
-                    System.out.println("Introduce un nombre del 1 al 6");
-                    carta = scanner.nextInt();
+                Scanner scanner1 = new Scanner(System.in);
+                int carta1 = scanner1.nextInt();
+                while(carta1>6 || carta1<1){
+                    System.out.println("Introduce un número del 1 al 6");
+                    carta1 = scanner1.nextInt();
                 }
-                int eleccion=0;
-                eleccion=baraja.get(carta);
+                int eleccion1=0;
+                eleccion1=baraja1.get(carta1);
                 //Realizar acción
-                menu.accionCarta(c.getTipo(),eleccion);
+                menu.accionCarta(c.getTipo(),eleccion1);
 
-            break;
+                break;
             //No es para esta entrega
             case "caja":
-            break;
+                //Barajar cartas
+                ArrayList<Integer> baraja2=new ArrayList<Integer>();
+                baraja2= crearBaraja();
+                barajar(baraja2);
+                //Elegir carta
+                System.out.println("Qué carta desea elegir?");
+                Scanner scanner2 = new Scanner(System.in);
+                int carta2 = scanner2.nextInt();
+                while(carta2>6 || carta2<1){
+                    System.out.println("Introduce un número del 1 al 6");
+                    carta2 = scanner2.nextInt();
+                }
+                int eleccion2=0;
+                eleccion2=baraja2.get(carta2);
+                //Realizar acción
+                menu.accionCarta(c.getTipo(),eleccion2);
+                break;
             case "impuesto":
                 if (actual.getFortuna() < this.impuesto) {
                     System.out.println("El jugador no tiene dinero suficiente para pagar los impuestos, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
@@ -400,10 +416,10 @@ public class Casilla {
                     System.out.println("Has caído en la cárcel pero solo de visita, no estás encarcelado");
                     return true;
                 }
-            break;
+                break;
             default:
                 System.out.println("El tipo de la casilla está mal definido");
-            break;
+                break;
         }
     return false;
 }
