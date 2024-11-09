@@ -24,8 +24,8 @@ public class Casilla {
     private ArrayList<Edificacion> edificaciones;
     
     private boolean hipotecado;
-    private ArrayList<Integer> veces;
-    private int vecescaidas;
+    private ArrayList<Integer> Vecescaidas;
+    private int Veces_global;
 
 
     // Constructores:
@@ -45,8 +45,10 @@ public class Casilla {
         this.duenho = duenho;
         this.avatares = new ArrayList<>();
         this.edificaciones = new ArrayList<Edificacion>();
-        this.veces = new ArrayList<>();
+        this.Vecescaidas = new ArrayList<Integer>();
         this.impuesto = (valor)*(0.10f);
+
+        inicializarVeces(Vecescaidas);
     }
 
     /*
@@ -173,14 +175,43 @@ public class Casilla {
         this.hipotecado = hipotecado;
     }
 
-    public int getVecescaidas(){
-        return this.vecescaidas;
+    public int getVeces_global(){
+        return this.Veces_global;
     }
 
-    public void sumarVecescaidas(int vecescaidas){
-        this.vecescaidas += vecescaidas;
+    public void sumarVeces_global(int Veces_global){
+        this.Veces_global += Veces_global;
     }
 
+    public void incrementarVeces(int jugadorIndex) {
+        int caidasActuales = Vecescaidas.get(jugadorIndex);
+        Vecescaidas.set(jugadorIndex, caidasActuales + 1);
+    }
+    
+    // Método para obtener el número de caídas de un jugador específico
+    public int getVeces(int jugadorIndex) {
+        return Vecescaidas.get(jugadorIndex);
+    }
+
+
+    public void inicializarVeces(ArrayList<Integer> Vecescaidas) {
+        if (Vecescaidas.isEmpty()) {
+            for(int i = 0; i<6 ; i++){
+                Vecescaidas.add(0);
+            }
+        }
+    }
+
+    public void eliminarEdificacion(String tipoEdificacion) {
+        
+        
+        for (int i = 0; i < edificaciones.size(); i++) {
+            if (edificaciones.get(i).getTipo().equals(tipoEdificacion)) {
+                edificaciones.remove(i);
+                break;
+            }
+        }
+    }
 
     //Devuelve el valor que se le suma a los jugadores por pasar por la casilla de salida
     public float valorSalida(ArrayList<ArrayList<Casilla>> tablero){
@@ -301,15 +332,15 @@ public class Casilla {
         //NO EVALUAMOS EN ESTA FUNCION LAS CASILLAS: Salida(especial), Carcel(especial)
         //PARKING, en este caso siempre va a ser true ya que la recaudacion de impuestos siempre va a ser >=0
         Casilla c = actual.getAvatar().getLugar();
-        c.sumarVecescaidas(1);
-
-
+        c.sumarVeces_global(1);
 
         switch (c.getTipo()) {
-            case "solar":               
+            case "solar":   
+                int jugadorIndex = menu.getTurno(); // Asumiendo que cada jugador tiene un método para obtener su índice único
+                incrementarVeces(jugadorIndex);            
                 if(!c.getHipotecado()){ //verificamos que la casilla no este hipotecada
                     if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ) {
-                    
+                        
                         if (actual.getFortuna() < this.impuesto+sumarImpuestoedificios()) {
 
                             System.out.println("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
@@ -732,7 +763,7 @@ public int contarPistas(){
         return suma;
         }
 
-        
+
 
 public void hipotecarPropiedad(Casilla casilla){
     casilla.setHipotecado(true);
