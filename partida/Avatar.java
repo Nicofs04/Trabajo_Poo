@@ -140,8 +140,7 @@ public class Avatar {
                                 if (this.lugar.getDuenho().equals("banca") && this.lugar.estaEnVenta() == true) {
 
                                     System.out.println("Quieres comprar la casilla %s?" + this.lugar.getNombre());
-                                    System.out.println(
-                                            "Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
+                                    System.out.println("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
                                     Scanner scanner = new Scanner(System.in);
                                     String respuesta = scanner.nextLine();
                                     if (respuesta.equals("si")) {
@@ -154,11 +153,10 @@ public class Avatar {
                                         this.jugador.encarcelar(tablero);
                                     }
 
-                                    // 1.
+                                // 1.
                                 } else {
                                     // el arg valorTirada de momento no lo usamos en evaluarCasilla
-                                    this.getLugar().evaluarCasilla(menu.getTablero(), this.getJugador(),
-                                            menu.getBanca(), valorTirada, menu);
+                                    this.getLugar().evaluarCasilla(menu.getTablero(), this.getJugador(),menu.getBanca(), valorTirada, menu);
                                 }
                                 // Si es un índice par, no evaluamos la casilla.
                             } else {
@@ -180,16 +178,13 @@ public class Avatar {
                         int nuevaPosicion = (posicionActual - valorTirada) % 40; // Usar el módulo para asegurarte de
                                                                                  // que vuelva al inicio si excede 39
                         lugar.eliminarAvatar(this);
-                        for (int i = 0; i > tablero.size(); i--) {
-                            for (int j = 0; j > tablero.get(i).size(); j--) {
+                        for (int i = 0; i > tablero.size(); i++) {
+                            for (int j = 0; j > tablero.get(i).size(); j++) {
                                 if (tablero.get(i).get(j).getPosicion() == nuevaPosicion) {
                                     lugar = tablero.get(i).get(j);
                                 }
                             }
-                        }
-                        //Marcamos la restricción
-                        setRestriccionTiradas(1);
-                    
+                        }                    
 
                     }
 
@@ -235,9 +230,8 @@ public class Avatar {
 
                     //El valor de la tirada es 4 o menos
                     }else{
-                        // Avanzamos tantas casillas como valor de la tirada del intento actual
-                        int nuevaPosicion = (posicionActual + valorTirada) % 40; // Usar el módulo para asegurarte de
-                        // que vuelva al inicio si excede 39
+                        //Retrocedemos tantas casillas como valor de la tirada del intento actual
+                        int nuevaPosicion = (posicionActual + valorTirada) % 40;
                         lugar.eliminarAvatar(this);
                         for (int i = 0; i < tablero.size(); i++) {
                             for (int j = 0; j < tablero.get(i).size(); j++) {
@@ -322,5 +316,5 @@ public class Avatar {
             }
         }
     }
-    
+
 }
