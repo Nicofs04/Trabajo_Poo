@@ -482,6 +482,8 @@ public class Menu {
 
                     jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); 
                     
+                    jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); //le sumamos a la estadística del dinero recibido por pasar por inicio
+
                     tablero.calcularCasillas(jugadores); //calculamos el nuevo valor que reciben los jugadores al pasar por la casilla inicio
             }
 
