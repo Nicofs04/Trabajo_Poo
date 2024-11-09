@@ -16,6 +16,9 @@ public class Jugador {
     // para intentar salir (se usa para limitar el numero de intentos).
     private int vueltas; // Cuenta las vueltas dadas al tablero.
     private ArrayList<Casilla> propiedades; // Propiedades que posee el jugador.
+    private int vecesCarcel;
+    private float dineroPagadoAlquileres;
+    private float dineroCobradoAlquileres;
 
     // Constructor vacío. Se usará para crear la banca.
     public Jugador() {
@@ -117,6 +120,30 @@ public class Jugador {
         this.propiedades = propiedades;
     }
 
+    public int getVecesCarcel(){
+        return vecesCarcel;
+    }
+
+    public void setVecesCarcel(int vecesCarcel){
+        this.vecesCarcel = vecesCarcel;
+    }
+
+    public float getDineroPagadoAlquileres(){
+        return dineroPagadoAlquileres;
+    }
+
+    public void setDineroPagadoAlquileres(float dineroPagadoAlquileres){
+        this.dineroPagadoAlquileres = dineroPagadoAlquileres;
+    }
+
+    public float getDineroCobradoAlquileres(){
+        return dineroCobradoAlquileres;
+    }
+
+    public void setDineroCobradoAlquileres(float dineroCobradoAlquileres){
+        this.dineroCobradoAlquileres = dineroCobradoAlquileres;
+    }
+
     // Otros métodos:
     // Método para añadir una propiedad al jugador. Como parámetro, la casilla a
     // añadir.
@@ -158,6 +185,19 @@ public class Jugador {
         Casilla carcel = tablero.get(1).get(0);
         this.avatar.setLugar(carcel);
         carcel.anhadirAvatar(this.avatar); //añadimos el avatar al array de avatares en cárcel
+        this.setVecesCarcel(this.getVecesCarcel() + 1);
+    }
+
+    public void estadisticasJugador(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\n");
+        sb.append(String.format(" dineroInvertido: %d,", ));
+        sb.append(String.format(" pagoTasasEImpuestos: %d,", ));
+        sb.append(String.format(" pagoDeAlquileres: %f,", this.getDineroPagadoAlquileres()));
+        sb.append(String.format(" cobroDeAlquileres: %f,", this.getDineroCobradoAlquileres()));
+        sb.append(String.format(" pasarPorCasillaDeSalida: %d,", ));
+        sb.append(String.format(" premiosInversionesOBote: %d", ));
+        sb.append(String.format(" vecesEnLaCarcel: %d", this.getVecesCarcel()));
     }
 
 }
