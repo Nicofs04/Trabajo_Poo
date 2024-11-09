@@ -24,7 +24,7 @@ public class Casilla {
     private ArrayList<Edificacion> edificaciones;
     
     private boolean hipotecado;
-
+    private ArrayList<Integer> veces;
     private int vecescaidas;
 
 
@@ -45,6 +45,7 @@ public class Casilla {
         this.duenho = duenho;
         this.avatares = new ArrayList<>();
         this.edificaciones = new ArrayList<Edificacion>();
+        this.veces = new ArrayList<>();
         this.impuesto = (valor)*(0.10f);
     }
 
@@ -300,6 +301,8 @@ public class Casilla {
         //NO EVALUAMOS EN ESTA FUNCION LAS CASILLAS: Salida(especial), Carcel(especial)
         //PARKING, en este caso siempre va a ser true ya que la recaudacion de impuestos siempre va a ser >=0
         Casilla c = actual.getAvatar().getLugar();
+        c.sumarVecescaidas(1);
+
 
 
         switch (c.getTipo()) {
@@ -697,7 +700,39 @@ public int contarPistas(){
     }
     return contador;
 }
+    public float sumarImpuestoedificios(){
+        float suma=0;
+        int casas=0,hotel=0,piscina=0,pista=0;
+        casas = contarCasas();
+        hotel=contarHoteles();
+        piscina=contarPiscinas();
+        pista=contarPistas();
+    
+        if (casas==1) {
+            suma += this.impuesto*5;
+        }
+        else if (casas==2) {
+            suma += this.impuesto*15;
+        }
+        else if (casas==3) {
+            suma += this.impuesto*35;
+        }
+        else if (casas==4) {
+            suma += this.impuesto*50;
+        }
+        if (hotel >= 1) {
+            suma += this.impuesto * 70 * hotel;
+        }
+        if (piscina >= 1) {
+            suma += this.impuesto * 25 * piscina;
+        }
+        if (pista >= 1) {
+            suma += this.impuesto * 25 * pista;
+        }   
+        return suma;
+        }
 
+        
 
 public void hipotecarPropiedad(Casilla casilla){
     casilla.setHipotecado(true);

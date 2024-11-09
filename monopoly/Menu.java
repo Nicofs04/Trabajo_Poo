@@ -684,13 +684,23 @@ private void edificarCasa() {
     if (numCasas < 4) {
         if (hotelgrupo==limiteGrupo) {
             if (casasGrupo<limiteGrupo) {
+                if (!(jugadores.get(turno).getFortuna()< (actual.getImpuesto()*0.6f))) {
                 actual.anhadirEdificacion(casa);
+                jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-(actual.getImpuesto()*0.6f));
                 System.out.println("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
+                }else{
+                    System.out.println("No dispones del dinero necesario para construir la edificación");
+                }
             }
         }else{
-            actual.anhadirEdificacion(casa);
-            System.out.println("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
-
+            if (!(jugadores.get(turno).getFortuna()< (actual.getImpuesto()*0.6f))) {
+                actual.anhadirEdificacion(casa);
+                jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-(actual.getImpuesto()*0.6f));
+                System.out.println("Se han pagado"+ actual.getImpuesto()*0.6f + "por la construcción de una casa. La fortuna restante es de "+jugadores.get(turno).getFortuna());
+                System.out.println("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
+            }else{
+                System.out.println("No dispones del dinero necesario para construir la edificación");
+            }
         }
     }else{
         System.out.println("Se alcanzó el límite máximo de casas a construir");
@@ -916,16 +926,3 @@ private void edificarPista(){
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
