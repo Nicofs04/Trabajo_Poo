@@ -766,7 +766,7 @@ public class Menu {
         int limiteGrupo = jugadores.get(turno).getAvatar().getLugar().getGrupo().getNumCasillas();
         int hotel = actual.contarHoteles();
         int pistasgrupo = actual.getGrupo().contarPistasGrupo();
-        int contarpistas = actual.contarPistas()
+        int contarpistas = actual.contarPistas();
 
         if (pistasgrupo<limiteGrupo) {
             if (hotel>=2) {
