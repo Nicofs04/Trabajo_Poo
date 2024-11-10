@@ -512,8 +512,9 @@ public class Casilla {
 
             // JUGADOR SOLICITANTE
 
-            // "quitar pasta"
-            solicitante.setFortuna(solicitante.getFortuna() - this.valor);
+            // "quitar dinero"
+            solicitante.setFortuna(solicitante.getFortuna() - this.valor); //le restamos el valor de la casilla comprada a la fortuna del jugador comprador
+            solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
 
             // "sumar gastos"
             solicitante.setGastos(solicitante.getGastos() + this.valor);

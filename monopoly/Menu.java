@@ -302,8 +302,8 @@ public class Menu {
             }
             break;
         case "hipotecar":
-            if(palabras.length==2){
-                //hipotecar();
+            if(palabras.length==1){
+                jugadores.get(turno).getAvatar().getLugar().Hacienda(jugadores.get(turno), tablero);
 
             }else{
                 System.out.println("Error, comando desconocido");
@@ -314,8 +314,8 @@ public class Menu {
 
             break;
         case "deshipotecar":
-            if(palabras.length==2){
-              //  deshipotecar();
+            if(palabras.length==1){
+                jugadores.get(turno).getAvatar().getLugar().deshipotecar(jugadores.get(turno), tablero);
             }else{
                 System.out.println("Error, comando desconocido");
             }
@@ -681,6 +681,9 @@ public class Menu {
                         if (!(jugadores.get(turno).getFortuna()< (actual.getValor()*0.6f))) {
                             actual.anhadirEdificacion(casa);
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-(actual.getValor()*0.6f));
+                            jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
+
+
                             System.out.println("Se han pagado"+ actual.getValor()*0.6f + "por la construcción de una casa. La fortuna restante es de "+jugadores.get(turno).getFortuna());
                             System.out.println("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
                         }else{
@@ -691,15 +694,18 @@ public class Menu {
                     if (!(jugadores.get(turno).getFortuna()< (actual.getValor()*0.6f))) {
                         actual.anhadirEdificacion(casa);
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-(actual.getValor()*0.6f));
+                        jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
+                        
+
                         System.out.println("Se han pagado"+ actual.getValor()*0.6f + "por la construcción de una casa. La fortuna restante es de "+jugadores.get(turno).getFortuna());
                         System.out.println("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
                     }else{
                         System.out.println("No dispones del dinero necesario para construir la edificación");
                     }
                 }
-                }else{
-                    System.out.println("Se alcanzó el límite máximo de casas a construir");
-                }    
+            }else{
+                System.out.println("Se alcanzó el límite máximo de casas a construir");
+            }    
             }
         }
 
@@ -717,18 +723,21 @@ public class Menu {
                     if (jugadores.get(turno).getFortuna() >= (actual.getValor() * 0.6f)) {
                         actual.anhadirEdificacion(hotel);
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - (actual.getValor() * 0.6f));
-                        System.out.println("Se han pagado " + actual.getValor() * 0.6f + " por la construcción de un hotel. La fortuna restante es de " + jugadores.get(turno).getFortuna());
-                        System.out.println("Se ha construido el hotel y se han quitado las 4 casas");
-                        System.out.println("Se ha construido un hotel correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarHoteles + 1) + " hoteles construidos.");
+                        jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
+
+
+                        System.out.println("Se han pagado " + actual.getValor() * 0.6f + " por la construcción de un hotel. La fortuna restante es de " + jugadores.get(turno).getFortuna() + "\n");
+                        System.out.println("Se ha construido el hotel y se han quitado las 4 casas\n");
+                        System.out.println("Se ha construido un hotel correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarHoteles + 1) + " hoteles construidos.\n");
                         actual.cambiarcasas();
                     } else {
-                        System.out.println("No dispones del dinero necesario para construir la edificación");
+                        System.out.println("No dispones del dinero necesario para construir la edificación\n");
                     }
                 } else {
-                    System.out.println("No hay 4 casas en la casilla como para construir el hotel");
+                    System.out.println("No hay 4 casas en la casilla como para construir el hotel\n");
                 }
             } else {
-                System.out.println("Has alcanzado el límite máximo de hoteles en el grupo");
+                System.out.println("Has alcanzado el límite máximo de hoteles en el grupo\n");
             }
         }
         
@@ -746,6 +755,9 @@ public class Menu {
                     if (jugadores.get(turno).getFortuna() >= (actual.getValor() * 0.4f)) {
                         actual.anhadirEdificacion(piscina);
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - (actual.getValor() * 0.4f));
+                        jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.4f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
+
+
                         System.out.println("Se han pagado " + actual.getValor() * 0.4f + " por la construcción de una piscina. La fortuna restante es de " + jugadores.get(turno).getFortuna());
                         System.out.println("Se ha construido una piscina correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarpiscinas + 1) + " piscinas construidas.");
                     } else {
@@ -772,6 +784,9 @@ public class Menu {
                     if (jugadores.get(turno).getFortuna() >= (actual.getValor() * 1.25f)) {
                         actual.anhadirEdificacion(pista);
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - (actual.getValor() * 1.25f));
+                        jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*1.25f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
+
+
                         System.out.println("Se han pagado " + actual.getValor() * 1.25f + " por la construcción de una pista. La fortuna restante es de " + jugadores.get(turno).getFortuna());
                         System.out.println("Se ha construido una pista correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarpistas + 1) + " pistas construidas.");
                     } else {
