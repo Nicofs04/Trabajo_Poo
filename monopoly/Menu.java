@@ -500,6 +500,8 @@ public class Menu {
 
                     jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); 
                     
+                    jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); //le sumamos a la estadística del dinero recibido por pasar por inicio
+
                     tablero.calcularCasillas(jugadores); //calculamos el nuevo valor que reciben los jugadores al pasar por la casilla inicio
             }
 
@@ -582,8 +584,14 @@ public class Menu {
         if(jugadores.get(turno).getAvatar().getLugar().getPosicion() == 10){
             //Si está en la cárcel y además le llega el dinero:
             if(jugadores.get(turno).getFortuna()>=jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())){
+                
                 jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones()));
+                
                 jugadores.get(turno).setEnCarcel(false);
+            
+                jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())); //añadimos al atributo dineroTasasEImpuestos el valor pagado por salir de la cárcel
+            
+
             }else{
                 System.out.println("No tienes dinero suficiente para salir de la cárcel.");
                 //falta poner que pierde la partida
@@ -891,6 +899,9 @@ public class Menu {
                         //Si pasa por la casilla de salida le sumamos el valor:
                         if(posicion1>5 || posicion1<0){
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                            
+                            jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                            
                             System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
 
                         }
@@ -914,6 +925,9 @@ public class Menu {
                     case 3:
                         System.out.println("Vendes tu billete de avión para Solar17 en una subasta por Internet. Cobra 500000€.");
                         this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna()+500000f);
+
+                        jugadores.get(turno).setDineroInversionesOBote(jugadores.get(turno).getDineroInversionesOBote() + 500000f); //añadimos al atributo dineroInversionesOBote el valor indicado
+
                         break;
                     case 4:
                         System.out.println("Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.");
@@ -942,6 +956,9 @@ public class Menu {
                     case 6:
                         System.out.println("Has ganado el bote de la lotería! Recibe 1000000€.");
                         this.jugadores.get(turno).setFortuna(this.jugadores.get(turno).getFortuna()+1000000f);
+
+                        jugadores.get(turno).setDineroInversionesOBote(jugadores.get(turno).getDineroInversionesOBote() + 1000000f); //añadimos al atributo dineroInversionesOBote el valor indicado
+
                         break;
                     default:
                         break;
@@ -954,6 +971,8 @@ public class Menu {
                     System.out.println("Paga 500000€ por un fin de semana en un balneario de 5 estrellas.");
                     if(jugadores.get(turno).getFortuna()>=500000f){
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-500000f);
+
+                        jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + 500000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
 
                     }else{
                         //bancarrota();
@@ -979,11 +998,17 @@ public class Menu {
                 case 4:
                     System.out.println("Tu compañía de Internet obtiene beneficios. Recibe 2000000€");
                     jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+2000000f);
+
+                    jugadores.get(turno).setDineroInversionesOBote(jugadores.get(turno).getDineroInversionesOBote() + 2000000f); //añadimos al atributo dineroInversionesOBote el valor indicado
+                    
                     break;
                 case 5:
                     System.out.println("Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14");
                     if(jugadores.get(turno).getFortuna()>=1000000f){
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-1000000f);
+
+                        jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + 1000000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
+
 
                     }else{
                         //bancarrota();
@@ -998,6 +1023,8 @@ public class Menu {
                                 //Les damos el dinero y se lo quitamos al jugador que le toca la carta.
                                 jugadores.get(i).setFortuna(jugadores.get(i).getFortuna()+200000f);
                                 jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-200000f);
+
+                                jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + 200000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
 
                             }else{
                                 //bancarrota();
