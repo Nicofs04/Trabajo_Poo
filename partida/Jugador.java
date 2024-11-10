@@ -23,6 +23,8 @@ public class Jugador {
     private float dineroTasasEImpuestos;
     private float dineroInversionesOBote;
     private float dineroInvertido;
+    private int numVueltas;
+    private int vecesDados;
 
     // Constructor vacío. Se usará para crear la banca.
     public Jugador() {
@@ -178,6 +180,22 @@ public class Jugador {
 
     public void setDineroInvertido(float dineroInvertido){
         this.dineroInvertido = dineroInvertido;
+    }
+
+    public int getNumVueltas(){
+        return numVueltas;
+    }
+
+    public void setNumVueltas(int numVueltas){
+        this.numVueltas = numVueltas;
+    }
+
+    public int getVecesDados(){
+        return vecesDados;
+    }
+
+    public void setVecesDados(int vecesDados){
+        this.vecesDados = vecesDados;
     }
 
     // Otros métodos:

@@ -349,7 +349,7 @@ public class Menu {
             System.out.println("Error, comando desconocido.\n");
             break;
     }
-    }
+}
 
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
     * Parámetro: comando introducido
@@ -421,6 +421,7 @@ public class Menu {
         int da2 = scanner.nextInt();
         dado2.setValor(da2);
 
+        jugadores.get(turno).setVecesDados(jugadores.get(turno).getVecesDados() + 1); //sumamos 1 al jugador que lanza los dados en el atributo vecesDados para saber cuantas veces lanzó los dados
 
         int sumaDados = dado1.getValor() + dado2.getValor();
         setDadosdobles(dado1.equals(dado2));
@@ -491,7 +492,9 @@ public class Menu {
                     System.out.println("Has caído en la carcel.\n");
                     jugadores.get(turno).encarcelar(tablero.getPosiciones());
                 }else{*/
-                    jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1);
+                    jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1); //sumamos 1 vuelta a la variable vueltas que nos permite saber si los jugadores han dado 4 vueltas más
+
+                    jugadores.get(turno).setNumVueltas(jugadores.get(turno).getNumVueltas() + 1); //sumamos 1 vuelta al contador total de vueltas
 
                     System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.\n");
 
@@ -1014,4 +1017,140 @@ public class Menu {
         }
 
     }
+
+    public ArrayList<String> jugadorMasVueltas(){
+        int numVueltas = 0;
+        ArrayList<String> array = new ArrayList<String>();
+
+        for(Jugador jugador:jugadores){ //recorremos una vez el array de jugadores para ver cual es el nº mayor de vueltas
+            if(numVueltas < jugador.getNumVueltas()){
+                numVueltas = jugador.getNumVueltas();
+            }
+        }
+        for(Jugador jugador:jugadores){ //recorremos una segunda vez el array de jugadores para ver que jugadores tienen el nº máximo de vueltas
+            if(numVueltas == jugador.getNumVueltas()){
+                array.add(jugador.getNombre());
+            }
+        }
+        return array;
+    }
+
+    public boolean recorridoJugadorMasVueltas(ArrayList<String> array){
+        if(array != null){
+            for(String nombre:array){
+                System.out.println(nombre + ",");
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public ArrayList<String> casillaMasFrecuentada(Tablero tablero){
+        int numVeces = 0;
+        ArrayList<String> array = new ArrayList<String>();
+
+        for(ArrayList<Casilla> lado:tablero.getPosiciones()){ //recorremos una vez el tablero para ver cual es el nº máximo de caídas
+            for(Casilla casilla:lado){
+                if(numVeces < casilla.getVeces_global()){
+                    numVeces = casilla.getVeces_global();
+                }
+            }
+        }
+        for(ArrayList<Casilla> lado:tablero.getPosiciones()){ //recorremos una segunda vez el tablero para ver que casillas tienen el nº máximo de caídas
+            for(Casilla casilla:lado){
+                if(numVeces == casilla.getVeces_global()){
+                    array.add(casilla.getNombre());
+                }
+            }
+        }
+        return array;
+    }
+
+    public boolean recorridoCasillaMasFrecuentada(ArrayList<String> array){
+        if(array != null){
+            for(String nombre:array){
+                System.out.println(nombre + ",");
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public ArrayList<String> jugadorMasVecesDados(){
+        int vecesDados = 0;
+        ArrayList<String> array = new ArrayList<String>();
+
+        for(Jugador jugador:jugadores){ //recorremos una vez el array de jugadores para ver cual es el nº máximo de dados lanzados
+            if(vecesDados < jugador.getVecesDados()){
+                vecesDados = jugador.getVecesDados();
+            }
+        }
+        for(Jugador jugador:jugadores){ //recorremos una segunda vez el tablero para ver que jugadores tienen el nº máximo de dados lanzados
+            if(vecesDados == jugador.getVecesDados()){
+                array.add(jugador.getNombre());
+            }
+        }
+        return array;
+    }
+
+    public boolean recorridoJugadorMasVecesDados(ArrayList<String> array){
+        if(array != null){
+            for(String nombre:array){
+                System.out.println(nombre + ",");
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean jugadorEnCabeza(){
+        int posicionMax = 0;
+        Jugador aux = new Jugador();
+        ArrayList<String> array = new ArrayList<String>();
+        
+        array = jugadorMasVueltas();
+        if(array.size() > 1){
+            for(String nombre:array){ //buscamos las clases Jugador que estén en el array de nombres y obtenemos su posición
+                for(Jugador jugador:jugadores){
+                    if(jugador.getNombre().equals(nombre)){
+                        aux = jugador;
+                        break;
+                    }
+                    if(posicionMax < (aux.getAvatar().getLugar().getPosicion())){ //buscamos la posición máxima de los jugadores que estén dentro del array
+                        posicionMax = aux.getAvatar().getLugar().getPosicion();
+                    }
+                }
+            }
+            for(String nombre:array){ //volvemos a recorrer el array de jugadores y comparamos la posición máxima con las posiciones que tienen todos los jugadores, nos quedamos con el que coincida
+                for(Jugador jugador:jugadores){
+                    if(jugador.getNombre().equals(nombre)){
+                        if(jugador.getAvatar().getLugar().getPosicion() == posicionMax){
+                            System.out.println(jugador.getNombre());
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public void estadisticasJuego(){
+        StringBuilder sb = new StringBuilder();
+
+        Jugador jugador = jugadores.get(turno);
+
+        sb.append("{\n");
+        sb.append(String.format("casillaMasRentable: ", ));
+        sb.append(String.format("grupoMasRentable: ", ));
+        sb.append(String.format("casillaMasFrecuentada: ", recorridoCasillaMasFrecuentada(casillaMasFrecuentada(tablero))));
+        sb.append(String.format("jugadorMasVueltas: ", recorridoJugadorMasVueltas(jugadorMasVueltas())));
+        sb.append(String.format("jugadorMasVecesDados: ", recorridoJugadorMasVecesDados(jugadorMasVecesDados())));
+        sb.append(String.format("jugadorEnCabeza: ", jugadorEnCabeza()));
+        
+        
+    }
+
 }
