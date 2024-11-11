@@ -305,46 +305,33 @@ public class Menu {
             if(palabras.length==1){
                 jugadores.get(turno).getAvatar().getLugar().Hacienda(jugadores.get(turno), tablero);
 
-            }else{
-                System.out.println("Error, comando desconocido");
             }
             break;
         case "bancarrota":
             //bancarrota();
-
             break;
         case "deshipotecar":
             if(palabras.length==1){
                 jugadores.get(turno).getAvatar().getLugar().deshipotecar(jugadores.get(turno), tablero);
-            }else{
-                System.out.println("Error, comando desconocido");
             }
             break;    
         case "vender":
             if(palabras.length==4){
                 //venderEdificios();
-            }else{
-                System.out.println("Error, comando desconocido");
-
             }
-
             break;
         case "estadisticas":
             if(palabras.length==1){
-                //estadisticasJuego();
+                estadisticasJuego();
             }else if(palabras.length==2){
-                //estadisticasJugador();
-            }else{
-                System.out.println("Error, comando desconocido");
+                estadisticasJugador(palabras[1]);
             }
+            break;
         case "cambiar":
             if(palabras.length==2){
                 //cambiarModoMovimiento();
-            }else{
-                System.out.println("Error, comando desconocido");
-
             }
-
+            break;
         default:
             System.out.println("Error, comando desconocido.\n");
             break;
@@ -1235,6 +1222,34 @@ public class Menu {
         sb.append(String.format("jugadorEnCabeza: ", jugadorEnCabeza()));
         
         
+    }
+
+    public int estadisticasJugador(String nombre){
+        Jugador jugador = null;
+
+        for(Jugador aux:jugadores){
+            if(aux.getNombre().equals(nombre)){
+                jugador = aux;
+            }
+        }
+        if(jugador == null){
+            System.out.println("Error, no existe el jugador\n");
+            return 1;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\n");
+        sb.append(String.format(" dineroInvertido: %f,\n", jugador.getDineroInvertido()));
+        sb.append(String.format(" pagoTasasEImpuestos: %f,\n", jugador.getDineroTasasEImpuestos()));
+        sb.append(String.format(" pagoDeAlquileres: %f,\n", jugador.getDineroPagadoAlquileres()));
+        sb.append(String.format(" cobroDeAlquileres: %f,\n", jugador.getDineroCobradoAlquileres()));
+        sb.append(String.format(" pasarPorCasillaDeSalida: %f,\n", jugador.getDineroCobradoSalida()));
+        sb.append(String.format(" premiosInversionesOBote: %f, \n", jugador.getDineroInversionesOBote()));
+        sb.append(String.format(" vecesEnLaCarcel: %d\n", jugador.getVecesCarcel()));
+        sb.append("}\n");
+
+        System.out.println(sb.toString());
+        return 0;
     }
 
 }

@@ -242,19 +242,4 @@ public class Jugador {
         this.setVecesCarcel(this.getVecesCarcel() + 1);
     }
 
-    public void estadisticasJugador(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\n");
-        sb.append(String.format(" dineroInvertido: %d,\n", getDineroInvertido()));
-        sb.append(String.format(" pagoTasasEImpuestos: %f,\n", getDineroTasasEImpuestos()));
-        sb.append(String.format(" pagoDeAlquileres: %f,\n", getDineroPagadoAlquileres()));
-        sb.append(String.format(" cobroDeAlquileres: %f,\n", getDineroCobradoAlquileres()));
-        sb.append(String.format(" pasarPorCasillaDeSalida: %f,\n", getDineroCobradoSalida()));
-        sb.append(String.format(" premiosInversionesOBote: %f, \n", getDineroInversionesOBote()));
-        sb.append(String.format(" vecesEnLaCarcel: %d\n", getVecesCarcel()));
-        sb.append("}\n");
-
-        System.out.println(sb.toString());
-    }
-
 }
