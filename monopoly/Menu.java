@@ -328,8 +328,8 @@ public class Menu {
             }
             break;
         case "cambiar":
-            if(palabras.length==2){
-                //cambiarModoMovimiento();
+            if(palabras.length==2 && palabras[1].equals("modo")){
+                jugadores.get(turno).getAvatar().setAvanzado(1);
             }
             break;
         default:
@@ -1251,5 +1251,8 @@ public class Menu {
         System.out.println(sb.toString());
         return 0;
     }
+
+
+
 
 }

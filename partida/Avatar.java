@@ -89,6 +89,10 @@ public class Avatar {
     public void setRestriccionTiradas(int restriccionTiradas){
         this.restriccionTiradas=restriccionTiradas;
     }
+    
+    public void setAvanzado(int avanzado){
+        this.avanzado=avanzado;
+    }
 
     // Método que permite mover a un avatar a una casilla concreta.
     public void moverAvatar(ArrayList<ArrayList<Casilla>> tablero, int valorTirada, Menu menu) {
