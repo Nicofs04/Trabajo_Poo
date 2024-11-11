@@ -328,8 +328,8 @@ public class Menu {
             }
             break;
         case "cambiar":
-            if(palabras.length==2 && palabras[1].equals("modo")){
-                jugadores.get(turno).getAvatar().setAvanzado(1);
+            if(palabras.length==2){
+                //cambiarModoMovimiento();
             }
             break;
         default:
@@ -1252,7 +1252,17 @@ public class Menu {
         return 0;
     }
 
+    public void bancarrota(){ falta mirar si las propiedades van a la banca o a un jugador determinado
+        Jugador jugador = jugadores.get(turno);
+        for(Casilla casilla:jugador.getPropiedades()){ //pasamos todas las propiedades del jugador a la banca
+            casilla.setDuenho(banca);
+        }
 
-
+        banca.setFortuna(banca.getFortuna() + jugador.getFortuna()); //pasamos toda la fortuna del jugador a la banca
+        jugador.setFortuna(0);
+    
+        jugadores.remove(turno);
+        avatares.remove(turno);
+    }
 
 }
