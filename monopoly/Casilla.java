@@ -806,6 +806,9 @@ public float valorHipoteca(Casilla casilla){
 
 public void Hacienda(Jugador jugador, Tablero tablero){
     
+    boolean edificado = false;
+    ArrayList<Casilla> grupo = null;
+
     if((!jugador.getPropiedades().isEmpty())){ //mientras el jugador tenga propiedades
 
         System.out.println("¿Qué casilla desea hipotecar?");
@@ -817,15 +820,28 @@ public void Hacienda(Jugador jugador, Tablero tablero){
         }else{
             for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
                 if (casilla.getNombre().equals(nombre)){
-                    
-                    if(casilla.getEdificacion().isEmpty()){ //verificamos que no tenga edificaciones en la casilla
-                        jugador.setFortuna(jugador.getFortuna() + (valorHipoteca(casilla)/2));
-                        hipotecarPropiedad(casilla);
-                    }else{
-                        System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla\n");
+                    grupo = casilla.getGrupo().getMiembros(); //si la tiene comprada guardamos el grupo de la casilla
+                    break;
+                }
+            }
+            if(grupo != null){
+                for(Casilla casillaGrupo:grupo){ //verificamos que en todo el grupo no haya ninguna edificación
+                    if(!casillaGrupo.getEdificacion().isEmpty()){
+                        edificado = true;
+                        break;
                     }
                 }
-                break;
+
+                if(!edificado){ //si no existe ninguna edificación
+                    Casilla casilla = tablero.encontrar_casilla(nombre);
+                    jugador.setFortuna(jugador.getFortuna() + (valorHipoteca(casilla)/2));
+
+                    for(Casilla casillaGrupo:grupo){ //hipotecamos todas las casillas del grupo
+                        hipotecarPropiedad(casillaGrupo);
+                    }
+                }else{
+                    System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla\n");
+                }
             }
         }
     }else{
@@ -850,7 +866,9 @@ public int deshipotecar(Jugador jugador, Tablero tablero){
 
                         jugador.setFortuna(jugador.getFortuna() - (valorHipoteca(casilla)*1.1f));
 
-                        casilla.setHipotecado(false);
+                        for(Casilla casillaGrupo:casilla.getGrupo().getMiembros()){ //deshipotecamos todo el grupo de casillas
+                            casillaGrupo.setHipotecado(false);
+                        }
 
                         System.out.println(String.format("%s paga %d por deshipotecar %s. Ahora puede recibir alquileres y edificar en el grupo %s.\n", jugador.getNombre(), valorHipoteca(casilla)*1.1f, casilla.getNombre(), casilla.getGrupo().getColorGrupo()));
                         return 1;
