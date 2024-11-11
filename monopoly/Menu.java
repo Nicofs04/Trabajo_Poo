@@ -1164,14 +1164,71 @@ public class Menu {
         return true;
     }
 
+    public Casilla casillaMasRentable(){ //no creo un Array porque no va a haber más de una casilla con el mismo valor
+        float dineroMax = 0;
+
+        for(ArrayList<Casilla> lado:tablero.getPosiciones()){
+            for(Casilla casilla:lado){
+                if(dineroMax < casilla.getDineroCasilla()){
+                    dineroMax = casilla.getDineroCasilla();
+                }
+            }
+        }
+
+        for(ArrayList<Casilla> lado:tablero.getPosiciones()){
+            for(Casilla casilla:lado){
+                if(dineroMax == casilla.getDineroCasilla()){
+                    return casilla;
+                }
+            }
+        }
+
+        System.out.println("Error\n");
+        return null;
+
+    }
+
+    public Grupo grupoMasRentable(){
+        float dineroMax = 0, dineroAux = 0;
+
+        for(ArrayList<Casilla> lado:tablero.getPosiciones()){ //recorremos todas las casillas
+            for(Casilla casilla:lado){
+                ArrayList<Casilla> array = casilla.getGrupo().getMiembros();
+                for(Casilla casillaArray:array){ //sumamos todo el dinero de cada casilla del grupo
+                    dineroAux += casillaArray.getDineroCasilla();
+                }
+
+                if(dineroMax < dineroAux){ //si el dinero máximo es menor que el dinero total del grupo, guardamos el nuevo valor máximo
+                    dineroMax = dineroAux;
+                }
+                dineroAux = 0; //reseteamos la variable de dinero auxiliar para poder volver a sumar el dinero total de otro grupo
+            }
+        }
+        for(ArrayList<Casilla> lado:tablero.getPosiciones()){
+            for(Casilla casilla:lado){
+                ArrayList<Casilla> array = casilla.getGrupo().getMiembros();
+                for(Casilla casillaArray:array){ //sumamos todo el dinero de cada casilla del grupo
+                    dineroAux += casillaArray.getDineroCasilla();
+                }
+                if(dineroAux == dineroMax){
+                    return casilla.getGrupo();
+                }else{
+                    dineroAux = 0;
+                }
+            }
+        }
+        System.out.println("No hay un grupo más rentable\n");
+        return null;
+    }
+
     public void estadisticasJuego(){
         StringBuilder sb = new StringBuilder();
 
         Jugador jugador = jugadores.get(turno);
 
         sb.append("{\n");
-        sb.append(String.format("casillaMasRentable: ", ));
-        sb.append(String.format("grupoMasRentable: ", ));
+        sb.append(String.format("casillaMasRentable: ", casillaMasRentable()));
+        sb.append(String.format("grupoMasRentable: ", grupoMasRentable()));
         sb.append(String.format("casillaMasFrecuentada: ", recorridoCasillaMasFrecuentada(casillaMasFrecuentada(tablero))));
         sb.append(String.format("jugadorMasVueltas: ", recorridoJugadorMasVueltas(jugadorMasVueltas())));
         sb.append(String.format("jugadorMasVecesDados: ", recorridoJugadorMasVecesDados(jugadorMasVecesDados())));

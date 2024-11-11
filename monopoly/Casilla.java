@@ -27,6 +27,8 @@ public class Casilla {
     private ArrayList<Integer> Vecescaidas;
     private int Veces_global;
 
+    private float dineroCasilla;
+
 
     // Constructores:
     public Casilla() {
@@ -193,13 +195,20 @@ public class Casilla {
         return Vecescaidas.get(jugadorIndex);
     }
 
-
     public void inicializarVeces(ArrayList<Integer> Vecescaidas) {
         if (Vecescaidas.isEmpty()) {
             for(int i = 0; i<6 ; i++){
                 Vecescaidas.add(0);
             }
         }
+    }
+
+    public float getDineroCasilla(){
+        return dineroCasilla;
+    }
+
+    public void setDineroCasilla(float dineroCasilla){
+        this.dineroCasilla = dineroCasilla;
     }
 
     public void eliminarEdificacion(String tipoEdificacion) {
@@ -353,6 +362,8 @@ public class Casilla {
                             this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
                             this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
 
+                            this.setDineroCasilla(this.getDineroCasilla() + this.impuesto); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
+
                             System.out.println("El jugador paga "+this.impuesto +"€");
                             return true;
                         }      
@@ -372,6 +383,8 @@ public class Casilla {
 
                         this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
                         this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
+
+                        this.setDineroCasilla(this.getDineroCasilla() + this.impuesto); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
 
                         System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
                     
@@ -393,6 +406,8 @@ public class Casilla {
 
                             this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
                             this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
+
+                            this.setDineroCasilla(this.getDineroCasilla() + this.impuesto); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
 
                             System.out.println("Se han pagado "+this.impuesto +"€ por el uso del transporte");
                             
