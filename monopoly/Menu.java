@@ -575,7 +575,7 @@ public class Menu {
 
         }
 
-
+    
 }
 
 
@@ -662,18 +662,32 @@ public class Menu {
         }
     }
 
-    private void listarEdificios(){//PREGUNTAR SI ES ESTRICTAMENTE NECESARIO UN ID Y INTRODUCIR EL VALOR A LA HORA DE CREARLO (seguramente si)
+    private void listarEdificios(){
         for(ArrayList<Casilla> lados:tablero.getPosiciones()){
             for (Casilla casilla:lados){
-                if (casilla.getEdificacion().isEmpty()){
-                    
-                }else{                                 
-                    System.out.println("{\n\tid: " +
-                           ",\n\tpropietario: " + casilla.getDuenho().getNombre() +
-                           ",\n\tcasilla: " + casilla.getNombre() +
-                           ",\n\tgrupo: " + casilla.getGrupo().getColorGrupo() +
-                           ",\n\tcoste: " + casilla.getValor() +
-                           "\n}");
+                if (casilla.getTipo()=="solar") {
+                    if (casilla.getEdificacion().isEmpty()){
+                    }else{                                 
+                        for(Edificacion edificacion : casilla.getEdificacion()){
+
+                            String tipo = edificacion.getTipo();
+                            float valor=0;
+                            if (tipo == "casa" || tipo == "hotel") {
+                                valor=0.6f;
+                            }else if (tipo=="piscina") {
+                                valor=0.4f;
+                            }else if (tipo=="pista") {
+                                valor=1.25f;
+                            }
+
+                            System.out.println("{\n\tid: "+edificacion.getTipo()+"-"+edificacion.getId()+
+                                ",\n\tpropietario: " + casilla.getDuenho().getNombre() +
+                                ",\n\tcasilla: " + casilla.getNombre() +
+                                ",\n\tgrupo: " + casilla.getGrupo().getColorGrupo() +
+                                ",\n\tcoste: " + casilla.getValor()*valor +
+                                "\n}");
+                        }
+                    }
                 }
             }
         }
@@ -1034,9 +1048,9 @@ public class Menu {
                             this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada2,this);
                             this.jugadores.get(turno).getAvatar().setAvanzado(1);
                             this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada2,this);
-                            
 
 
+                        
                         }
                         break;
                     //Se vende el billete de avion a solar 17, por lo que se reciben 500000€
@@ -1055,8 +1069,7 @@ public class Menu {
                             tirada3=(6-posicion3);
                         }else{
                             tirada3=(40-posicion3)+6;
-                        }
-                        //Si es mov avanzado llamamos a mover avatar pero con avanzado a 0 y lo volvemos a poner a 1 luego
+                        }//Si es mov avanzado llamamos a mover avatar pero con avanzado a 0 y lo volvemos a poner a 1 luego
                         if(this.jugadores.get(turno).getAvatar().getAvanzado()==0){
                             this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada3,this);
                             this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada3,this);

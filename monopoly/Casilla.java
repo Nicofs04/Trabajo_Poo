@@ -536,9 +536,11 @@ public class Casilla {
         public void comprarCasilla (Jugador solicitante, Jugador banca){
             // Comprobamos que sea una casilla "comprable"
             if (this.estaEnVenta()==true) {
-    
+                if (solicitante.getFortuna()<this.valor) {
+                    System.out.println("No tienes dinero  suficiente para comprar esta casilla");
+                }else{
                 // JUGADOR SOLICITANTE
-    
+                
                 // "quitar dinero"
                 solicitante.setFortuna(solicitante.getFortuna() - this.valor); //le restamos el valor de la casilla comprada a la fortuna del jugador comprador
                 solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
@@ -556,7 +558,7 @@ public class Casilla {
     
                 System.out.println("El jugador " + solicitante.getNombre() + " compra la casilla "+ this.getNombre() + " por " + this.valor);
                 System.out.println("Su fortuna actual es:" + solicitante.getFortuna());
-    
+                }
             } else if ((this.tipo != "solar") && (this.tipo != "servicio") && (this.tipo != "transporte")) {
                 // En caso de que no sea de ninguno de estos tipos, la propiedad no se podrá
                 // comprar
