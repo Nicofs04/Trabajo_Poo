@@ -1219,7 +1219,6 @@ public class Menu {
             return "Error, no existen jugadores";
         }
     }
-
     public ArrayList<String> jugadorEnCabeza(){
         int posicionMax = 0;
         Jugador aux = new Jugador();
@@ -1233,9 +1232,13 @@ public class Menu {
                     if(jugador.getNombre().equals(nombre)){
                         aux = jugador;
                     }
+                }
+                if(aux != null){
                     if(posicionMax < (aux.getAvatar().getLugar().getPosicion())){ //buscamos la posición máxima de los jugadores que estén dentro del array
                         posicionMax = aux.getAvatar().getLugar().getPosicion();
                     }
+                }else{
+                    System.out.println("No se ha podido encontrar al jugador.\n");
                 }
             }
             for(String nombre:array){ //volvemos a recorrer el array de jugadores y comparamos la posición máxima con las posiciones que tienen todos los jugadores, nos quedamos con el que coincida

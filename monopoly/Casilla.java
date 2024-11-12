@@ -858,7 +858,7 @@ public void Hacienda(Jugador jugador, Tablero tablero){
         String nombre = scanner.nextLine();
 
         if(tablero.encontrar_casilla(nombre) == null){ //verificamos que la casilla exista
-            System.out.println("No se ha podido encontrar la casilla\n");
+            System.out.println("No se ha podido encontrar la casilla.\n");
         }else{
             for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
                 if (casilla.getNombre().equals(nombre)){
@@ -881,13 +881,16 @@ public void Hacienda(Jugador jugador, Tablero tablero){
                     for(Casilla casillaGrupo:grupo){ //hipotecamos todas las casillas del grupo
                         hipotecarPropiedad(casillaGrupo);
                     }
+                    System.out.println(String.format("La casilla %s ha sido hipotecada con éxito.\n", nombre));
+
+                    System.out.println(String.format("%s recibe %f por hipotecar %s. Ahora no puedes recibir alquileres y edificar en el grupo %s.\n", jugador.getNombre(), valorHipoteca(casilla)/2, casilla.getNombre(), casilla.getGrupo().getColorGrupo()));
                 }else{
-                    System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla\n");
+                    System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla.\n");
                 }
             }
         }
     }else{
-        System.out.println("Ya no tienes más propiedades para hipotecar\n");
+        System.out.println("No tienes más propiedades para hipotecar.\n");
     }
 }
 
@@ -898,7 +901,7 @@ public int deshipotecar(Jugador jugador, Tablero tablero){
     String nombre = scanner.nextLine();
 
     if(tablero.encontrar_casilla(nombre) == null){
-        System.out.println("No se ha podido encontrar la casilla\n");
+        System.out.println("No se ha podido encontrar la casilla.\n");
         return 0;
     }else{
         for(Casilla casilla:jugador.getPropiedades()){
@@ -911,8 +914,9 @@ public int deshipotecar(Jugador jugador, Tablero tablero){
                         for(Casilla casillaGrupo:casilla.getGrupo().getMiembros()){ //deshipotecamos todo el grupo de casillas
                             casillaGrupo.setHipotecado(false);
                         }
+                        System.out.println(String.format("La casilla %s ha sido deshipotecada con éxito.\n", nombre));
 
-                        System.out.println(String.format("%s paga %d por deshipotecar %s. Ahora puede recibir alquileres y edificar en el grupo %s.\n", jugador.getNombre(), valorHipoteca(casilla)*1.1f, casilla.getNombre(), casilla.getGrupo().getColorGrupo()));
+                        System.out.println(String.format("%s paga %f por deshipotecar %s. Ahora puedes recibir alquileres y edificar en el grupo %s.\n", jugador.getNombre(), valorHipoteca(casilla)*1.1f, casilla.getNombre(), casilla.getGrupo().getColorGrupo()));
                         return 1;
                     }else{
                         System.out.println(String.format("El jugador %s no tiene suficiente dinero para poder deshipotecar la casilla %s.\n", jugador.getNombre(), casilla.getNombre()));
