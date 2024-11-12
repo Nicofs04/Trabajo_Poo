@@ -337,7 +337,7 @@ public class Menu {
             break;
         case "cambiar":
             if(palabras.length==2){
-                //cambiarModoMovimiento();
+                jugadores.get(turno).getAvatar().setAvanzado(1);
             }
             break;
         default:
@@ -509,7 +509,7 @@ public class Menu {
 
                     jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);  //esto se puede cambiar
                     
-                    jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); //le sumamos a la estadística del dinero recibido por pasar por inicio
+                    jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + Valor.SUMA_VUELTA); //le sumamos a la estadística del dinero recibido por pasar por inicio
 
                     tablero.calcularCasillas(jugadores); //calculamos el nuevo valor que reciben los jugadores al pasar por la casilla inicio
             }
@@ -565,10 +565,6 @@ public class Menu {
 
     
 }
-
-
-
-
 
 
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
@@ -659,7 +655,7 @@ public class Menu {
             for (Casilla casilla:lados){
                 if (casilla.getEdificacion().isEmpty()){
                     
-                }else{
+                }else{                                 
                     System.out.println("{\n\tid: " +
                            ",\n\tpropietario: " + casilla.getDuenho().getNombre() +
                            ",\n\tcasilla: " + casilla.getNombre() +
@@ -691,8 +687,7 @@ public class Menu {
     private boolean comprobar(){
         Casilla actual = jugadores.get(turno).getAvatar().getLugar();
     
-
-        if (actual.getGrupo().esDuenhoGrupo(jugadores.get(turno)) || actual.getVeces(turno)>2) { //veces caidas funcion apara general, no para individual
+        if (actual.getGrupo().esDuenhoGrupo(jugadores.get(turno)) || actual.getVeces(turno)>2) {
             return true;   
         }else{
             System.out.println("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar");
