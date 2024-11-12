@@ -267,22 +267,40 @@ public class Avatar {
                             // edificar();
                         }
 
-                    //El valor de la tirada es 4 o menos
+                    //El valor de la tirada es 4 o menos, lo mismo que para pelota pero aplicando la restricción
                     }else{
-                        //Retrocedemos tantas casillas como valor de la tirada del intento actual
-                        int nuevaPosicion = (posicionActual + valorTirada) % 40;
-                        lugar.eliminarAvatar(this);
-                        for (int i = 0; i < tablero.size(); i++) {
-                            for (int j = 0; j < tablero.get(i).size(); j++) {
-                                if (tablero.get(i).get(j).getPosicion() == nuevaPosicion) {
-                                    lugar = tablero.get(i).get(j);
+                        int nuevaPosicion=0; 
+                        //Si no tenemos que pasar por la casilla de salida
+                        if(posicionActual>valorTirada){
+                            nuevaPosicion= (posicionActual - valorTirada) % 40;
+                            lugar.eliminarAvatar(this);
+                            for (int i = 0; i > tablero.size(); i++) {
+                                for (int j = 0; j > tablero.get(i).size(); j++) {
+                                    if (tablero.get(i).get(j).getPosicion() == nuevaPosicion) {
+                                        lugar = tablero.get(i).get(j);
+                                    }
                                 }
                             }
-                        }
-                        lugar.anhadirAvatar(this);
-                        //Marcamos la restriccion:
-                        setRestriccionTiradas(2);
+                            lugar.anhadirAvatar(this);
+                        //Si tenemos que pasar por la casilla de salida
+                        }else{
+                            //Le restamos al valor de la tirada las posiciones que se tiene que mover para llegar a la salida
+                            valorTirada=valorTirada-posicionActual;
+                            //La nueva posición será 40(la salida)- el valor de la tirada actualizado
+                            nuevaPosicion=40-valorTirada;
+                            lugar.eliminarAvatar(this);
+                            for (int i = 0; i<tablero.size(); i++) {
+                                for (int j = 0; j< tablero.get(i).size(); j++) {
+                                    if (tablero.get(i).get(j).getPosicion() == nuevaPosicion) {
+                                        lugar = tablero.get(i).get(j);
+                                    }
+                                }
+                            }
+                            lugar.anhadirAvatar(this);
 
+                        }
+                        //Marcamos la restriccion que se aplicará en lanzar dados.
+                        setRestriccionTiradas(2);
 
                     }
                 }

@@ -336,8 +336,13 @@ public class Menu {
             }
             break;
         case "cambiar":
-            if(palabras.length==2){
-                jugadores.get(turno).getAvatar().setAvanzado(1);
+            if(palabras.length==2 && palabras[1].equals("modo")){
+                if(jugadores.get(turno).getAvatar().getAvanzado()==1){
+                    System.out.println("El avatar ya está en modo movimiento avanzado");
+                }else{
+                    jugadores.get(turno).getAvatar().setAvanzado(1);
+                    System.out.println("Movimiento avanzado activado");
+                }
             }
             break;
         default:
@@ -403,7 +408,7 @@ public class Menu {
         }
         //Si existe una restricción de turnos sin tirar(mov avanzado coche), no podremos lanzar los dados
         if(jugadores.get(turno).getAvatar().getRestriccionTiradas()!=0){
-            System.out.println("Debido a la restricción del mov avanzado de coche, tiene que esperar %d turnos para volver a lanzar los dados"+jugadores.get(turno).getAvatar().getRestriccionTiradas());
+            System.out.println("Debido a la restricción del mov avanzado de coche, tiene que esperar"+ jugadores.get(turno).getAvatar().getRestriccionTiradas()+ "turnos para volver a lanzar los dados");
             //Le restamos 1 a los turnos restantes para poder volver a tirar
             jugadores.get(turno).getAvatar().setRestriccionTiradas(jugadores.get(turno).getAvatar().getRestriccionTiradas()-1);
             return;
