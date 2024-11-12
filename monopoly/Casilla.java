@@ -4,6 +4,7 @@ import partida.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.Iterator;
 
 public class Casilla {
 
@@ -249,16 +250,26 @@ public class Casilla {
     @Override
     public String toString() {
         if (this.tipo == "solar") {
-            return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor()
-                    + ",\n Propietario: "
-                    + getDuenho().getNombre() + ",\n Posición:" + getPosicion() + ",\n Grupo:" + getGrupo() + ",\n Impuesto:"
-                    + getImpuesto() + ",\n alquiler: " + "220000" +
-                    ",\n valor hotel: " + "1560000" + ",\n valor casa: " + "1560000" + ",\n valor piscina: " + "1040000"
-                    + ",\n valor pista de deportes: "
-                    + "3250000" + ",\n alquiler de una casa: " + "1100000" + ",\n alquiler dos casas: " + "3300000" +
-                    ",\n alquiler tres casas: " + "7700000" + ",\n alquiler cuatro casas: " + "11000000"
-                    + ",\n alquiler hotel: " +
-                    "15400000" + ",\n alquiler piscina: " + "5500000" + ",\n alquiler pista de deporte: " + "5500000";
+            return "\nnombre: " + getNombre() +
+            ",\n\ttipo: " + getTipo() +
+            ",\n\tvalor: " + getValor() +
+            ",\n\tPropietario: " + getDuenho().getNombre() +
+            ",\n\tPosición: " + getPosicion() +
+            ",\n\tGrupo: " + getGrupo().getColorGrupo() +
+            ",\n\tImpuesto: " + getImpuesto() +
+            ",\n\talquiler: " + (getImpuesto() + sumarImpuestoedificios()) +
+            ",\n\tvalor casa: " + (getValor() * 0.6f) +
+            ",\n\tvalor hotel: " + (getValor() * 0.6f) +
+            ",\n\tvalor piscina: " + (getValor() * 0.4f) +
+            ",\n\tvalor pista de deportes: " + (getValor() * 1.25f) +
+            ",\n\talquiler de una casa: " + (getImpuesto() * 5) +
+            ",\n\talquiler dos casas: " + (getImpuesto() * 15) +
+            ",\n\talquiler tres casas: " + (getImpuesto() * 35) +
+            ",\n\talquiler cuatro casas: " + (getImpuesto() * 50) +
+            ",\n\talquiler hotel: " + (getImpuesto() * 70) +
+            ",\n\talquiler piscina: " + (getImpuesto() * 25) +
+            ",\n\talquiler pista de deporte: " + (getImpuesto() * 25);
+     
         } else if (this.tipo == "transporte" || this.tipo == "servicio") {
             return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor()
                     + ",\n Propietario: "
@@ -357,14 +368,14 @@ public class Casilla {
                             //Acabaría la partida para este jugador
                         }else{
                             actual.setFortuna(actual.getFortuna()-this.impuesto); //le restamos el alquiler pagado
-                            actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
+                            actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto+sumarImpuestoedificios()); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
 
-                            this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
-                            this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
+                            this.duenho.setFortuna((duenho.getFortuna() + this.impuesto+sumarImpuestoedificios())); //le sumamos el alquiler al dueño de la casilla
+                            this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto+sumarImpuestoedificios()); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
 
-                            this.setDineroCasilla(this.getDineroCasilla() + this.impuesto); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
+                            this.setDineroCasilla(this.getDineroCasilla() + this.impuesto+sumarImpuestoedificios()); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
 
-                            System.out.println("El jugador paga "+this.impuesto +"€");
+                            System.out.println("El jugador paga "+this.impuesto+sumarImpuestoedificios() +"€");
                             return true;
                         }      
                     }
@@ -699,14 +710,17 @@ public class Casilla {
 
     public void cambiarcasas(){
         int casa = contarCasas();
-        if (casa==4) {
-            for (Edificacion edificacion: edificaciones){
+        if (casa == 4) {
+            Iterator<Edificacion> iterator = edificaciones.iterator();
+            while (iterator.hasNext()) {
+                Edificacion edificacion = iterator.next();
                 if (edificacion.getTipo().equals("casa")) {
-                    edificaciones.remove(edificacion);
+                    iterator.remove();
                 }
             }
         }
     }
+    
 
     public int contarCasas(){
     int contador=0;

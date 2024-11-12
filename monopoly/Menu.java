@@ -295,8 +295,7 @@ public class Menu {
                     edificarHotel();
                 }else if(tipoEdificacion.equals("piscina")){
                     edificarPiscina();
-
-                }else if(tipoEdificacion.equals("deporte")){
+                }else if(tipoEdificacion.equals("pista")){
                     edificarPista();
                 }
             }
@@ -317,8 +316,20 @@ public class Menu {
             break;    
         case "vender":
             if(palabras.length==4){
-                //venderEdificios();
-            }
+                String tipoEdificacion=palabras[1];
+                String nombreCasilla=palabras[2];
+                String numeroventa = palabras[3];
+                int numvender = Integer.parseInt(numeroventa);
+                if(tipoEdificacion.equals("casa")){
+                    venderCasa(nombreCasilla,numvender);
+                }else if(tipoEdificacion.equals("hotel")){
+                    venderHotel(nombreCasilla,numvender);
+                }else if(tipoEdificacion.equals("piscina")){
+                    venderPiscina(nombreCasilla,numvender);
+                }else if(tipoEdificacion.equals("deporte")){
+                    venderPista(nombreCasilla,numvender);
+                }
+            }    
             break;
         case "estadisticas":
             if(palabras.length==1){
@@ -485,7 +496,7 @@ public class Menu {
 
                     System.out.println("¡Has pasado por la casilla de salida! Recibes tu recompensa.\n");
 
-                    jugadores.get(turno).sumarFortuna(jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); 
+                    jugadores.get(turno).sumarFortuna(Valor.SUMA_VUELTA);  //esto se puede cambiar
                     
                     jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + jugadores.get(turno).getAvatar().getLugar().valorSalida(tablero.getPosiciones())); //le sumamos a la estadística del dinero recibido por pasar por inicio
 
@@ -493,6 +504,10 @@ public class Menu {
             }
 
             setTirado(true); //El jugador ya ha lanzado los dados en este turno
+
+            if (dadosdobles) {
+                setTirado(false);
+            }
 
             //Sacó dobles y no es mov avanzado de coche
             if (getDadosdobles()&&(jugadores.get(turno).getAvatar().getTipo().equals("coche")==true && getLanzamientos()<4 && jugadores.get(turno).getAvatar().getAvanzado()==1 && sumaDados>4)==false) {
@@ -687,6 +702,8 @@ public class Menu {
                         }else{
                             System.out.println("No dispones del dinero necesario para construir la edificación");
                         }
+                    }else{
+                        System.out.println("Se alcanzó el límite máximo de casas a construir en el grupo");
                     }
                 }else{
                     if (!(jugadores.get(turno).getFortuna()< (actual.getValor()*0.6f))) {
@@ -755,9 +772,9 @@ public class Menu {
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - (actual.getValor() * 0.4f));
                         jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.4f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
 
-
                         System.out.println("Se han pagado " + actual.getValor() * 0.4f + " por la construcción de una piscina. La fortuna restante es de " + jugadores.get(turno).getFortuna());
-                        System.out.println("Se ha construido una piscina correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarpiscinas + 1) + " piscinas construidas.");
+                        contarpiscinas = actual.contarPiscinas();
+                        System.out.println("Se ha construido una piscina correctamente en la casilla " + actual.getNombre() + ". Hay " + contarpiscinas + " piscinas construidas.");
                     } else {
                         System.out.println("No dispones del dinero necesario para construir la edificación");
                     }
@@ -798,63 +815,123 @@ public class Menu {
             }
         }
 
-        private void venderCasa() {
-            Casilla actual = jugadores.get(turno).getAvatar().getLugar();
+        private void venderCasa(String nombreCasilla, int numvender) {
+            Casilla actual = tablero.encontrar_casilla(nombreCasilla);
+            if (actual == null || !(actual.getDuenho().equals(jugadores.get(turno)))) {
+                System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
+                return;
+            }
             int numCasas = actual.contarCasas();
-        
+            if (numCasas < numvender)
+            {
+                System.out.println("No puedes vender más casas de las que hay construidas");
+                return;
+            }
+            
+            for(int i = 0; i<numvender; i++){
             if (numCasas > 0) {
                 float valorVenta = actual.getValor() * 0.6f / 2;
                 actual.eliminarEdificacion("casa");
                 jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + valorVenta);
                 System.out.println("Se ha vendido una casa por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
-                System.out.println("Se ha eliminado una casa en la casilla " + actual.getNombre() + ". Quedan " + (numCasas - 1) + " casas construidas.");
+                numCasas = actual.contarCasas();
+                System.out.println("Se ha eliminado una casa en la casilla " + actual.getNombre() + ". Quedan " + (numCasas) + " casas construidas.");
             } else {
                 System.out.println("No hay casas para vender en esta casilla.");
+                return;
+                }
             }
         }
         
-        private void venderHotel() {
-            Casilla actual = jugadores.get(turno).getAvatar().getLugar();
+        private void venderHotel(String nombreCasilla, int numvender) {
+            Casilla actual = tablero.encontrar_casilla(nombreCasilla);
             int numHoteles = actual.contarHoteles();
+
+            if (actual == null || actual.getDuenho().equals(jugadores.get(turno))) {
+                System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
+                return;
+            }
+            
+            if (numHoteles < numvender)
+            {
+                System.out.println("No puedes vender más hoteles de los que hay construidos");
+                return;
+            }
+            
+            for(int i = 0; i<numvender; i++){
         
             if (numHoteles > 0) {
                 float valorVenta = actual.getValor() * 0.6f / 2;
                 actual.eliminarEdificacion("hotel");
                 jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + valorVenta);
                 System.out.println("Se ha vendido un hotel por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
-                System.out.println("Se ha eliminado un hotel en la casilla " + actual.getNombre() + ". Quedan " + (numHoteles - 1) + " hoteles construidos.");
+                numHoteles = actual.contarHoteles();
+                System.out.println("Se ha eliminado un hotel en la casilla " + actual.getNombre() + ". Quedan " + (numHoteles) + " hoteles construidos.");
             } else {
                 System.out.println("No hay hoteles para vender en esta casilla.");
+                return;
+            }
             }
         }
         
-        private void venderPiscina() {
-            Casilla actual = jugadores.get(turno).getAvatar().getLugar();
+        private void venderPiscina(String nombreCasilla, int numvender) {
+            Casilla actual = tablero.encontrar_casilla(nombreCasilla);
             int numPiscinas = actual.contarPiscinas();
         
+            if (actual == null || actual.getDuenho().equals(jugadores.get(turno))) {
+                System.out.println("La casilla especificada no existe o no es de este jugador.");
+                return;
+            }
+            
+            if (numPiscinas < numvender)
+            {
+                System.out.println("No puedes vender más casas de las que hay construidas");
+                return;
+            }
+            
+            for(int i = 0; i<numvender; i++){
+
             if (numPiscinas > 0) {
                 float valorVenta = actual.getValor() * 0.4f / 2;
                 actual.eliminarEdificacion("piscina");
                 jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + valorVenta);
                 System.out.println("Se ha vendido una piscina por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
-                System.out.println("Se ha eliminado una piscina en la casilla " + actual.getNombre() + ". Quedan " + (numPiscinas - 1) + " piscinas construidas.");
+                numPiscinas = actual.contarPiscinas();
+                System.out.println("Se ha eliminado una piscina en la casilla " + actual.getNombre() + ". Quedan " + (numPiscinas) + " piscinas construidas.");
             } else {
                 System.out.println("No hay piscinas para vender en esta casilla.");
+                return;
+            }
             }
         }
         
-        private void venderPista() {
-            Casilla actual = jugadores.get(turno).getAvatar().getLugar();
+        private void venderPista(String nombreCasilla, int numvender) {
+            Casilla actual = tablero.encontrar_casilla(nombreCasilla);
             int numPistas = actual.contarPistas();
-        
+            
+            if (actual == null || actual.getDuenho().equals(jugadores.get(turno))) {
+                System.out.println("La casilla especificada no existe o no es de este jugador.");
+                return;
+            }
+            if (numPistas < numvender)
+            {
+                System.out.println("No puedes vender más casas de las que hay construidas");
+                return;
+            }
+            
+            for(int i = 0; i<numvender; i++){
+
             if (numPistas > 0) {
                 float valorVenta = actual.getValor() * 1.25f / 2;
                 actual.eliminarEdificacion("pista");
                 jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + valorVenta);
                 System.out.println("Se ha vendido una pista por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
-                System.out.println("Se ha eliminado una pista en la casilla " + actual.getNombre() + ". Quedan " + (numPistas - 1) + " pistas construidas.");
+                numPistas = actual.contarPistas();
+                System.out.println("Se ha eliminado una pista en la casilla " + actual.getNombre() + ". Quedan " + (numPistas) + " pistas construidas.");
             } else {
                 System.out.println("No hay pistas para vender en esta casilla.");
+                return;
+            }
             }
         }
         
@@ -1252,7 +1329,7 @@ public class Menu {
         return 0;
     }
 
-    public void bancarrota(){ falta mirar si las propiedades van a la banca o a un jugador determinado
+    public void bancarrota(){ //falta mirar si las propiedades van a la banca o a un jugador determinado
         Jugador jugador = jugadores.get(turno);
         for(Casilla casilla:jugador.getPropiedades()){ //pasamos todas las propiedades del jugador a la banca
             casilla.setDuenho(banca);
