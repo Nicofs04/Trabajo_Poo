@@ -150,9 +150,9 @@ public class Menu {
         System.out.println("14. Construir un edificio                              -> Comando: 'edificar tipoEdificacion'");
         System.out.println("15. Listar edificios construidos                       -> Comando: 'listar edificios'");
         System.out.println("16. Listar edificios construidos en grupo              -> Comando: 'listar edificios colorGrupo'");
-        System.out.println("17. Hipotecar una propiedad                            -> Comando: 'hipotecar nombrePropiedad'");
+        System.out.println("17. Hipotecar una propiedad                            -> Comando: 'hipotecar'");
         System.out.println("18. Declararse en bancarrota                           -> Comando: 'bancarrota'");
-        System.out.println("19. Deshipotecar una propiedad                         -> Comando: 'deshipotecar nombrePropiedad'");
+        System.out.println("19. Deshipotecar una propiedad                         -> Comando: 'deshipotecar'");
         System.out.println("20. Vender edificios                                   -> Comando: 'vender tipoEdificacion nombrePropiedad numeroElementosAvender'");
         System.out.println("21. Mostrar estadísticas de un jugador                 -> Comando: 'estadisticas nombreJugador'");
         System.out.println("22. Mostrar estadísticas del juego                     -> Comando: 'estadisticas'");
