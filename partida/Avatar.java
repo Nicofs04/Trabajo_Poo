@@ -89,7 +89,7 @@ public class Avatar {
     public void setRestriccionTiradas(int restriccionTiradas){
         this.restriccionTiradas=restriccionTiradas;
     }
-    
+
     public void setAvanzado(int avanzado){
         this.avanzado=avanzado;
     }
@@ -122,7 +122,7 @@ public class Avatar {
                         lugar.anhadirAvatar(this);
                         // A partir de ahora nos movemos solo 1 y evaluamos la casilla a la que
                         // avanzamos SI ES UN INDICE IMPAR
-                        for (int I = 0; I < (valorTirada - 4); I++) {
+                        for (int I = 1; I < (valorTirada - 4)+1; I++) {
                             // Si es un índice impar evaluamos la casilla.
                             if (I % 2 != 0) {
                                 nuevaPosicion = (nuevaPosicion + 1) % 40;
@@ -135,32 +135,41 @@ public class Avatar {
                                     }
                                 }
                                 lugar.anhadirAvatar(this);
+                                // Si la casilla es irCarcel, irá a la cárcel
+                                if (this.lugar.getPosicion() == 30) {
+                                    System.out.println("Has pisado la casilla irCárcel, vas a la cárcel");
+                                    this.jugador.encarcelar(tablero);
+                                    //Salimos de la funcion
+                                    return;
+                                }
                                 /*
                                  * No necesitamos llamar a evaluarCasilla porque simplemente hay dos opciones:
                                  * 1.Pagar el impuesto correspondiente si la casilla es propiedad de un jugador
                                  * 2.Decidir si comprar o pasar de largo si la casilla es propiedad de la banca
                                  */
                                 // 2.
-                                if (this.lugar.getDuenho().equals("banca") && this.lugar.estaEnVenta() == true) {
+                                if (this.lugar.estaEnVenta() == true) {
 
-                                    System.out.println("Quieres comprar la casilla %s?" + this.lugar.getNombre());
+                                    System.out.println("Quieres comprar la casilla "+this.lugar.getNombre()+"?");
                                     System.out.println("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
                                     Scanner scanner = new Scanner(System.in);
                                     String respuesta = scanner.nextLine();
                                     if (respuesta.equals("si")) {
-                                        this.jugador.setFortuna(this.jugador.getFortuna() - this.lugar.getValor());
-                                        this.lugar.setDuenho(jugador);
-                                    }
-                                    // Si la casilla es irCarcel, irá a la cárcel
-                                    if (this.lugar.getPosicion() == 30) {
-                                        System.out.println("Has pisado la casilla irCárcel, vas a la cárcel");
-                                        this.jugador.encarcelar(tablero);
+                                        this.lugar.comprarCasilla(this.jugador, menu.getBanca());
                                     }
 
                                 // 1.
                                 } else {
                                     // el arg valorTirada de momento no lo usamos en evaluarCasilla
                                     this.getLugar().evaluarCasilla(menu.getTablero(), this.getJugador(),menu.getBanca(), valorTirada, menu);
+                                    //Después de evaluarCasilla tenemos que verificar si está en la cárcel debido a una carta para salir de la función
+                                    if (this.lugar.getPosicion() == 30) {
+                                        System.out.println("Has pisado la casilla irCárcel, vas a la cárcel");
+                                        this.jugador.encarcelar(tablero);
+                                        //Salimos de la funcion
+                                        return;
+                                    }
+
                                 }
                                 // Si es un índice par, no evaluamos la casilla.
                             } else {
@@ -174,25 +183,51 @@ public class Avatar {
                                     }
                                 }
                                 lugar.anhadirAvatar(this);
+                                // Si la casilla es irCarcel, irá a la cárcel
+                                if (this.lugar.getPosicion() == 30) {
+                                    System.out.println("Has pisado la casilla irCárcel, vas a la cárcel");
+                                    this.jugador.encarcelar(tablero);
+                                    //Salimos de la funcion
+                                    return;
+                                }
                             }
 
                         }
-                        // Movimiento hacia atrás:
+                        // Movimiento hacia atrás, la casilla en la que cae ya se evalua sola en lanzar dados
                     } else {
-                        int nuevaPosicion = (posicionActual - valorTirada) % 40; // Usar el módulo para asegurarte de
-                                                                                 // que vuelva al inicio si excede 39
-                        lugar.eliminarAvatar(this);
-                        for (int i = 0; i > tablero.size(); i++) {
-                            for (int j = 0; j > tablero.get(i).size(); j++) {
-                                if (tablero.get(i).get(j).getPosicion() == nuevaPosicion) {
-                                    lugar = tablero.get(i).get(j);
+                        int nuevaPosicion=0; 
+                        //Si no tenemos que pasar por la casilla de salida
+                        if(posicionActual>valorTirada){
+                            nuevaPosicion= (posicionActual - valorTirada) % 40;
+                            lugar.eliminarAvatar(this);
+                            for (int i = 0; i > tablero.size(); i++) {
+                                for (int j = 0; j > tablero.get(i).size(); j++) {
+                                    if (tablero.get(i).get(j).getPosicion() == nuevaPosicion) {
+                                        lugar = tablero.get(i).get(j);
+                                    }
                                 }
                             }
-                        }                    
+                            lugar.anhadirAvatar(this);
+                        //Si tenemos que pasar por la casilla de salida
+                        }else{
+                            //Le restamos al valor de la tirada las posiciones que se tiene que mover para llegar a la salida
+                            valorTirada=valorTirada-posicionActual;
+                            //La nueva posición será 40(la salida)- el valor de la tirada actualizado
+                            nuevaPosicion=40-valorTirada;
+                            lugar.eliminarAvatar(this);
+                            for (int i = 0; i > tablero.size(); i++) {
+                                for (int j = 0; j > tablero.get(i).size(); j++) {
+                                    if (tablero.get(i).get(j).getPosicion() == nuevaPosicion) {
+                                        lugar = tablero.get(i).get(j);
+                                    }
+                                }
+                            }
+                            lugar.anhadirAvatar(this);
+
+                        }
 
                     }
-
-                } else if (tipo.equals("coche")) {
+                }else if (tipo.equals("coche")) {
                     // Obtener la posición actual del lugar del avatar
                     int posicionActual = lugar.getPosicion();
                     if (valorTirada > 4) {
@@ -287,6 +322,7 @@ public class Avatar {
 
         }
     }
+
 
     /*
      * Método que permite generar un ID para un avatar. Solo lo usamos en esta clase
