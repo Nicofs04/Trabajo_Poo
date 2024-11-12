@@ -923,7 +923,7 @@ public int deshipotecar(Jugador jugador, Tablero tablero){
     }
 }
 
-public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> jugadores){ //falta mirar si las propiedades van a la banca o a un jugador determinado
+public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares){ //falta mirar si las propiedades van a la banca o a un jugador determinado
     for(Casilla casilla:actual.getPropiedades()){ //pasamos todas las propiedades del jugador a la banca
         casilla.setDuenho(banca);
     }
@@ -935,12 +935,23 @@ public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> j
     avatares.remove(actual.getAvatar());
 }
 
-public void bancarrotaAJugador(Jugador actual){
+public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares){
     for(Casilla casilla:actual.getPropiedades()){ //nos aseguramos de que todas las casillas estén libres de edificaciones
         if(!casilla.getEdificacion().isEmpty()){
             casilla.getEdificacion().clear();
         }
     }
+    for(Casilla casilla:actual.getPropiedades()){ //pasamos todas las propiedades del jugador que llama bancarrota al jugador que las recibe
+        receptor.getPropiedades().add(casilla);
+        actual.getPropiedades().remove(casilla);
+    }
+
+    receptor.setFortuna(receptor.getFortuna() + actual.getFortuna()); //pasamos el dinero del jugador que llama bancarrota al jugador que lo recibe
+
+    actual.setFortuna(0);
+
+    jugadores.remove(actual); //eliminamos al jugador del ArrayList de jugadores
+    avatares.remove(actual.getAvatar()); //eliminamos el avatar del jugador del ArrayList de avatares
 }
 
 }
