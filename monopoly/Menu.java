@@ -435,8 +435,7 @@ public class Menu {
         int da2 = scanner.nextInt();
         dado2.setValor(da2);
 
-        jugadores.get(turno).setVecesDados(jugadores.get(turno).getVecesDados() + 1); //sumamos 1 al jugador que lanza los dados en el atributo vecesDados para saber cuantas veces lanzó los dados
-
+        
         int sumaDados = dado1.getValor() + dado2.getValor();
         setDadosdobles(dado1.equals(dado2));
 
@@ -486,7 +485,10 @@ public class Menu {
                 return;
             }
         //JUGADOR NO ESTÁ EN LA CÁRCEL
-        }else{ 
+        }else{
+
+            jugadores.get(turno).setVecesDados(jugadores.get(turno).getVecesDados() + 1); //sumamos 1 al jugador que lanza los dados en el atributo vecesDados para saber cuantas veces lanzó los dados
+
             String posicionActual=jugadores.get(turno).getAvatar().getLugar().getNombre();
             int pos_ini = jugadores.get(turno).getAvatar().getLugar().getPosicion();
 
@@ -1375,19 +1377,6 @@ public class Menu {
 
         System.out.println(sb.toString());
         return 0;
-    }
-
-    public void bancarrota(){ //falta mirar si las propiedades van a la banca o a un jugador determinado
-        Jugador jugador = jugadores.get(turno);
-        for(Casilla casilla:jugador.getPropiedades()){ //pasamos todas las propiedades del jugador a la banca
-            casilla.setDuenho(banca);
-        }
-
-        banca.setFortuna(banca.getFortuna() + jugador.getFortuna()); //pasamos toda la fortuna del jugador a la banca
-        jugador.setFortuna(0);
-    
-        jugadores.remove(turno);
-        avatares.remove(turno);
     }
 
 }
