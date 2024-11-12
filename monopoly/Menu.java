@@ -1126,14 +1126,15 @@ public class Menu {
         return array;
     }
 
-    public boolean recorridoJugadorMasVueltas(ArrayList<String> array){
-        if(array != null){
+    public String recorridoJugadorMasVueltas(ArrayList<String> array){
+        if(array != null && !array.isEmpty()){
+            StringBuilder sb = new StringBuilder();
             for(String nombre:array){
-                System.out.println(nombre + ",");
+                sb.append(nombre).append(",");
             }
-            return true;
+            return sb.substring(0, sb.length() - 1); //devolvemos todo el Stringbuilder menos la última coma
         }else{
-            return false;
+            return "Error, no existen jugadores";
         }
     }
 
@@ -1158,14 +1159,15 @@ public class Menu {
         return array;
     }
 
-    public boolean recorridoCasillaMasFrecuentada(ArrayList<String> array){
-        if(array != null){
+    public String recorridoCasillaMasFrecuentada(ArrayList<String> array){
+        if(array != null && !array.isEmpty()){
+            StringBuilder sb = new StringBuilder();
             for(String nombre:array){
-                System.out.println(nombre + ",");
+                sb.append(nombre).append(",");
             }
-            return true;
+            return sb.substring(0, sb.length() - 1); //devolvemos todo el Stringbuilder menos la última coma
         }else{
-            return false;
+            return "Error, no hay casillas en el array";
         }
     }
 
@@ -1186,29 +1188,30 @@ public class Menu {
         return array;
     }
 
-    public boolean recorridoJugadorMasVecesDados(ArrayList<String> array){
-        if(array != null){
+    public String recorridoJugadorMasVecesDados(ArrayList<String> array){
+        if(array != null && !array.isEmpty()){
+            StringBuilder sb = new StringBuilder();
             for(String nombre:array){
-                System.out.println(nombre + ",");
+                sb.append(nombre).append(",");
             }
-            return true;
+            return sb.substring(0, sb.length() - 1); //devolvemos todo el Stringbuilder menos la última coma
         }else{
-            return false;
+            return "Error, no existen jugadores";
         }
     }
 
-    public boolean jugadorEnCabeza(){
+    public ArrayList<String> jugadorEnCabeza(){
         int posicionMax = 0;
         Jugador aux = new Jugador();
         ArrayList<String> array = new ArrayList<String>();
+        ArrayList<String> arraySolucion = new ArrayList<String>();
         
         array = jugadorMasVueltas();
-        if(array.size() > 1){
+        if(array.size() > 0){
             for(String nombre:array){ //buscamos las clases Jugador que estén en el array de nombres y obtenemos su posición
                 for(Jugador jugador:jugadores){
                     if(jugador.getNombre().equals(nombre)){
                         aux = jugador;
-                        break;
                     }
                     if(posicionMax < (aux.getAvatar().getLugar().getPosicion())){ //buscamos la posición máxima de los jugadores que estén dentro del array
                         posicionMax = aux.getAvatar().getLugar().getPosicion();
@@ -1219,65 +1222,82 @@ public class Menu {
                 for(Jugador jugador:jugadores){
                     if(jugador.getNombre().equals(nombre)){
                         if(jugador.getAvatar().getLugar().getPosicion() == posicionMax){
-                            System.out.println(jugador.getNombre());
+                            arraySolucion.add(jugador.getNombre());
                         }
                     }
                 }
             }
         }
-        return true;
+        return arraySolucion;
     }
 
-    public Casilla casillaMasRentable(){ //no creo un Array porque no va a haber más de una casilla con el mismo valor
+    public String recorridoJugadorEnCabeza(ArrayList<String> array){
+        if(array != null && !array.isEmpty()){
+            StringBuilder sb = new StringBuilder();
+            for(String nombre:array){
+                sb.append(nombre).append(",");
+            }
+            return sb.substring(0, sb.length() - 1); //devolvemos todo el Stringbuilder menos la última coma
+        }else{
+            return "Error, no existen jugadores";
+        }
+    }
+
+    public String casillaMasRentable(){ //no creo un Array porque no va a haber más de una casilla con el mismo valor
         float dineroMax = 0;
 
         for(ArrayList<Casilla> lado:tablero.getPosiciones()){
             for(Casilla casilla:lado){
-                if(dineroMax < casilla.getDineroCasilla()){
-                    dineroMax = casilla.getDineroCasilla();
+                if((!casilla.getTipo().equals("solar")) && (!casilla.getTipo().equals("servicio")) && (!casilla.getTipo().equals("transporte"))){
+                    if(dineroMax < casilla.getDineroCasilla()){
+                        dineroMax = casilla.getDineroCasilla();
+                    }
                 }
             }
         }
 
         for(ArrayList<Casilla> lado:tablero.getPosiciones()){
             for(Casilla casilla:lado){
-                if(dineroMax == casilla.getDineroCasilla()){
-                    return casilla;
+                if((!casilla.getTipo().equals("solar")) && (!casilla.getTipo().equals("servicio")) && (!casilla.getTipo().equals("transporte"))){
+                    if(dineroMax == casilla.getDineroCasilla()){
+                        return casilla.getNombre();
+                    }
                 }
             }
         }
-
-        System.out.println("Error\n");
-        return null;
-
+        return "Error";
     }
 
-    public Grupo grupoMasRentable(){
+    public String grupoMasRentable(){
         float dineroMax = 0, dineroAux = 0;
 
         for(ArrayList<Casilla> lado:tablero.getPosiciones()){ //recorremos todas las casillas
             for(Casilla casilla:lado){
-                ArrayList<Casilla> array = casilla.getGrupo().getMiembros();
-                for(Casilla casillaArray:array){ //sumamos todo el dinero de cada casilla del grupo
-                    dineroAux += casillaArray.getDineroCasilla();
-                }
+                if(casilla.getTipo().equals("solar")){
+                    ArrayList<Casilla> array = casilla.getGrupo().getMiembros();
+                    for(Casilla casillaArray:array){ //sumamos todo el dinero de cada casilla del grupo
+                        dineroAux += casillaArray.getDineroCasilla();
+                    }
 
-                if(dineroMax < dineroAux){ //si el dinero máximo es menor que el dinero total del grupo, guardamos el nuevo valor máximo
-                    dineroMax = dineroAux;
+                    if(dineroMax < dineroAux){ //si el dinero máximo es menor que el dinero total del grupo, guardamos el nuevo valor máximo
+                        dineroMax = dineroAux;
+                    }
+                    dineroAux = 0; //reseteamos la variable de dinero auxiliar para poder volver a sumar el dinero total de otro grupo
                 }
-                dineroAux = 0; //reseteamos la variable de dinero auxiliar para poder volver a sumar el dinero total de otro grupo
             }
         }
         for(ArrayList<Casilla> lado:tablero.getPosiciones()){
             for(Casilla casilla:lado){
-                ArrayList<Casilla> array = casilla.getGrupo().getMiembros();
-                for(Casilla casillaArray:array){ //sumamos todo el dinero de cada casilla del grupo
-                    dineroAux += casillaArray.getDineroCasilla();
-                }
-                if(dineroAux == dineroMax){
-                    return casilla.getGrupo();
-                }else{
-                    dineroAux = 0;
+                if(casilla.getTipo().equals("solar")){
+                    ArrayList<Casilla> array = casilla.getGrupo().getMiembros();
+                    for(Casilla casillaArray:array){ //sumamos todo el dinero de cada casilla del grupo
+                        dineroAux += casillaArray.getDineroCasilla();
+                    }
+                    if(dineroAux == dineroMax){
+                        return casilla.getGrupo().getColorGrupo();
+                    }else{
+                        dineroAux = 0;
+                    }
                 }
             }
         }
@@ -1288,17 +1308,17 @@ public class Menu {
     public void estadisticasJuego(){
         StringBuilder sb = new StringBuilder();
 
-        Jugador jugador = jugadores.get(turno);
 
         sb.append("{\n");
-        sb.append(String.format("casillaMasRentable: ", casillaMasRentable()));
-        sb.append(String.format("grupoMasRentable: ", grupoMasRentable()));
-        sb.append(String.format("casillaMasFrecuentada: ", recorridoCasillaMasFrecuentada(casillaMasFrecuentada(tablero))));
-        sb.append(String.format("jugadorMasVueltas: ", recorridoJugadorMasVueltas(jugadorMasVueltas())));
-        sb.append(String.format("jugadorMasVecesDados: ", recorridoJugadorMasVecesDados(jugadorMasVecesDados())));
-        sb.append(String.format("jugadorEnCabeza: ", jugadorEnCabeza()));
-        
-        
+        sb.append(String.format("casillaMasRentable: %s,\n", casillaMasRentable()));
+        sb.append(String.format("grupoMasRentable: %s,\n", grupoMasRentable()));
+        sb.append(String.format("casillaMasFrecuentada: %s,\n", recorridoCasillaMasFrecuentada(casillaMasFrecuentada(tablero))));
+        sb.append(String.format("jugadorMasVueltas: %s,\n", recorridoJugadorMasVueltas(jugadorMasVueltas())));
+        sb.append(String.format("jugadorMasVecesDados: %s,\n", recorridoJugadorMasVecesDados(jugadorMasVecesDados())));
+        sb.append(String.format("jugadorEnCabeza: %s\n", recorridoJugadorEnCabeza(jugadorEnCabeza())));
+        sb.append("}\n");
+
+        System.out.println(sb.toString());
     }
 
     public int estadisticasJugador(String nombre){

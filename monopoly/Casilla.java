@@ -383,23 +383,25 @@ public class Casilla {
                 break;
             case "servicio":
                 if(!c.getHipotecado()){ //verificamos que la casilla no este hipotecada
-                    if(actual.getFortuna() < (this.impuesto)) {
-                        System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                    if(!c.getDuenho().equals(actual) && !c.duenho.equals(banca)){
+                        if(actual.getFortuna() < (this.impuesto)) {
+                            System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                     
-                        return false;
-                        //Acabaría la partida para este jugador
-                    }else{
-                        actual.setFortuna(actual.getFortuna() - this.impuesto); //le restamos el alquiler pagado
-                        actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
+                            return false;
+                            //Acabaría la partida para este jugador
+                        }else{
+                            actual.setFortuna(actual.getFortuna() - this.impuesto); //le restamos el alquiler pagado
+                            actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
 
-                        this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
-                        this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
+                            this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
+                            this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
 
-                        this.setDineroCasilla(this.getDineroCasilla() + this.impuesto); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
+                            this.setDineroCasilla(this.getDineroCasilla() + this.impuesto); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
 
-                        System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
+                            System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
                     
-                        return true;
+                            return true;
+                        }
                     }
                 }
                 break;
