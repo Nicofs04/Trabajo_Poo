@@ -362,8 +362,11 @@ public class Casilla {
                     if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ) {
                         
                         if (actual.getFortuna() < this.impuesto+sumarImpuestoedificios()) {
-
+                            
                             System.out.println("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                            
+                            analizarMenuPequenho(actual, tablero, menu, c); //analizamos el comando escrito
+
                             return false;
                             //Acabaría la partida para este jugador
                         }else{
@@ -384,11 +387,15 @@ public class Casilla {
             case "servicio":
                 if(!c.getHipotecado()){ //verificamos que la casilla no este hipotecada
                     if(!c.getDuenho().equals(actual) && !c.duenho.equals(banca)){
-                    if(actual.getFortuna() < (this.impuesto)) {
-                        System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                     
-                        return false;
-                        //Acabaría la partida para este jugador
+                        if(actual.getFortuna() < (this.impuesto)) {
+                        
+                            System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                    
+                            analizarMenuPequenho(actual, tablero, menu, c); //analizamos el comando escrito
+
+                            return false;
+                            //Acabaría la partida para este jugador
                     }else{
                         actual.setFortuna(actual.getFortuna() - this.impuesto); //le restamos el alquiler pagado
                         actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
@@ -410,7 +417,11 @@ public class Casilla {
                     if (!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca) ){
 
                         if (actual.getFortuna() < this.impuesto) {
+                            
                             System.out.println("El jugador no tiene dinero suficiente para pagar el transporte, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                                                        
+                            analizarMenuPequenho(actual, tablero, menu, c); //analizamos el comando escrito
+
                             return false;
                             //Acabaría la partida para este jugador
                         }else{
@@ -471,6 +482,9 @@ public class Casilla {
             case "impuesto":
                 if (actual.getFortuna() < this.impuesto) {
                     System.out.println("El jugador no tiene dinero suficiente para pagar los impuestos, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                    
+                    analizarMenuPequenho(actual, tablero, menu, c); //analizamos el comando escrito
+
                     return false;
                     //Acabaría la partida para este jugador
                 }else{
@@ -938,6 +952,7 @@ public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> j
 }
 
 public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares){
+
     for(Casilla casilla:actual.getPropiedades()){ //nos aseguramos de que todas las casillas estén libres de edificaciones
         if(!casilla.getEdificacion().isEmpty()){
             casilla.getEdificacion().clear();
@@ -954,6 +969,43 @@ public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugad
 
     jugadores.remove(actual); //eliminamos al jugador del ArrayList de jugadores
     avatares.remove(actual.getAvatar()); //eliminamos el avatar del jugador del ArrayList de avatares
+}
+
+public void analizarMenuPequenho(Jugador actual, Tablero tablero, Menu menu, Casilla c){
+    boolean acabado = false;
+
+    while(!acabado){
+        System.out.println("=====================================\n");
+        System.out.println("                MENÚ                \n");
+        System.out.println("=====================================\n");
+        System.out.println("1. Hipotecar una propiedad                            -> Comando: 'hipotecar'");
+        System.out.println("2. Declararse en bancarrota                           -> Comando: 'bancarrota'");
+        
+
+        System.out.println("=====================================\n");
+        System.out.println("Selecciona una opción para continuar.\n");
+        System.out.println("=====================================\n\n");
+
+
+        Scanner scanner = new Scanner(System.in);
+        String comando = scanner.nextLine();
+
+        switch (comando) {
+            case "hipotecar":
+                Hacienda(actual, tablero);
+                acabado = true;
+                break;        
+            case "bancarrota":
+                bancarrotaAJugador(actual, c.getDuenho(), menu.getJugadores(), menu.getAvatares());
+                menu.acabarTurno(); //acabamos el turno automáticamente para que sigan jugando el resto
+                System.out.println("Jugador eliminado con éxito. El siguiente jugador puede ahora elegir una opción.\n");
+                acabado = true;
+                break;
+            default:
+                System.out.println("Error, comando desconocido.\n");
+                break;
+        }
+    }
 }
 
 }

@@ -304,7 +304,9 @@ public class Menu {
             }
             break;
         case "bancarrota":
-            //bancarrota();
+            jugadores.get(turno).getAvatar().getLugar().bancarrotaABanca(jugadores.get(turno), banca, jugadores, avatares);
+            acabarTurno(); //acabamos el turno automáticamente para que sigan jugando el resto
+            System.out.println("Jugador eliminado con éxito. El siguiente jugador puede ahora elegir una opción.\n");
             break;
         case "deshipotecar":
             if(palabras.length==1){
