@@ -514,11 +514,7 @@ public class Menu {
                     tablero.calcularCasillas(jugadores); //calculamos el nuevo valor que reciben los jugadores al pasar por la casilla inicio
             }
 
-            setTirado(true); //El jugador ya ha lanzado los dados en este turno
-
-            if (dadosdobles) {
-                setTirado(false);
-            }
+            setTirado(true); //El jugador ya ha lanzado los dados en este turn0
 
             //Sacó dobles y no es mov avanzado de coche
             if (getDadosdobles()&&(jugadores.get(turno).getAvatar().getTipo().equals("coche")==true && getLanzamientos()<4 && jugadores.get(turno).getAvatar().getAvanzado()==1 && sumaDados>4)==false) {
@@ -580,7 +576,7 @@ public class Menu {
      */
     private void comprar(String nombre) {
         if(nombre.equals(jugadores.get(turno).getAvatar().getLugar().getNombre())){
-            if(tirado){
+            if(tirado||dadosdobles){
                 tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
             }else{
                 System.out.println("Primero debes tirar los dados");
