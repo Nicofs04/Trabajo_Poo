@@ -533,39 +533,38 @@ public class Casilla {
          * la propiedad y darle la pasta y hay que asignar el nuevo dueño a la casilla,
          * que será el solicitante
          */
-    public void comprarCasilla (Jugador solicitante, Jugador banca){
-        // Comprobamos que sea una casilla "comprable"
-        if (((this.tipo.equals("solar")) || (this.tipo.equals("servicio")) || (this.tipo.equals("transporte")))
-                && (solicitante.getFortuna() >= this.valor) && (this.duenho == banca)) {
-
-            // JUGADOR SOLICITANTE
-
-            // "quitar dinero"
-            solicitante.setFortuna(solicitante.getFortuna() - this.valor); //le restamos el valor de la casilla comprada a la fortuna del jugador comprador
-            solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
-
-            // "sumar gastos"
-            solicitante.setGastos(solicitante.getGastos() + this.valor);
-
-            // "asignarle la propiedad"
-            // Primero tenemos que cambiarle el dueño a la casilla
-            this.duenho = solicitante;
-            solicitante.getPropiedades().add(this);
-                
-            // BANCA, aunque realmente es innecesario
-            banca.setFortuna(banca.getFortuna() + this.valor);
-
-            System.out.println("El jugador " + solicitante.getNombre() + " compra la casilla "+ this.getNombre() + " por " + this.valor);
-            System.out.println("Su fortuna actual es:" + solicitante.getFortuna());
-
-        } else if ((this.tipo != "solar") && (this.tipo != "servicios") && (this.tipo != "transporte")) {
-            // En caso de que no sea de ninguno de estos tipos, la propiedad no se podrá
-            // comprar
-            System.out.println("Esta propiedad no se puede comprar, para poder comprar una propiedad debe de ser de uno de los siguientes tipos: SOLAR, TRANSPORTE, SERVICIOS\n");
-        } else {
-            System.out.println("No tienes dinero suficiente como para comprar esta propiedad\n");
+        public void comprarCasilla (Jugador solicitante, Jugador banca){
+            // Comprobamos que sea una casilla "comprable"
+            if (this.estaEnVenta()==true) {
+    
+                // JUGADOR SOLICITANTE
+    
+                // "quitar dinero"
+                solicitante.setFortuna(solicitante.getFortuna() - this.valor); //le restamos el valor de la casilla comprada a la fortuna del jugador comprador
+                solicitante.setDineroInvertido(solicitante.getDineroInvertido() + this.valor); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
+    
+                // "sumar gastos"
+                solicitante.setGastos(solicitante.getGastos() + this.valor);
+    
+                // "asignarle la propiedad"
+                // Primero tenemos que cambiarle el dueño a la casilla
+                this.duenho = solicitante;
+                solicitante.getPropiedades().add(this);
+                    
+                // BANCA, aunque realmente es innecesario
+                banca.setFortuna(banca.getFortuna() + this.valor);
+    
+                System.out.println("El jugador " + solicitante.getNombre() + " compra la casilla "+ this.getNombre() + " por " + this.valor);
+                System.out.println("Su fortuna actual es:" + solicitante.getFortuna());
+    
+            } else if ((this.tipo != "solar") && (this.tipo != "servicio") && (this.tipo != "transporte")) {
+                // En caso de que no sea de ninguno de estos tipos, la propiedad no se podrá
+                // comprar
+                System.out.println("Esta propiedad no se puede comprar, para poder comprar una propiedad debe de ser de uno de los siguientes tipos: SOLAR, TRANSPORTE, SERVICIOS\n");
+            } else {
+                System.out.println("No tienes dinero suficiente como para comprar esta propiedad\n");
+            }
         }
-    }
 
     /*
      * Método para añadir valor a una casilla. Utilidad:
@@ -591,14 +590,14 @@ public class Casilla {
 
     
     public boolean estaEnVenta(){
-            if (((this.tipo == "Solar") || (this.tipo == "Servicios") || (this.tipo == "Transporte"))
-                    && (this.duenho.getNombre() == "Banca")) {
-                return true;
-            } else {
-                return false;
+        if (((this.tipo == "solar") || (this.tipo == "servicio") || (this.tipo == "transporte"))
+                && (this.duenho.getNombre() == "banca")) {
+            return true;
+        } else {
+            return false;
 
-            }
-    }
+        }
+}
 
     /*
      * Método para mostrar información de una casilla en venta.
