@@ -444,7 +444,7 @@ public class Casilla {
                     carta1 = scanner1.nextInt();
                 }
                 int eleccion1=0;
-                eleccion1=baraja1.get(carta1);
+                eleccion1=baraja1.get(carta1-1);
                 //Realizar acción
                 menu.accionCarta(c.getTipo(),eleccion1);
 
@@ -691,7 +691,7 @@ public class Casilla {
         ArrayList<Integer> baraja = new ArrayList<>();
 
         // Llenar el ArrayList con los valores 1, 2, 3, 4, 5 y 6
-        for (int i = 1; i <= 6; i++) {
+        for (int i = 1; i < 7; i++) {
             baraja.add(i);
         }
 

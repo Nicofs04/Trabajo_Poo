@@ -120,9 +120,7 @@ public class Avatar {
                             }
                         }
                         lugar.anhadirAvatar(this);
-                        // A partir de ahora nos movemos solo 1 y evaluamos la casilla a la que
-                        // avanzamos SI ES UN INDICE IMPAR
-                        for (int I = 1; I < (valorTirada - 4)+1; I++) {
+                        for (int I = 1; I < (valorTirada - 3); I++) {
                             // Si es un índice impar evaluamos la casilla.
                             if (I % 2 != 0) {
                                 nuevaPosicion = (nuevaPosicion + 1) % 40;
@@ -135,13 +133,6 @@ public class Avatar {
                                     }
                                 }
                                 lugar.anhadirAvatar(this);
-                                // Si la casilla es irCarcel, irá a la cárcel
-                                if (this.lugar.getPosicion() == 30) {
-                                    System.out.println("Has pisado la casilla irCárcel, vas a la cárcel");
-                                    this.jugador.encarcelar(tablero);
-                                    //Salimos de la funcion
-                                    return;
-                                }
                                 /*
                                  * No necesitamos llamar a evaluarCasilla porque simplemente hay dos opciones:
                                  * 1.Pagar el impuesto correspondiente si la casilla es propiedad de un jugador
@@ -161,35 +152,91 @@ public class Avatar {
                                 // 1.
                                 } else {
                                     // el arg valorTirada de momento no lo usamos en evaluarCasilla
+                                    String auxiliar = new String();
+                                    auxiliar= this.getLugar().getTipo();
+
                                     this.getLugar().evaluarCasilla(menu.getTablero(), this.getJugador(),menu.getBanca(), valorTirada, menu);
                                     //Después de evaluarCasilla tenemos que verificar si está en la cárcel debido a una carta para salir de la función
-                                    if (this.lugar.getPosicion() == 30) {
-                                        System.out.println("Has pisado la casilla irCárcel, vas a la cárcel");
-                                        this.jugador.encarcelar(tablero);
-                                        //Salimos de la funcion
-                                        return;
+                                    if(auxiliar.equals("suerte")|| auxiliar.equals("caja")){
+                                        if (this.lugar.getPosicion() == 10) {
+                                            //Salimos de la funcion
+                                            return;
+                                        }
+
                                     }
 
                                 }
-                                // Si es un índice par, no evaluamos la casilla.
-                            } else {
-                                nuevaPosicion = (nuevaPosicion + 1) % 40;
-                                lugar.eliminarAvatar(this);
-                                for (int k = 0; k < tablero.size(); k++) {
-                                    for (int l = 0; l < tablero.get(k).size(); l++) {
-                                        if (tablero.get(k).get(l).getPosicion() == nuevaPosicion) {
-                                            lugar = tablero.get(k).get(l);
-                                        }
-                                    }
-                                }
-                                lugar.anhadirAvatar(this);
-                                // Si la casilla es irCarcel, irá a la cárcel
+
                                 if (this.lugar.getPosicion() == 30) {
                                     System.out.println("Has pisado la casilla irCárcel, vas a la cárcel");
                                     this.jugador.encarcelar(tablero);
                                     //Salimos de la funcion
                                     return;
                                 }
+                                // Si es un índice par, no evaluamos la casilla,solo avanzamos una posicion a menos que sea la última del movimiento que si que la evaluaremos
+                            } else{
+                                //Si es la ultima:
+                                if(I==valorTirada-3){
+                                    nuevaPosicion = (nuevaPosicion + 1) % 40;
+                                    lugar.eliminarAvatar(this);
+                                    for (int k = 0; k < tablero.size(); k++) {
+                                        for (int l = 0; l < tablero.get(k).size(); l++) {
+                                            if (tablero.get(k).get(l).getPosicion() == nuevaPosicion) {
+                                                lugar = tablero.get(k).get(l);
+                                            }
+                                        }
+                                    }
+                                    lugar.anhadirAvatar(this);
+                                    /*
+                                     * No necesitamos llamar a evaluarCasilla porque simplemente hay dos opciones:
+                                     * 1.Pagar el impuesto correspondiente si la casilla es propiedad de un jugador
+                                     * 2.Decidir si comprar o pasar de largo si la casilla es propiedad de la banca
+                                     */
+                                    // 2.
+
+                                    if (this.lugar.estaEnVenta() == true) {
+    
+                                        System.out.println("Quieres comprar la casilla "+this.lugar.getNombre()+"?");
+                                        System.out.println("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
+                                        Scanner scanner = new Scanner(System.in);
+                                        String respuesta = scanner.nextLine();
+                                        if (respuesta.equals("si")) {
+                                            this.lugar.comprarCasilla(this.jugador, menu.getBanca());
+                                        }
+    
+                                    // 1.
+                                    } else {
+                                        // el arg valorTirada de momento no lo usamos en evaluarCasilla
+                                        this.getLugar().evaluarCasilla(menu.getTablero(), this.getJugador(),menu.getBanca(), valorTirada, menu);
+                                        //Después de evaluarCasilla tenemos que verificar si está en la cárcel debido a una carta para salir de la función
+                                        if (this.lugar.getPosicion() == 30) {
+                                            System.out.println("Has pisado la casilla irCárcel, vas a la cárcel");
+                                            this.jugador.encarcelar(tablero);
+                                            //Salimos de la funcion
+                                            return;
+                                        }
+    
+                                    }
+
+                                    
+                                //Si no es la última
+                                }else{
+                                    nuevaPosicion = (nuevaPosicion + 1) % 40;
+                                    lugar.eliminarAvatar(this);
+                                    for (int k = 0; k < tablero.size(); k++) {
+                                        for (int l = 0; l < tablero.get(k).size(); l++) {
+                                            if (tablero.get(k).get(l).getPosicion() == nuevaPosicion) {
+                                                lugar = tablero.get(k).get(l);
+                                            }
+                                        }
+                                    }
+                                    lugar.anhadirAvatar(this);
+
+
+                                }
+
+
+
                             }
 
                         }
@@ -200,8 +247,8 @@ public class Avatar {
                         if(posicionActual>valorTirada){
                             nuevaPosicion= (posicionActual - valorTirada) % 40;
                             lugar.eliminarAvatar(this);
-                            for (int i = 0; i > tablero.size(); i++) {
-                                for (int j = 0; j > tablero.get(i).size(); j++) {
+                            for (int i = 0; i < tablero.size(); i++) {
+                                for (int j = 0; j < tablero.get(i).size(); j++) {
                                     if (tablero.get(i).get(j).getPosicion() == nuevaPosicion) {
                                         lugar = tablero.get(i).get(j);
                                     }
@@ -274,8 +321,8 @@ public class Avatar {
                         if(posicionActual>valorTirada){
                             nuevaPosicion= (posicionActual - valorTirada) % 40;
                             lugar.eliminarAvatar(this);
-                            for (int i = 0; i > tablero.size(); i++) {
-                                for (int j = 0; j > tablero.get(i).size(); j++) {
+                            for (int i = 0; i < tablero.size(); i++) {
+                                for (int j = 0; j < tablero.get(i).size(); j++) {
                                     if (tablero.get(i).get(j).getPosicion() == nuevaPosicion) {
                                         lugar = tablero.get(i).get(j);
                                     }

@@ -564,11 +564,16 @@ public class Menu {
             //Repintamos el tablero
             System.out.println(tablero.toString());
             //Imprimimos el mensaje final:
-            System.out.println("El avatar: "+jugadores.get(turno).getAvatar().getId()+", avanza "+num_casillas+" posiciones, desde "+posicionActual+" hasta "+posicionFinal);    
+            if(this.jugadores.get(turno).getAvatar().getAvanzado()==1&& sumaDados<=4){
+                System.out.println("El avatar:" +jugadores.get(turno).getAvatar().getId()+", retrocede " +sumaDados+" casillas");
+
+            }else{
+                System.out.println("El avatar: "+jugadores.get(turno).getAvatar().getId()+", avanza "+num_casillas+" posiciones, desde "+posicionActual+" hasta "+posicionFinal);    
+            }
 
         }
 
-    
+
 }
 
 
@@ -983,8 +988,20 @@ public class Menu {
                         }else{
                             tirada1=(40-posicion1)+5;
                         }
-                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada1,this);
-                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada1,this);
+                        //Si es mov avanzado llamamos a mover avatar pero con avanzado a 0 y lo volvemos a poner a 1 luego
+                        if(this.jugadores.get(turno).getAvatar().getAvanzado()==0){
+                            this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada1,this);
+                            this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada1,this);
+
+                        }else{
+                            this.jugadores.get(turno).getAvatar().setAvanzado(0);
+                            this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada1,this);
+                            this.jugadores.get(turno).getAvatar().setAvanzado(1);
+                            this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada1,this);
+                            
+
+
+                        }
                         //Si pasa por la casilla de salida le sumamos el valor:
                         if(posicion1>5 || posicion1<0){
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
@@ -1005,10 +1022,20 @@ public class Menu {
                         }else{
                             tirada2=(40-posicion2)+26;
                         }
-                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada2,this);
-                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada2,this);
-                
-                        
+                        //Si es mov avanzado llamamos a mover avatar pero con avanzado a 0 y lo volvemos a poner a 1 luego
+                        if(this.jugadores.get(turno).getAvatar().getAvanzado()==0){
+                            this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada2,this);
+                            this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada2,this);
+
+                        }else{
+                            this.jugadores.get(turno).getAvatar().setAvanzado(0);
+                            this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada2,this);
+                            this.jugadores.get(turno).getAvatar().setAvanzado(1);
+                            this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada2,this);
+                            
+
+
+                        }
                         break;
                     //Se vende el billete de avion a solar 17, por lo que se reciben 500000€
                     case 3:
@@ -1027,8 +1054,20 @@ public class Menu {
                         }else{
                             tirada3=(40-posicion3)+6;
                         }
-                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada3,this);
-                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada3,this);
+                        //Si es mov avanzado llamamos a mover avatar pero con avanzado a 0 y lo volvemos a poner a 1 luego
+                        if(this.jugadores.get(turno).getAvatar().getAvanzado()==0){
+                            this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada3,this);
+                            this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada3,this);
+
+                        }else{
+                            this.jugadores.get(turno).getAvatar().setAvanzado(0);
+                            this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada3,this);
+                            this.jugadores.get(turno).getAvatar().setAvanzado(1);
+                            this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada3,this);
+                            
+
+
+                        }
                         //Si pasa por la casilla de salida le sumamos el valor:
                         if(posicion3>6 || posicion3<0){
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
@@ -1075,8 +1114,17 @@ public class Menu {
                     System.out.println("Colócate en la casilla de Salida. Cobra la cantidad habitual");
                     int posicion4=jugadores.get(turno).getAvatar().getLugar().getPosicion();
                     int tirada4=40-posicion4;
-                    this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), tirada4,this);
-                    this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno),banca,tirada4,this);
+                    //Si es mov avanzado llamamos a mover avatar pero con avanzado a 0 y lo volvemos a poner a 1 luego
+                    if(this.jugadores.get(turno).getAvatar().getAvanzado()==0){
+                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada4,this);
+                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada4,this);
+
+                    }else{
+                        this.jugadores.get(turno).getAvatar().setAvanzado(0);
+                        this.jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(),tirada4,this);
+                        this.jugadores.get(turno).getAvatar().setAvanzado(1);
+                        this.jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero,jugadores.get(turno), banca,tirada4,this);
+                    }
                     //Le sumamos el valor de la salida
                     if(posicion4>6 || posicion4<0){
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
