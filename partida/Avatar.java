@@ -215,8 +215,8 @@ public class Avatar {
                             //La nueva posición será 40(la salida)- el valor de la tirada actualizado
                             nuevaPosicion=40-valorTirada;
                             lugar.eliminarAvatar(this);
-                            for (int i = 0; i > tablero.size(); i++) {
-                                for (int j = 0; j > tablero.get(i).size(); j++) {
+                            for (int i = 0; i<tablero.size(); i++) {
+                                for (int j = 0; j< tablero.get(i).size(); j++) {
                                     if (tablero.get(i).get(j).getPosicion() == nuevaPosicion) {
                                         lugar = tablero.get(i).get(j);
                                     }
