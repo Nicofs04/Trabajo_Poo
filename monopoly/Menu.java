@@ -218,10 +218,12 @@ public class Menu {
                     listarJugadores();
                 } else if (palabras[1].equals("avatares")) {
                     listarAvatares();
-                } else {
-                    System.out.println("Error, comando desconocido.\n");
+                }else if(palabras[1].equals("edificios")){
+                    listarEdificios();
                 }
-            } else {
+            }else if(palabras.length==3){
+                    //listarEdificiosGrupo();
+            }else {
                 System.out.println("Error, comando desconocido.\n");
             }
             break;
@@ -262,14 +264,9 @@ public class Menu {
                 }else if(palabras[1].equals("avatar")){
                     String[] idAvatar = new String[]{palabras[2]};
                     descAvatar(idAvatar);
-                }else if(palabras[1].equals("edificios")){
-                    //Completar con listarEdificios
-                    //listarEdificios();
-                }else if(palabras.length==2){
-                    //listarEdificiosGrupo();
-                }
             }else {
                 System.out.println("Error, comando desconocido.\n");
+            }
             }
             break;
         case "comprar":
@@ -346,8 +343,9 @@ public class Menu {
         default:
             System.out.println("Error, comando desconocido.\n");
             break;
+        }
     }
-}
+
 
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
     * Parámetro: comando introducido
@@ -355,7 +353,20 @@ public class Menu {
     private void descJugador(String[] palabras) {
         for(Jugador jugador:jugadores){
             if((jugador.getNombre()).equals(palabras[0])){
-                System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar().getId() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + jugador.getPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
+                System.out.println("{\n\tNombre: " + jugador.getNombre() + 
+                   ",\n\tAvatar: " + jugador.getAvatar().getId() + 
+                   ",\n\tFortuna: " + jugador.getFortuna() + 
+                   ",\n\tHipotecas: []"+
+                   ",\n\tPropiedades: ");
+                    for(Casilla casilla : jugador.getPropiedades()){ 
+                        System.out.println("\t\t"+ casilla.getNombre().toUpperCase()+
+                                           "\n\t\t{\tcasas: " + casilla.contarCasas() + 
+                                           "\n\t\t\thoteles: " + casilla.contarHoteles() + 
+                                           "\n\t\t\tpiscinas: " + casilla.contarPiscinas() + 
+                                           "\n\t\t\tpistas de deporte: " + casilla.contarPistas()+
+                                           "\n\t\t}"); 
+                            System.out.println("}"); }
+                   
             }
         }
     }
@@ -646,6 +657,24 @@ public class Menu {
             System.out.println("{\nid: " + avatares.get(i).getId() + ",\ntipo: " + avatares.get(i).getTipo() + ",\ncasilla: " + avatares.get(i).getLugar().getNombre() + ",\njugador: " + avatares.get(i).getJugador().getNombre()+ "\n}\n");
         }
     }
+
+    private void listarEdificios(){//PREGUNTAR SI ES ESTRICTAMENTE NECESARIO UN ID Y INTRODUCIR EL VALOR A LA HORA DE CREARLO (seguramente si)
+        for(ArrayList<Casilla> lados:tablero.getPosiciones()){
+            for (Casilla casilla:lados){
+                if (casilla.getEdificacion().isEmpty()){
+                    
+                }else{
+                    System.out.println("{\n\tid: " +
+                           ",\n\tpropietario: " + casilla.getDuenho().getNombre() +
+                           ",\n\tcasilla: " + casilla.getNombre() +
+                           ",\n\tgrupo: " + casilla.getGrupo().getColorGrupo() +
+                           ",\n\tcoste: " + casilla.getValor() +
+                           "\n}");
+                }
+            }
+        }
+    }
+
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     public void acabarTurno() {

@@ -266,9 +266,9 @@ public class Casilla {
             ",\n\talquiler dos casas: " + (getImpuesto() * 15) +
             ",\n\talquiler tres casas: " + (getImpuesto() * 35) +
             ",\n\talquiler cuatro casas: " + (getImpuesto() * 50) +
-            ",\n\talquiler hotel: " + (getImpuesto() * 70) +
-            ",\n\talquiler piscina: " + (getImpuesto() * 25) +
-            ",\n\talquiler pista de deporte: " + (getImpuesto() * 25);
+            ",\n\talquiler hotel (por casa hotel): " + (getImpuesto() * 70) +
+            ",\n\talquiler piscina (por cada pisina): " + (getImpuesto() * 25) +
+            ",\n\talquiler pista de deporte (por cada pista de deporte): " + (getImpuesto() * 25);
      
         } else if (this.tipo == "transporte" || this.tipo == "servicio") {
             return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor()
@@ -384,23 +384,23 @@ public class Casilla {
             case "servicio":
                 if(!c.getHipotecado()){ //verificamos que la casilla no este hipotecada
                     if(!c.getDuenho().equals(actual) && !c.duenho.equals(banca)){
-                        if(actual.getFortuna() < (this.impuesto)) {
-                            System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                    if(actual.getFortuna() < (this.impuesto)) {
+                        System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                     
-                            return false;
-                            //Acabaría la partida para este jugador
-                        }else{
-                            actual.setFortuna(actual.getFortuna() - this.impuesto); //le restamos el alquiler pagado
-                            actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
+                        return false;
+                        //Acabaría la partida para este jugador
+                    }else{
+                        actual.setFortuna(actual.getFortuna() - this.impuesto); //le restamos el alquiler pagado
+                        actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
 
-                            this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
-                            this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
+                        this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
+                        this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
 
-                            this.setDineroCasilla(this.getDineroCasilla() + this.impuesto); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
+                        this.setDineroCasilla(this.getDineroCasilla() + this.impuesto); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
 
-                            System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
+                        System.out.println("Se han pagado "+this.impuesto +"€ por la realización del servicio");
                     
-                            return true;
+                        return true;
                         }
                     }
                 }
@@ -618,6 +618,17 @@ public class Casilla {
         }
     }
 
+
+    public float devolverImpuesto(Casilla casilla, Jugador jugador){
+        Grupo grupo = casilla.getGrupo();
+
+        if (grupo.esDuenhoGrupo(jugador)) {
+            return this.impuesto*2;
+        }else{
+            return this.impuesto;
+        }
+    }
+
     public String generarCasilla() {
         
         StringBuilder sb = new StringBuilder();
@@ -763,6 +774,7 @@ public int contarPistas(){
     }
     return contador;
 }
+
     public float sumarImpuestoedificios(){
         float suma=0;
         int casas=0,hotel=0,piscina=0,pista=0;
