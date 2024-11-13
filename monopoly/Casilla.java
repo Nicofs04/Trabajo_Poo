@@ -365,7 +365,7 @@ public class Casilla {
                             
                             System.out.println("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                             
-                            analizarMenuPequenho(actual, tablero, menu, c); //analizamos el comando escrito
+                            analizarMenuPequenho(actual, banca, tablero, menu, c); //analizamos el comando escrito
 
                             return false;
                             //Acabaría la partida para este jugador
@@ -392,7 +392,7 @@ public class Casilla {
                         
                             System.out.println("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                     
-                            analizarMenuPequenho(actual, tablero, menu, c); //analizamos el comando escrito
+                            analizarMenuPequenho(actual, banca, tablero, menu, c); //analizamos el comando escrito
 
                             return false;
                             //Acabaría la partida para este jugador
@@ -420,7 +420,7 @@ public class Casilla {
                             
                             System.out.println("El jugador no tiene dinero suficiente para pagar el transporte, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                                                         
-                            analizarMenuPequenho(actual, tablero, menu, c); //analizamos el comando escrito
+                            analizarMenuPequenho(actual, banca, tablero, menu, c); //analizamos el comando escrito
 
                             return false;
                             //Acabaría la partida para este jugador
@@ -483,7 +483,7 @@ public class Casilla {
                 if (actual.getFortuna() < this.impuesto) {
                     System.out.println("El jugador no tiene dinero suficiente para pagar los impuestos, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                     
-                    analizarMenuPequenho(actual, tablero, menu, c); //analizamos el comando escrito
+                    analizarMenuPequenho(actual, banca, tablero, menu, c); //analizamos el comando escrito
 
                     return false;
                     //Acabaría la partida para este jugador
@@ -971,7 +971,7 @@ public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugad
     avatares.remove(actual.getAvatar()); //eliminamos el avatar del jugador del ArrayList de avatares
 }
 
-public void analizarMenuPequenho(Jugador actual, Tablero tablero, Menu menu, Casilla c){
+public void analizarMenuPequenho(Jugador actual, Jugador banca, Tablero tablero, Menu menu, Casilla c){
     boolean acabado = false;
 
     while(!acabado){
@@ -996,10 +996,17 @@ public void analizarMenuPequenho(Jugador actual, Tablero tablero, Menu menu, Cas
                 acabado = true;
                 break;        
             case "bancarrota":
-                bancarrotaAJugador(actual, c.getDuenho(), menu.getJugadores(), menu.getAvatares());
-                menu.acabarTurno(); //acabamos el turno automáticamente para que sigan jugando el resto
-                System.out.println("Jugador eliminado con éxito. El siguiente jugador puede ahora elegir una opción.\n");
-                acabado = true;
+                if(!c.getDuenho().equals(banca)){
+                    bancarrotaAJugador(actual, c.getDuenho(), menu.getJugadores(), menu.getAvatares());
+                    menu.acabarTurno(); //acabamos el turno automáticamente para que sigan jugando el resto
+                    System.out.println("Jugador eliminado con éxito. El siguiente jugador puede ahora elegir una opción.\n");
+                    acabado = true;
+                }else if(c.getDuenho().equals(banca)){
+                    bancarrotaABanca(actual, c.getDuenho(), menu.getJugadores(), menu.getAvatares());
+                    menu.acabarTurno(); //acabamos el turno automáticamente para que sigan jugando el resto
+                    System.out.println("Jugador eliminado con éxito. El siguiente jugador puede ahora elegir una opción.\n");
+                    acabado = true;
+                }
                 break;
             default:
                 System.out.println("Error, comando desconocido.\n");

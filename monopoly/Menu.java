@@ -992,7 +992,7 @@ public class Menu {
     
     LAS CARTAS QUE REQUIEREN PAGAR ALGO NECESITAN LA IMPLEMENTACIÓN DE LA FUNCIÓN 'bancarrota()', mientras se deja indicado en los elses
     correspondientes mediante un comentario*/
-    public void accionCarta(String tipo,int num){
+    public void accionCarta(String tipo, int num){
         switch (tipo) {
             case "suerte":
                 switch (num) {
@@ -1088,15 +1088,16 @@ public class Menu {
                         //Si pasa por la casilla de salida le sumamos el valor:
                         if(posicion3>6 || posicion3<0){
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                            
+                            jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                            
                             System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
 
                         }
-
                         break;
                     case 5:
                         System.out.println("Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.");
                         this.jugadores.get(turno).encarcelar(tablero.getPosiciones());
-
                         break;
                     case 6:
                         System.out.println("Has ganado el bote de la lotería! Recibe 1000000€.");
@@ -1120,15 +1121,15 @@ public class Menu {
                         jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + 500000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
 
                     }else{
-                        //bancarrota();
+                        jugadores.get(turno).getAvatar().getLugar().analizarMenuPequenho(jugadores.get(turno), banca, tablero, this, jugadores.get(turno).getAvatar().getLugar()); //analizamos el comando escrito
                     }
                     break;
                 case 2:
-                    System.out.println("Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual\n");
+                    System.out.println("Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.\n");
                     this.jugadores.get(turno).encarcelar(tablero.getPosiciones());
                     break;  
                 case 3:
-                    System.out.println("Colócate en la casilla de Salida. Cobra la cantidad habitual");
+                    System.out.println("Colócate en la casilla de Salida. Cobra la cantidad habitual.\n");
                     int posicion4=jugadores.get(turno).getAvatar().getLugar().getPosicion();
                     int tirada4=40-posicion4;
                     //Si es mov avanzado llamamos a mover avatar pero con avanzado a 0 y lo volvemos a poner a 1 luego
@@ -1145,8 +1146,10 @@ public class Menu {
                     //Le sumamos el valor de la salida
                     if(posicion4>6 || posicion4<0){
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                        
+                        jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                        
                         System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
-
                     }
                     break;
                 case 4:
@@ -1154,7 +1157,6 @@ public class Menu {
                     jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+2000000f);
 
                     jugadores.get(turno).setDineroInversionesOBote(jugadores.get(turno).getDineroInversionesOBote() + 2000000f); //añadimos al atributo dineroInversionesOBote el valor indicado
-                    
                     break;
                 case 5:
                     System.out.println("Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14");
@@ -1162,10 +1164,8 @@ public class Menu {
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-1000000f);
 
                         jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + 1000000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
-
-
                     }else{
-                        //bancarrota();
+                        jugadores.get(turno).getAvatar().getLugar().analizarMenuPequenho(jugadores.get(turno), banca, tablero, this, jugadores.get(turno).getAvatar().getLugar()); //analizamos el comando escrito
                     }
                     break;
                 case 6:
@@ -1173,7 +1173,7 @@ public class Menu {
                     for(int i=0;i<jugadores.size();i++){
                         if(i!=turno){
                             //Si el jugador del turno tiene el dinero suficiente...
-                            if(jugadores.get(turno).getFortuna()>=200000f){
+                            if(jugadores.get(turno).getFortuna() >= 200000f){
                                 //Les damos el dinero y se lo quitamos al jugador que le toca la carta.
                                 jugadores.get(i).setFortuna(jugadores.get(i).getFortuna()+200000f);
                                 jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-200000f);
@@ -1181,12 +1181,9 @@ public class Menu {
                                 jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + 200000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
 
                             }else{
-                                //bancarrota();
-
+                                jugadores.get(turno).getAvatar().getLugar().analizarMenuPequenho(jugadores.get(turno), banca, tablero, this, jugadores.get(turno).getAvatar().getLugar()); //analizamos el comando escrito
                             }
-
                         }
-
                     }
                     break;
                 default:
