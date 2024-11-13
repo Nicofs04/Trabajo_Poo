@@ -877,7 +877,7 @@ public int Hacienda(Jugador jugador, Tablero tablero){
             for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
                 if(casilla.getNombre().equals(nombre)){
                     if(casilla.getEdificacion().isEmpty()){
-                        jugador.setFortuna(jugador.getFortuna() + (valorHipoteca(casilla)/2));
+                        jugador.setFortuna(jugador.getFortuna() + 50000f/*(valorHipoteca(casilla)/2)*/);
 
                         hipotecarPropiedad(casilla);
 
@@ -958,9 +958,16 @@ public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugad
             casilla.getEdificacion().clear();
         }
     }
-    for(Casilla casilla:actual.getPropiedades()){ //pasamos todas las propiedades del jugador que llama bancarrota al jugador que las recibe
+    /*for(Casilla casilla:actual.getPropiedades()){ //pasamos todas las propiedades del jugador que llama bancarrota al jugador que las recibe
         receptor.getPropiedades().add(casilla);
         actual.getPropiedades().remove(casilla);
+    }*/
+
+    Iterator<Casilla> iterator = actual.getPropiedades().iterator();
+    while(iterator.hasNext()){ //pasamos todas las propiedades del jugador que llama bancarrota al jugador que las recibe
+        Casilla casilla = iterator.next();
+        receptor.getPropiedades().add(casilla);
+        iterator.remove();
     }
 
     receptor.setFortuna(receptor.getFortuna() + actual.getFortuna()); //pasamos el dinero del jugador que llama bancarrota al jugador que lo recibe
@@ -969,6 +976,7 @@ public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugad
 
     jugadores.remove(actual); //eliminamos al jugador del ArrayList de jugadores
     avatares.remove(actual.getAvatar()); //eliminamos el avatar del jugador del ArrayList de avatares
+    
 }
 
 public void analizarMenuPequenho(Jugador actual, Jugador banca, Tablero tablero, Menu menu, Casilla c){
