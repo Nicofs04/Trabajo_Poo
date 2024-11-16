@@ -410,7 +410,7 @@ public class Menu {
         }
         //Si existe una restricción de turnos sin tirar(mov avanzado coche), no podremos lanzar los dados
         if(jugadores.get(turno).getAvatar().getRestriccionTiradas()!=0){
-            System.out.println("Debido a la restricción del mov avanzado de coche, tiene que esperar"+ jugadores.get(turno).getAvatar().getRestriccionTiradas()+ "turnos para volver a lanzar los dados");
+            System.out.println("Debido a la restricción del mov avanzado de coche, tiene que esperar "+ jugadores.get(turno).getAvatar().getRestriccionTiradas()+ " turnos para volver a lanzar los dados");
             //Le restamos 1 a los turnos restantes para poder volver a tirar
             jugadores.get(turno).getAvatar().setRestriccionTiradas(jugadores.get(turno).getAvatar().getRestriccionTiradas()-1);
             return;
@@ -609,6 +609,7 @@ public class Menu {
                 jugadores.get(turno).setEnCarcel(false);
             
                 jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())); //añadimos al atributo dineroTasasEImpuestos el valor pagado por salir de la cárcel
+                System.out.println("Sales de la cárcel pagando " +jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())+"€");
             
 
             }else{

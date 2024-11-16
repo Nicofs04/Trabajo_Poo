@@ -443,9 +443,9 @@ public class Casilla {
             //No es para esta entrega
             case "suerte":
                 //Barajar cartas
-                ArrayList<Integer> baraja1=new ArrayList<Integer>();
-                baraja1= crearBaraja();
-                barajar(baraja1);
+                //ArrayList<Integer> baraja1=new ArrayList<Integer>();
+                //baraja1= crearBaraja();
+                //barajar(baraja1);
                 //Elegir carta
                 System.out.println("Qué carta desea elegir?");
                 Scanner scanner1 = new Scanner(System.in);
@@ -454,18 +454,18 @@ public class Casilla {
                     System.out.println("Introduce un número del 1 al 6");
                     carta1 = scanner1.nextInt();
                 }
-                int eleccion1=0;
-                eleccion1=baraja1.get(carta1-1);
+                //int eleccion1=0;
+                //eleccion1=baraja1.get(carta1-1);
                 //Realizar acción
-                menu.accionCarta(c.getTipo(),eleccion1);
+                menu.accionCarta(c.getTipo(),carta1);
 
                 break;
             //No es para esta entrega
             case "caja":
                 //Barajar cartas
-                ArrayList<Integer> baraja2=new ArrayList<Integer>();
-                baraja2= crearBaraja();
-                barajar(baraja2);
+                //ArrayList<Integer> baraja2=new ArrayList<Integer>();
+                //baraja2= crearBaraja();
+                //barajar(baraja2);
                 //Elegir carta
                 System.out.println("Qué carta desea elegir?");
                 Scanner scanner2 = new Scanner(System.in);
@@ -474,10 +474,10 @@ public class Casilla {
                     System.out.println("Introduce un número del 1 al 6");
                     carta2 = scanner2.nextInt();
                 }
-                int eleccion2=0;
-                eleccion2=baraja2.get(carta2);
+                //int eleccion2=0;
+                //eleccion2=baraja2.get(carta2);
                 //Realizar acción
-                menu.accionCarta(c.getTipo(),eleccion2);
+                menu.accionCarta(c.getTipo(),carta2);
                 break;
             case "impuesto":
                 if (actual.getFortuna() < this.impuesto) {
@@ -703,7 +703,7 @@ public class Casilla {
         return representacionCasilla;
     }
 
-    public static ArrayList<Integer> crearBaraja() {
+    /*public static ArrayList<Integer> crearBaraja() {
         ArrayList<Integer> baraja = new ArrayList<>();
 
         // Llenar el ArrayList con los valores 1, 2, 3, 4, 5 y 6
@@ -735,6 +735,7 @@ public class Casilla {
         }
         return num;
     }
+*/
 
     public void cambiarcasas(){
         int casa = contarCasas();
