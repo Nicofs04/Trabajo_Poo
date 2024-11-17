@@ -28,7 +28,7 @@ public class Jugador {
 
     // Constructor vacío. Se usará para crear la banca.
     public Jugador() {
-        this.fortuna = 100000; //Ponemos un valor elevado para que no se acabe el dinero de la banca
+        this.fortuna = 100000000; //Ponemos un valor elevado para que no se acabe el dinero de la banca
         this.avatar = null;
         this.nombre = "banca";
         this.gastos = 0;

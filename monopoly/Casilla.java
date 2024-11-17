@@ -366,8 +366,30 @@ public class Casilla {
                             System.out.println("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                             
                             analizarMenuPequenho(actual, banca, tablero, menu, c); //analizamos el comando escrito
+                            
+                            while(actual.getFortuna() < this.impuesto+sumarImpuestoedificios()){
+                                System.out.println(String.format("El jugador %s no tiene dinero suficiente, elija una opción:\n", actual.getNombre()));
+                                if(actual.getPropiedades().isEmpty()){ //nos aseguramos de que pueda seguir teniendo propiedades para hipotecar
+                                    bancarrotaAJugador(actual, this.getDuenho(), menu.getJugadores(), menu.getAvatares()); //si no llamamos a bancarrota
+                                    break;
+                                }
+                                analizarMenuPequenho(actual, banca, tablero, menu, c);
+                            }
 
-                            return false;
+                            if (actual.getFortuna() < this.impuesto+sumarImpuestoedificios()) {
+                                return false;
+                            }else{
+                                actual.setFortuna(actual.getFortuna()-this.impuesto); //le restamos el alquiler pagado
+                                actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto+sumarImpuestoedificios()); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
+
+                                this.duenho.setFortuna((duenho.getFortuna() + this.impuesto+sumarImpuestoedificios())); //le sumamos el alquiler al dueño de la casilla
+                                this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto+sumarImpuestoedificios()); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
+
+                                this.setDineroCasilla(this.getDineroCasilla() + this.impuesto+sumarImpuestoedificios()); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
+
+                                System.out.println("El jugador paga "+this.impuesto+sumarImpuestoedificios() +"€");
+                                return true;
+                            }
                             //Acabaría la partida para este jugador
                         }else{
                             actual.setFortuna(actual.getFortuna()-this.impuesto); //le restamos el alquiler pagado
@@ -394,7 +416,29 @@ public class Casilla {
                     
                             analizarMenuPequenho(actual, banca, tablero, menu, c); //analizamos el comando escrito
 
-                            return false;
+                            while(actual.getFortuna() < this.impuesto){
+                                if(actual.getPropiedades().isEmpty()){ //nos aseguramos de que pueda seguir teniendo propiedades para hipotecar
+                                    bancarrotaAJugador(actual, this.getDuenho(), menu.getJugadores(), menu.getAvatares()); //si no llamamos a bancarrota
+                                    break;
+                                }
+                                analizarMenuPequenho(actual, banca, tablero, menu, c);
+                            }
+
+                            if (actual.getFortuna() < this.impuesto) {
+                                System.out.println(String.format("El jugador %s no tiene dinero suficiente"));
+                                return false;
+                            }else{
+                                actual.setFortuna(actual.getFortuna()-this.impuesto); //le restamos el alquiler pagado
+                                actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
+
+                                this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
+                                this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
+
+                                this.setDineroCasilla(this.getDineroCasilla() + this.impuesto); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
+
+                                System.out.println("El jugador paga "+this.impuesto +"€");
+                                return true;
+                            }
                             //Acabaría la partida para este jugador
                     }else{
                         actual.setFortuna(actual.getFortuna() - this.impuesto); //le restamos el alquiler pagado
@@ -422,7 +466,29 @@ public class Casilla {
                                                         
                             analizarMenuPequenho(actual, banca, tablero, menu, c); //analizamos el comando escrito
 
-                            return false;
+                            while(actual.getFortuna() < this.impuesto){
+                                if(actual.getPropiedades().isEmpty()){ //nos aseguramos de que pueda seguir teniendo propiedades para hipotecar
+                                    bancarrotaAJugador(actual, this.getDuenho(), menu.getJugadores(), menu.getAvatares()); //si no llamamos a bancarrota
+                                    break;
+                                }
+                                analizarMenuPequenho(actual, banca, tablero, menu, c);
+                            }
+
+                            if (actual.getFortuna() < this.impuesto) {
+                                System.out.println(String.format("El jugador %s no tiene dinero suficiente"));
+                                return false;
+                            }else{
+                                actual.setFortuna(actual.getFortuna()-this.impuesto); //le restamos el alquiler pagado
+                                actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
+
+                                this.duenho.setFortuna((duenho.getFortuna() + this.impuesto)); //le sumamos el alquiler al dueño de la casilla
+                                this.duenho.setDineroCobradoAlquileres(this.duenho.getDineroCobradoAlquileres() + this.impuesto); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
+
+                                this.setDineroCasilla(this.getDineroCasilla() + this.impuesto); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
+
+                                System.out.println("El jugador paga "+this.impuesto +"€");
+                                return true;
+                            }
                             //Acabaría la partida para este jugador
                         }else{
                             actual.setFortuna(actual.getFortuna() - this.impuesto); //le restamos el alquiler pagado
@@ -878,15 +944,19 @@ public int Hacienda(Jugador jugador, Tablero tablero){
             for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
                 if(casilla.getNombre().equals(nombre)){
                     if(casilla.getEdificacion().isEmpty()){
-                        jugador.setFortuna(jugador.getFortuna() + 50000f/*(valorHipoteca(casilla)/2)*/);
+                        if(!casilla.getHipotecado()){
+                            jugador.setFortuna(jugador.getFortuna() + (valorHipoteca(casilla)/2));
 
-                        hipotecarPropiedad(casilla);
+                            hipotecarPropiedad(casilla);
 
-                        System.out.println(String.format("La casilla %s ha sido hipotecada con éxito.\n", nombre));
+                            System.out.println(String.format("La casilla %s ha sido hipotecada con éxito.\n", nombre));
 
-                        System.out.println(String.format("%s recibe %f por hipotecar %s. Ahora no puedes recibir alquileres y edificar en el grupo %s.\n", jugador.getNombre(), valorHipoteca(casilla)/2, casilla.getNombre(), casilla.getGrupo().getColorGrupo()));
+                            System.out.println(String.format("%s recibe %f por hipotecar %s. Ahora no puedes recibir alquileres ni edificar en la casilla %s.\n", jugador.getNombre(), valorHipoteca(casilla)/2, casilla.getNombre(), casilla.getNombre()));
                         
-                        return 1;
+                            return 1;
+                        }else{
+                            System.out.println("La casilla ya ha sido hipotecada.\n");
+                        }
                     }else{
                         System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla.\n");
                         return 0;
@@ -923,7 +993,7 @@ public int deshipotecar(Jugador jugador, Tablero tablero){
                         
                         System.out.println(String.format("La casilla %s ha sido deshipotecada con éxito.\n", nombre));
 
-                        System.out.println(String.format("%s paga %f por deshipotecar %s. Ahora puedes recibir alquileres y edificar en el grupo %s.\n", jugador.getNombre(), valorHipoteca(casilla)*1.1f, casilla.getNombre(), casilla.getGrupo().getColorGrupo()));
+                        System.out.println(String.format("%s paga %f por deshipotecar %s. Ahora puedes recibir alquileres y edificar en la casilla %s.\n", jugador.getNombre(), valorHipoteca(casilla)*1.1f, casilla.getNombre(), casilla.getNombre()));
                         return 1;
                     }else{
                         System.out.println(String.format("El jugador %s no tiene suficiente dinero para poder deshipotecar la casilla %s.\n", jugador.getNombre(), casilla.getNombre()));
@@ -977,7 +1047,7 @@ public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugad
 
     jugadores.remove(actual); //eliminamos al jugador del ArrayList de jugadores
     avatares.remove(actual.getAvatar()); //eliminamos el avatar del jugador del ArrayList de avatares
-    
+
 }
 
 public void analizarMenuPequenho(Jugador actual, Jugador banca, Tablero tablero, Menu menu, Casilla c){
@@ -1001,19 +1071,23 @@ public void analizarMenuPequenho(Jugador actual, Jugador banca, Tablero tablero,
 
         switch (comando) {
             case "hipotecar":
-                Hacienda(actual, tablero);
-                acabado = true;
-                break;        
+                    Hacienda(actual, tablero);
+                    acabado = true;
+                    break;
             case "bancarrota":
                 if(!c.getDuenho().equals(banca)){
                     bancarrotaAJugador(actual, c.getDuenho(), menu.getJugadores(), menu.getAvatares());
-                    menu.acabarTurno(); //acabamos el turno automáticamente para que sigan jugando el resto
-                    System.out.println("Jugador eliminado con éxito. El siguiente jugador puede ahora elegir una opción.\n");
+                    menu.setTirado(false); //para que el siguiente jugador pueda seguir tirando
+                    menu.setLanzamientos(0);
+                    menu.setDadosdobles(false);
+                    System.out.println("Jugador eliminado con éxito. El siguiente jugador puede escoger ahora una opción.\n");
                     acabado = true;
                 }else if(c.getDuenho().equals(banca)){
                     bancarrotaABanca(actual, c.getDuenho(), menu.getJugadores(), menu.getAvatares());
-                    menu.acabarTurno(); //acabamos el turno automáticamente para que sigan jugando el resto
-                    System.out.println("Jugador eliminado con éxito. El siguiente jugador puede ahora elegir una opción.\n");
+                    menu.setTirado(false); //para que el siguiente jugador pueda seguir tirando
+                    menu.setLanzamientos(0);
+                    menu.setDadosdobles(false);
+                    System.out.println("Jugador eliminado con éxito. El siguiente jugador puede escoger ahora una opción.\n");
                     acabado = true;
                 }
                 break;
