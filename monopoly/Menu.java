@@ -466,6 +466,8 @@ public class Menu {
 
                         System.out.println("Has fallado 3 veces.");
                         jugadores.get(turno).setEnCarcel(false);
+
+                        jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones()));
                         
                         //Calculamos la posición inicial
                         String posicionActual = jugadores.get(turno).getAvatar().getLugar().getNombre();
@@ -1033,6 +1035,8 @@ public class Menu {
                         if(posicion1>5 || posicion1<0){
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
                             
+                            jugadores.get(turno).setNumVueltas(jugadores.get(turno).getNumVueltas() + 1);
+
                             jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
                             
                             System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
@@ -1098,6 +1102,8 @@ public class Menu {
                         if(posicion3>6 || posicion3<0){
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
                             
+                            jugadores.get(turno).setNumVueltas(jugadores.get(turno).getNumVueltas() + 1);
+
                             jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
                             
                             System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
@@ -1156,6 +1162,8 @@ public class Menu {
                     if(posicion4>6 || posicion4<0){
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
                         
+                        jugadores.get(turno).setNumVueltas(jugadores.get(turno).getNumVueltas() + 1);
+
                         jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
                         
                         System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
