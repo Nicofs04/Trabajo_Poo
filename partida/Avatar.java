@@ -311,7 +311,50 @@ public class Avatar {
                         Scanner scanner = new Scanner(System.in);
                         String respuesta = scanner.nextLine();
                         if (respuesta.equals("si")) {
-                            // edificar();
+                            boolean comprobante = false;
+                            while (comprobante) {
+                                Scanner scanner2 = new Scanner(System.in);
+                                System.out.println("=====================================\n");
+                                System.out.println("                MENÚ                \n");
+                                System.out.println("=====================================\n");
+                                System.out.println("1. Construir una casa                              -> Comando: 'edificar casa'");
+                                System.out.println("2. Construir un hotel                           -> Comando: 'edificar hotel'");
+                                System.out.println("3. Construir una piscina                           -> Comando: 'edificar piscina'");
+                                System.out.println("4. Construir una pista                           -> Comando: 'edificar pista'");
+        
+
+                                System.out.println("=====================================\n");
+                                System.out.println("Selecciona una opción para continuar.\n");
+                                System.out.println("=====================================\n\n");
+                                
+
+                                String comando = scanner2.nextLine();
+                                String[] palabras = comando.split(" ");
+
+                                if (palabras.length <= 1 || palabras.length > 2) {
+                                    System.out.println("Comando inválido.");
+                                }
+                                String metodo = palabras[0];
+
+                                switch (metodo) {   
+                                    case "edificar":
+                                        if(palabras.length==2){
+                                            String tipoEdificacion=palabras[1];
+                                                if(tipoEdificacion.equals("casa")){
+                                                    menu.edificarCasa();
+                                                }else if(tipoEdificacion.equals("hotel")){
+                                                    menu.edificarHotel();
+                                                }else if(tipoEdificacion.equals("piscina")){
+                                                    menu.edificarPiscina();
+                                                }else if(tipoEdificacion.equals("pista")){
+                                                    menu.edificarPista();
+                                                }
+                                        }
+                                        break;
+                                    
+                                }
+                                
+                            }
                         }
 
                     //El valor de la tirada es 4 o menos, lo mismo que para pelota pero aplicando la restricción

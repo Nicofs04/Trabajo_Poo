@@ -728,7 +728,7 @@ public class Menu {
 
 //comprobar si hay que meter la comprobación solo en edificarcasa o no (tendría sentido que si ya que si quieres edificar otra cosa siempre vas a necesitar una casa)
 
-    private void edificarCasa() {
+    public void edificarCasa() {
         Edificacion casa = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "casa");
         Casilla actual = jugadores.get(turno).getAvatar().getLugar();
         int limiteGrupo = jugadores.get(turno).getAvatar().getLugar().getGrupo().getNumCasillas();
@@ -774,7 +774,7 @@ public class Menu {
         }
 
 
-        private void edificarHotel() {
+        public void edificarHotel() {
             Edificacion hotel = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "hotel");
             Casilla actual = jugadores.get(turno).getAvatar().getLugar();
             int limiteGrupo = actual.getGrupo().getNumCasillas();
@@ -805,7 +805,7 @@ public class Menu {
             }
         }
         
-        private void edificarPiscina() {
+        public void edificarPiscina() {
             Edificacion piscina = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "piscina");
             Casilla actual = jugadores.get(turno).getAvatar().getLugar();
             int limiteGrupo = actual.getGrupo().getNumCasillas();
@@ -835,7 +835,7 @@ public class Menu {
             }
         }
         
-        private void edificarPista() {
+        public void edificarPista() {
             Edificacion pista = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "pista");
             Casilla actual = jugadores.get(turno).getAvatar().getLugar();
             int limiteGrupo = actual.getGrupo().getNumCasillas();
