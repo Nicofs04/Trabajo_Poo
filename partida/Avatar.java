@@ -176,7 +176,7 @@ public class Avatar {
                                 // Si es un índice par, no evaluamos la casilla,solo avanzamos una posicion a menos que sea la última del movimiento que si que la evaluaremos
                             } else{
                                 //Si es la ultima:
-                                if(I==valorTirada-3){
+                                if(I==valorTirada-4){
                                     nuevaPosicion = (nuevaPosicion + 1) % 40;
                                     lugar.eliminarAvatar(this);
                                     for (int k = 0; k < tablero.size(); k++) {
