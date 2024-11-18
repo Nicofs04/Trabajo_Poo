@@ -1010,15 +1010,15 @@ public int deshipotecar(Jugador jugador, Tablero tablero){
         for(Casilla casilla:jugador.getPropiedades()){
             if(casilla.getNombre().equals(nombre)){
                 if(casilla.getHipotecado()){
-                    if(jugador.getFortuna() > (valorHipoteca(casilla)*1.1f)){
+                    if(jugador.getFortuna() > (valorHipoteca(casilla)*0.6f)){
 
-                        jugador.setFortuna(jugador.getFortuna() - (valorHipoteca(casilla)*1.1f));
+                        jugador.setFortuna(jugador.getFortuna() - (valorHipoteca(casilla)*0.6f));
                         
                         casilla.setHipotecado(false);
                         
                         System.out.println(String.format("La casilla %s ha sido deshipotecada con éxito.\n", nombre));
 
-                        System.out.println(String.format("%s paga %f por deshipotecar %s. Ahora puedes recibir alquileres y edificar en la casilla %s.\n", jugador.getNombre(), valorHipoteca(casilla)*1.1f, casilla.getNombre(), casilla.getNombre()));
+                        System.out.println(String.format("%s paga %f por deshipotecar %s. Ahora puedes recibir alquileres y edificar en la casilla %s.\n", jugador.getNombre(), valorHipoteca(casilla)*0.6f, casilla.getNombre(), casilla.getNombre()));
                         return 1;
                     }else{
                         System.out.println(String.format("El jugador %s no tiene suficiente dinero para poder deshipotecar la casilla %s.\n", jugador.getNombre(), casilla.getNombre()));
@@ -1045,7 +1045,7 @@ public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> j
     }
     
     Iterator<Casilla> iterator = actual.getPropiedades().iterator();
-    while(iterator.hasNext()){ //pasamos todas las propiedades del jugador que llama bancarrota al jugador que las recibe
+    while(iterator.hasNext()){ //pasamos todas las propiedades del jugador que llama bancarrota a la banca
         Casilla casilla = iterator.next();
         banca.getPropiedades().add(casilla);
         iterator.remove();
