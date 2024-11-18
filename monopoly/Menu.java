@@ -716,12 +716,16 @@ public class Menu {
     private boolean comprobar(){
         Casilla actual = jugadores.get(turno).getAvatar().getLugar();
     
-        if (actual.getGrupo().esDuenhoGrupo(jugadores.get(turno)) || actual.getVeces(turno)>2) {
-            return true;   
-        }else{
-            System.out.println("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar");
-           return false;
+        if (!(actual.getHipotecado())) {    
+            if (actual.getGrupo().esDuenhoGrupo(jugadores.get(turno)) || actual.getVeces(turno)>2) {
+                return true;   
+            }else{
+                System.out.println("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar, aparte, la casilla no puede estar hipotecada");
+            return false;
+            }
         }
+        System.out.println("No puedes construir en un solar hipotecado");
+        return false;
     }
 
 
@@ -781,27 +785,31 @@ public class Menu {
             int numCasas = actual.contarCasas();
             int hotelgrupo = actual.getGrupo().contarHotelesGrupo();
             int contarHoteles = actual.contarHoteles();
-        
-            if (hotelgrupo < limiteGrupo) {
-                if (numCasas == 4) {
-                    if (jugadores.get(turno).getFortuna() >= (actual.getValor() * 0.6f)) {
-                        actual.anhadirEdificacion(hotel);
-                        jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - (actual.getValor() * 0.6f));
-                        jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
+            
+            if (comprobar()) {
+                
+            
+                if (hotelgrupo < limiteGrupo) {
+                    if (numCasas == 4) {
+                        if (jugadores.get(turno).getFortuna() >= (actual.getValor() * 0.6f)) {
+                            actual.anhadirEdificacion(hotel);
+                            jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - (actual.getValor() * 0.6f));
+                            jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
 
 
-                        System.out.println("Se han pagado " + actual.getValor() * 0.6f + " por la construcción de un hotel. La fortuna restante es de " + jugadores.get(turno).getFortuna() + "\n");
-                        System.out.println("Se ha construido el hotel y se han quitado las 4 casas\n");
-                        System.out.println("Se ha construido un hotel correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarHoteles + 1) + " hoteles construidos.\n");
-                        actual.cambiarcasas();
+                            System.out.println("Se han pagado " + actual.getValor() * 0.6f + " por la construcción de un hotel. La fortuna restante es de " + jugadores.get(turno).getFortuna() + "\n");
+                            System.out.println("Se ha construido el hotel y se han quitado las 4 casas\n");
+                            System.out.println("Se ha construido un hotel correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarHoteles + 1) + " hoteles construidos.\n");
+                            actual.cambiarcasas();
+                        } else {
+                            System.out.println("No dispones del dinero necesario para construir la edificación\n");
+                        }
                     } else {
-                        System.out.println("No dispones del dinero necesario para construir la edificación\n");
+                        System.out.println("No hay 4 casas en la casilla como para construir el hotel\n");
                     }
                 } else {
-                    System.out.println("No hay 4 casas en la casilla como para construir el hotel\n");
+                    System.out.println("Has alcanzado el límite máximo de hoteles en el grupo\n");
                 }
-            } else {
-                System.out.println("Has alcanzado el límite máximo de hoteles en el grupo\n");
             }
         }
         

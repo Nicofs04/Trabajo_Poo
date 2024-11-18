@@ -409,6 +409,26 @@ public class Casilla {
             case "servicio":
                 if(!c.getHipotecado()){ //verificamos que la casilla no este hipotecada
                     if(!c.getDuenho().equals(actual) && !c.duenho.equals(banca)){
+
+                        float factorservicio = 6506.64f;
+                        Jugador duenho = c.getDuenho();
+                        int contador=0;
+                        float valortirada = 0;
+                        for (Casilla casilla:duenho.getPropiedades()){
+                            if (casilla.tipo.equals("servicio")) {
+                                contador++;
+                            }
+                        }
+
+                        if (contador==1) {
+                            valortirada = tirada*4;
+
+                        }else if (contador==2) {
+                            valortirada = tirada*10;
+                        }
+
+                        this.impuesto = factorservicio*valortirada;
+                        
                     
                         if(actual.getFortuna() < (this.impuesto)) {
                         
@@ -441,6 +461,11 @@ public class Casilla {
                             }
                             //Acabaría la partida para este jugador
                     }else{
+
+                        
+
+
+
                         actual.setFortuna(actual.getFortuna() - this.impuesto); //le restamos el alquiler pagado
                         actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + this.impuesto); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
 
@@ -1018,7 +1043,7 @@ public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> j
         casilla.setHipotecado(false);
         casilla.setDuenho(banca);
     }
-
+    
     Iterator<Casilla> iterator = actual.getPropiedades().iterator();
     while(iterator.hasNext()){ //pasamos todas las propiedades del jugador que llama bancarrota al jugador que las recibe
         Casilla casilla = iterator.next();
@@ -1027,7 +1052,7 @@ public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> j
     }
 
     banca.setFortuna(banca.getFortuna() + actual.getFortuna()); //pasamos toda la fortuna del jugador a la banca
-    
+
     actual.setFortuna(0);
 
     jugadores.remove(actual);
@@ -1061,6 +1086,7 @@ public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugad
 
     jugadores.remove(actual); //eliminamos al jugador del ArrayList de jugadores
     avatares.remove(actual.getAvatar()); //eliminamos el avatar del jugador del ArrayList de avatares
+
 }
 
 public void analizarMenuPequenho(Jugador actual, Jugador banca, Tablero tablero, Menu menu, Casilla c){
