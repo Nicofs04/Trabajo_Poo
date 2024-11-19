@@ -1034,7 +1034,7 @@ public int deshipotecar(Jugador jugador, Tablero tablero){
         for(Casilla casilla:jugador.getPropiedades()){
             if(casilla.getNombre().equals(nombre)){
                 if(casilla.getHipotecado()){
-                    if(jugador.getFortuna() > (valorHipoteca(casilla)*0.6f)){
+                    if(jugador.getFortuna() > ((valorHipoteca(casilla)/2)*1.1f)){
 
                         jugador.setFortuna(jugador.getFortuna() - ((valorHipoteca(casilla)/2)*1.1f));
                         
@@ -1042,7 +1042,7 @@ public int deshipotecar(Jugador jugador, Tablero tablero){
                         
                         System.out.println(String.format("La casilla %s ha sido deshipotecada con éxito.\n", nombre));
 
-                        System.out.println(String.format("%s paga %f por deshipotecar %s. Ahora puedes recibir alquileres y edificar en la casilla %s.\n", jugador.getNombre(), valorHipoteca(casilla)*0.6f, casilla.getNombre(), casilla.getNombre()));
+                        System.out.println(String.format("%s paga %f por deshipotecar %s. Ahora puedes recibir alquileres y edificar en la casilla %s.\n", jugador.getNombre(), ((valorHipoteca(casilla)/2)*1.1f), casilla.getNombre(), casilla.getNombre()));
                         return 1;
                     }else{
                         System.out.println(String.format("El jugador %s no tiene suficiente dinero para poder deshipotecar la casilla %s.\n", jugador.getNombre(), casilla.getNombre()));
