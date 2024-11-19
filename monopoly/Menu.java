@@ -737,6 +737,9 @@ public class Menu {
     public void edificarCasa() {
         Edificacion casa = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "casa");
         Casilla actual = jugadores.get(turno).getAvatar().getLugar();
+        if (!(actual.getTipo()== "solar")) {
+            return;
+        }
         int limiteGrupo = jugadores.get(turno).getAvatar().getLugar().getGrupo().getNumCasillas();
         int numCasas = actual.contarCasas();
         int hotelgrupo = actual.getGrupo().contarHotelesGrupo();
