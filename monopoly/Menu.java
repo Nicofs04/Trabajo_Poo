@@ -737,6 +737,9 @@ public class Menu {
     public void edificarCasa() {
         Edificacion casa = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "casa");
         Casilla actual = jugadores.get(turno).getAvatar().getLugar();
+        if (!(actual.getTipo()== "solar")) {
+            return;
+        }
         int limiteGrupo = jugadores.get(turno).getAvatar().getLugar().getGrupo().getNumCasillas();
         int numCasas = actual.contarCasas();
         int hotelgrupo = actual.getGrupo().contarHotelesGrupo();
@@ -1033,13 +1036,15 @@ public class Menu {
                         }
                         //Si pasa por la casilla de salida le sumamos el valor:
                         if(posicion1>5 || posicion1<0){
+                            jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1); //sumamos 1 vuelta a la variable vueltas que nos permite saber si los jugadores han dado 4 vueltas más
+
                             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
                             
                             jugadores.get(turno).setNumVueltas(jugadores.get(turno).getNumVueltas() + 1);
 
                             jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
                             
-                            System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                            System.out.printf("Recibes %.2f€ por pasar por la salida\n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
 
                         }
                         break;
@@ -1100,13 +1105,15 @@ public class Menu {
                         }
                         //Si pasa por la casilla de salida le sumamos el valor:
                         if(posicion3>6 || posicion3<0){
-                            jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                            jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1); //sumamos 1 vuelta a la variable vueltas que nos permite saber si los jugadores han dado 4 vueltas más
+
+                            jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + Valor.SUMA_VUELTA);
                             
                             jugadores.get(turno).setNumVueltas(jugadores.get(turno).getNumVueltas() + 1);
 
-                            jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                            jugadores.get(turno).setDineroCobradoSalida(jugadores.get(turno).getDineroCobradoSalida() + Valor.SUMA_VUELTA);
                             
-                            System.out.printf("Recibes %.2f€ por pasar por la salida%n", tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
+                            System.out.printf("Recibes %.2f€ por pasar por la salida%n", Valor.SUMA_VUELTA);
 
                         }
                         break;
@@ -1160,6 +1167,8 @@ public class Menu {
                     }
                     //Le sumamos el valor de la salida
                     if(posicion4>6 || posicion4<0){
+                        jugadores.get(turno).setVueltas(jugadores.get(turno).getVueltas() + 1); //sumamos 1 vuelta a la variable vueltas que nos permite saber si los jugadores han dado 4 vueltas más
+
                         jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()+tablero.getPosiciones().get(0).get(0).valorSalida(tablero.getPosiciones()));
                         
                         jugadores.get(turno).setNumVueltas(jugadores.get(turno).getNumVueltas() + 1);
