@@ -1036,7 +1036,7 @@ public int deshipotecar(Jugador jugador, Tablero tablero){
                 if(casilla.getHipotecado()){
                     if(jugador.getFortuna() > (valorHipoteca(casilla)*0.6f)){
 
-                        jugador.setFortuna(jugador.getFortuna() - (valorHipoteca(casilla)*0.6f));
+                        jugador.setFortuna(jugador.getFortuna() - ((valorHipoteca(casilla)/2)*1.1f));
                         
                         casilla.setHipotecado(false);
                         
