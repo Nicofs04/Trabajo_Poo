@@ -1068,13 +1068,6 @@ public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> j
         casilla.setDuenho(banca);
     }
     
-    Iterator<Casilla> iterator = actual.getPropiedades().iterator();
-    while(iterator.hasNext()){ //pasamos todas las propiedades del jugador que llama bancarrota a la banca
-        Casilla casilla = iterator.next();
-        banca.getPropiedades().add(casilla);
-        iterator.remove();
-    }
-
     banca.setFortuna(banca.getFortuna() + actual.getFortuna()); //pasamos toda la fortuna del jugador a la banca
 
     actual.setFortuna(0);
