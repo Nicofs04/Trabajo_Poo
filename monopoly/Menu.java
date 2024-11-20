@@ -340,7 +340,7 @@ public class Menu {
         case "cambiar":
             if(palabras.length==2 && palabras[1].equals("modo")){
                 if(jugadores.get(turno).getAvatar().getAvanzado()==1){
-                    System.out.println("El avatar ya está en modo movimiento avanzado");
+                    jugadores.get(turno).getAvatar().setAvanzado(0);
                 }else{
                     jugadores.get(turno).getAvatar().setAvanzado(1);
                     System.out.println("Movimiento avanzado activado");
