@@ -946,34 +946,43 @@ public void hipotecarPropiedad(Casilla casilla){
 
 public float valorHipoteca(Casilla casilla){
     float valor = 0;
-    switch (casilla.getGrupo().getColorGrupo()) {
-        case "BLACK":
-            valor = 600000;
-            break;
-        case "CYAN":
-            valor = 520000;
-            break;
-        case "PURPLE":
-            valor = 676000;
-            break;
-        case "WHITE":
-            valor = 878800;
-            break;
-        case "GREEN":
-            valor = 1930723.6f;
-            break;
-        case "BLUE":
-            valor = 3764911.02f;
-            break;
-        case "RED":
-            valor = 1142440;
-            break;
-        case "YELLOW":
-            valor = 1485172;
-            break;
-        default:
-            System.out.println("No se ha encontrado el grupo");
-            break;
+    if(casilla.getTipo().equals("solar")){
+        switch (casilla.getGrupo().getColorGrupo()) {
+            case "BLACK":
+                valor = 600000;
+                break;
+            case "CYAN":
+                valor = 520000;
+                break;
+            case "PURPLE":
+                valor = 676000;
+                break;
+            case "WHITE":
+                valor = 878800;
+                break;
+            case "GREEN":
+                valor = 1930723.6f;
+                break;
+            case "BLUE":
+                valor = 3764911.02f;
+                break;
+            case "RED":
+                valor = 1142440;
+                break;
+            case "YELLOW":
+                valor = 1485172;
+                break;
+            default:
+                System.out.println("No se ha encontrado el grupo");
+                break;
+        }
+    }else if(casilla.getTipo().equals("servicio")){
+        valor = (Valor.SUMA_VUELTA)*0.75f;
+    }else if(casilla.getTipo().equals("transporte")){
+        valor = Valor.SUMA_VUELTA;
+    }else{
+        System.out.println("Error, no se puede hipotecar dicha casilla\n");
+        return 0;
     }
     return valor;
 }
