@@ -22,6 +22,7 @@ public class Juego implements Comando{
     private boolean tirado; //Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
     private boolean dadosdobles;
+    private boolean partidaEmpezada = false;
 
     public Juego(){
         this.jugadores = new ArrayList<Jugador>();
@@ -127,47 +128,70 @@ public class Juego implements Comando{
         this.dadosdobles = dadosdobles;
     }
 
+    public boolean getPartidaEmpezada(){
+        return partidaEmpezada;
+    }
+
+    public void setPartidaEmpezada(boolean partidaEmpezada){
+        this.partidaEmpezada = partidaEmpezada;
+    }
+
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
     
     while (true) {
-        System.out.println("=====================================\n");
-        System.out.println("                MENÚ                \n");
-        System.out.println("=====================================\n");
+        if(!partidaEmpezada){
+            System.out.println("=====================================\n");
+            System.out.println("                MENÚ                \n");
+            System.out.println("=====================================\n");
 
-        System.out.println("1. Crear un jugador                                    -> Comando: 'crear jugador NombreJugador tipoAvatar'");
-        System.out.println("2. Jugador del turno actual                            -> Comando: 'jugador'");
-        System.out.println("3. Listar jugadores                                    -> Comando: 'listar jugadores'");
-        System.out.println("4. Listar avatares                                     -> Comando: 'listar avatares'");
-        System.out.println("5. Lanzar dados                                        -> Comando: 'lanzar dados'");
-        System.out.println("6. Acabar turno                                        -> Comando: 'acabar turno'");
-        System.out.println("7. Salir de la cárcel                                  -> Comando: 'salir carcel'");
-        System.out.println("8. Describir casilla                                   -> Comando: 'describir nombreCasilla'");
-        System.out.println("9. Describir jugador                                   -> Comando: 'describir jugador nombreJugador'");
-        System.out.println("10. Describir avatar                                   -> Comando: 'describir avatar idAvatar'");
-        System.out.println("11. Comprar casilla                                    -> Comando: 'comprar 'nombreCasilla'");
-        System.out.println("12. Listar casillas en venta                           -> Comando: 'listarenventa'");
-        System.out.println("13. Ver tablero                                        -> Comando: 'ver'");
-        System.out.println("14. Construir un edificio                              -> Comando: 'edificar tipoEdificacion'");
-        System.out.println("15. Listar edificios construidos                       -> Comando: 'listar edificios'");
-        System.out.println("16. Listar edificios construidos en grupo              -> Comando: 'listar edificios colorGrupo'");
-        System.out.println("17. Hipotecar una propiedad                            -> Comando: 'hipotecar'");
-        System.out.println("18. Declararse en bancarrota                           -> Comando: 'bancarrota'");
-        System.out.println("19. Deshipotecar una propiedad                         -> Comando: 'deshipotecar'");
-        System.out.println("20. Vender edificios                                   -> Comando: 'vender tipoEdificacion nombrePropiedad numeroElementosAvender'");
-        System.out.println("21. Mostrar estadísticas de un jugador                 -> Comando: 'estadisticas nombreJugador'");
-        System.out.println("22. Mostrar estadísticas del juego                     -> Comando: 'estadisticas'");
-        System.out.println("23. Cambiar modo de movimiento de los avatares         -> Comando: 'cambiar modo'\n");
+            System.out.println("1. Crear un jugador                                    -> Comando: 'crear jugador NombreJugador tipoAvatar'");
+            System.out.println("2. Empezar partida                                     -> Comando: 'empezar'");
+
+            System.out.println("=====================================\n");
+            System.out.println("Selecciona una opción para continuar.\n");
+            System.out.println("=====================================\n\n");
+
+            Scanner scanner = new Scanner(System.in);
+            String comando = scanner.nextLine();
+            analizarComando(comando);
+        }else{
+            System.out.println("=====================================\n");
+            System.out.println("                MENÚ                \n");
+            System.out.println("=====================================\n");
+
+            System.out.println("1. Jugador del turno actual                            -> Comando: 'jugador'");
+            System.out.println("2. Listar jugadores                                    -> Comando: 'listar jugadores'");
+            System.out.println("3. Listar avatares                                     -> Comando: 'listar avatares'");
+            System.out.println("4. Lanzar dados                                        -> Comando: 'lanzar dados'");
+            System.out.println("5. Acabar turno                                        -> Comando: 'acabar turno'");
+            System.out.println("6. Salir de la cárcel                                  -> Comando: 'salir carcel'");
+            System.out.println("7. Describir casilla                                   -> Comando: 'describir nombreCasilla'");
+            System.out.println("8. Describir jugador                                   -> Comando: 'describir jugador nombreJugador'");
+            System.out.println("9. Describir avatar                                   -> Comando: 'describir avatar idAvatar'");
+            System.out.println("10. Comprar casilla                                    -> Comando: 'comprar 'nombreCasilla'");
+            System.out.println("11. Listar casillas en venta                           -> Comando: 'listarenventa'");
+            System.out.println("12. Ver tablero                                        -> Comando: 'ver'");
+            System.out.println("13. Construir un edificio                              -> Comando: 'edificar tipoEdificacion'");
+            System.out.println("14. Listar edificios construidos                       -> Comando: 'listar edificios'");
+            System.out.println("15. Listar edificios construidos en grupo              -> Comando: 'listar edificios colorGrupo'");
+            System.out.println("16. Hipotecar una propiedad                            -> Comando: 'hipotecar'");
+            System.out.println("17. Declararse en bancarrota                           -> Comando: 'bancarrota'");
+            System.out.println("18. Deshipotecar una propiedad                         -> Comando: 'deshipotecar'");
+            System.out.println("19. Vender edificios                                   -> Comando: 'vender tipoEdificacion nombrePropiedad numeroElementosAvender'");
+            System.out.println("20. Mostrar estadísticas de un jugador                 -> Comando: 'estadisticas nombreJugador'");
+            System.out.println("21. Mostrar estadísticas del juego                     -> Comando: 'estadisticas'");
+            System.out.println("22. Cambiar modo de movimiento de los avatares         -> Comando: 'cambiar modo'\n");
                
 
-        System.out.println("=====================================\n");
-        System.out.println("Selecciona una opción para continuar.\n");
-        System.out.println("=====================================\n\n");
+            System.out.println("=====================================\n");
+            System.out.println("Selecciona una opción para continuar.\n");
+            System.out.println("=====================================\n\n");
 
-        Scanner scanner = new Scanner(System.in);
-        String comando = scanner.nextLine();
-        analizarComando(comando);
-        
+            Scanner scanner = new Scanner(System.in);
+            String comando = scanner.nextLine();
+            analizarComando(comando);
+        }
     }
 }
     
@@ -187,10 +211,14 @@ public class Juego implements Comando{
 
     switch (metodo) {
         case "crear":
-            if (palabras.length >= 4 && palabras[1].equals("jugador")) {
-                crearJugador(palabras);
-            } else {
-                System.out.println("Comando incompleto o incorrecto para crear jugador.\n");
+            if(!partidaEmpezada){
+                if (palabras.length >= 4 && palabras[1].equals("jugador")) {
+                    crearJugador(palabras);
+                } else {
+                    System.out.println("Comando incompleto o incorrecto para crear jugador.\n");
+                }
+            }else{
+                System.out.println("No se puede crear un jugador cuando la partida ya ha empezado.\n");
             }
             break;
         case "jugador":
@@ -328,6 +356,9 @@ public class Juego implements Comando{
         case "cambiar":
             cambiar(palabras);
             break;
+        case "empezar":
+            empezar();
+            break;
         default:
             System.out.println("Error, comando desconocido.\n");
             break;
@@ -339,10 +370,14 @@ public class Juego implements Comando{
         String tipoAvatar = new String();
     
         if(palabras[3].equals("sombrero") || palabras[3].equals("esfinge") || palabras[3].equals("coche") || palabras[3].equals("pelota")) {
-            tipoAvatar = palabras[3];
-            Jugador jugador = new Jugador(nombre, tipoAvatar, tablero.getPosiciones().get(0).get(0), avatares);
-            jugadores.add(jugador);
-            System.out.println("Jugador creado con éxito.\n");
+            if(jugadores.size() <= 5){
+                tipoAvatar = palabras[3];
+                Jugador jugador = new Jugador(nombre, tipoAvatar, tablero.getPosiciones().get(0).get(0), avatares);
+                jugadores.add(jugador);
+                System.out.println("Jugador creado con éxito.\n");    
+            }else{
+                System.out.println("Se ha alcanzado el número máximo de jugadores creados.\n");
+            }
         } else {
             System.out.println("El avatar debe ser del tipo pelota, esfinge, coche o sombrero.\n");
         }
@@ -351,6 +386,14 @@ public class Juego implements Comando{
     public void jugador(){
         System.out.println("Nombre:"+jugadores.get(turno).getNombre());
         System.out.println("Avatar: "+jugadores.get(turno).getAvatar().getId());
+    }
+
+    public void empezar(){
+        if(jugadores.size() < 2){
+            System.out.println("Error, se deben crear mínimo 2 jugadores para empezar la partida.\n");
+        }else{
+            setPartidaEmpezada(true);
+        }
     }
 
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
