@@ -101,7 +101,7 @@ public class Avatar {
     }
 
     // Método que permite mover a un avatar a una casilla concreta.
-    public void moverAvatar(ArrayList<ArrayList<Casilla>> tablero, int valorTirada, Menu menu){
+    public void moverAvatar(ArrayList<ArrayList<Casilla>> tablero, int valorTirada, Juego menu){
         switch (this.avanzado) {
             // MOVIMIENTO AVANZADO
             case 1:

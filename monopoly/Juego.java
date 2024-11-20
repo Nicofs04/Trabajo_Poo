@@ -2,11 +2,12 @@ package monopoly;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import partida.*;
 
-public class Menu {
+public class Juego implements Comando{
 
     //Atributos
     private ArrayList<Jugador> jugadores; //Jugadores de la partida.
@@ -22,7 +23,7 @@ public class Menu {
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
     private boolean dadosdobles;
 
-    public Menu(){
+    public Juego(){
         this.jugadores = new ArrayList<Jugador>();
         this.avatares = new ArrayList<Avatar>();
         this.banca = new Jugador();
@@ -187,26 +188,13 @@ public class Menu {
     switch (metodo) {
         case "crear":
             if (palabras.length >= 4 && palabras[1].equals("jugador")) {
-                String nombre = palabras[2];
-                String tipoAvatar = new String();
-    
-                if(palabras[3].equals("sombrero") || palabras[3].equals("esfinge") || palabras[3].equals("coche") || palabras[3].equals("pelota")) {
-                    tipoAvatar = palabras[3];
-                    Jugador jugador = new Jugador(nombre, tipoAvatar, tablero.getPosiciones().get(0).get(0), avatares);
-                    jugadores.add(jugador);
-                    System.out.println("Jugador creado con éxito.\n");
-                } else {
-                    System.out.println("El avatar debe ser del tipo pelota, esfinge, coche o sombrero.\n");
-                }
+                crearJugador(palabras);
             } else {
                 System.out.println("Comando incompleto o incorrecto para crear jugador.\n");
             }
             break;
-    
         case "jugador":
             if(jugadores.size()>0){
-                System.out.println("Nombre:"+jugadores.get(turno).getNombre());
-                System.out.println("Avatar: "+jugadores.get(turno).getAvatar().getId());
 
             }else{
                 System.out.println("No hay ningún jugador creado en la partida");
@@ -299,18 +287,18 @@ public class Menu {
             break;
         case "hipotecar":
             if(palabras.length==1){
-                jugadores.get(turno).getAvatar().getLugar().Hacienda(jugadores.get(turno), tablero);
+                Hacienda(jugadores.get(turno), tablero);
 
             }
             break;
         case "bancarrota":
-            jugadores.get(turno).getAvatar().getLugar().bancarrotaABanca(jugadores.get(turno), banca, jugadores, avatares);
+            bancarrotaABanca(jugadores.get(turno), banca, jugadores, avatares);
             acabarTurno(); //acabamos el turno automáticamente para que sigan jugando el resto
             System.out.println("Jugador eliminado con éxito. El siguiente jugador puede ahora elegir una opción.\n");
             break;
         case "deshipotecar":
             if(palabras.length==1){
-                jugadores.get(turno).getAvatar().getLugar().deshipotecar(jugadores.get(turno), tablero);
+                deshipotecar(jugadores.get(turno), tablero);
             }
             break;    
         case "vender":
@@ -338,14 +326,7 @@ public class Menu {
             }
             break;
         case "cambiar":
-            if(palabras.length==2 && palabras[1].equals("modo")){
-                if(jugadores.get(turno).getAvatar().getAvanzado()==1){
-                    jugadores.get(turno).getAvatar().setAvanzado(0);
-                }else{
-                    jugadores.get(turno).getAvatar().setAvanzado(1);
-                    System.out.println("Movimiento avanzado activado");
-                }
-            }
+            cambiar(palabras);
             break;
         default:
             System.out.println("Error, comando desconocido.\n");
@@ -353,11 +334,29 @@ public class Menu {
         }
     }
 
+    public void crearJugador(String[] palabras){
+        String nombre = palabras[2];
+        String tipoAvatar = new String();
+    
+        if(palabras[3].equals("sombrero") || palabras[3].equals("esfinge") || palabras[3].equals("coche") || palabras[3].equals("pelota")) {
+            tipoAvatar = palabras[3];
+            Jugador jugador = new Jugador(nombre, tipoAvatar, tablero.getPosiciones().get(0).get(0), avatares);
+            jugadores.add(jugador);
+            System.out.println("Jugador creado con éxito.\n");
+        } else {
+            System.out.println("El avatar debe ser del tipo pelota, esfinge, coche o sombrero.\n");
+        }
+    }
+
+    public void jugador(){
+        System.out.println("Nombre:"+jugadores.get(turno).getNombre());
+        System.out.println("Avatar: "+jugadores.get(turno).getAvatar().getId());
+    }
 
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
     * Parámetro: comando introducido
      */
-    private void descJugador(String[] palabras) {
+    public void descJugador(String[] palabras) {
         for(Jugador jugador:jugadores){
             if((jugador.getNombre()).equals(palabras[0])){
                 System.out.println("{\n\tNombre: " + jugador.getNombre() + 
@@ -381,7 +380,7 @@ public class Menu {
     /*Método que realiza las acciones asociadas al comando 'describir avatar'.
     * Parámetro: id del avatar a describir.
     */
-    private void descAvatar(String[] palabras) {
+    public void descAvatar(String[] palabras) {
         for(Avatar avatar:avatares){
             if((avatar.getId()).equals(palabras[0])){
                 System.out.println("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + avatar.getLugar().getNombre() + ",\njugador: " + avatar.getJugador().getNombre() + "\n}\n");
@@ -392,7 +391,7 @@ public class Menu {
     /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
     * Parámetros: nombre de la casilla a describir.
     */
-    private void descCasilla(String nombre) {
+    public void descCasilla(String nombre) {
         Casilla casilla = tablero.encontrar_casilla(nombre);
         if (casilla==null){
             System.out.println("Esa casilla no existe");
@@ -403,7 +402,7 @@ public class Menu {
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
-    private void lanzarDados() {
+    public void lanzarDados() {
         if (getTirado()) {
             System.out.println("Ya has lanzado los dados en este turno.");
             return;
@@ -586,7 +585,7 @@ public class Menu {
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
-    private void comprar(String nombre) {
+    public void comprar(String nombre) {
         if(nombre.equals(jugadores.get(turno).getAvatar().getLugar().getNombre())){
             if(tirado||dadosdobles){
                 tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
@@ -599,7 +598,7 @@ public class Menu {
         
     }
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
-    private void salirCarcel() {
+    public void salirCarcel() {
         //Si el jugador está en la cárcel
         //if(jugadores.get(turno).getAvatar().getLugar().getNombre()=="carcel"){
         if(jugadores.get(turno).getAvatar().getLugar().getPosicion() == 10){
@@ -625,7 +624,7 @@ public class Menu {
     }
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
-    private void listarVenta() {
+    public void listarVenta() {
         int i;
         StringBuilder sb = new StringBuilder();
 
@@ -654,20 +653,20 @@ public class Menu {
     }
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
-    private void listarJugadores() {
+    public void listarJugadores() {
         for(Jugador jugador:jugadores){
             System.out.println("{\nnombre: " + jugador.getNombre() + ",\navatar: " + jugador.getAvatar().getId() + ",\nfortuna: " + jugador.getFortuna() + ",\npropiedades: " + jugador.getPropiedades() + "\nhipotecas: []" + "\nedificios: []" + "\n}\n");
         }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
-    private void listarAvatares() {
+    public void listarAvatares() {
         for(int i=0;i<avatares.size();i++){
             System.out.println("{\nid: " + avatares.get(i).getId() + ",\ntipo: " + avatares.get(i).getTipo() + ",\ncasilla: " + avatares.get(i).getLugar().getNombre() + ",\njugador: " + avatares.get(i).getJugador().getNombre()+ "\n}\n");
         }
     }
 
-    private void listarEdificios(){
+    public void listarEdificios(){
         for(ArrayList<Casilla> lados:tablero.getPosiciones()){
             for (Casilla casilla:lados){
                 if (casilla.getTipo()=="solar") {
@@ -877,7 +876,7 @@ public class Menu {
             }
         }
 
-        private void venderCasa(String nombreCasilla, int numvender) {
+        public void venderCasa(String nombreCasilla, int numvender) {
             Casilla actual = tablero.encontrar_casilla(nombreCasilla);
             if (actual == null || !(actual.getDuenho().equals(jugadores.get(turno)))) {
                 System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
@@ -905,7 +904,7 @@ public class Menu {
             }
         }
         
-        private void venderHotel(String nombreCasilla, int numvender) {
+        public void venderHotel(String nombreCasilla, int numvender) {
             Casilla actual = tablero.encontrar_casilla(nombreCasilla);
             int numHoteles = actual.contarHoteles();
 
@@ -936,7 +935,7 @@ public class Menu {
             }
         }
         
-        private void venderPiscina(String nombreCasilla, int numvender) {
+        public void venderPiscina(String nombreCasilla, int numvender) {
             Casilla actual = tablero.encontrar_casilla(nombreCasilla);
             int numPiscinas = actual.contarPiscinas();
         
@@ -967,7 +966,7 @@ public class Menu {
             }
         }
         
-        private void venderPista(String nombreCasilla, int numvender) {
+        public void venderPista(String nombreCasilla, int numvender) {
             Casilla actual = tablero.encontrar_casilla(nombreCasilla);
             int numPistas = actual.contarPistas();
             
@@ -997,7 +996,17 @@ public class Menu {
             }
         }
         
-
+    public void cambiar(String[] palabras){
+        if(palabras.length==2 && palabras[1].equals("modo")){
+            if(jugadores.get(turno).getAvatar().getAvanzado()==1){
+                jugadores.get(turno).getAvatar().setAvanzado(0);
+                System.out.println("Movimiento avanzado desactivado\n");
+            }else{
+                jugadores.get(turno).getAvatar().setAvanzado(1);
+                System.out.println("Movimiento avanzado activado\n");
+            }
+        }
+    }
 
     /*Implementa la accion según el tipo de carta que sea y según la carta que sea dentro de cada tipo.
     Tiene que calcularse de forma que si la posicion de la casilla a la que queremos ir es mayor que la del jugador que avance 
@@ -1433,7 +1442,7 @@ public class Menu {
         System.out.println(sb.toString());
     }
 
-    public int estadisticasJugador(String nombre){
+    public void estadisticasJugador(String nombre){
         Jugador jugador = null;
 
         for(Jugador aux:jugadores){
@@ -1443,7 +1452,6 @@ public class Menu {
         }
         if(jugador == null){
             System.out.println("Error, no existe el jugador\n");
-            return 1;
         }
 
         StringBuilder sb = new StringBuilder();
@@ -1458,7 +1466,136 @@ public class Menu {
         sb.append("}\n");
 
         System.out.println(sb.toString());
+    }
+
+    public int Hacienda(Jugador jugador, Tablero tablero){
+
+        if((!jugador.getPropiedades().isEmpty())){ //mientras el jugador tenga propiedades
+
+            System.out.println("¿Qué casilla desea hipotecar?");
+            Scanner scanner = new Scanner(System.in);
+            String nombre = scanner.nextLine();
+
+            if(tablero.encontrar_casilla(nombre) == null){ //verificamos que la casilla exista
+                System.out.println("No se ha podido encontrar la casilla.\n");
+                return 0;
+            }else{
+                for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
+                    if(casilla.getNombre().equals(nombre)){
+                        if(casilla.getEdificacion().isEmpty()){
+                            if(!casilla.getHipotecado()){
+                                jugador.setFortuna(jugador.getFortuna() + (jugador.getAvatar().getLugar().valorHipoteca(casilla)/2));
+
+                                jugador.getAvatar().getLugar().hipotecarPropiedad(casilla);
+
+                                System.out.println(String.format("La casilla %s ha sido hipotecada con éxito.\n", nombre));
+
+                                System.out.println(String.format("%s recibe %f por hipotecar %s. Ahora no puedes recibir alquileres ni edificar en la casilla %s.\n", jugador.getNombre(), jugador.getAvatar().getLugar().valorHipoteca(casilla)/2, casilla.getNombre(), casilla.getNombre()));
+                        
+                                return 1;
+                            }else{
+                                System.out.println("La casilla ya ha sido hipotecada.\n");
+                            }
+                        }else{
+                            System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla.\n");
+                            return 0;
+                        }
+                    }
+                }
+                System.out.println(String.format("La casilla %s no pertenece al jugador %s.\n", nombre, jugador.getNombre()));
+                return 0;
+            }
+        }else{
+            System.out.println("No tienes más propiedades para hipotecar.\n");
+            return 0;
+        }
+    }
+
+public int deshipotecar(Jugador jugador, Tablero tablero){
+    
+    System.out.println("¿Qué casilla desea deshipotecar?");
+    Scanner scanner = new Scanner(System.in);
+    String nombre = scanner.nextLine();
+
+    if(tablero.encontrar_casilla(nombre) == null){
+        System.out.println("No se ha podido encontrar la casilla.\n");
+        return 0;
+    }else{
+        for(Casilla casilla:jugador.getPropiedades()){
+            if(casilla.getNombre().equals(nombre)){
+                if(casilla.getHipotecado()){
+                    if(jugador.getFortuna() > ((jugador.getAvatar().getLugar().valorHipoteca(casilla)/2)*1.1f)){
+
+                        jugador.setFortuna(jugador.getFortuna() - ((jugador.getAvatar().getLugar().valorHipoteca(casilla)/2)*1.1f));
+                        
+                        casilla.setHipotecado(false);
+                        
+                        System.out.println(String.format("La casilla %s ha sido deshipotecada con éxito.\n", nombre));
+
+                        System.out.println(String.format("%s paga %f por deshipotecar %s. Ahora puedes recibir alquileres y edificar en la casilla %s.\n", jugador.getNombre(), ((jugador.getAvatar().getLugar().valorHipoteca(casilla)/2)*1.1f), casilla.getNombre(), casilla.getNombre()));
+                        return 1;
+                    }else{
+                        System.out.println(String.format("El jugador %s no tiene suficiente dinero para poder deshipotecar la casilla %s.\n", jugador.getNombre(), casilla.getNombre()));
+                        return 0;
+                    }
+                }else{
+                    System.out.println(String.format("La casilla %s no está hipotecada.\n", casilla.getNombre()));
+                    return 0;
+                }
+            }
+        }
+        System.out.println(String.format("La casilla %s no pertenece al jugador %s.\n", nombre, jugador.getNombre()));
         return 0;
     }
+}
+
+public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares){ //falta mirar si las propiedades van a la banca o a un jugador determinado
+    for(Casilla casilla:actual.getPropiedades()){ //pasamos todas las propiedades del jugador a la banca
+        if(!casilla.getEdificacion().isEmpty()){
+            casilla.getEdificacion().clear();
+        }
+        casilla.setHipotecado(false);
+        casilla.setDuenho(banca);
+    }
+    
+    banca.setFortuna(banca.getFortuna() + actual.getFortuna()); //pasamos toda la fortuna del jugador a la banca
+
+    actual.setFortuna(0);
+
+    jugadores.remove(actual);
+    avatares.remove(actual.getAvatar());
+}
+
+public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares){
+
+    for(Casilla casilla:actual.getPropiedades()){ //nos aseguramos de que todas las casillas estén libres de edificaciones
+        if(!casilla.getEdificacion().isEmpty()){
+            casilla.getEdificacion().clear();
+        }
+        casilla.setHipotecado(false);
+        casilla.setDuenho(receptor);
+    }
+    /*for(Casilla casilla:actual.getPropiedades()){ //pasamos todas las propiedades del jugador que llama bancarrota al jugador que las recibe
+        receptor.getPropiedades().add(casilla);
+        actual.getPropiedades().remove(casilla);
+    }*/
+
+    Iterator<Casilla> iterator = actual.getPropiedades().iterator();
+    while(iterator.hasNext()){ //pasamos todas las propiedades del jugador que llama bancarrota al jugador que las recibe
+        Casilla casilla = iterator.next();
+        receptor.getPropiedades().add(casilla);
+        iterator.remove();
+    }
+
+    receptor.setFortuna(receptor.getFortuna() + actual.getFortuna()); //pasamos el dinero del jugador que llama bancarrota al jugador que lo recibe
+
+    actual.setFortuna(0);
+
+    jugadores.remove(actual); //eliminamos al jugador del ArrayList de jugadores
+    avatares.remove(actual.getAvatar()); //eliminamos el avatar del jugador del ArrayList de avatares
+
+}
+
+
 
 }
