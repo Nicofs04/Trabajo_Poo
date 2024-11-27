@@ -251,8 +251,32 @@ public int contarPistas(){
 
 //a edificar se podría llamar con Jugador jugador, Solar solar
 
-private boolean comprobar(){
 
+
+public void edificar(Jugador jugador, String tipo){
+
+    switch (tipo) {
+        case "casa":
+            edificarCasa();
+            break;
+        case "hotel":
+            edificarHotel();
+            break;
+        case "piscina":
+            edificarPiscina();
+            break;
+        case "pista":
+            edificarPista();
+            break;
+        default:
+            break;
+    }
+
+}
+
+
+
+private boolean comprobar(){
 
     if (!solar.getHipotecado()) {    
         if (actual.getGrupo().esDuenhoGrupo(jugadores.get(turno)) || actual.getVeces(turno)>2) {
@@ -268,7 +292,7 @@ private boolean comprobar(){
 
 public void edificarCasa() {
     Edificacion casa = new Casa(this);
-    Casilla actual = jugadores.get(turno).getAvatar().getLugar();
+    
     if (!(actual.getTipo()== "solar")) {
         return;
     }

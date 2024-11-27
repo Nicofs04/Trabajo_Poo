@@ -762,6 +762,7 @@ public class Juego implements Comando{
     private boolean comprobar(){
         Casilla actual = jugadores.get(turno).getAvatar().getLugar();
     
+        if (actual instanceof Solar) {       
         if (!(actual.getHipotecado())) {    
             if (actual.getGrupo().esDuenhoGrupo(jugadores.get(turno)) || actual.getVeces(turno)>2) {
                 return true;   
@@ -769,14 +770,16 @@ public class Juego implements Comando{
                 consola.imprimir("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar, aparte, la casilla no puede estar hipotecada");
             return false;
             }
+        
         }
+    }
         consola.imprimir("No puedes construir en un solar hipotecado");
         return false;
     }
 
     private boolean edificar(){
         if (comprobar()) {
-               
+            
 
 
 
