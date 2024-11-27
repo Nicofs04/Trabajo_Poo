@@ -11,7 +11,7 @@ public class Servicio extends Propiedad{
 
 
 
-    public void evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada, Menu menu) {
+    public void evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada, Juego juego) {
         Servicio c = this;
         c.sumarVecesCaidasGrupal(1);
         if(!c.getHipotecado()){ //verificamos que la casilla no este hipotecada
