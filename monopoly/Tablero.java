@@ -85,16 +85,16 @@ public class Tablero {
     //Método para insertar las casillas del lado norte.
     private void insertarLadoNorte() {
         ArrayList<Casilla> arrayCasillasNorte = new ArrayList<Casilla>();
-        arrayCasillasNorte.add(new Casilla("parking", "especial", 20, banca));
-        arrayCasillasNorte.add(new Casilla("solar12","solar", 21, 1142440, banca));
-        arrayCasillasNorte.add(new Casilla("suerte", "suerte",22, banca));
-        arrayCasillasNorte.add(new Casilla("solar13", "solar",23, 1142440, banca));
-        arrayCasillasNorte.add(new Casilla("solar14", "solar",24, 1142440, banca));
-        arrayCasillasNorte.add(new Casilla("trans3", "transporte",25, Valor.SUMA_VUELTA, banca));
-        arrayCasillasNorte.add(new Casilla("solar15", "solar",26, 1485172, banca));
-        arrayCasillasNorte.add(new Casilla("solar16", "solar",27, 1485172, banca));
-        arrayCasillasNorte.add(new Casilla("serv2", "servicio",28, (Valor.SUMA_VUELTA)*0.75f, banca));
-        arrayCasillasNorte.add(new Casilla("solar17", "solar",29, 1485172, banca));
+        arrayCasillasNorte.add(new Especial("parking", 20, banca));
+        arrayCasillasNorte.add(new Solar("solar12", 21, 1142440, banca));
+        arrayCasillasNorte.add(new Accion("suerte",22, banca));
+        arrayCasillasNorte.add(new Solar("solar13",23, 1142440, banca));
+        arrayCasillasNorte.add(new Solar("solar14",24, 1142440, banca));
+        arrayCasillasNorte.add(new Transporte("trans3",25, Valor.SUMA_VUELTA, banca));
+        arrayCasillasNorte.add(new Solar("solar15",26, 1485172, banca));
+        arrayCasillasNorte.add(new Solar("solar16",27, 1485172, banca));
+        arrayCasillasNorte.add(new Servicio("serv2",28, (Valor.SUMA_VUELTA)*0.75f, banca));
+        arrayCasillasNorte.add(new Solar("solar17",29, 1485172, banca));
         posiciones.add(arrayCasillasNorte);
         Grupo rojo = new Grupo(arrayCasillasNorte.get(1),arrayCasillasNorte.get(3), arrayCasillasNorte.get(4), "RED");
         grupos.put("ROJO", rojo);
@@ -105,16 +105,16 @@ public class Tablero {
     //Método para insertar las casillas del lado sur.
     private void insertarLadoSur() {
         ArrayList<Casilla> arrayCasillasSur = new ArrayList<Casilla>();
-        arrayCasillasSur.add(new Casilla("salida","especial",0, banca));
-        arrayCasillasSur.add(new Casilla("solar1","solar",1, 600000, banca));
-        arrayCasillasSur.add(new Casilla("caja","caja",2, banca));
-        arrayCasillasSur.add(new Casilla("solar2","solar",3, 600000, banca));
-        arrayCasillasSur.add(new Casilla("imp1",4,(Valor.SUMA_VUELTA)*0.5f, banca));
-        arrayCasillasSur.add(new Casilla("trans1","transporte",5, Valor.SUMA_VUELTA, banca));
-        arrayCasillasSur.add(new Casilla("solar3","solar",6, 520000, banca));
-        arrayCasillasSur.add(new Casilla("suerte","suerte",7, banca));
-        arrayCasillasSur.add(new Casilla("solar4","solar",8, 520000, banca));
-        arrayCasillasSur.add(new Casilla("solar5","solar",9, 520000, banca));
+        arrayCasillasSur.add(new Especial("salida",0, banca));
+        arrayCasillasSur.add(new Solar("solar1",1, 600000, banca));
+        arrayCasillasSur.add(new Accion("caja",2, banca));
+        arrayCasillasSur.add(new Solar("solar2",3, 600000, banca));
+        arrayCasillasSur.add(new Impuesto("imp1",4,(Valor.SUMA_VUELTA)*0.5f, banca));
+        arrayCasillasSur.add(new Transporte("trans1",5, Valor.SUMA_VUELTA, banca));
+        arrayCasillasSur.add(new Solar("solar3",6, 520000, banca));
+        arrayCasillasSur.add(new Accion("suerte",7, banca));
+        arrayCasillasSur.add(new Solar("solar4",8, 520000, banca));
+        arrayCasillasSur.add(new Solar("solar5",9, 520000, banca));
         posiciones.add(arrayCasillasSur);
         Grupo negro = new Grupo(arrayCasillasSur.get(1),arrayCasillasSur.get(3),"BLACK");
         grupos.put("NEGRO", negro);
@@ -125,16 +125,16 @@ public class Tablero {
     //Método que inserta casillas del lado oeste.
     private void insertarLadoOeste() {
         ArrayList<Casilla> arrayCasillasOeste = new ArrayList<Casilla>();
-        arrayCasillasOeste.add(new Casilla("carcel", "especial", 10, banca));
-        arrayCasillasOeste.add(new Casilla("solar6", "solar", 11, 676000, banca));
-        arrayCasillasOeste.add(new Casilla("serv1", "servicio", 12, (Valor.SUMA_VUELTA)*0.75f, banca));
-        arrayCasillasOeste.add(new Casilla("solar7", "solar", 13, 676000, banca));
-        arrayCasillasOeste.add(new Casilla("solar8", "solar", 14, 676000, banca));
-        arrayCasillasOeste.add(new Casilla("trans2", "transporte", 15, Valor.SUMA_VUELTA, banca));
-        arrayCasillasOeste.add(new Casilla("solar9", "solar", 16, 878800, banca));
-        arrayCasillasOeste.add(new Casilla("caja", "caja", 17, banca));
-        arrayCasillasOeste.add(new Casilla("solar10", "solar", 18, 878800, banca));
-        arrayCasillasOeste.add(new Casilla("solar11", "solar", 19, 878800, banca));
+        arrayCasillasOeste.add(new Especial("carcel", 10, banca));
+        arrayCasillasOeste.add(new Solar("solar6", 11, 676000, banca));
+        arrayCasillasOeste.add(new Servicio("serv1", 12, (Valor.SUMA_VUELTA)*0.75f, banca));
+        arrayCasillasOeste.add(new Solar("solar7", 13, 676000, banca));
+        arrayCasillasOeste.add(new Solar("solar8", 14, 676000, banca));
+        arrayCasillasOeste.add(new Transporte("trans2", 15, Valor.SUMA_VUELTA, banca));
+        arrayCasillasOeste.add(new Solar("solar9", 16, 878800, banca));
+        arrayCasillasOeste.add(new Accion("caja", 17, banca));
+        arrayCasillasOeste.add(new Solar("solar10", 18, 878800, banca));
+        arrayCasillasOeste.add(new Solar("solar11", 19, 878800, banca));
         posiciones.add(arrayCasillasOeste);
         Grupo violeta = new Grupo(arrayCasillasOeste.get(1),arrayCasillasOeste.get(3), arrayCasillasOeste.get(4), "PURPLE");
         grupos.put("VIOLETA", violeta);
@@ -145,16 +145,16 @@ public class Tablero {
     //Método que inserta las casillas del lado este.
     private void insertarLadoEste() {
         ArrayList<Casilla> arrayCasillasEste = new ArrayList<Casilla>();
-        arrayCasillasEste.add(new Casilla("ircarcel","especial",30,banca));
-        arrayCasillasEste.add(new Casilla("solar18","solar",31, 1930723.6f,banca));
-        arrayCasillasEste.add(new Casilla("solar19","solar",32, 1930723.6f,banca));
-        arrayCasillasEste.add(new Casilla("caja","caja",33,banca));
-        arrayCasillasEste.add(new Casilla("solar20","solar",34, 1930723.6f,banca));
-        arrayCasillasEste.add(new Casilla("trans4","transporte",35, Valor.SUMA_VUELTA, banca));
-        arrayCasillasEste.add(new Casilla("suerte","suerte",36,banca));
-        arrayCasillasEste.add(new Casilla("solar21","solar",37, 3764911.02f,banca));
-        arrayCasillasEste.add(new Casilla("imp2",38,Valor.SUMA_VUELTA,banca));
-        arrayCasillasEste.add(new Casilla("solar22","solar",39, 3764911.02f,banca));
+        arrayCasillasEste.add(new Especial("ircarcel",30,banca));
+        arrayCasillasEste.add(new Solar("solar18",31, 1930723.6f,banca));
+        arrayCasillasEste.add(new Solar("solar19",32, 1930723.6f,banca));
+        arrayCasillasEste.add(new Accion("caja",33,banca));
+        arrayCasillasEste.add(new Solar("solar20",34, 1930723.6f,banca));
+        arrayCasillasEste.add(new Transporte("trans4",35, Valor.SUMA_VUELTA, banca));
+        arrayCasillasEste.add(new Accion("suerte",36,banca));
+        arrayCasillasEste.add(new Solar("solar21",37, 3764911.02f,banca));
+        arrayCasillasEste.add(new Impuesto("imp2",38,Valor.SUMA_VUELTA,banca));
+        arrayCasillasEste.add(new Solar("solar22",39, 3764911.02f,banca));
         posiciones.add(arrayCasillasEste);
         Grupo verde = new Grupo(arrayCasillasEste.get(1),arrayCasillasEste.get(2), arrayCasillasEste.get(4), "GREEN");
         grupos.put("VERDE", verde);
@@ -449,4 +449,3 @@ public class Tablero {
         return null;
     }
 }
-
