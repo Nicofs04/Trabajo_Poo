@@ -13,6 +13,8 @@ public class Tablero {
     private HashMap<String, Grupo> grupos; //Grupos del tablero, almacenados como un HashMap con clave String (será el color del grupo).
     private Jugador banca; //Un jugador que será la banca.
 
+    public static ConsolaNormal consola = new ConsolaNormal();
+
     //Constructor: únicamente le pasamos el jugador banca (que se creará desde el menú).
     public Tablero(Jugador banca) {
         this.posiciones = new ArrayList<ArrayList<Casilla>>();
@@ -445,7 +447,7 @@ public class Tablero {
                 }
             }
         }
-        System.out.println("No se ha encontrado la casilla\n");
+        consola.imprimir("No se ha encontrado la casilla\n");
         return null;
     }
 }

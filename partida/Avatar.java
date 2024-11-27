@@ -18,6 +18,7 @@ public class Avatar {
     private int restriccionTiradas = 0; // Cuando se activa se pone a 2, y cada vez que pase un turno se le resta 1
                                         // turno sin tirar restante
 
+    public static ConsolaNormal consola = new ConsolaNormal();
     // Constructor vacío
     public Avatar() {
     }
@@ -141,8 +142,8 @@ public class Avatar {
     
                                 // Evaluación de la casilla
                                 if (this.lugar.estaEnVenta()) {
-                                    System.out.println("Quieres comprar la casilla " + this.lugar.getNombre() + "?");
-                                    System.out.println("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
+                                    consola.imprimir("Quieres comprar la casilla " + this.lugar.getNombre() + "?");
+                                    consola.imprimir("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
                                     Scanner scanner = new Scanner(System.in);
                                     String respuesta = scanner.nextLine();
                                     if (respuesta.equals("si")) {
@@ -160,7 +161,7 @@ public class Avatar {
                                         }
                     
                                         if (this.lugar.getPosicion() == 30) {
-                                            System.out.println("Has pisado la casilla irCárcel, vas a la cárcel");
+                                            consola.imprimir("Has pisado la casilla irCárcel, vas a la cárcel");
                                             this.jugador.encarcelar(tablero);
                                             return; // Salimos si va a la cárcel
                                         }
@@ -181,8 +182,8 @@ public class Avatar {
                                     lugar.anhadirAvatar(this);
     
                                     if (this.lugar.estaEnVenta()) {
-                                        System.out.println("Quieres comprar la casilla " + this.lugar.getNombre() + "?");
-                                        System.out.println("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
+                                        consola.imprimir("Quieres comprar la casilla " + this.lugar.getNombre() + "?");
+                                        consola.imprimir("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
                                         Scanner scanner = new Scanner(System.in);
                                         String respuesta = scanner.nextLine();
                                         if (respuesta.equals("si")) {
@@ -228,8 +229,8 @@ public class Avatar {
     
                                 // Evaluación de la casilla
                                 if (this.lugar.estaEnVenta()) {
-                                    System.out.println("Quieres comprar la casilla " + this.lugar.getNombre() + "?");
-                                    System.out.println("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
+                                    consola.imprimir("Quieres comprar la casilla " + this.lugar.getNombre() + "?");
+                                    consola.imprimir("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
                                     Scanner scanner = new Scanner(System.in);
                                     String respuesta = scanner.nextLine();
                                     if (respuesta.equals("si")) {
@@ -245,7 +246,7 @@ public class Avatar {
                                         }
                                     }
                                     if (this.lugar.getPosicion() == 30) {
-                                        System.out.println("Has pisado la casilla irCárcel, vas a la cárcel");
+                                        consola.imprimir("Has pisado la casilla irCárcel, vas a la cárcel");
                                         this.jugador.encarcelar(tablero);
                                         return; // Salimos si va a la cárcel
                                     }
@@ -273,8 +274,8 @@ public class Avatar {
         
                                 // Evaluación de la casilla
                                 if (this.lugar.estaEnVenta()) {
-                                    System.out.println("Quieres comprar la casilla " + this.lugar.getNombre() + "?");
-                                    System.out.println("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
+                                    consola.imprimir("Quieres comprar la casilla " + this.lugar.getNombre() + "?");
+                                    consola.imprimir("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
                                     Scanner scanner = new Scanner(System.in);
                                     String respuesta = scanner.nextLine();
                                     if (respuesta.equals("si")) {
@@ -322,8 +323,8 @@ public class Avatar {
                         lugar.anhadirAvatar(this);
                         if (this.lugar.estaEnVenta() == true) {
                             if (compras <= 1) {
-                                System.out.println("Quieres comprar la casilla "+ this.lugar.getNombre()+"?");
-                                System.out.println("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
+                                consola.imprimir("Quieres comprar la casilla "+ this.lugar.getNombre()+"?");
+                                consola.imprimir("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
                                 Scanner scanner = new Scanner(System.in);
                                 String respuesta = scanner.nextLine();
                                 if (respuesta.equals("si")) {
@@ -333,37 +334,37 @@ public class Avatar {
                                 }
 
                             } else {
-                                System.out.println("Ya has comprado una casilla este turno");
+                                consola.imprimir("Ya has comprado una casilla este turno");
                             }
                         }
 
-                        System.out.println("Quieres edificar en esta casilla?");
-                        System.out.println("Escribe 'si' si quieres edificar y 'no' si no quieres edificar");
+                        consola.imprimir("Quieres edificar en esta casilla?");
+                        consola.imprimir("Escribe 'si' si quieres edificar y 'no' si no quieres edificar");
                         Scanner scanner = new Scanner(System.in);
                         String respuesta = scanner.nextLine();
                         if (respuesta.equals("si")) {
                             boolean comprobante = false;
                             while (comprobante) {
                                 Scanner scanner2 = new Scanner(System.in);
-                                System.out.println("=====================================\n");
-                                System.out.println("                MENÚ                \n");
-                                System.out.println("=====================================\n");
-                                System.out.println("1. Construir una casa                              -> Comando: 'edificar casa'");
-                                System.out.println("2. Construir un hotel                           -> Comando: 'edificar hotel'");
-                                System.out.println("3. Construir una piscina                           -> Comando: 'edificar piscina'");
-                                System.out.println("4. Construir una pista                           -> Comando: 'edificar pista'");
+                                consola.imprimir("=====================================\n");
+                                consola.imprimir("                MENÚ                \n");
+                                consola.imprimir("=====================================\n");
+                                consola.imprimir("1. Construir una casa                              -> Comando: 'edificar casa'");
+                                consola.imprimir("2. Construir un hotel                           -> Comando: 'edificar hotel'");
+                                consola.imprimir("3. Construir una piscina                           -> Comando: 'edificar piscina'");
+                                consola.imprimir("4. Construir una pista                           -> Comando: 'edificar pista'");
         
 
-                                System.out.println("=====================================\n");
-                                System.out.println("Selecciona una opción para continuar.\n");
-                                System.out.println("=====================================\n\n");
+                                consola.imprimir("=====================================\n");
+                                consola.imprimir("Selecciona una opción para continuar.\n");
+                                consola.imprimir("=====================================\n\n");
                                 
 
                                 String comando = scanner2.nextLine();
                                 String[] palabras = comando.split(" ");
 
                                 if (palabras.length <= 1 || palabras.length > 2) {
-                                    System.out.println("Comando inválido.");
+                                    consola.imprimir("Comando inválido.");
                                 }
                                 String metodo = palabras[0];
 
@@ -476,7 +477,7 @@ public class Avatar {
 
                 /*
                  * if (nuevaPosicion == 30) {
-                 * System.out.println("Has caído en la carcel.\n");
+                 * consola.imprimir("Has caído en la carcel.\n");
                  * lugar=tablero.get(1).get(0);
                  * 
                  * }else{

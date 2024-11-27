@@ -15,7 +15,7 @@ public class Suerte extends Carta {
         switch (numCarta) {
             //Moverse a trans1 y cobrar la salida si pasamos por ella
             case 1 :
-                System.out.println("Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra la cantidad habitual.");
+                consola.imprimir("Ve al Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra la cantidad habitual.");
                 int tirada1;
                 if(5>posicion){
                     tirada1=(5-posicion);
@@ -50,7 +50,7 @@ public class Suerte extends Carta {
                 break;
             //Moverse a solar15 sin cobrar la salida aunque pasemos por ella
             case 2:
-                System.out.println("Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin pasar por la casilla de Salida\n"); 
+                consola.imprimir("Decides hacer un viaje de placer. Avanza hasta Solar15 directamente, sin pasar por la casilla de Salida\n"); 
                 int tirada2;
                 if(26>posicion){
                     tirada2=(26-posicion);
@@ -74,14 +74,14 @@ public class Suerte extends Carta {
                 break;
             //Se vende el billete de avion a solar 17, por lo que se reciben 500000€
             case 3:
-                System.out.println("Vendes tu billete de avión para Solar17 en una subasta por Internet. Cobra 500000€.");
+                consola.imprimir("Vendes tu billete de avión para Solar17 en una subasta por Internet. Cobra 500000€.");
                 jugador.setFortuna(jugador.getFortuna()+500000f);
 
                 jugador.setDineroInversionesOBote(jugador.getDineroInversionesOBote() + 500000f); //añadimos al atributo dineroInversionesOBote el valor indicado
 
                 break;
             case 4:
-                System.out.println("Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.");
+                consola.imprimir("Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.");
                 int tirada3;
                 if(6>posicion){
                     tirada3=(6-posicion);
@@ -114,11 +114,11 @@ public class Suerte extends Carta {
                 }
                 break;
             case 5:
-                System.out.println("Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.");
+                consola.imprimir("Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.");
                 jugador.encarcelar(tablero.getPosiciones());
                 break;
             case 6:
-                System.out.println("Has ganado el bote de la lotería! Recibe 1000000€.");
+                consola.imprimir("Has ganado el bote de la lotería! Recibe 1000000€.");
                 jugador.setFortuna(jugador.getFortuna()+1000000f);
 
                 jugador.setDineroInversionesOBote(jugador.getDineroInversionesOBote() + 1000000f); //añadimos al atributo dineroInversionesOBote el valor indicado

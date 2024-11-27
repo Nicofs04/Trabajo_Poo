@@ -3,6 +3,7 @@ import partida.*;
 
 public class Caja extends Carta {
 
+
     public Caja(int numCarta, int posicion){
         super(numCarta,posicion);
     }
@@ -12,7 +13,7 @@ public class Caja extends Carta {
         int numCarta=this.getNumCarta();
         switch (numCarta) {
             case 1 :
-                System.out.println("Paga 500000€ por un fin de semana en un balneario de 5 estrellas.");
+                consola.imprimir("Paga 500000€ por un fin de semana en un balneario de 5 estrellas.");
                 if(jugador.getFortuna()>=500000f){
                     jugador.setFortuna(jugador.getFortuna()-500000f);
 
@@ -23,11 +24,11 @@ public class Caja extends Carta {
                 }
                 break;
             case 2:
-                System.out.println("Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.\n");
+                consola.imprimir("Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.\n");
                 jugador.encarcelar(tablero.getPosiciones());
                 break;  
             case 3:
-                System.out.println("Colócate en la casilla de Salida. Cobra la cantidad habitual.\n");
+                consola.imprimir("Colócate en la casilla de Salida. Cobra la cantidad habitual.\n");
                 int tirada4=40-posicion;
                 //Si es mov avanzado llamamos a mover avatar pero con avanzado a 0 y lo volvemos a poner a 1 luego
                 if(jugador.getAvatar().getAvanzado()==0){
@@ -54,13 +55,13 @@ public class Caja extends Carta {
                 }
                 break;
             case 4:
-                System.out.println("Tu compañía de Internet obtiene beneficios. Recibe 2000000€");
+                consola.imprimir("Tu compañía de Internet obtiene beneficios. Recibe 2000000€");
                 jugador.setFortuna(jugador.getFortuna()+2000000f);
 
                 jugador.setDineroInversionesOBote(jugador.getDineroInversionesOBote() + 2000000f); //añadimos al atributo dineroInversionesOBote el valor indicado
                 break;
             case 5:
-                System.out.println("Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14");
+                consola.imprimir("Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14");
                 if(jugador.getFortuna()>=1000000f){
                     jugador.setFortuna(jugador.getFortuna()-1000000f);
 
@@ -70,7 +71,7 @@ public class Caja extends Carta {
                 }
                 break;
             case 6:
-                System.out.println("Alquilas a tus compañeros una villa en Solar7 durante una semana. Paga 200000€ a cada jugador");
+                consola.imprimir("Alquilas a tus compañeros una villa en Solar7 durante una semana. Paga 200000€ a cada jugador");
                 for(int i=0;i<menu.getJugadores().size();i++){
                     if(i!=menu.getTurno()){
                         //Si el jugador del turno tiene el dinero suficiente...

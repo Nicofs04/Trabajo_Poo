@@ -7,6 +7,8 @@ public class Edificacion {
     private int id;
     private static int ultimoId = 0; // Variable estática para el último ID generado
 
+    public static ConsolaNormal consola = new ConsolaNormal();
+
     public Edificacion(Solar solar) {
         this.solar = solar;
         this.id = generarId(); // Generar el ID al crear la edificación
@@ -30,4 +32,3 @@ public class Edificacion {
         return this.id;
     }
 }
-º1

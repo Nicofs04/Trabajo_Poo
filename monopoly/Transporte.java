@@ -42,7 +42,7 @@ public class Transporte extends Propiedad{
 
                 if (actual.getFortuna() < getImpuesto()) {
                 
-                    System.out.println("El jugador no tiene dinero suficiente para pagar el transporte, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                    consola.imprimir("El jugador no tiene dinero suficiente para pagar el transporte, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                                             
                     analizarMenuPequenho(actual, banca, tablero, menu, c); //analizamos el comando escrito
 
@@ -55,7 +55,7 @@ public class Transporte extends Propiedad{
                     }
 
                     if (actual.getFortuna() < getImpuesto()) {
-                        System.out.println(String.format("El jugador %s no tiene dinero suficiente"));
+                        consola.imprimir(String.format("El jugador %s no tiene dinero suficiente"));
                         
                     }else{
                         actual.setFortuna(actual.getFortuna()-getImpuesto()); //le restamos el alquiler pagado
@@ -66,7 +66,7 @@ public class Transporte extends Propiedad{
 
                         this.setDineroCasilla(this.getDineroCasilla() + getImpuesto()); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
 
-                        System.out.println("El jugador paga "+getImpuesto() +"€");
+                        consola.imprimir("El jugador paga "+getImpuesto() +"€");
                         
                     }
                     //Acabaría la partida para este jugador
@@ -79,7 +79,7 @@ public class Transporte extends Propiedad{
 
                     this.setDineroCasilla(this.getDineroCasilla() + getImpuesto()); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
 
-                    System.out.println("Se han pagado "+getImpuesto() +"€ por el uso del transporte ");
+                    consola.imprimir("Se han pagado "+getImpuesto() +"€ por el uso del transporte ");
                 
                     
                 }

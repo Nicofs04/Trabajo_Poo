@@ -66,12 +66,12 @@ public class Solar extends Propiedad{
                 
                 if (actual.getFortuna() < devolverImpuesto(c,getDuenho())/*+sumarImpuestoedificios()*/) {
                     
-                    System.out.println("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
+                    consola.imprimir("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                     
                     analizarMenuPequenho(actual, banca, tablero, menu, c); //analizamos el comando escrito
                     
                     while(actual.getFortuna() < devolverImpuesto(c, getDuenho())/*+sumarImpuestoedificios()*/){
-                        System.out.println(String.format("El jugador %s no tiene dinero suficiente, elija una opción:\n", actual.getNombre()));
+                        consola.imprimir(String.format("El jugador %s no tiene dinero suficiente, elija una opción:\n", actual.getNombre()));
                         if(actual.getPropiedades().isEmpty()){ //nos aseguramos de que pueda seguir teniendo propiedades para hipotecar
                             bancarrotaAJugador(actual, getDuenho(), menu.getJugadores(), menu.getAvatares()); //si no llamamos a bancarrota
                             break;
@@ -90,7 +90,7 @@ public class Solar extends Propiedad{
 
                         this.setDineroCasilla(this.getDineroCasilla() + (devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/)); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
 
-                        System.out.println("El jugador paga "+(devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/) +"€");
+                        consola.imprimir("El jugador paga "+(devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/) +"€");
                         //return true;
                     }
                     //Acabaría la partida para este jugador
@@ -103,7 +103,7 @@ public class Solar extends Propiedad{
 
                         this.setDineroCasilla(this.getDineroCasilla() + (devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/)); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
 
-                        System.out.println("El jugador paga "+(devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/) +"€");
+                        consola.imprimir("El jugador paga "+(devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/) +"€");
                         //return true;
                 }      
             }
@@ -258,11 +258,11 @@ private boolean comprobar(){
         if (actual.getGrupo().esDuenhoGrupo(jugadores.get(turno)) || actual.getVeces(turno)>2) {
             return true;   
         }else{
-            System.out.println("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar, aparte, la casilla no puede estar hipotecada");
+            consola.imprimir("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar, aparte, la casilla no puede estar hipotecada");
         return false;
         }
     }
-    System.out.println("No puedes construir en un solar hipotecado");
+    consola.imprimir("No puedes construir en un solar hipotecado");
     return false;
 }
 
@@ -287,13 +287,13 @@ public void edificarCasa() {
                         jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
 
 
-                        System.out.println("Se han pagado"+ actual.getValor()*0.6f + "por la construcción de una casa. La fortuna restante es de "+jugadores.get(turno).getFortuna());
-                        System.out.println("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
+                        consola.imprimir("Se han pagado"+ actual.getValor()*0.6f + "por la construcción de una casa. La fortuna restante es de "+jugadores.get(turno).getFortuna());
+                        consola.imprimir("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
                     }else{
-                        System.out.println("No dispones del dinero necesario para construir la edificación");
+                        consola.imprimir("No dispones del dinero necesario para construir la edificación");
                     }
                 }else{
-                    System.out.println("Se alcanzó el límite máximo de casas a construir en el grupo");
+                    consola.imprimir("Se alcanzó el límite máximo de casas a construir en el grupo");
                 }
             }else{
                 if (!(jugadores.get(turno).getFortuna()< (actual.getValor()*0.6f))) {
@@ -302,14 +302,14 @@ public void edificarCasa() {
                     jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
                     
 
-                    System.out.println("Se han pagado"+ actual.getValor()*0.6f + "por la construcción de una casa. La fortuna restante es de "+jugadores.get(turno).getFortuna());
-                    System.out.println("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
+                    consola.imprimir("Se han pagado"+ actual.getValor()*0.6f + "por la construcción de una casa. La fortuna restante es de "+jugadores.get(turno).getFortuna());
+                    consola.imprimir("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
                 }else{
-                    System.out.println("No dispones del dinero necesario para construir la edificación");
+                    consola.imprimir("No dispones del dinero necesario para construir la edificación");
                 }
             }
         }else{
-            System.out.println("Se alcanzó el límite máximo de casas a construir");
+            consola.imprimir("Se alcanzó el límite máximo de casas a construir");
         }    
         }
     }
@@ -334,18 +334,18 @@ public void edificarCasa() {
                         jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
 
 
-                        System.out.println("Se han pagado " + actual.getValor() * 0.6f + " por la construcción de un hotel. La fortuna restante es de " + jugadores.get(turno).getFortuna() + "\n");
-                        System.out.println("Se ha construido el hotel y se han quitado las 4 casas\n");
-                        System.out.println("Se ha construido un hotel correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarHoteles + 1) + " hoteles construidos.\n");
+                        consola.imprimir("Se han pagado " + actual.getValor() * 0.6f + " por la construcción de un hotel. La fortuna restante es de " + jugadores.get(turno).getFortuna() + "\n");
+                        consola.imprimir("Se ha construido el hotel y se han quitado las 4 casas\n");
+                        consola.imprimir("Se ha construido un hotel correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarHoteles + 1) + " hoteles construidos.\n");
                         actual.cambiarcasas();
                     } else {
-                        System.out.println("No dispones del dinero necesario para construir la edificación\n");
+                        consola.imprimir("No dispones del dinero necesario para construir la edificación\n");
                     }
                 } else {
-                    System.out.println("No hay 4 casas en la casilla como para construir el hotel\n");
+                    consola.imprimir("No hay 4 casas en la casilla como para construir el hotel\n");
                 }
             } else {
-                System.out.println("Has alcanzado el límite máximo de hoteles en el grupo\n");
+                consola.imprimir("Has alcanzado el límite máximo de hoteles en el grupo\n");
             }
         }
     }
@@ -366,17 +366,17 @@ public void edificarCasa() {
                     jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - (actual.getValor() * 0.4f));
                     jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.4f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
 
-                    System.out.println("Se han pagado " + actual.getValor() * 0.4f + " por la construcción de una piscina. La fortuna restante es de " + jugadores.get(turno).getFortuna());
+                    consola.imprimir("Se han pagado " + actual.getValor() * 0.4f + " por la construcción de una piscina. La fortuna restante es de " + jugadores.get(turno).getFortuna());
                     contarpiscinas = actual.contarPiscinas();
-                    System.out.println("Se ha construido una piscina correctamente en la casilla " + actual.getNombre() + ". Hay " + contarpiscinas + " piscinas construidas.");
+                    consola.imprimir("Se ha construido una piscina correctamente en la casilla " + actual.getNombre() + ". Hay " + contarpiscinas + " piscinas construidas.");
                 } else {
-                    System.out.println("No dispones del dinero necesario para construir la edificación");
+                    consola.imprimir("No dispones del dinero necesario para construir la edificación");
                 }
             } else {
-                System.out.println("Para construir una piscina necesitas 1 hotel y 2 casas o 2 o más hoteles");
+                consola.imprimir("Para construir una piscina necesitas 1 hotel y 2 casas o 2 o más hoteles");
             }
         } else {
-            System.out.println("Has alcanzado el máximo de piscinas en el grupo");
+            consola.imprimir("Has alcanzado el máximo de piscinas en el grupo");
         }
     }
     
@@ -396,29 +396,29 @@ public void edificarCasa() {
                     jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*1.25f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
 
 
-                    System.out.println("Se han pagado " + actual.getValor() * 1.25f + " por la construcción de una pista. La fortuna restante es de " + jugadores.get(turno).getFortuna());
-                    System.out.println("Se ha construido una pista correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarpistas + 1) + " pistas construidas.");
+                    consola.imprimir("Se han pagado " + actual.getValor() * 1.25f + " por la construcción de una pista. La fortuna restante es de " + jugadores.get(turno).getFortuna());
+                    consola.imprimir("Se ha construido una pista correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarpistas + 1) + " pistas construidas.");
                 } else {
-                    System.out.println("No dispones del dinero necesario para construir la edificación");
+                    consola.imprimir("No dispones del dinero necesario para construir la edificación");
                 }
             } else {
-                System.out.println("Necesitas al menos 2 hoteles para construir una pista de deportes");
+                consola.imprimir("Necesitas al menos 2 hoteles para construir una pista de deportes");
             }
         } else {
-            System.out.println("Has alcanzado el máximo de pistas de deporte en el grupo");
+            consola.imprimir("Has alcanzado el máximo de pistas de deporte en el grupo");
         }
     }
 
     private void venderCasa(String nombreCasilla, int numvender) {
         Casilla actual = tablero.encontrar_casilla(nombreCasilla);
         if (actual == null || !(actual.getDuenho().equals(jugadores.get(turno)))) {
-            System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
+            consola.imprimir("La casilla especificada no existe o no pertenece a este jugador.");
             return;
         }
         int numCasas = actual.contarCasas();
         if (numCasas < numvender)
         {
-            System.out.println("No puedes vender más casas de las que hay construidas");
+            consola.imprimir("No puedes vender más casas de las que hay construidas");
             return;
         }
         
@@ -427,11 +427,11 @@ public void edificarCasa() {
             float valorVenta = actual.getValor() * 0.6f / 2;
             actual.eliminarEdificacion("casa");
             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + valorVenta);
-            System.out.println("Se ha vendido una casa por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
+            consola.imprimir("Se ha vendido una casa por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
             numCasas = actual.contarCasas();
-            System.out.println("Se ha eliminado una casa en la casilla " + actual.getNombre() + ". Quedan " + (numCasas) + " casas construidas.");
+            consola.imprimir("Se ha eliminado una casa en la casilla " + actual.getNombre() + ". Quedan " + (numCasas) + " casas construidas.");
         } else {
-            System.out.println("No hay casas para vender en esta casilla.");
+            consola.imprimir("No hay casas para vender en esta casilla.");
             return;
             }
         }
@@ -442,13 +442,13 @@ public void edificarCasa() {
         int numHoteles = actual.contarHoteles();
 
         if (actual == null || actual.getDuenho().equals(jugadores.get(turno))) {
-            System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
+            consola.imprimir("La casilla especificada no existe o no pertenece a este jugador.");
             return;
         }
         
         if (numHoteles < numvender)
         {
-            System.out.println("No puedes vender más hoteles de los que hay construidos");
+            consola.imprimir("No puedes vender más hoteles de los que hay construidos");
             return;
         }
         
@@ -458,11 +458,11 @@ public void edificarCasa() {
             float valorVenta = actual.getValor() * 0.6f / 2;
             actual.eliminarEdificacion("hotel");
             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + valorVenta);
-            System.out.println("Se ha vendido un hotel por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
+            consola.imprimir("Se ha vendido un hotel por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
             numHoteles = actual.contarHoteles();
-            System.out.println("Se ha eliminado un hotel en la casilla " + actual.getNombre() + ". Quedan " + (numHoteles) + " hoteles construidos.");
+            consola.imprimir("Se ha eliminado un hotel en la casilla " + actual.getNombre() + ". Quedan " + (numHoteles) + " hoteles construidos.");
         } else {
-            System.out.println("No hay hoteles para vender en esta casilla.");
+            consola.imprimir("No hay hoteles para vender en esta casilla.");
             return;
         }
         }
@@ -473,13 +473,13 @@ public void edificarCasa() {
         int numPiscinas = actual.contarPiscinas();
     
         if (actual == null || actual.getDuenho().equals(jugadores.get(turno))) {
-            System.out.println("La casilla especificada no existe o no es de este jugador.");
+            consola.imprimir("La casilla especificada no existe o no es de este jugador.");
             return;
         }
         
         if (numPiscinas < numvender)
         {
-            System.out.println("No puedes vender más casas de las que hay construidas");
+            consola.imprimir("No puedes vender más casas de las que hay construidas");
             return;
         }
         
@@ -489,11 +489,11 @@ public void edificarCasa() {
             float valorVenta = actual.getValor() * 0.4f / 2;
             actual.eliminarEdificacion("piscina");
             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + valorVenta);
-            System.out.println("Se ha vendido una piscina por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
+            consola.imprimir("Se ha vendido una piscina por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
             numPiscinas = actual.contarPiscinas();
-            System.out.println("Se ha eliminado una piscina en la casilla " + actual.getNombre() + ". Quedan " + (numPiscinas) + " piscinas construidas.");
+            consola.imprimir("Se ha eliminado una piscina en la casilla " + actual.getNombre() + ". Quedan " + (numPiscinas) + " piscinas construidas.");
         } else {
-            System.out.println("No hay piscinas para vender en esta casilla.");
+            consola.imprimir("No hay piscinas para vender en esta casilla.");
             return;
         }
         }
@@ -504,12 +504,12 @@ public void edificarCasa() {
         int numPistas = actual.contarPistas();
         
         if (actual == null || actual.getDuenho().equals(jugadores.get(turno))) {
-            System.out.println("La casilla especificada no existe o no es de este jugador.");
+            consola.imprimir("La casilla especificada no existe o no es de este jugador.");
             return;
         }
         if (numPistas < numvender)
         {
-            System.out.println("No puedes vender más casas de las que hay construidas");
+            consola.imprimir("No puedes vender más casas de las que hay construidas");
             return;
         }
         
@@ -519,11 +519,11 @@ public void edificarCasa() {
             float valorVenta = actual.getValor() * 1.25f / 2;
             actual.eliminarEdificacion("pista");
             jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + valorVenta);
-            System.out.println("Se ha vendido una pista por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
+            consola.imprimir("Se ha vendido una pista por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
             numPistas = actual.contarPistas();
-            System.out.println("Se ha eliminado una pista en la casilla " + actual.getNombre() + ". Quedan " + (numPistas) + " pistas construidas.");
+            consola.imprimir("Se ha eliminado una pista en la casilla " + actual.getNombre() + ". Quedan " + (numPistas) + " pistas construidas.");
         } else {
-            System.out.println("No hay pistas para vender en esta casilla.");
+            consola.imprimir("No hay pistas para vender en esta casilla.");
             return;
         }
         }

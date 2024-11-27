@@ -11,6 +11,7 @@ public  abstract class Carta{
     private int numCarta;
     private int posicion;
 
+    public static ConsolaNormal consola = new ConsolaNormal();
 
     public Carta(int numCarta, int posicion){
         this.numCarta=numCarta;

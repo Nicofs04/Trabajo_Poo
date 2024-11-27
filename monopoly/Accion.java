@@ -8,8 +8,4 @@ public class Accion extends Casilla {
             super(nombre,posicion,duenho); // llama al constructor de Propiedades
 
         }
-
-
-
-
 }

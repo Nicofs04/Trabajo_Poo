@@ -18,6 +18,8 @@ public class Casilla {
     private float dineroCasilla; // dinero acumulado en la casilla
     private float dineroParking; //dinero acumulado en la casilla parking
 
+    public static ConsolaNormal consola = new ConsolaNormal();
+    
     // Constructor de Casilla2
     public Casilla(String nombre, int posicion, Jugador duenho) {
         this.nombre = nombre;
@@ -170,16 +172,16 @@ public class Casilla {
         boolean acabado = false;
 
         while(!acabado){
-            System.out.println("=====================================\n");
-            System.out.println("                MENÚ                \n");
-            System.out.println("=====================================\n");
-            System.out.println("1. Hipotecar una propiedad                            -> Comando: 'hipotecar'");
-            System.out.println("2. Declararse en bancarrota                           -> Comando: 'bancarrota'");
+            consola.imprimir("=====================================\n");
+            consola.imprimir("                MENÚ                \n");
+            consola.imprimir("=====================================\n");
+            consola.imprimir("1. Hipotecar una propiedad                            -> Comando: 'hipotecar'");
+            consola.imprimir("2. Declararse en bancarrota                           -> Comando: 'bancarrota'");
 
 
-            System.out.println("=====================================\n");
-            System.out.println("Selecciona una opción para continuar.\n");
-            System.out.println("=====================================\n\n");
+            consola.imprimir("=====================================\n");
+            consola.imprimir("Selecciona una opción para continuar.\n");
+            consola.imprimir("=====================================\n\n");
 
 
             Scanner scanner = new Scanner(System.in);
@@ -197,19 +199,19 @@ public class Casilla {
                         menu.setTirado(false); //para que el siguiente jugador pueda seguir tirando
                         menu.setLanzamientos(0);
                         menu.setDadosdobles(false);
-                        System.out.println("Jugador eliminado con éxito. El siguiente jugador puede escoger ahora una opción.\n");
+                        consola.imprimir("Jugador eliminado con éxito. El siguiente jugador puede escoger ahora una opción.\n");
                         acabado = true;
                     }else if(c.getDuenho().equals(banca)){
                         bancarrotaABanca(actual, c.getDuenho(), menu.getJugadores(), menu.getAvatares());
                         menu.setTirado(false); //para que el siguiente jugador pueda seguir tirando
                         menu.setLanzamientos(0);
                         menu.setDadosdobles(false);
-                        System.out.println("Jugador eliminado con éxito. El siguiente jugador puede escoger ahora una opción.\n");
+                        consola.imprimir("Jugador eliminado con éxito. El siguiente jugador puede escoger ahora una opción.\n");
                         acabado = true;
                     }
                     break;
                 default:
-                    System.out.println("Error, comando desconocido.\n");
+                    consola.imprimir("Error, comando desconocido.\n");
                     break;
                 }
         }       

@@ -48,7 +48,7 @@ public class Propiedad extends Casilla {
         // Comprobamos que sea una casilla "comprable"
         if (estaEnVenta()==true) {
             if (solicitante.getFortuna()<this.valor) {
-                System.out.println("No tienes dinero  suficiente para comprar esta casilla");
+                consola.imprimir("No tienes dinero  suficiente para comprar esta casilla");
             }else{
             // JUGADOR SOLICITANTE
             
@@ -67,15 +67,15 @@ public class Propiedad extends Casilla {
             // BANCA, aunque realmente es innecesario
             banca.setFortuna(banca.getFortuna() + this.valor);
 
-            System.out.println("El jugador " + solicitante.getNombre() + " compra la casilla "+ this.getNombre() + " por " + this.valor);
-            System.out.println("Su fortuna actual es:" + solicitante.getFortuna());
+            consola.imprimir("El jugador " + solicitante.getNombre() + " compra la casilla "+ this.getNombre() + " por " + this.valor);
+            consola.imprimir("Su fortuna actual es:" + solicitante.getFortuna());
             }
         } else if (estaEnVenta()==false) {
             // En caso de que no sea de ninguno de estos tipos, la propiedad no se podrá
             // comprar
-            System.out.println("Esta propiedad no se puede comprar, para poder comprar una propiedad debe de ser de uno de los siguientes tipos: SOLAR, TRANSPORTE, SERVICIOS\n");
+            consola.imprimir("Esta propiedad no se puede comprar, para poder comprar una propiedad debe de ser de uno de los siguientes tipos: SOLAR, TRANSPORTE, SERVICIOS\n");
         } else {
-            System.out.println("No tienes dinero suficiente como para comprar esta propiedad\n");
+            consola.imprimir("No tienes dinero suficiente como para comprar esta propiedad\n");
         }
     }
 
@@ -112,7 +112,7 @@ public class Propiedad extends Casilla {
                     valor = 1485172;
                     break;
                 default:
-                    System.out.println("No se ha encontrado el grupo");
+                    consola.imprimir("No se ha encontrado el grupo");
                     break;
             }
         }else if (propiedad instanceof Transporte) {
@@ -129,12 +129,12 @@ public class Propiedad extends Casilla {
 
         if((!jugador.getPropiedades().isEmpty())){ //mientras el jugador tenga propiedades
     
-            System.out.println("¿Qué casilla desea hipotecar?");
+            consola.imprimir("¿Qué casilla desea hipotecar?");
             Scanner scanner = new Scanner(System.in);
             String nombre = scanner.nextLine();
     
             if(tablero.encontrar_casilla(nombre) == null){ //verificamos que la casilla exista
-                System.out.println("No se ha podido encontrar la casilla.\n");
+                consola.imprimir("No se ha podido encontrar la casilla.\n");
                 return 0;
             }else{
                 for(Casilla casilla:jugador.getPropiedades()){ //verificamos que el jugador tenga la casilla comprada
@@ -149,51 +149,51 @@ public class Propiedad extends Casilla {
     
                                             hipotecarPropiedad(solar);
     
-                                            System.out.println(String.format("La casilla %s ha sido hipotecada con éxito.\n", nombre));
+                                            consola.imprimir(String.format("La casilla %s ha sido hipotecada con éxito.\n", nombre));
     
-                                            System.out.println(String.format("%s recibe %f por hipotecar %s. Ahora no puedes recibir alquileres ni edificar en la casilla %s.\n", jugador.getNombre(), valorHipoteca(solar)/2, casilla.getNombre(), casilla.getNombre()));
+                                            consola.imprimir(String.format("%s recibe %f por hipotecar %s. Ahora no puedes recibir alquileres ni edificar en la casilla %s.\n", jugador.getNombre(), valorHipoteca(solar)/2, casilla.getNombre(), casilla.getNombre()));
                             
                                             return 1;
                                         }else{
-                                            System.out.println("La casilla ya ha sido hipotecada.\n");
+                                            consola.imprimir("La casilla ya ha sido hipotecada.\n");
                                         }
                                 }else{
-                                    System.out.println("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla.\n");
+                                    consola.imprimir("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla.\n");
                                     return 0;
                                 }
                         }else{
                             if (!propiedad.getHipotecado()) {
                                 jugador.setFortuna(jugador.getFortuna()+valorHipoteca(propiedad));    
                                 hipotecarPropiedad(propiedad);
-                                System.out.println(String.format("La casilla %s ha sido hipotecada con éxito.\n", nombre));
-                                System.out.println(String.format("%s recibe %f por hipotecar %s. Ahora no puedes recibir alquileres ni edificar en la casilla %s.\n", jugador.getNombre(), valorHipoteca(propiedad), casilla.getNombre(), casilla.getNombre()));
+                                consola.imprimir(String.format("La casilla %s ha sido hipotecada con éxito.\n", nombre));
+                                consola.imprimir(String.format("%s recibe %f por hipotecar %s. Ahora no puedes recibir alquileres ni edificar en la casilla %s.\n", jugador.getNombre(), valorHipoteca(propiedad), casilla.getNombre(), casilla.getNombre()));
                                 return 1;
                             }else{
-                                System.out.println("La casilla ya ha sido hipotecada");
+                                consola.imprimir("La casilla ya ha sido hipotecada");
                                 return 0;
                             }
                         }
                         }
                     }
-                    System.out.println(String.format("La casilla %s no pertenece al jugador %s.\n", nombre, jugador.getNombre()));
+                    consola.imprimir(String.format("La casilla %s no pertenece al jugador %s.\n", nombre, jugador.getNombre()));
                     return 0;
                 }
                 return 0;
             }
         }else{
-                System.out.println("No tienes más propiedades para hipotecar.\n");
+                consola.imprimir("No tienes más propiedades para hipotecar.\n");
                 return 0;
             }
         }
     
     
     public int deshipotecar(Jugador jugador, Tablero tablero){
-        System.out.println("¿Qué casilla desea deshipotecar?");
+        consola.imprimir("¿Qué casilla desea deshipotecar?");
         Scanner scanner = new Scanner(System.in);
         String nombre = scanner.nextLine();
     
         if(tablero.encontrar_casilla(nombre) == null){
-            System.out.println("No se ha podido encontrar la casilla.\n");
+            consola.imprimir("No se ha podido encontrar la casilla.\n");
             return 0;
         }else{
             for(Casilla casilla:jugador.getPropiedades()){
@@ -206,15 +206,15 @@ public class Propiedad extends Casilla {
                                     if(jugador.getFortuna() > ((valorHipoteca(solar)/2)*1.1f)){
                                         jugador.setFortuna(jugador.getFortuna() - ((valorHipoteca(solar)/2)*1.1f));
                                         solar.setHipotecado(false);
-                                        System.out.println(String.format("La casilla %s ha sido deshipotecada con éxito.\n", nombre));
-                                        System.out.println(String.format("%s paga %f por deshipotecar %s. Ahora puedes recibir alquileres y edificar en la casilla %s.\n", jugador.getNombre(), ((valorHipoteca(solar)/2)*1.1f), casilla.getNombre(), casilla.getNombre()));
+                                        consola.imprimir(String.format("La casilla %s ha sido deshipotecada con éxito.\n", nombre));
+                                        consola.imprimir(String.format("%s paga %f por deshipotecar %s. Ahora puedes recibir alquileres y edificar en la casilla %s.\n", jugador.getNombre(), ((valorHipoteca(solar)/2)*1.1f), casilla.getNombre(), casilla.getNombre()));
                                         return 1;
                                     }else{
-                                        System.out.println(String.format("El jugador %s no tiene suficiente dinero para poder deshipotecar la casilla %s.\n", jugador.getNombre(), casilla.getNombre()));
+                                        consola.imprimir(String.format("El jugador %s no tiene suficiente dinero para poder deshipotecar la casilla %s.\n", jugador.getNombre(), casilla.getNombre()));
                                         return 0;
                                     }
                                 }else{
-                                    System.out.println(String.format("La casilla %s no está hipotecada.\n", casilla.getNombre()));
+                                    consola.imprimir(String.format("La casilla %s no está hipotecada.\n", casilla.getNombre()));
                                     return 0;
                                 }
                         }else{
@@ -222,24 +222,24 @@ public class Propiedad extends Casilla {
                                 if (jugador.getFortuna()>((valorHipoteca(propiedad)*1.1))){
                                     jugador.setFortuna(jugador.getFortuna() - ((valorHipoteca(propiedad))*1.1f));
                                     propiedad.setHipotecado(false);
-                                    System.out.println(String.format("La casilla %s ha sido deshipotecada con éxito.\n", nombre));
-                                    System.out.println(String.format("%s paga %f por deshipotecar %s. Ahora puedes recibir alquileres y edificar en la casilla %s.\n", jugador.getNombre(), ((valorHipoteca(propiedad))*1.1f), casilla.getNombre(), casilla.getNombre()));
+                                    consola.imprimir(String.format("La casilla %s ha sido deshipotecada con éxito.\n", nombre));
+                                    consola.imprimir(String.format("%s paga %f por deshipotecar %s. Ahora puedes recibir alquileres y edificar en la casilla %s.\n", jugador.getNombre(), ((valorHipoteca(propiedad))*1.1f), casilla.getNombre(), casilla.getNombre()));
                                     return 1;
                                 }else{
-                                    System.out.println(String.format("El jugador %s no tiene suficiente dinero para poder deshipotecar la casilla %s.\n", jugador.getNombre(), casilla.getNombre()));
+                                    consola.imprimir(String.format("El jugador %s no tiene suficiente dinero para poder deshipotecar la casilla %s.\n", jugador.getNombre(), casilla.getNombre()));
                                     return 0;
                                 }
                             }else{
-                                System.out.println(String.format("La casilla %s no está hipotecada.\n", casilla.getNombre()));
+                                consola.imprimir(String.format("La casilla %s no está hipotecada.\n", casilla.getNombre()));
                                 return 0;
                                 }
                             }
                         }else{
-                            System.out.println("Para hipotecar uan propiedad, esta ha de ser un Solar, un Servicio o un Transporte");
+                            consola.imprimir("Para hipotecar uan propiedad, esta ha de ser un Solar, un Servicio o un Transporte");
                             return 0;
                         }
                 }
-                System.out.println(String.format("La casilla %s no pertenece al jugador %s.\n", nombre, jugador.getNombre()));
+                consola.imprimir(String.format("La casilla %s no pertenece al jugador %s.\n", nombre, jugador.getNombre()));
                 return 0;
             }
             return 0;
