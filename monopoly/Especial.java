@@ -12,13 +12,11 @@ public class Especial extends Casilla {
 
 
 
-
     public void evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada, Juego juego) {
 
         Especial c = this;
         c.sumarVecesCaidasGrupal(1);
 
-//ns puede usar this.valor porque las casillas especiales no tienen valor, hacer lo del bote del parking
 
         if ((c instanceof Especial) && getPosicion() == 20) {
             actual.setFortuna(actual.getFortuna() + getDineroParking());
