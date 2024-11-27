@@ -7,7 +7,7 @@ import java.util.Scanner;
 import partida.Avatar;
 import partida.Jugador;
 
-public class Casilla {
+public abstract class Casilla {
 
     private String nombre; // nombre de la casilla
     private int posicion; // posición en el tablero
@@ -86,6 +86,7 @@ public class Casilla {
         this.VecesCaidasGrupal += VecesCaidasGrupal;
     }
 
+    public abstract void evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada, Juego juego);
 
     public boolean estaEnVenta(){
         if (((this instanceof Solar) || (this instanceof Servicio) || (this instanceof Transporte)) && (this.duenho.getNombre() == "banca")) {
@@ -168,7 +169,7 @@ public class Casilla {
     
 
 
-    public void analizarMenuPequenho(Jugador actual, Jugador banca, Tablero tablero, Menu menu, Casilla c){
+    public void analizarMenuPequenho(Jugador actual, Jugador banca, Tablero tablero, Juego juego, Casilla c){
         boolean acabado = false;
 
         while(!acabado){
@@ -195,17 +196,17 @@ public class Casilla {
                     break;
                 case "bancarrota":
                     if(!c.getDuenho().equals(banca)){
-                        bancarrotaAJugador(actual, c.getDuenho(), menu.getJugadores(), menu.getAvatares());
-                        menu.setTirado(false); //para que el siguiente jugador pueda seguir tirando
-                        menu.setLanzamientos(0);
-                        menu.setDadosdobles(false);
+                        bancarrotaAJugador(actual, c.getDuenho(), juego.getJugadores(), juego.getAvatares());
+                        juego.setTirado(false); //para que el siguiente jugador pueda seguir tirando
+                        juego.setLanzamientos(0);
+                        juego.setDadosdobles(false);
                         consola.imprimir("Jugador eliminado con éxito. El siguiente jugador puede escoger ahora una opción.\n");
                         acabado = true;
                     }else if(c.getDuenho().equals(banca)){
-                        bancarrotaABanca(actual, c.getDuenho(), menu.getJugadores(), menu.getAvatares());
-                        menu.setTirado(false); //para que el siguiente jugador pueda seguir tirando
-                        menu.setLanzamientos(0);
-                        menu.setDadosdobles(false);
+                        bancarrotaABanca(actual, c.getDuenho(), juego.getJugadores(), juego.getAvatares());
+                        juego.setTirado(false); //para que el siguiente jugador pueda seguir tirando
+                        juego.setLanzamientos(0);
+                        juego.setDadosdobles(false);
                         consola.imprimir("Jugador eliminado con éxito. El siguiente jugador puede escoger ahora una opción.\n");
                         acabado = true;
                     }

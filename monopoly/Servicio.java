@@ -40,14 +40,14 @@ public class Servicio extends Propiedad{
                         
                             consola.imprimir("El jugador no tiene dinero suficiente para pagar el servicio, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                     
-                            analizarMenuPequenho(actual, banca, tablero, menu, c); //analizamos el comando escrito
+                            analizarMenuPequenho(actual, banca, tablero, juego, c); //analizamos el comando escrito
 
                             while(actual.getFortuna() < getImpuesto()){
                                 if(actual.getPropiedades().isEmpty()){ //nos aseguramos de que pueda seguir teniendo propiedades para hipotecar
-                                    bancarrotaAJugador(actual, this.getDuenho(), menu.getJugadores(), menu.getAvatares()); //si no llamamos a bancarrota
+                                    bancarrotaAJugador(actual, this.getDuenho(), juego.getJugadores(), juego.getAvatares()); //si no llamamos a bancarrota
                                     break;
                                 }
-                                analizarMenuPequenho(actual, banca, tablero, menu, c);
+                                analizarMenuPequenho(actual, banca, tablero, juego, c);
                             }
 
                             if (actual.getFortuna() < getImpuesto()) {

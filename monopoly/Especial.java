@@ -13,7 +13,7 @@ public class Especial extends Casilla {
 
 
 
-    public void evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada, Menu menu) {
+    public void evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada, Juego juego) {
 
         Especial c = this;
         c.sumarVecesCaidasGrupal(1);
@@ -22,7 +22,7 @@ public class Especial extends Casilla {
 
         if ((c instanceof Especial) && getPosicion() == 20) {
             actual.setFortuna(actual.getFortuna() + getDineroParking());
-            float bote=getDineroParking()
+            float bote=getDineroParking();
             setDineroParking(0);
             consola.imprimir("El jugador recibe"+bote+ " el bote de la banca.");
             actual.setDineroInversionesOBote(actual.getDineroInversionesOBote() + bote); //añadimos al atributo dineroInversionesOBote el valor indicado

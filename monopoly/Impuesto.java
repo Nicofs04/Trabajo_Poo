@@ -14,12 +14,12 @@ public class Impuesto extends Casilla {
     }
 
 
-    public void evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada, Menu menu) {
+    public void evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada, Juego juego) {
         Impuesto c = this;
         c.sumarVecesCaidasGrupal(1);
         if (actual.getFortuna() < this.impuesto) {
             consola.imprimir("El jugador no tiene dinero suficiente para pagar los impuestos, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
-            analizarMenuPequenho(actual, banca, tablero, menu, c); //analizamos el comando escrito
+            analizarMenuPequenho(actual, banca, tablero, juego, c); //analizamos el comando escrito
             //Acabaría la partida para este jugador
         }else{
             actual.setFortuna(actual.getFortuna() - this.impuesto);

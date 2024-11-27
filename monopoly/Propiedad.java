@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import partida.Jugador;
 
-public class Propiedad extends Casilla {
+public abstract class Propiedad extends Casilla {
 
     
     private float valor; // valor de la propiedad
