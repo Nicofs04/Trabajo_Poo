@@ -571,7 +571,8 @@ public class Casilla {
                 //int eleccion1=0;
                 //eleccion1=baraja1.get(carta1-1);
                 //Realizar acción
-                menu.accionCarta(c.getTipo(),carta1);
+                Suerte suerte= new Suerte(carta1,this.getPosicion());
+                suerte.accionCartaSuerte(tablero,menu,menu.getJugadores().get(menu.getTurno()));
 
                 break;
             //No es para esta entrega
