@@ -35,5 +35,5 @@ public  abstract class Carta{
     }
 
 
-    private abstract void accion(Tablero tablero,Juego menu,Jugador jugador);
+    public abstract void accion(Tablero tablero,Juego menu,Jugador jugador);
 }

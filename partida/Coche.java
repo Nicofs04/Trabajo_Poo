@@ -2,8 +2,6 @@ package partida;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Scanner;
-
 import monopoly.Casilla;
 import monopoly.Juego;
 import monopoly.Propiedad;

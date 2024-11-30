@@ -1,6 +1,7 @@
 package monopoly;
 import partida.*;
 import monopoly.*;
+
 public class Caja extends Carta {
 
 
@@ -30,17 +31,10 @@ public class Caja extends Carta {
             case 3:
                 consola.imprimir("Colócate en la casilla de Salida. Cobra la cantidad habitual.\n");
                 int tirada4=40-posicion;
-                //Si es mov avanzado llamamos a mover avatar pero con avanzado a 0 y lo volvemos a poner a 1 luego
-                if(jugador.getAvatar().getAvanzado()==0){
-                    jugador.getAvatar().moverAvatar(tablero.getPosiciones(),tirada4,menu);
-                    jugador.getAvatar().getLugar().evaluarCasilla(tablero,jugador, menu.getBanca(),tirada4,menu);
+               
+                jugador.getAvatar().moverBasico(tablero.getPosiciones(),tirada4);
+                jugador.getAvatar().getLugar().evaluarCasilla(tablero,jugador, menu.getBanca(),tirada4,menu);
 
-                }else{
-                    jugador.getAvatar().setAvanzado(0);
-                    jugador.getAvatar().moverAvatar(tablero.getPosiciones(),tirada4,menu);
-                    jugador.getAvatar().setAvanzado(1);
-                    jugador.getAvatar().getLugar().evaluarCasilla(tablero,jugador, menu.getBanca(),tirada4,menu);
-                }
                 //Le sumamos el valor de la salida
                 if(posicion>6 || posicion<0){
                     jugador.setVueltas(jugador.getVueltas() + 1); //sumamos 1 vuelta a la variable vueltas que nos permite saber si los jugadores han dado 4 vueltas más
