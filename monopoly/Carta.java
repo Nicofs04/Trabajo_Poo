@@ -1,17 +1,17 @@
 package monopoly;
 
-import partida.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Iterator;
-
+import partida.*;
+import monopoly.*;
 
 public  abstract class Carta{
     private int numCarta;
     private int posicion;
 
-    public static ConsolaNormal consola = new ConsolaNormal();
 
     public Carta(int numCarta, int posicion){
         this.numCarta=numCarta;
@@ -35,9 +35,5 @@ public  abstract class Carta{
     }
 
 
-    private void accion(Tablero tablero,Juego menu,Jugador jugador){
-
-
-        
-    }
+    private abstract void accion(Tablero tablero,Juego menu,Jugador jugador);
 }

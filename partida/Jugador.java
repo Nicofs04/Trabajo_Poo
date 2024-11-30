@@ -48,9 +48,9 @@ public class Jugador {
      * avatar.
      */
 
-    public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
+    public Jugador(String nombre, Casilla inicio, ArrayList<Avatar> avCreados) {
         this.nombre = nombre;
-        this.avatar = new Avatar(tipoAvatar, this, inicio, avCreados);
+        this.avatar = new Avatar(this, inicio, avCreados);
         this.fortuna = Valor.FORTUNA_INICIAL;
         this.gastos = 0;
         this.enCarcel = false;
