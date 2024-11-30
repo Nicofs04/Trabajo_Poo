@@ -1,7 +1,9 @@
 package monopoly;
 
-public class ExcepcionesMonopoly extends Exception{
+public class Excepciones_PropBanc extends Excepciones_Prop{
 
-    public ExcepcionesMonopoly(String mensaje){
+    public Excepciones_PropBanc(String mensaje){
         super(mensaje);
     }
+
+}
