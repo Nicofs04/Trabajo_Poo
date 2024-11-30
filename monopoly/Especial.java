@@ -18,8 +18,6 @@ public class Especial extends Casilla {
         Especial c = this;
         c.sumarVecesCaidasGrupal(1);
 
-//ns puede usar this.valor porque las casillas especiales no tienen valor, hacer lo del bote del parking
-
         if ((c instanceof Especial) && getPosicion() == 20) {
             actual.setFortuna(actual.getFortuna() + getDineroParking());
             float bote=getDineroParking();
@@ -31,7 +29,7 @@ public class Especial extends Casilla {
             //IR A CARCEL
         } else if ((c instanceof Especial) && getPosicion() == 30) {
             actual.encarcelar(tablero.getPosiciones());
-            consola.imprimir("El avatar se coloca en la casilla de Cárcel.")
+            consola.imprimir("El avatar se coloca en la casilla de Cárcel.");
             //return true;
         } else if (c instanceof Especial && getPosicion() == 0) {
             //eturn true;
@@ -39,8 +37,6 @@ public class Especial extends Casilla {
             consola.imprimir("Has caído en la cárcel pero solo de visita, no estás encarcelado");
             //return true;
         }
-        break;
-
-    
     }
+    
 }

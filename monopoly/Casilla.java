@@ -13,7 +13,7 @@ public abstract class Casilla {
     private int posicion; // posición en el tablero
     private Jugador duenho; // dueño de la casilla
     private ArrayList<Avatar> avatares; // avatares en la casilla
-    private ArrayList<ArrayList<Casilla>> tablero; // el tablero del juego
+    private Tablero tablero; // el tablero del juego
     private int VecesCaidasGrupal; // total de visitas
     private float dineroCasilla; // dinero acumulado en la casilla
     private float dineroParking; //dinero acumulado en la casilla parking
@@ -60,10 +60,10 @@ public abstract class Casilla {
     public void eliminarAvatar(Avatar av) {
         this.avatares.remove(av);
     }
-    public ArrayList<ArrayList<Casilla>> getTablero(){
+    public Tablero getTablero(){
         return tablero;
     }
-    public void setTablero(ArrayList<ArrayList<Casilla>> tablero) {                     
+    public void setTablero(Tablero tablero) {                     
         this.tablero= tablero;
     }
     public float getDineroCasilla(){
@@ -89,7 +89,7 @@ public abstract class Casilla {
     public abstract void evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada, Juego juego);
 
     public boolean estaEnVenta(){
-        if (((this instanceof Solar) || (this instanceof Servicio) || (this instanceof Transporte)) && (this.duenho.getNombre() == "banca")) {
+        if ((this instanceof Propiedad) && (this.duenho.getNombre() == "banca")) {
             return true;
         } else {
             return false;
@@ -219,8 +219,17 @@ public abstract class Casilla {
     }
 
 
+    public String infoCasilla() {
+        String informacion = new String();
+        informacion = this.toString();
+        return informacion;
+    }
 
 
-    
+    public float valorCarcel(ArrayList<ArrayList<Casilla>> tablero){
+        float valorCarcel;
+        valorCarcel = Valor.SUMA_VUELTA * (25.0f / 100.0f);
+        return valorCarcel;
+    }
     
 }

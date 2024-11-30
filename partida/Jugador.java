@@ -15,7 +15,7 @@ public class Jugador {
     private int tiradasCarcel; // Cuando está en la carcel, contará las tiradas sin éxito que ha hecho allí
     // para intentar salir (se usa para limitar el numero de intentos).
     private int vueltas; // Cuenta las vueltas dadas al tablero.
-    private ArrayList<Casilla> propiedades; // Propiedades que posee el jugador.
+    private ArrayList<Propiedad> propiedades; // Propiedades que posee el jugador.
     private int vecesCarcel;
     private float dineroPagadoAlquileres;
     private float dineroCobradoAlquileres;
@@ -50,7 +50,8 @@ public class Jugador {
 
     public Jugador(String nombre, Casilla inicio, ArrayList<Avatar> avCreados, String tipo) {
         this.nombre = nombre;
-        switch ((tipo)) {
+        this.nombre = nombre;
+        switch (tipo) {
             case "pelota":
                 this.avatar = new Pelota(this, inicio, avCreados, tipo);                
                 break;
@@ -72,7 +73,7 @@ public class Jugador {
         this.enCarcel = false;
         this.tiradasCarcel = 0;
         this.vueltas = 0;
-        this.propiedades = new ArrayList<Casilla>();
+        this.propiedades = new ArrayList<Propiedad>();
 
     }
 
@@ -134,11 +135,11 @@ public class Jugador {
         this.vueltas = vueltas;
     }
 
-    public ArrayList<Casilla> getPropiedades() {
+    public ArrayList<Propiedad> getPropiedades() {
         return propiedades;
     }
 
-    public void setPropiedades(ArrayList<Casilla> propiedades) {
+    public void setPropiedades(ArrayList<Propiedad> propiedades) {
         this.propiedades = propiedades;
     }
 
@@ -217,8 +218,8 @@ public class Jugador {
     // Otros métodos:
     // Método para añadir una propiedad al jugador. Como parámetro, la casilla a
     // añadir.
-    public void anhadirPropiedad(Casilla casilla) {
-        propiedades.add(casilla);
+    public void anhadirPropiedad(Propiedad propiedad) {
+        propiedades.add(propiedad);
     }
 
     // Método para eliminar una propiedad del arraylist de propiedades de jugador.

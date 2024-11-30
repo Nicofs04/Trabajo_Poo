@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Grupo {
 
     //Atributos
-    private ArrayList<Casilla> miembros; //Casillas miembros del grupo.
+    private ArrayList<Solar> miembros; //Casillas miembros del grupo.
     private String colorGrupo; //Color del grupo
     private int numCasillas; //Número de casillas del grupo.
 
@@ -18,8 +18,8 @@ public class Grupo {
     /*Constructor para cuando el grupo está formado por DOS CASILLAS:
     * Requiere como parámetros las dos casillas miembro y el color del grupo.
      */
-    public Grupo(Casilla cas1, Casilla cas2, String colorGrupo) {
-        this.miembros = new ArrayList<Casilla>();
+    public Grupo(Solar cas1, Solar cas2, String colorGrupo) {
+        this.miembros = new ArrayList<Solar>();
         miembros.add(cas1);
         miembros.add(cas2);
         this.numCasillas=2;
@@ -31,8 +31,8 @@ public class Grupo {
     /*Constructor para cuando el grupo está formado por TRES CASILLAS:
     * Requiere como parámetros las tres casillas miembro y el color del grupo.
      */
-    public Grupo(Casilla cas1, Casilla cas2, Casilla cas3, String colorGrupo) {
-        this.miembros = new ArrayList<Casilla>();
+    public Grupo(Solar cas1, Solar cas2, Solar cas3, String colorGrupo) {
+        this.miembros = new ArrayList<Solar>();
         miembros.add(cas1);
         miembros.add(cas2);
         miembros.add(cas3);
@@ -43,11 +43,11 @@ public class Grupo {
         cas3.setGrupo(this);
     }
 
-    public ArrayList<Casilla> getMiembros(){
+    public ArrayList<Solar> getMiembros(){
         return miembros;
     }
 
-    public void setMiembros(ArrayList<Casilla> miembros){
+    public void setMiembros(ArrayList<Solar> miembros){
         this.miembros = miembros;
     }
 
@@ -70,7 +70,7 @@ public class Grupo {
     /* Método que añade una casilla al array de casillas miembro de un grupo.
     * Parámetro: casilla que se quiere añadir.
      */
-    public void anhadirCasilla(Casilla miembro) {
+    public void anhadirCasilla(Solar miembro) {
         //hacemos doble asignación, añadimos miembro al array y a su vez hacemos que el grupo de miembro sea el propio objeto
         this.miembros.add(miembro);
         miembro.setGrupo(this);
@@ -93,9 +93,9 @@ public class Grupo {
 
     public int contarCasasGrupo(){
         int contador=0;
-        for (Casilla casilla : this.getMiembros()){
-                for(Edificacion edificacion : casilla.getEdificacion()){
-                    if (edificacion.getTipo().equals("casa")) {
+        for (Solar solar : this.getMiembros()){
+                for(Edificacion edificacion : solar.getEdificacion()){
+                    if (edificacion instanceof Casa) {
                         contador++;
                     }
                 }
@@ -105,9 +105,9 @@ public class Grupo {
     
     public int contarHotelesGrupo(){
         int contador=0;
-        for (Casilla casilla : this.getMiembros()){
-                for(Edificacion edificacion : casilla.getEdificacion()){
-                    if (edificacion.getTipo().equals("hotel")) {
+        for (Solar solar : this.getMiembros()){
+                for(Edificacion edificacion : solar.getEdificacion()){
+                    if (edificacion instanceof Hotel) {
                         contador++;
                     }
                 }
@@ -117,9 +117,9 @@ public class Grupo {
     
     public int contarPiscinasGrupo(){
         int contador=0;
-        for (Casilla casilla : this.getMiembros()){
-                for(Edificacion edificacion : casilla.getEdificacion()){
-                    if (edificacion.getTipo().equals("piscina")) {
+        for (Solar solar : this.getMiembros()){
+                for(Edificacion edificacion : solar.getEdificacion()){
+                    if (edificacion instanceof Piscina) {
                         contador++;
                     }
                 }
@@ -129,20 +129,15 @@ public class Grupo {
     
     public int contarPistasGrupo(){
         int contador=0;
-        for (Casilla casilla : this.getMiembros()){
-                for(Edificacion edificacion : casilla.getEdificacion()){
-                    if (edificacion.getTipo().equals("pista")) {
-                        contador++;
-                    }
+        for (Solar solar : this.getMiembros()){
+            for(Edificacion edificacion : solar.getEdificacion()){
+                if (edificacion instanceof PistaDeporte) {
+                    contador++;
                 }
+            }
         }
         return contador;
     }
-
-
-
-
-
 
 
 }

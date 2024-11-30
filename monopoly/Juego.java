@@ -141,7 +141,7 @@ public class Juego implements Comando{
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
     
-    while (true) {
+    while (true) { //CAMBIAR PARA QUE SE EJECUTE SEA QUE EL TAMAÑO DE JUGADORES SEA 2 O MAS
         if(!partidaEmpezada){
             consola.imprimir("=====================================\n");
             consola.imprimir("                MENÚ                \n");
@@ -195,6 +195,7 @@ public class Juego implements Comando{
             analizarComando(comando);
         }
     }
+    consola.imprimir("El jugador"+jugadores.get(0).getNombre()+"ha ganado la partida"); //DA ERROR MIENTRAS ESTE EL WHILE TRUE, DEJAR ASÍ
 }
     
     /*Método que interpreta el comando introducido y toma la accion correspondiente.
@@ -304,15 +305,7 @@ public class Juego implements Comando{
         case "edificar":
             if(palabras.length==2){
                 String tipoEdificacion=palabras[1];
-                if(tipoEdificacion.equals("casa")){
-                    edificarCasa();
-                }else if(tipoEdificacion.equals("hotel")){
-                    edificarHotel();
-                }else if(tipoEdificacion.equals("piscina")){
-                    edificarPiscina();
-                }else if(tipoEdificacion.equals("pista")){
-                    edificarPista();
-                }
+                edificar(tipoEdificacion);
             }
             break;
         case "hipotecar":
@@ -337,15 +330,7 @@ public class Juego implements Comando{
                 String nombreCasilla=palabras[2];
                 String numeroventa = palabras[3];
                 int numvender = Integer.parseInt(numeroventa);
-                if(tipoEdificacion.equals("casa")){
-                    venderCasa(nombreCasilla,numvender);
-                }else if(tipoEdificacion.equals("hotel")){
-                    venderHotel(nombreCasilla,numvender);
-                }else if(tipoEdificacion.equals("piscina")){
-                    venderPiscina(nombreCasilla,numvender);
-                }else if(tipoEdificacion.equals("deporte")){
-                    venderPista(nombreCasilla,numvender);
-                }
+                vender(tipoEdificacion,nombreCasilla,numvender);
             }    
             break;
         case "estadisticas":
@@ -408,15 +393,17 @@ public class Juego implements Comando{
                    ",\n\tFortuna: " + jugador.getFortuna() + 
                    ",\n\tHipotecas: []"+
                    ",\n\tPropiedades: ");
-                    for(Casilla casilla : jugador.getPropiedades()){ 
-                        consola.imprimir("\t\t"+ casilla.getNombre().toUpperCase()+
-                                           "\n\t\t{\tcasas: " + casilla.contarCasas() + 
-                                           "\n\t\t\thoteles: " + casilla.contarHoteles() + 
-                                           "\n\t\t\tpiscinas: " + casilla.contarPiscinas() + 
-                                           "\n\t\t\tpistas de deporte: " + casilla.contarPistas()+
-                                           "\n\t\t}"); 
-                            consola.imprimir("}"); }
-                   
+                    for(Propiedad propiedad : jugador.getPropiedades()){ 
+                            consola.imprimir("\t\t"+ propiedad.getNombre().toUpperCase());
+                                if (propiedad instanceof Solar) {
+                                    Solar solar = (Solar)propiedad;
+                                    consola.imprimir(
+                                            "\n\t\t{\tcasas: " + solar.contarCasas() + 
+                                            "\n\t\t\thoteles: " + solar.contarHoteles() + 
+                                            "\n\t\t\tpiscinas: " + solar.contarPiscinas() + 
+                                            "\n\t\t\tpistas de deporte: " + solar.contarPistas()+
+                                            "\n\t\t}"); 
+                            consola.imprimir("}"); }}
             }
         }
     }
@@ -643,7 +630,9 @@ public class Juego implements Comando{
     public void comprar(String nombre) {
         if(nombre.equals(jugadores.get(turno).getAvatar().getLugar().getNombre())){
             if(tirado||dadosdobles){
-                tablero.encontrar_casilla(nombre).comprarCasilla(jugadores.get(turno),banca);
+                Casilla casilla = tablero.encontrar_casilla(nombre);
+                Propiedad propiedad = (Propiedad)casilla;
+                propiedad.comprarCasilla(jugadores.get(turno),banca);
             }else{
                 consola.imprimir("Primero debes tirar los dados");
             }
@@ -686,18 +675,21 @@ public class Juego implements Comando{
         for(i = 0; i < 4; i++){
             for(Casilla casilla:tablero.getPosiciones().get(i)){
                 if(casilla.getDuenho().getNombre().equals("banca")){
-                    if(casilla.getTipo().equals("solar")){
-                        sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
-                        sb.append(String.format("\n grupo: %s,\n", casilla.getGrupo().getColorGrupo()));
-                        sb.append(String.format("\n valor: %s,\n", casilla.getValor()));
+                    if(casilla instanceof Solar){
+                        Solar solar = (Solar)casilla;
+                        sb.append(String.format("{\n tipo: solar,\n"));
+                        sb.append(String.format("\n grupo: %s,\n", solar.getGrupo().getColorGrupo()));
+                        sb.append(String.format("\n valor: %s,\n", solar.getValor()));
                         sb.append("},\n");
-                    }else if(casilla.getTipo().equals("servicio")){
-                        sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
-                        sb.append(String.format("\n valor: %s,\n", casilla.getValor()));
+                    }else if(casilla instanceof Servicio){
+                        Servicio servicio = (Servicio)casilla;
+                        sb.append(String.format("{\n tipo: %servicio,\n"));
+                        sb.append(String.format("\n valor: %s,\n", servicio.getValor()));
                         sb.append("},\n");
-                    }else if(casilla.getTipo().equals("transporte")){
-                        sb.append(String.format("{\n tipo: %s,\n", casilla.getTipo()));
-                        sb.append(String.format("\n valor: %s,\n", casilla.getValor()));
+                    }else if(casilla instanceof Transporte){
+                        Transporte transporte = (Transporte)casilla;
+                        sb.append(String.format("{\n tipo: transporte,\n"));
+                        sb.append(String.format("\n valor: %s,\n", transporte.getValor()));
                         sb.append("},\n");
 
                     }
@@ -721,29 +713,76 @@ public class Juego implements Comando{
         }
     }
 
+
+    public void edificar(String tipo){
+        if (jugadores.get(turno).getAvatar().getLugar() instanceof Solar) {
+            Solar solar = (Solar)jugadores.get(turno).getAvatar().getLugar();
+        switch (tipo) {
+            case "casa":
+                solar.edificarCasa(jugadores.get(turno),turno);
+                break;
+            case "hotel":
+                solar.edificarHotel(jugadores.get(turno),turno);
+                break;
+            case "piscina":
+                solar.edificarPiscina(jugadores.get(turno),turno);
+                break;
+            case "pista":
+                solar.edificarPista(jugadores.get(turno),turno);
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+
+
+    public void vender(String tipo, String nombreCasilla, int numeroventa){
+        Casilla casilla = tablero.encontrar_casilla(nombreCasilla);
+        if (casilla instanceof Solar) {
+            Solar solar = (Solar)casilla;
+            switch (tipo) {
+                case "casa":
+                    solar.venderCasa(solar, numeroventa, jugadores.get(turno));
+                    break;
+                case "hotel":
+                    solar.venderHotel(solar,numeroventa,jugadores.get(turno));
+                    break;
+                case "piscina":
+                    solar.venderPiscina(solar,numeroventa,jugadores.get(turno));
+                    break;
+                case "pista":
+                    solar.venderPista(solar,numeroventa,jugadores.get(turno));
+                    break;
+                default:
+                    break;
+                }
+            }
+    }
+
+
     public void listarEdificios(){
         for(ArrayList<Casilla> lados:tablero.getPosiciones()){
             for (Casilla casilla:lados){
-                if (casilla.getTipo()=="solar") {
-                    if (casilla.getEdificacion().isEmpty()){
-                    }else{                                 
-                        for(Edificacion edificacion : casilla.getEdificacion()){
-
-                            String tipo = edificacion.getTipo();
+                if (casilla instanceof Solar) {
+                        Solar solar = (Solar)casilla;
+                    if (!solar.getEdificacion().isEmpty()){
+                        for(Edificacion edificacion : solar.getEdificacion()){
                             float valor=0;
-                            if (tipo == "casa" || tipo == "hotel") {
+                            if ((edificacion instanceof Casa) || (edificacion instanceof Hotel)) {
                                 valor=0.6f;
-                            }else if (tipo=="piscina") {
+                            }else if ((edificacion instanceof Piscina)) {
                                 valor=0.4f;
-                            }else if (tipo=="pista") {
+                            }else if ((edificacion instanceof PistaDeporte)) {
                                 valor=1.25f;
                             }
 
-                            consola.imprimir("{\n\tid: "+edificacion.getTipo()+"-"+edificacion.getId()+
+                            consola.imprimir("{\n\tid: "+edificacion.getNombre()+"-"+edificacion.getId()+
                                 ",\n\tpropietario: " + casilla.getDuenho().getNombre() +
                                 ",\n\tcasilla: " + casilla.getNombre() +
-                                ",\n\tgrupo: " + casilla.getGrupo().getColorGrupo() +
-                                ",\n\tcoste: " + casilla.getValor()*valor +
+                                ",\n\tgrupo: " + solar.getGrupo().getColorGrupo() +
+                                ",\n\tcoste: " + solar.getValor()*valor +
                                 "\n}");
                         }
                     }
@@ -751,6 +790,7 @@ public class Juego implements Comando{
             }
         }
     }
+    
 
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
@@ -767,33 +807,6 @@ public class Juego implements Comando{
         setLanzamientosDobles(0);
         setDadosdobles(false);
         
-    }
-
-    private boolean comprobar(){
-        Casilla actual = jugadores.get(turno).getAvatar().getLugar();
-    
-        if (actual instanceof Solar) {       
-        if (!(actual.getHipotecado())) {    
-            if (actual.getGrupo().esDuenhoGrupo(jugadores.get(turno)) || actual.getVeces(turno)>2) {
-                return true;   
-            }else{
-                consola.imprimir("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar, aparte, la casilla no puede estar hipotecada");
-            return false;
-            }
-        
-        }
-    }
-        consola.imprimir("No puedes construir en un solar hipotecado");
-        return false;
-    }
-
-    private boolean edificar(){
-        if (comprobar()) {
-            
-
-
-
-        }
     }
 
 
@@ -845,14 +858,14 @@ public class Juego implements Comando{
 
         for(ArrayList<Casilla> lado:tablero.getPosiciones()){ //recorremos una vez el tablero para ver cual es el nº máximo de caídas
             for(Casilla casilla:lado){
-                if(numVeces < casilla.getVeces_global()){
-                    numVeces = casilla.getVeces_global();
+                if(numVeces < casilla.getVecesCaidasGrupal()){
+                    numVeces = casilla.getVecesCaidasGrupal();
                 }
             }
         }
         for(ArrayList<Casilla> lado:tablero.getPosiciones()){ //recorremos una segunda vez el tablero para ver que casillas tienen el nº máximo de caídas
             for(Casilla casilla:lado){
-                if(numVeces == casilla.getVeces_global()){
+                if(numVeces == casilla.getVecesCaidasGrupal()){
                     array.add(casilla.getNombre());
                 }
             }
@@ -977,10 +990,11 @@ public class Juego implements Comando{
 
         for(ArrayList<Casilla> lado:tablero.getPosiciones()){ //recorremos todas las casillas
             for(Casilla casilla:lado){
-                if(casilla.getTipo().equals("solar")){
-                    ArrayList<Casilla> array = casilla.getGrupo().getMiembros();
-                    for(Casilla casillaArray:array){ //sumamos todo el dinero de cada casilla del grupo
-                        dineroAux += casillaArray.getDineroCasilla();
+                if(casilla instanceof Solar){
+                    Solar solar = (Solar)casilla;
+                    ArrayList<Solar> array = solar.getGrupo().getMiembros();
+                    for(Solar solarArray:array){ //sumamos todo el dinero de cada casilla del grupo
+                        dineroAux += solarArray.getDineroCasilla();
                     }
 
                     if(dineroMax < dineroAux){ //si el dinero máximo es menor que el dinero total del grupo, guardamos el nuevo valor máximo
@@ -992,13 +1006,14 @@ public class Juego implements Comando{
         }
         for(ArrayList<Casilla> lado:tablero.getPosiciones()){
             for(Casilla casilla:lado){
-                if(casilla.getTipo().equals("solar")){
-                    ArrayList<Casilla> array = casilla.getGrupo().getMiembros();
-                    for(Casilla casillaArray:array){ //sumamos todo el dinero de cada casilla del grupo
-                        dineroAux += casillaArray.getDineroCasilla();
+                if(casilla instanceof Solar){
+                    Solar solar = (Solar)casilla;
+                    ArrayList<Solar> array = solar.getGrupo().getMiembros();
+                    for(Solar solarArray:array){ //sumamos todo el dinero de cada casilla del grupo
+                        dineroAux += solarArray.getDineroCasilla();
                     }
                     if(dineroAux == dineroMax){
-                        return casilla.getGrupo().getColorGrupo();
+                        return solar.getGrupo().getColorGrupo();
                     }else{
                         dineroAux = 0;
                     }
@@ -1051,7 +1066,7 @@ public class Juego implements Comando{
         consola.imprimir(sb.toString());
     }
 
-    public int Hacienda(Jugador jugador, Tablero tablero){
+    /*public int Hacienda(Jugador jugador, Tablero tablero){
 
         if((!jugador.getPropiedades().isEmpty())){ //mientras el jugador tenga propiedades
 
@@ -1161,7 +1176,7 @@ public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugad
     /*for(Casilla casilla:actual.getPropiedades()){ //pasamos todas las propiedades del jugador que llama bancarrota al jugador que las recibe
         receptor.getPropiedades().add(casilla);
         actual.getPropiedades().remove(casilla);
-    }*/
+    }//
 
     Iterator<Casilla> iterator = actual.getPropiedades().iterator();
     while(iterator.hasNext()){ //pasamos todas las propiedades del jugador que llama bancarrota al jugador que las recibe
@@ -1177,7 +1192,7 @@ public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugad
     jugadores.remove(actual); //eliminamos al jugador del ArrayList de jugadores
     avatares.remove(actual.getAvatar()); //eliminamos el avatar del jugador del ArrayList de avatares
 
-}
+}*/
 
 
 

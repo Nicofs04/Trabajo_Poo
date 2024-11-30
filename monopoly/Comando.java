@@ -33,25 +33,13 @@ public interface Comando {
 
     public void listarVenta();
 
-    public void edificarCasa();
-
-    public void edificarHotel();
-    
-    public void edificarPiscina();
-
-    public void edificarPista();
+    public void edificar(String tipo);
 
     public int Hacienda(Jugador jugador, Tablero tablero);
 
     public int deshipotecar(Jugador jugador, Tablero tablero);
 
-    public void venderCasa(String nombreCasilla, int numvender);
-
-    public void venderHotel(String nombreCasilla, int numvender);
-    
-    public void venderPiscina(String nombreCasilla, int numvender);
-
-    public void venderPista(String nombreCasilla, int numvender);
+    public void vender(String tipo, String nombreCasilla, int numeroventa);
 
     public void estadisticasJuego();
 

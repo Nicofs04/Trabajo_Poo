@@ -4,6 +4,7 @@ public class Edificacion {
 
     // Atributos
     private Solar solar;
+    private String nombre;
     private int id;
     private static int ultimoId = 0; // Variable estática para el último ID generado
 
@@ -30,5 +31,12 @@ public class Edificacion {
 
     public int getId() {
         return this.id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public String getNombre() {
+        return this.nombre;
     }
 }

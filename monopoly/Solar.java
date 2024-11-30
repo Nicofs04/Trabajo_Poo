@@ -15,7 +15,9 @@ public class Solar extends Propiedad{
 
    public Solar(String nombre, int posicion, float valor, Jugador duenho) {
         super(nombre, posicion,valor,duenho); // llama al constructor de Propiedades
+        this.edificaciones = new ArrayList<>();
         this.Vecescaidas = new ArrayList<>(); //array de veces caids por un jugador
+        inicializarVeces(Vecescaidas);
         
     }   
 
@@ -51,6 +53,34 @@ public class Solar extends Propiedad{
     public ArrayList<Edificacion> getEdificacion(){
         return this.edificaciones;
     }
+
+
+    public void eliminarEdificacion(String nombre){
+        for(Edificacion edificacion: getEdificacion()){
+            switch (nombre) {
+                case "casa":
+                    if (edificacion instanceof Casa)
+                        edificaciones.remove(edificacion);
+                    break;
+                case "hotel":
+                    if (edificacion instanceof Hotel)
+                    edificaciones.remove(edificacion);
+                    break;
+                case "pisicna":
+                    if (edificacion instanceof Hotel)
+                        edificaciones.remove(edificacion);
+                    break;
+                case "pistadeporte":
+                    if (edificacion instanceof Hotel)
+                    edificaciones.remove(edificacion);                
+                    break;
+                default:
+                    break;
+            }
+            break;
+            }
+        }
+    
 
 
     public void evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada, Juego juego) {
@@ -241,7 +271,7 @@ public int contarPiscinas(){
 public int contarPistas(){
     int contador=0;
     for (Edificacion edificacion: edificaciones){
-        if(edificacion instanceof Pista){
+        if(edificacion instanceof PistaDeporte){
             contador++;
         }
     }
@@ -249,37 +279,10 @@ public int contarPistas(){
 }
 
 
-//a edificar se podría llamar con Jugador jugador, Solar solar
-
-
-
-public void edificar(Jugador jugador, String tipo){
-
-    switch (tipo) {
-        case "casa":
-            edificarCasa();
-            break;
-        case "hotel":
-            edificarHotel();
-            break;
-        case "piscina":
-            edificarPiscina();
-            break;
-        case "pista":
-            edificarPista();
-            break;
-        default:
-            break;
-    }
-
-}
-
-
-
-private boolean comprobar(){
-
-    if (!solar.getHipotecado()) {    
-        if (actual.getGrupo().esDuenhoGrupo(jugadores.get(turno)) || actual.getVeces(turno)>2) {
+//a edificar se podría llamar con Jugador jugador
+private boolean puedeEdificar(Jugador jugador,int index){
+    if (!getHipotecado()) {    
+        if (this.getGrupo().esDuenhoGrupo(jugador) || getVeces(index)>2) {
             return true;   
         }else{
             consola.imprimir("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar, aparte, la casilla no puede estar hipotecada");
@@ -290,29 +293,27 @@ private boolean comprobar(){
     return false;
 }
 
-public void edificarCasa() {
+public void edificarCasa(Jugador jugador, int index) {
     Edificacion casa = new Casa(this);
     
-    if (!(actual.getTipo()== "solar")) {
-        return;
-    }
-    int limiteGrupo = jugadores.get(turno).getAvatar().getLugar().getGrupo().getNumCasillas();
-    int numCasas = actual.contarCasas();
-    int hotelgrupo = actual.getGrupo().contarHotelesGrupo();
-    int casasGrupo = actual.getGrupo().contarCasasGrupo();
 
-    if (comprobar()) {
+    int limiteGrupo = this.getGrupo().getNumCasillas();
+    int numCasas = this.contarCasas();
+    int hotelgrupo = this.getGrupo().contarHotelesGrupo();
+    int casasGrupo = this.getGrupo().contarCasasGrupo();
+
+    if (puedeEdificar(jugador,index)) {
         if (numCasas < 4) {
             if (hotelgrupo==limiteGrupo) {
                 if (casasGrupo<limiteGrupo) {
-                    if (!(jugadores.get(turno).getFortuna()< (actual.getValor()*0.6f))) {
-                        actual.anhadirEdificacion(casa);
-                        jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-(actual.getValor()*0.6f));
-                        jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
+                    if (!(jugador.getFortuna()< (getValor()*0.6f))) {
+                        anhadirEdificacion(casa);
+                        jugador.setFortuna(jugador.getFortuna()-(getValor()*0.6f));
+                        jugador.setDineroInvertido(jugador.getDineroInvertido() + (getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
 
 
-                        consola.imprimir("Se han pagado"+ actual.getValor()*0.6f + "por la construcción de una casa. La fortuna restante es de "+jugadores.get(turno).getFortuna());
-                        consola.imprimir("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
+                        consola.imprimir("Se han pagado"+ getValor()*0.6f + "por la construcción de una casa. La fortuna restante es de "+jugador.getFortuna());
+                        consola.imprimir("Se ha construido una casa correctamente en la casilla " + getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
                     }else{
                         consola.imprimir("No dispones del dinero necesario para construir la edificación");
                     }
@@ -320,14 +321,14 @@ public void edificarCasa() {
                     consola.imprimir("Se alcanzó el límite máximo de casas a construir en el grupo");
                 }
             }else{
-                if (!(jugadores.get(turno).getFortuna()< (actual.getValor()*0.6f))) {
-                    actual.anhadirEdificacion(casa);
-                    jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-(actual.getValor()*0.6f));
-                    jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
+                if (!(jugador.getFortuna()< (getValor()*0.6f))) {
+                    anhadirEdificacion(casa);
+                    jugador.setFortuna(jugador.getFortuna()-(getValor()*0.6f));
+                    jugador.setDineroInvertido(jugador.getDineroInvertido() + (getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
                     
 
-                    consola.imprimir("Se han pagado"+ actual.getValor()*0.6f + "por la construcción de una casa. La fortuna restante es de "+jugadores.get(turno).getFortuna());
-                    consola.imprimir("Se ha construido una casa correctamente en la casilla " + actual.getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
+                    consola.imprimir("Se han pagado"+ getValor()*0.6f + "por la construcción de una casa. La fortuna restante es de "+jugador.getFortuna());
+                    consola.imprimir("Se ha construido una casa correctamente en la casilla " + getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
                 }else{
                     consola.imprimir("No dispones del dinero necesario para construir la edificación");
                 }
@@ -339,29 +340,26 @@ public void edificarCasa() {
     }
 
 
-    public void edificarHotel() {
-        Edificacion hotel = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "hotel");
-        Casilla actual = jugadores.get(turno).getAvatar().getLugar();
-        int limiteGrupo = actual.getGrupo().getNumCasillas();
-        int numCasas = actual.contarCasas();
-        int hotelgrupo = actual.getGrupo().contarHotelesGrupo();
-        int contarHoteles = actual.contarHoteles();
+    public void edificarHotel(Jugador jugador, int index) {
+        Hotel hotel = new Hotel(this);
+        int limiteGrupo = getGrupo().getNumCasillas();
+        int numCasas = contarCasas();
+        int hotelgrupo = getGrupo().contarHotelesGrupo();
+        int contarHoteles = contarHoteles();
         
-        if (comprobar()) {
-            
-        
+        if (puedeEdificar(jugador,index)) {
             if (hotelgrupo < limiteGrupo) {
                 if (numCasas == 4) {
-                    if (jugadores.get(turno).getFortuna() >= (actual.getValor() * 0.6f)) {
-                        actual.anhadirEdificacion(hotel);
-                        jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - (actual.getValor() * 0.6f));
-                        jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
+                    if (jugador.getFortuna() >= (getValor() * 0.6f)) {
+                        anhadirEdificacion(hotel);
+                        jugador.setFortuna(jugador.getFortuna() - (getValor() * 0.6f));
+                        jugador.setDineroInvertido(jugador.getDineroInvertido() + (getValor()*0.6f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
 
 
-                        consola.imprimir("Se han pagado " + actual.getValor() * 0.6f + " por la construcción de un hotel. La fortuna restante es de " + jugadores.get(turno).getFortuna() + "\n");
+                        consola.imprimir("Se han pagado " + getValor() * 0.6f + " por la construcción de un hotel. La fortuna restante es de " + jugador.getFortuna() + "\n");
                         consola.imprimir("Se ha construido el hotel y se han quitado las 4 casas\n");
-                        consola.imprimir("Se ha construido un hotel correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarHoteles + 1) + " hoteles construidos.\n");
-                        actual.cambiarcasas();
+                        consola.imprimir("Se ha construido un hotel correctamente en la casilla " + getNombre() + ". Hay " + (contarHoteles + 1) + " hoteles construidos.\n");
+                        cambiarcasas();
                     } else {
                         consola.imprimir("No dispones del dinero necesario para construir la edificación\n");
                     }
@@ -374,25 +372,24 @@ public void edificarCasa() {
         }
     }
     
-    public void edificarPiscina() {
-        Edificacion piscina = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "piscina");
-        Casilla actual = jugadores.get(turno).getAvatar().getLugar();
-        int limiteGrupo = actual.getGrupo().getNumCasillas();
-        int numCasas = actual.contarCasas();
-        int hotel = actual.contarHoteles();
-        int piscinagrupo = actual.getGrupo().contarPiscinasGrupo();
-        int contarpiscinas = actual.contarPiscinas();
+    public void edificarPiscina(Jugador jugador, int index) {
+        Piscina piscina = new Piscina(this);
+        int limiteGrupo = getGrupo().getNumCasillas();
+        int numCasas = contarCasas();
+        int hotel = contarHoteles();
+        int piscinagrupo = getGrupo().contarPiscinasGrupo();
+        int contarpiscinas = contarPiscinas();
     
         if (piscinagrupo < limiteGrupo) {
             if ((hotel >= 1 && numCasas > 1) || (hotel >= 2)) {
-                if (jugadores.get(turno).getFortuna() >= (actual.getValor() * 0.4f)) {
-                    actual.anhadirEdificacion(piscina);
-                    jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - (actual.getValor() * 0.4f));
-                    jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*0.4f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
+                if (jugador.getFortuna() >= (getValor() * 0.4f)) {
+                    anhadirEdificacion(piscina);
+                    jugador.setFortuna(jugador.getFortuna() - (getValor() * 0.4f));
+                    jugador.setDineroInvertido(jugador.getDineroInvertido() + (getValor()*0.4f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
 
-                    consola.imprimir("Se han pagado " + actual.getValor() * 0.4f + " por la construcción de una piscina. La fortuna restante es de " + jugadores.get(turno).getFortuna());
-                    contarpiscinas = actual.contarPiscinas();
-                    consola.imprimir("Se ha construido una piscina correctamente en la casilla " + actual.getNombre() + ". Hay " + contarpiscinas + " piscinas construidas.");
+                    consola.imprimir("Se han pagado " + getValor() * 0.4f + " por la construcción de una piscina. La fortuna restante es de " + jugador.getFortuna());
+                    contarpiscinas = contarPiscinas();
+                    consola.imprimir("Se ha construido una piscina correctamente en la casilla " + getNombre() + ". Hay " + contarpiscinas + " piscinas construidas.");
                 } else {
                     consola.imprimir("No dispones del dinero necesario para construir la edificación");
                 }
@@ -404,24 +401,23 @@ public void edificarCasa() {
         }
     }
     
-    public void edificarPista() {
-        Edificacion pista = new Edificacion(jugadores.get(turno).getAvatar().getLugar(), "pista");
-        Casilla actual = jugadores.get(turno).getAvatar().getLugar();
-        int limiteGrupo = actual.getGrupo().getNumCasillas();
-        int hotel = actual.contarHoteles();
-        int pistasgrupo = actual.getGrupo().contarPistasGrupo();
-        int contarpistas = actual.contarPistas();
+    public void edificarPista(Jugador jugador, int index) {
+        Edificacion pista = new PistaDeporte(this);
+        int limiteGrupo = getGrupo().getNumCasillas();
+        int hotel = contarHoteles();
+        int pistasgrupo = getGrupo().contarPistasGrupo();
+        int contarpistas = contarPistas();
     
         if (pistasgrupo < limiteGrupo) {
             if (hotel >= 2) {
-                if (jugadores.get(turno).getFortuna() >= (actual.getValor() * 1.25f)) {
-                    actual.anhadirEdificacion(pista);
-                    jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - (actual.getValor() * 1.25f));
-                    jugadores.get(turno).setDineroInvertido(jugadores.get(turno).getDineroInvertido() + (actual.getValor()*1.25f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
+                if (jugador.getFortuna() >= (getValor() * 1.25f)) {
+                    anhadirEdificacion(pista);
+                    jugador.setFortuna(jugador.getFortuna() - (getValor() * 1.25f));
+                    jugador.setDineroInvertido(jugador.getDineroInvertido() + (getValor()*1.25f)); //sumamos el valor de la casilla al atributo dineroInvertido del comprador
 
 
-                    consola.imprimir("Se han pagado " + actual.getValor() * 1.25f + " por la construcción de una pista. La fortuna restante es de " + jugadores.get(turno).getFortuna());
-                    consola.imprimir("Se ha construido una pista correctamente en la casilla " + actual.getNombre() + ". Hay " + (contarpistas + 1) + " pistas construidas.");
+                    consola.imprimir("Se han pagado " + getValor() * 1.25f + " por la construcción de una pista. La fortuna restante es de " + jugador.getFortuna());
+                    consola.imprimir("Se ha construido una pista correctamente en la casilla " + getNombre() + ". Hay " + (contarpistas + 1) + " pistas construidas.");
                 } else {
                     consola.imprimir("No dispones del dinero necesario para construir la edificación");
                 }
@@ -433,126 +429,112 @@ public void edificarCasa() {
         }
     }
 
-    private void venderCasa(String nombreCasilla, int numvender) {
-        Casilla actual = tablero.encontrar_casilla(nombreCasilla);
-        if (actual == null || !(actual.getDuenho().equals(jugadores.get(turno)))) {
-            consola.imprimir("La casilla especificada no existe o no pertenece a este jugador.");
+    public void venderCasa(Solar solar, int numvender, Jugador jugador) {
+
+        if (solar == null || !(solar.getDuenho().equals(jugador))) {
+            System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
             return;
         }
-        int numCasas = actual.contarCasas();
+        int numCasas = solar.contarCasas();
         if (numCasas < numvender)
         {
-            consola.imprimir("No puedes vender más casas de las que hay construidas");
+            System.out.println("No puedes vender más casas de las que hay construidas");
             return;
         }
         
         for(int i = 0; i<numvender; i++){
         if (numCasas > 0) {
-            float valorVenta = actual.getValor() * 0.6f / 2;
-            actual.eliminarEdificacion("casa");
-            jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + valorVenta);
-            consola.imprimir("Se ha vendido una casa por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
-            numCasas = actual.contarCasas();
-            consola.imprimir("Se ha eliminado una casa en la casilla " + actual.getNombre() + ". Quedan " + (numCasas) + " casas construidas.");
+            float valorVenta = solar.getValor() * 0.6f / 2;
+            solar.eliminarEdificacion("casa");
+            jugador.setFortuna(jugador.getFortuna() + valorVenta);
+            System.out.println("Se ha vendido una casa por " + valorVenta + ". La fortuna actual es de " + jugador.getFortuna());
+            numCasas = solar.contarCasas();
+            System.out.println("Se ha eliminado una casa en la casilla " + solar.getNombre() + ". Quedan " + (numCasas) + " casas construidas.");
         } else {
-            consola.imprimir("No hay casas para vender en esta casilla.");
+            System.out.println("No hay casas para vender en esta casilla.");
             return;
             }
         }
     }
     
-    private void venderHotel(String nombreCasilla, int numvender) {
-        Casilla actual = tablero.encontrar_casilla(nombreCasilla);
-        int numHoteles = actual.contarHoteles();
+    public void venderHotel(Solar solar, int numVender, Jugador jugador) {
 
-        if (actual == null || actual.getDuenho().equals(jugadores.get(turno))) {
-            consola.imprimir("La casilla especificada no existe o no pertenece a este jugador.");
+        if (solar == null || !(solar.getDuenho().equals(jugador))) {
+            System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
             return;
         }
-        
-        if (numHoteles < numvender)
-        {
-            consola.imprimir("No puedes vender más hoteles de los que hay construidos");
+        int numHoteles = solar.contarHoteles();
+        if (numHoteles < numVender) {
+            System.out.println("No puedes vender más hoteles de los que hay construidos");
             return;
         }
-        
-        for(int i = 0; i<numvender; i++){
     
-        if (numHoteles > 0) {
-            float valorVenta = actual.getValor() * 0.6f / 2;
-            actual.eliminarEdificacion("hotel");
-            jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + valorVenta);
-            consola.imprimir("Se ha vendido un hotel por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
-            numHoteles = actual.contarHoteles();
-            consola.imprimir("Se ha eliminado un hotel en la casilla " + actual.getNombre() + ". Quedan " + (numHoteles) + " hoteles construidos.");
-        } else {
-            consola.imprimir("No hay hoteles para vender en esta casilla.");
-            return;
-        }
+        for (int i = 0; i < numVender; i++) {
+            if (numHoteles > 0) {
+                float valorVenta = solar.getValor() * 0.6f;
+                solar.eliminarEdificacion("hotel");
+                jugador.setFortuna(jugador.getFortuna() + valorVenta);
+                System.out.println("Se ha vendido un hotel por " + valorVenta + ". La fortuna actual es de " + jugador.getFortuna());
+                numHoteles = solar.contarHoteles();
+                System.out.println("Se ha eliminado un hotel en la casilla " + solar.getNombre() + ". Quedan " + numHoteles + " hoteles construidos.");
+            } else {
+                System.out.println("No hay hoteles para vender en esta casilla.");
+                return;
+            }
         }
     }
     
-    private void venderPiscina(String nombreCasilla, int numvender) {
-        Casilla actual = tablero.encontrar_casilla(nombreCasilla);
-        int numPiscinas = actual.contarPiscinas();
+    public void venderPiscina(Solar solar, int numVender, Jugador jugador) {
     
-        if (actual == null || actual.getDuenho().equals(jugadores.get(turno))) {
-            consola.imprimir("La casilla especificada no existe o no es de este jugador.");
+        if (solar == null || !(solar.getDuenho().equals(jugador))) {
+            System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
             return;
         }
-        
-        if (numPiscinas < numvender)
-        {
-            consola.imprimir("No puedes vender más casas de las que hay construidas");
+        int numPiscinas = solar.contarPiscinas();
+        if (numPiscinas < numVender) {
+            System.out.println("No puedes vender más piscinas de las que hay construidas");
             return;
         }
-        
-        for(int i = 0; i<numvender; i++){
-
-        if (numPiscinas > 0) {
-            float valorVenta = actual.getValor() * 0.4f / 2;
-            actual.eliminarEdificacion("piscina");
-            jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + valorVenta);
-            consola.imprimir("Se ha vendido una piscina por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
-            numPiscinas = actual.contarPiscinas();
-            consola.imprimir("Se ha eliminado una piscina en la casilla " + actual.getNombre() + ". Quedan " + (numPiscinas) + " piscinas construidas.");
-        } else {
-            consola.imprimir("No hay piscinas para vender en esta casilla.");
-            return;
-        }
+    
+        for (int i = 0; i < numVender; i++) {
+            if (numPiscinas > 0) {
+                float valorVenta = solar.getValor() * 0.8f / 2;
+                solar.eliminarEdificacion("piscina");
+                jugador.setFortuna(jugador.getFortuna() + valorVenta);
+                System.out.println("Se ha vendido una piscina por " + valorVenta + ". La fortuna actual es de " + jugador.getFortuna());
+                numPiscinas = solar.contarPiscinas();
+                System.out.println("Se ha eliminado una piscina en la casilla " + solar.getNombre() + ". Quedan " + numPiscinas + " piscinas construidas.");
+            } else {
+                System.out.println("No hay piscinas para vender en esta casilla.");
+                return;
+            }
         }
     }
     
-    private void venderPista(String nombreCasilla, int numvender) {
-        Casilla actual = tablero.encontrar_casilla(nombreCasilla);
-        int numPistas = actual.contarPistas();
-        
-        if (actual == null || actual.getDuenho().equals(jugadores.get(turno))) {
-            consola.imprimir("La casilla especificada no existe o no es de este jugador.");
+    public void venderPista(Solar solar, int numVender, Jugador jugador) {
+    
+        if (solar == null || !(solar.getDuenho().equals(jugador))) {
+            System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
             return;
         }
-        if (numPistas < numvender)
-        {
-            consola.imprimir("No puedes vender más casas de las que hay construidas");
+        int numPistas = solar.contarPistas();
+        if (numPistas < numVender) {
+            System.out.println("No puedes vender más pistas de las que hay construidas");
             return;
         }
-        
-        for(int i = 0; i<numvender; i++){
-
-        if (numPistas > 0) {
-            float valorVenta = actual.getValor() * 1.25f / 2;
-            actual.eliminarEdificacion("pista");
-            jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() + valorVenta);
-            consola.imprimir("Se ha vendido una pista por " + valorVenta + ". La fortuna actual es de " + jugadores.get(turno).getFortuna());
-            numPistas = actual.contarPistas();
-            consola.imprimir("Se ha eliminado una pista en la casilla " + actual.getNombre() + ". Quedan " + (numPistas) + " pistas construidas.");
-        } else {
-            consola.imprimir("No hay pistas para vender en esta casilla.");
-            return;
-        }
+    
+        for (int i = 0; i < numVender; i++) {
+            if (numPistas > 0) {
+                float valorVenta = solar.getValor() * 0.7f / 2;
+                solar.eliminarEdificacion("pista");
+                jugador.setFortuna(jugador.getFortuna() + valorVenta);
+                System.out.println("Se ha vendido una pista por " + valorVenta + ". La fortuna actual es de " + jugador.getFortuna());
+                numPistas = solar.contarPistas();
+                System.out.println("Se ha eliminado una pista en la casilla " + solar.getNombre() + ". Quedan " + numPistas + " pistas construidas.");
+            } else {
+                System.out.println("No hay pistas para vender en esta casilla.");
+                return;
+            }
         }
     }
-    
-
-    
-}
+}    
