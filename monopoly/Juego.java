@@ -414,7 +414,7 @@ public class Juego implements Comando{
     public void descAvatar(String[] palabras) {
         for(Avatar avatar:avatares){
             if((avatar.getId()).equals(palabras[0])){
-                consola.imprimir("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.getTipo() + ",\ncasilla: " + avatar.getLugar().getNombre() + ",\njugador: " + avatar.getJugador().getNombre() + "\n}\n");
+                consola.imprimir("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.tipoAvatar() + ",\ncasilla: " + avatar.getLugar().getNombre() + ",\njugador: " + avatar.getJugador().getNombre() + "\n}\n");
             }
         }
     }
@@ -439,11 +439,17 @@ public class Juego implements Comando{
             return;
         }
         //Si existe una restricción de turnos sin tirar(mov avanzado coche), no podremos lanzar los dados
-        if(jugadores.get(turno).getAvatar().getRestriccionTiradas()!=0){
-            consola.imprimir("Debido a la restricción del mov avanzado de coche, tiene que esperar "+ jugadores.get(turno).getAvatar().getRestriccionTiradas()+ " turnos para volver a lanzar los dados");
+        //Si es un coche, lo casteamos y gestionamos las restricciones de tiradas
+        if(jugadores.get(turno).getAvatar() instanceof Coche){
+            Coche coche= (Coche)jugadores.get(turno).getAvatar();
+            if(coche.getRestriccionTiradas()!=0){
+
+            
+            consola.imprimir("Debido a la restricción del mov avanzado de coche, tiene que esperar "+ coche.getRestriccionTiradas()+ " turnos para volver a lanzar los dados");
             //Le restamos 1 a los turnos restantes para poder volver a tirar
-            jugadores.get(turno).getAvatar().setRestriccionTiradas(jugadores.get(turno).getAvatar().getRestriccionTiradas()-1);
+            coche.setRestriccionTiradas(coche.getRestriccionTiradas()-1);
             return;
+            }
         }
         
 
@@ -709,7 +715,7 @@ public class Juego implements Comando{
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     public void listarAvatares() {
         for(int i=0;i<avatares.size();i++){
-            consola.imprimir("{\nid: " + avatares.get(i).getId() + ",\ntipo: " + avatares.get(i).getTipo() + ",\ncasilla: " + avatares.get(i).getLugar().getNombre() + ",\njugador: " + avatares.get(i).getJugador().getNombre()+ "\n}\n");
+            consola.imprimir("{\nid: " + avatares.get(i).getId() + ",\ntipo: " + avatares.get(i).tipoAvatar() + ",\ncasilla: " + avatares.get(i).getLugar().getNombre() + ",\njugador: " + avatares.get(i).getJugador().getNombre()+ "\n}\n");
         }
     }
 

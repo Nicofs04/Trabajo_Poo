@@ -134,4 +134,29 @@ public abstract class Avatar {
         }
     }
 
+
+
+    //Devuelve el tipo del avatar según su objeto
+    public String tipoAvatar(){
+
+        if(this instanceof Pelota){
+            return "pelota";
+
+        }else if(this instanceof Coche){
+            return "coche";
+
+
+        }else if(this instanceof Sombrero){
+            return "sombrero";
+
+
+        }else if(this instanceof Esfinge){
+            return "esfinge";
+
+        }else{
+            return "";
+        }
+
+    }
+
 }
