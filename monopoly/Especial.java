@@ -31,12 +31,12 @@ public class Especial extends Casilla {
             //IR A CARCEL
         } else if ((c instanceof Especial) && getPosicion() == 30) {
             actual.encarcelar(tablero.getPosiciones());
-            System.out.println("El avatar se coloca en la casilla de Cárcel.");
+            consola.imprimir("El avatar se coloca en la casilla de Cárcel.")
             //return true;
         } else if (c instanceof Especial && getPosicion() == 0) {
             //eturn true;
         }else if (c instanceof Especial && getPosicion() == 10 && !actual.getEnCarcel()) {
-            System.out.println("Has caído en la cárcel pero solo de visita, no estás encarcelado");
+            consola.imprimir("Has caído en la cárcel pero solo de visita, no estás encarcelado");
             //return true;
         }
         break;
