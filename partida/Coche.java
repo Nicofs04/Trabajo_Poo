@@ -15,10 +15,15 @@ public class Coche extends Avatar {
     private int restriccionTiradas; // Cuando se activa se pone a 2, y cada vez que pase un turno se le resta 1
                                     // turno sin tirar restante
 
-    public Coche(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
-        super(jugador, lugar, avCreados);
+    public Coche(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados,String tipo) {
+        this.setJugador(jugador);
+        this.setLugar(lugar);
+        this.generarId(avCreados);
+        this.getLugar().anhadirAvatar(this);
+        this.setAvanzado(0);
         this.compras = 0;
         this.restriccionTiradas = 0;
+        avCreados.add(this);
     }
 
     public void setCompras(int compras) {

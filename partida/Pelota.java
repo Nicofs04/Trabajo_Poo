@@ -12,6 +12,18 @@ import monopoly.Suerte;
 import partida.Avatar;
 
 public class Pelota extends Avatar {
+
+
+
+    public Pelota(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados, String tipo) {
+        this.setJugador(jugador);
+        this.setLugar(lugar);
+        this.generarId(avCreados);
+        this.getLugar().anhadirAvatar(this);
+        this.setAvanzado(0);
+        avCreados.add(this);
+
+    }
     public void moverAvanzado(ArrayList<ArrayList<Casilla>> tablero, int valorTirada, Juego menu) {
         // Obtener la posición actual del lugar del avatar
         int posicionActual = this.getLugar().getPosicion();

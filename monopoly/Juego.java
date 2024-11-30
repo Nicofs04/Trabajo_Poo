@@ -373,8 +373,7 @@ public class Juego implements Comando{
     
         if(palabras[3].equals("sombrero") || palabras[3].equals("esfinge") || palabras[3].equals("coche") || palabras[3].equals("pelota")) {
             if(jugadores.size() <= 5){
-                tipoAvatar = palabras[3];
-                Jugador jugador = new Jugador(nombre, tipoAvatar, tablero.getPosiciones().get(0).get(0), avatares);
+                Jugador jugador = new Jugador(nombre,tablero.getPosiciones().get(0).get(0), avatares);
                 jugadores.add(jugador);
                 consola.imprimir("Jugador creado con éxito.\n");    
             }else{
@@ -494,8 +493,12 @@ public class Juego implements Comando{
 
                 String posicionActual = jugadores.get(turno).getAvatar().getLugar().getNombre();
                 
-                jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados,this);
-
+                if(jugadores.get(turno).getAvatar().getAvanzado()==0){
+                    jugadores.get(turno).getAvatar().moverBasico(tablero.getPosiciones(), sumaDados);
+                }else{
+                    jugadores.get(turno).getAvatar().moverAvanzado(tablero.getPosiciones(), sumaDados,this);
+                }
+                
                 String posicionFinal = jugadores.get(turno).getAvatar().getLugar().getNombre();
 
                 //Repintamos el tablero
@@ -515,7 +518,11 @@ public class Juego implements Comando{
                         
                         //Calculamos la posición inicial
                         String posicionActual = jugadores.get(turno).getAvatar().getLugar().getNombre();
-                        jugadores.get(turno).getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados,this);
+                        if(jugadores.get(turno).getAvatar().getAvanzado()==0){
+                            jugadores.get(turno).getAvatar().moverBasico(tablero.getPosiciones(), sumaDados);
+                        }else{
+                            jugadores.get(turno).getAvatar().moverAvanzado(tablero.getPosiciones(), sumaDados,this);
+                        }
 
                         //Calculamos la posición final
                         String posicionFinal = jugadores.get(turno).getAvatar().getLugar().getNombre();
@@ -541,16 +548,18 @@ public class Juego implements Comando{
             int pos_ini = jugadores.get(turno).getAvatar().getLugar().getPosicion();
 
     
-            Avatar avatarActual = jugadores.get(turno).getAvatar();
-            avatarActual.moverAvatar(tablero.getPosiciones(), sumaDados,this);
-
+            if(jugadores.get(turno).getAvatar().getAvanzado()==0){
+                jugadores.get(turno).getAvatar().moverBasico(tablero.getPosiciones(), sumaDados);
+            }else{
+                jugadores.get(turno).getAvatar().moverAvanzado(tablero.getPosiciones(), sumaDados,this);
+            }
 
             
             // Evaluar la casilla en la que ha caído
             jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero, jugadores.get(turno), banca, sumaDados,this);
 
             // Verificar si el jugador ha dado la vuelta al tablero
-            if (avatarActual.getLugar().getPosicion() < sumaDados) {
+            if (jugadores.get(turno).getAvatar().getLugar().getPosicion() < sumaDados) {
                 //if(avatarActual.getLugar().getNombre().equals("ircarcel")){
                 /*if(avatarActual.getLugar().getPosicion() == 30){
                     consola.imprimir("Has caído en la carcel.\n");
@@ -572,7 +581,7 @@ public class Juego implements Comando{
             setTirado(true); //El jugador ya ha lanzado los dados en este turn0
 
             //Sacó dobles y no es mov avanzado de coche
-            if (getDadosdobles()&&(jugadores.get(turno).getAvatar().getTipo().equals("coche")==true && getLanzamientos()<4 && jugadores.get(turno).getAvatar().getAvanzado()==1 && sumaDados>4)==false) {
+            if (getDadosdobles()&&(jugadores.get(turno).getAvatar() instanceof Coche && getLanzamientos()<4 && jugadores.get(turno).getAvatar().getAvanzado()==1 && sumaDados>4)==false) {
                 setTirado(false); // Permitir volver a tirar
                 setLanzamientosDobles(getLanzamientosDobles()+1);
 
@@ -589,13 +598,14 @@ public class Juego implements Comando{
             }
 
             //Si el valor de la tirada es>4, es mov avanzado de coche y lanzamientos es  <4 veces, que es lo máximo peromitido-----> permitimos volver a lanzar los dados, es decir, setTirado()=false
-            if(jugadores.get(turno).getAvatar().getTipo().equals("coche")==true && getLanzamientos()<4 && jugadores.get(turno).getAvatar().getAvanzado()==1 && sumaDados>4){
+            if(jugadores.get(turno).getAvatar() instanceof Coche && getLanzamientos()<4 && jugadores.get(turno).getAvatar().getAvanzado()==1 && sumaDados>4){
                 setTirado(false);
                 setLanzamientos(getLanzamientos()+1);
             //Si se ha acabado el turno del coche, el valor compras se reestablece a 0
             }else{
                 setLanzamientos(0);
-                jugadores.get(turno).getAvatar().setCompras(0);
+                Coche coche=(Coche) jugadores.get(turno).getAvatar();
+                coche.setCompras(0);
                 
             }
 

@@ -48,9 +48,25 @@ public class Jugador {
      * avatar.
      */
 
-    public Jugador(String nombre, Casilla inicio, ArrayList<Avatar> avCreados) {
+    public Jugador(String nombre, Casilla inicio, ArrayList<Avatar> avCreados, String tipo) {
         this.nombre = nombre;
-        this.avatar = new Avatar(this, inicio, avCreados);
+        switch ((tipo)) {
+            case "pelota":
+                this.avatar = new Pelota(this, inicio, avCreados, tipo);                
+                break;
+            case "coche":
+                this.avatar= new Coche(this, inicio, avCreados, tipo);
+                break;
+            case "sombrero":
+                this.avatar= new Sombrero(this,inicio, avCreados, tipo);
+                break;
+            case "esfinge":
+                this.avatar= new Esfinge(this, inicio, avCreados, tipo);
+                break;
+        
+            default:
+                break;
+        }
         this.fortuna = Valor.FORTUNA_INICIAL;
         this.gastos = 0;
         this.enCarcel = false;

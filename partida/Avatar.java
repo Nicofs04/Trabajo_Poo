@@ -23,14 +23,7 @@ public abstract class Avatar {
      * un arraylist con los
      * avatares creados (usado para crear un ID distinto del de los demás avatares).
      */
-    public Avatar(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
-        this.jugador = jugador;
-        this.lugar = lugar;
-        generarId(avCreados);
-        avCreados.add(this);
-        lugar.anhadirAvatar(this);
-        this.avanzado=0;
-    }
+
 
     // GETTERS
 
@@ -115,7 +108,7 @@ public abstract class Avatar {
      * - Un arraylist de los avatares ya creados, con el objetivo de evitar que se
      * generen dos ID iguales.
      */
-    private void generarId(ArrayList<Avatar> avCreados) {
+    public void generarId(ArrayList<Avatar> avCreados) {
         Random random = new Random();
         char id;
 
