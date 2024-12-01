@@ -23,7 +23,7 @@ public abstract class Avatar {
      * un arraylist con los
      * avatares creados (usado para crear un ID distinto del de los demás avatares).
      */
-
+    
 
     // GETTERS
 
