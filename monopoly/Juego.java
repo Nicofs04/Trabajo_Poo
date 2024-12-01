@@ -23,6 +23,7 @@ public class Juego implements Comando{
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
     private boolean dadosdobles;
     private boolean partidaEmpezada = false;
+    private ArrayList<Trato> tratosTotales;
 
     public static ConsolaNormal consola = new ConsolaNormal();
     public Trato trato = new Trato();
@@ -34,6 +35,7 @@ public class Juego implements Comando{
         this.tablero = new Tablero(banca);
         this.dado1 = new Dado();
         this.dado2 = new Dado();
+        this.tratosTotales = new ArrayList<Trato>();
         iniciarPartida();
     }
 
@@ -139,6 +141,14 @@ public class Juego implements Comando{
         this.partidaEmpezada = partidaEmpezada;
     }
 
+    public ArrayList<Trato> getTratosTotales(){
+        return tratosTotales;
+    }
+
+    public void setTratosTotales(ArrayList<Trato> tratosTotales){
+        this.tratosTotales = tratosTotales;
+    }
+
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
     
@@ -227,6 +237,8 @@ public class Juego implements Comando{
                 consola.imprimir("20. Mostrar estadísticas de un jugador                 -> Comando: 'estadisticas nombreJugador'");
                 consola.imprimir("21. Mostrar estadísticas del juego                     -> Comando: 'estadisticas'");
                 consola.imprimir("22. Cambiar modo de movimiento de los avatares         -> Comando: 'cambiar modo'\n");
+                consola.imprimir("23. Crear trato                                        -> Comando: 'trato'\n");
+                consola.imprimir("24. Listar tratos recibidos                            -> Comando: 'listar tratos'\n");
         
                 consola.imprimir("=====================================\n");
                 consola.imprimir("Selecciona una opción para continuar.\n");
@@ -290,6 +302,8 @@ public class Juego implements Comando{
                                         listarAvatares();
                                     }else if(palabras[1].equals("edificios")){
                                         listarEdificios();
+                                    }else if(palabras[1].equals("tratos")){
+                                        listarTratos();
                                     }
                                 }else if(palabras.length==3){
                                         //listarEdificiosGrupo();
@@ -394,7 +408,9 @@ public class Juego implements Comando{
                             case "cambiar":
                                 cambiar(palabras);
                                 break;
-
+                            case "trato":
+                                trato();
+                                break;
                             default:
                                 consola.imprimir("Error, comando desconocido.\n");
                                 break;
@@ -1173,6 +1189,14 @@ public class Juego implements Comando{
         sb.append("}\n");
 
         consola.imprimir(sb.toString());
+    }
+
+    public void trato(){
+        trato.trucoOTrato(jugadores.get(turno), banca, this);
+    }
+
+    public void listarTratos(){
+        trato.listarTratos(jugadores.get(turno));
     }
 
     /*public int Hacienda(Jugador jugador, Tablero tablero){

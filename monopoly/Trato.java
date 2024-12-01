@@ -16,6 +16,7 @@ public class Trato {
     private float fortunaARecibir = 0;
     private int tipoTrato;
     private boolean aceptado = false;
+    private int id = 0;
 
     public Jugador getJugadorOfrece(){
         return jugadorOfrece;
@@ -81,6 +82,13 @@ public class Trato {
         this.aceptado = aceptado;
     }
 
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
 
 public void trucoOTrato(Jugador actual, Jugador banca, Juego juego){
     Jugador recibidor = buscarJugador(juego);
@@ -151,9 +159,11 @@ public void cambiar1(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
                     this.tipoTrato = 1;
                     this.jugadorOfrece = actual;
                     this.jugadorRecibe = recibidor;
+                    this.id = id++;
 
                     actual.getTratosOfrecidos().add(this);
                     recibidor.getTratosRecibidos().add(this); //añadimos el trato al array de tratos que tiene cada jugador
+                    juego.getTratosTotales().add(this);
 
                     consola.imprimir(String.format("Trato enviado con éxito, esperando respuesta del jugador %s.\n", recibidor.getNombre()));
                     mensajeRec = false;
@@ -191,9 +201,11 @@ public void cambiar2(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
             this.tipoTrato = 2;
             this.jugadorOfrece = actual;
             this.jugadorRecibe = recibidor;
+            this.id = id++;
 
             actual.getTratosOfrecidos().add(this);
             recibidor.getTratosRecibidos().add(this); //añadimos el trato al array de tratos que tiene cada jugador
+            juego.getTratosTotales().add(this);
                     
             consola.imprimir(String.format("Trato enviado con éxito, esperando respuesta del jugador %s.\n", recibidor.getNombre()));
             mensaje = false;
@@ -224,9 +236,11 @@ public void cambiar3(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
             this.tipoTrato = 3;
             this.jugadorOfrece = actual;
             this.jugadorRecibe = recibidor;
+            this.id = id++;
 
             actual.getTratosOfrecidos().add(this);
             recibidor.getTratosRecibidos().add(this); //añadimos el trato al array de tratos que tiene cada jugador
+            juego.getTratosTotales().add(this);
 
             consola.imprimir(String.format("Trato enviado con éxito, esperando respuesta del jugador %s.\n", recibidor.getNombre()));
             mensaje = false;
@@ -266,9 +280,11 @@ public void cambiar4(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
                     this.tipoTrato = 4;
                     this.jugadorOfrece = actual;
                     this.jugadorRecibe = recibidor;
+                    this.id = id++;
 
                     actual.getTratosOfrecidos().add(this);
                     recibidor.getTratosRecibidos().add(this); //añadimos el trato al array de tratos que tiene cada jugador
+                    juego.getTratosTotales().add(this);
 
                     consola.imprimir(String.format("Trato enviado con éxito, esperando respuesta del jugador %s.\n", recibidor.getNombre()));
                     mensajeRec = true;
@@ -315,9 +331,11 @@ public void cambiar5(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
                     this.tipoTrato = 5;
                     this.jugadorOfrece = actual;
                     this.jugadorRecibe = recibidor;
+                    this.id = id++;
 
                     actual.getTratosOfrecidos().add(this);
                     recibidor.getTratosRecibidos().add(this); //añadimos el trato al array de tratos que tiene cada jugador
+                    juego.getTratosTotales().add(this);
                     
                     consola.imprimir(String.format("Trato enviado con éxito, esperando respuesta del jugador %s.\n", recibidor.getNombre()));
                     mensajeRec = false;
@@ -662,6 +680,17 @@ public void casoQuinto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         //no se elimina
     }
     scanner.close();
+}
+
+public void listarTratos(Jugador jugador){
+    StringBuilder sb = new StringBuilder();
+    for(Trato trato:jugador.getTratosRecibidos()){
+        sb.append(String.format("{\n  id: trato%d", trato.getId()));
+        sb.append(String.format("\n   jugadorPropone: %s", trato.getJugadorOfrece().getNombre()));
+        sb.append(String.format("\n   trato: cambiar (%s, %s)", trato.getACambiar().getNombre(), trato.getARecibir().getNombre()));
+        sb.append("\n},\n");
+    }
+    consola.imprimir(sb.toString());
 }
 
 }
