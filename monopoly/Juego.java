@@ -142,7 +142,7 @@ public class Juego implements Comando{
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
     
-    while (true) { //CAMBIAR PARA QUE SE EJECUTE SEA QUE EL TAMAÑO DE JUGADORES SEA 2 O MAS
+    while (jugadores.size()>2) { //CAMBIAR PARA QUE SE EJECUTE SEA QUE EL TAMAÑO DE JUGADORES SEA 2 O MAS
         if(!partidaEmpezada){
             consola.imprimir("=====================================\n");
             consola.imprimir("                MENÚ                \n");
