@@ -44,11 +44,11 @@ public abstract class Propiedad extends Casilla {
         propiedad.setHipotecado(true);
     }
 
-    public void comprarCasilla (Jugador solicitante, Jugador banca){
+    public void comprarCasilla (Jugador solicitante, Jugador banca) throws Excepciones_PropComprar{
         // Comprobamos que sea una casilla "comprable"
         if (estaEnVenta()==true) {
             if (solicitante.getFortuna()<this.valor) {
-                consola.imprimir("No tienes dinero  suficiente para comprar esta casilla");
+                throw new Excepciones_PropComprar("No tienes dinero suficiente como para comprar esta propiedad");
             }else{
             // JUGADOR SOLICITANTE
             
@@ -73,9 +73,10 @@ public abstract class Propiedad extends Casilla {
         } else if (estaEnVenta()==false) {
             // En caso de que no sea de ninguno de estos tipos, la propiedad no se podrá
             // comprar
-            consola.imprimir("Esta propiedad no se puede comprar, para poder comprar una propiedad debe de ser de uno de los siguientes tipos: SOLAR, TRANSPORTE, SERVICIOS\n");
+            throw new Excepciones_PropComprar("Esta propiedad no se puede comprar, para poder comprar una propiedad debe de ser de uno de los siguientes tipos: solar, transporte, servicios");
         } else {
-            consola.imprimir("No tienes dinero suficiente como para comprar esta propiedad\n");
+            throw new Excepciones_PropComprar("No tienes dinero suficiente como para comprar esta propiedad");
+
         }
     }
 

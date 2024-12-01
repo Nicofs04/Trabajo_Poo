@@ -280,7 +280,7 @@ public int contarPistas(){
 
 
 //a edificar se podría llamar con Jugador jugador
-private boolean puedeEdificar(Jugador jugador,int index){
+private boolean puedeEdificar(Jugador jugador,int index) {
     if (!getHipotecado()) {    
         if (this.getGrupo().esDuenhoGrupo(jugador) || getVeces(index)>2) {
             return true;   
@@ -293,7 +293,7 @@ private boolean puedeEdificar(Jugador jugador,int index){
     return false;
 }
 
-public void edificarCasa(Jugador jugador, int index) {
+public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropConstruir{
     Edificacion casa = new Casa(this);
     
 
@@ -331,10 +331,11 @@ public void edificarCasa(Jugador jugador, int index) {
                     consola.imprimir("Se ha construido una casa correctamente en la casilla " + getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
                 }else{
                     consola.imprimir("No dispones del dinero necesario para construir la edificación");
+                    throw new Excepciones_PropComprar("Se alcanzó el límite máximo de casas a construir");
                 }
             }
         }else{
-            consola.imprimir("Se alcanzó el límite máximo de casas a construir");
+            throw new Excepciones_PropComprar("Se alcanzó el límite máximo de casas a construir");
         }    
         }
     }

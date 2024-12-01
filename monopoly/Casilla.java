@@ -140,7 +140,7 @@ public abstract class Casilla {
     }
     
 
-    public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares) {
+    public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares){
         // Transferir propiedades al receptor
         for (Casilla casilla : actual.getPropiedades()) {
             if (casilla instanceof Solar) { // Verifica si es una casilla tipo Solar
