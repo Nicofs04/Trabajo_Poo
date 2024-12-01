@@ -28,7 +28,7 @@ public class AccionSuerte extends Accion {
         //eleccion2=baraja2.get(carta2);
         //Realizar acción
         Suerte suerte=new Suerte(carta2,actual.getAvatar().getLugar().getPosicion());
-        suerte.accion(tablero, juego, banca);
+        suerte.accion(tablero, juego, actual);
     
     }
     

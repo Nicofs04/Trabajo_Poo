@@ -427,7 +427,7 @@ public class Juego implements Comando{
 
     public void crearJugador(String[] palabras) throws Excepciones_EmpezarPartida{
         String nombre = palabras[2];
-        String tipoAvatar = new String();
+        String tipoAvatar = palabras[3];
     
         if(palabras[3].equals("sombrero") || palabras[3].equals("esfinge") || palabras[3].equals("coche") || palabras[3].equals("pelota")) {
             if(jugadores.size() <= 5){
@@ -685,6 +685,8 @@ public class Juego implements Comando{
             //Si se ha acabado el turno del coche, el valor compras se reestablece a 0
             }else{
                 setLanzamientos(0);
+                
+                //ESTO ES LO QUE FALLA EN MODO NORMAL
                 Coche coche=(Coche) jugadores.get(turno).getAvatar();
                 coche.setCompras(0);
                 
