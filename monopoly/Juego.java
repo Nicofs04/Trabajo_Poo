@@ -213,7 +213,7 @@ public class Juego implements Comando{
                 consola.imprimir("6. Salir de la cárcel                                  -> Comando: 'salir carcel'");
                 consola.imprimir("7. Describir casilla                                   -> Comando: 'describir nombreCasilla'");
                 consola.imprimir("8. Describir jugador                                   -> Comando: 'describir jugador nombreJugador'");
-                consola.imprimir("9. Describir avatar                                   -> Comando: 'describir avatar idAvatar'");
+                consola.imprimir("9. Describir avatar                                    -> Comando: 'describir avatar idAvatar'");
                 consola.imprimir("10. Comprar casilla                                    -> Comando: 'comprar 'nombreCasilla'");
                 consola.imprimir("11. Listar casillas en venta                           -> Comando: 'listarenventa'");
                 consola.imprimir("12. Ver tablero                                        -> Comando: 'ver'");
@@ -417,9 +417,9 @@ public class Juego implements Comando{
 
         }catch(Excepciones_PropDesHip e){
             consola.imprimir("Error "+ e.getMessage());
-        }catch(Excepciones_PropHip e){
+        }/*catch(Excepciones_PropHip e){
             consola.imprimir("Error "+ e.getMessage());
-        }catch(Excepciones_PropComprar e){
+        }*/catch(Excepciones_PropComprar e){
             consola.imprimir("Error: "+e.getMessage());
         }
 
@@ -745,7 +745,7 @@ public class Juego implements Comando{
     public void salirCarcel() throws Excepciones_JugadorSalCar{
         //Si el jugador está en la cárcel
         //if(jugadores.get(turno).getAvatar().getLugar().getNombre()=="carcel"){
-        if(jugadores.get(turno).getAvatar().getLugar().getPosicion() == 10){
+        if(jugadores.get(turno).getEnCarcel()){
             //Si está en la cárcel y además le llega el dinero:
             if(jugadores.get(turno).getFortuna()>=jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())){
                 
