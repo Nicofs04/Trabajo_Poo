@@ -15,13 +15,8 @@ public class Pelota extends Avatar {
 
 
 
-    public Pelota(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados, String tipo) {
-        this.setJugador(jugador);
-        this.setLugar(lugar);
-        this.generarId(avCreados);
-        this.getLugar().anhadirAvatar(this);
-        this.setAvanzado(0);
-        avCreados.add(this);
+    public Pelota(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
+        super(jugador, lugar, avCreados);
 
     }
     public void moverAvanzado(ArrayList<ArrayList<Casilla>> tablero, int valorTirada, Juego menu) {

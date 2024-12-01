@@ -1,8 +1,11 @@
+//COCHE
+
 package partida;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 import monopoly.Casilla;
+import monopoly.Solar;
 import monopoly.Juego;
 import monopoly.Propiedad;
 
@@ -13,15 +16,10 @@ public class Coche extends Avatar {
     private int restriccionTiradas; // Cuando se activa se pone a 2, y cada vez que pase un turno se le resta 1
                                     // turno sin tirar restante
 
-    public Coche(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados,String tipo) {
-        this.setJugador(jugador);
-        this.setLugar(lugar);
-        this.generarId(avCreados);
-        this.getLugar().anhadirAvatar(this);
-        this.setAvanzado(0);
+    public Coche(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
+        super(jugador,lugar,avCreados);
         this.compras = 0;
         this.restriccionTiradas = 0;
-        avCreados.add(this);
     }
 
     public void setCompras(int compras) {
@@ -106,14 +104,16 @@ public class Coche extends Avatar {
                         case "edificar":
                             if (palabras.length == 2) {
                                 String tipoEdificacion = palabras[1];
+                                Casilla casilla = getLugar();
+                                Solar solar = (Solar)casilla;
                                 if (tipoEdificacion.equals("casa")) {
-                                    menu.edificarCasa();
+                                    menu.edificar("casa");
                                 } else if (tipoEdificacion.equals("hotel")) {
-                                    menu.edificarHotel();
+                                    menu.edificar("hotel");;
                                 } else if (tipoEdificacion.equals("piscina")) {
-                                    menu.edificarPiscina();
+                                    menu.edificar("piscina");
                                 } else if (tipoEdificacion.equals("pista")) {
-                                    menu.edificarPista();
+                                    menu.edificar("pistadeporte");
                                 }
                             }
                             break;
