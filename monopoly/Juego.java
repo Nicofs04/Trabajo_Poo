@@ -842,26 +842,30 @@ public class Juego implements Comando{
 
 
     public void vender(String tipo, String nombreCasilla, int numeroventa){
-        Casilla casilla = tablero.encontrar_casilla(nombreCasilla);
-        if (casilla instanceof Solar) {
-            Solar solar = (Solar)casilla;
-            switch (tipo) {
-                case "casa":
-                    solar.venderCasa(solar, numeroventa, jugadores.get(turno));
-                    break;
-                case "hotel":
-                    solar.venderHotel(solar,numeroventa,jugadores.get(turno));
-                    break;
-                case "piscina":
-                    solar.venderPiscina(solar,numeroventa,jugadores.get(turno));
-                    break;
-                case "pista":
-                    solar.venderPista(solar,numeroventa,jugadores.get(turno));
-                    break;
-                default:
-                    break;
+        try{
+            Casilla casilla = tablero.encontrar_casilla(nombreCasilla);
+            if (casilla instanceof Solar) {
+                Solar solar = (Solar)casilla;
+                switch (tipo) {
+                    case "casa":
+                        solar.venderCasa(solar, numeroventa, jugadores.get(turno));
+                        break;
+                    case "hotel":
+                        solar.venderHotel(solar,numeroventa,jugadores.get(turno));
+                        break;
+                    case "piscina":
+                        solar.venderPiscina(solar,numeroventa,jugadores.get(turno));
+                        break;
+                    case "pista":
+                        solar.venderPista(solar,numeroventa,jugadores.get(turno));
+                        break;
+                    default:
+                        break;
                 }
             }
+        }catch(Excepciones_PropVenderEdif e){
+            consola.imprimir("Error: "+e.getMessage());
+        }
     }
 
 

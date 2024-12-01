@@ -316,9 +316,10 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
                         consola.imprimir("Se ha construido una casa correctamente en la casilla " + getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
                     }else{
                         consola.imprimir("No dispones del dinero necesario para construir la edificación");
+                        throw new Excepciones_PropConstruir("No dispones del dinero necesario para construir la edificación");
                     }
                 }else{
-                    consola.imprimir("Se alcanzó el límite máximo de casas a construir en el grupo");
+                    throw new Excepciones_PropConstruir("Se alcanzó el límite máximo de casas a construir");
                 }
             }else{
                 if (!(jugador.getFortuna()< (getValor()*0.6f))) {
@@ -331,17 +332,17 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
                     consola.imprimir("Se ha construido una casa correctamente en la casilla " + getNombre() + ". Hay " + (numCasas+1) + " casas construidas.");
                 }else{
                     consola.imprimir("No dispones del dinero necesario para construir la edificación");
-                    throw new Excepciones_PropComprar("Se alcanzó el límite máximo de casas a construir");
+                    throw new Excepciones_PropConstruir("Se alcanzó el límite máximo de casas a construir");
                 }
             }
         }else{
-            throw new Excepciones_PropComprar("Se alcanzó el límite máximo de casas a construir");
+            throw new Excepciones_PropConstruir("Se alcanzó el límite máximo de casas a construir");
         }    
         }
     }
 
 
-    public void edificarHotel(Jugador jugador, int index) {
+    public void edificarHotel(Jugador jugador, int index) throws Excepciones_PropConstruir {
         Hotel hotel = new Hotel(this);
         int limiteGrupo = getGrupo().getNumCasillas();
         int numCasas = contarCasas();
@@ -362,18 +363,19 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
                         consola.imprimir("Se ha construido un hotel correctamente en la casilla " + getNombre() + ". Hay " + (contarHoteles + 1) + " hoteles construidos.\n");
                         cambiarcasas();
                     } else {
-                        consola.imprimir("No dispones del dinero necesario para construir la edificación\n");
+                        throw new Excepciones_PropConstruir("No dispones del dinero necesario para construir la edificación");
                     }
                 } else {
-                    consola.imprimir("No hay 4 casas en la casilla como para construir el hotel\n");
+                    throw new Excepciones_PropConstruir("No hay 4 casas en la casilla como para construir el hotel");
                 }
             } else {
-                consola.imprimir("Has alcanzado el límite máximo de hoteles en el grupo\n");
+                throw new Excepciones_PropConstruir("Has alcanzado el límite máximo de hoteles en el grupo");
+                
             }
         }
     }
     
-    public void edificarPiscina(Jugador jugador, int index) {
+    public void edificarPiscina(Jugador jugador, int index) throws Excepciones_PropConstruir{
         Piscina piscina = new Piscina(this);
         int limiteGrupo = getGrupo().getNumCasillas();
         int numCasas = contarCasas();
@@ -392,17 +394,17 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
                     contarpiscinas = contarPiscinas();
                     consola.imprimir("Se ha construido una piscina correctamente en la casilla " + getNombre() + ". Hay " + contarpiscinas + " piscinas construidas.");
                 } else {
-                    consola.imprimir("No dispones del dinero necesario para construir la edificación");
+                    throw new Excepciones_PropConstruir("No dispones del dinero necesario para construir la edificación");
                 }
             } else {
-                consola.imprimir("Para construir una piscina necesitas 1 hotel y 2 casas o 2 o más hoteles");
+                throw new Excepciones_PropConstruir("Para constuir una piscina necesitas 1 hotel y 2 casas o más de 2 hoteles");
             }
         } else {
-            consola.imprimir("Has alcanzado el máximo de piscinas en el grupo");
+            throw new Excepciones_PropConstruir("Has alcanzado el máximo de piscinas en el grupo");
         }
     }
     
-    public void edificarPista(Jugador jugador, int index) {
+    public void edificarPista(Jugador jugador, int index) throws Excepciones_PropConstruir {
         Edificacion pista = new PistaDeporte(this);
         int limiteGrupo = getGrupo().getNumCasillas();
         int hotel = contarHoteles();
@@ -420,27 +422,28 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
                     consola.imprimir("Se han pagado " + getValor() * 1.25f + " por la construcción de una pista. La fortuna restante es de " + jugador.getFortuna());
                     consola.imprimir("Se ha construido una pista correctamente en la casilla " + getNombre() + ". Hay " + (contarpistas + 1) + " pistas construidas.");
                 } else {
-                    consola.imprimir("No dispones del dinero necesario para construir la edificación");
+                    throw new Excepciones_PropConstruir("No dispones del dinero necesario para construir la edificación");
                 }
             } else {
-                consola.imprimir("Necesitas al menos 2 hoteles para construir una pista de deportes");
+                throw new Excepciones_PropConstruir("Necesitas al menos 2 hoteles para construir una pista de deportes");
             }
         } else {
             consola.imprimir("Has alcanzado el máximo de pistas de deporte en el grupo");
+            throw new Excepciones_PropConstruir("Has alcanzado el máximo de pistas de deporte en el grupo");
         }
     }
 
-    public void venderCasa(Solar solar, int numvender, Jugador jugador) {
+    public void venderCasa(Solar solar, int numvender, Jugador jugador) throws Excepciones_PropVenderEdif {
 
         if (solar == null || !(solar.getDuenho().equals(jugador))) {
-            System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
-            return;
+
+            throw new Excepciones_PropVenderEdif("La casilla especificada no existe o no pertenece a este jugador");
+            
         }
         int numCasas = solar.contarCasas();
         if (numCasas < numvender)
         {
-            System.out.println("No puedes vender más casas de las que hay construidas");
-            return;
+            throw new Excepciones_PropVenderEdif("No puedes vender más casas de las que hay construidas");
         }
         
         for(int i = 0; i<numvender; i++){
@@ -452,22 +455,20 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
             numCasas = solar.contarCasas();
             System.out.println("Se ha eliminado una casa en la casilla " + solar.getNombre() + ". Quedan " + (numCasas) + " casas construidas.");
         } else {
-            System.out.println("No hay casas para vender en esta casilla.");
-            return;
+            throw new Excepciones_PropVenderEdif("No hay casas para vender en esta casilla");
             }
         }
     }
     
-    public void venderHotel(Solar solar, int numVender, Jugador jugador) {
+    public void venderHotel(Solar solar, int numVender, Jugador jugador) throws Excepciones_PropVenderEdif{
 
         if (solar == null || !(solar.getDuenho().equals(jugador))) {
-            System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
-            return;
+            throw new Excepciones_PropVenderEdif("La casilla especificada no existe o no pertenece a este jugador");
         }
         int numHoteles = solar.contarHoteles();
         if (numHoteles < numVender) {
-            System.out.println("No puedes vender más hoteles de los que hay construidos");
-            return;
+            throw new Excepciones_PropVenderEdif("No puedes vender más hoteles de los que hay construidos");
+
         }
     
         for (int i = 0; i < numVender; i++) {
@@ -479,22 +480,21 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
                 numHoteles = solar.contarHoteles();
                 System.out.println("Se ha eliminado un hotel en la casilla " + solar.getNombre() + ". Quedan " + numHoteles + " hoteles construidos.");
             } else {
-                System.out.println("No hay hoteles para vender en esta casilla.");
-                return;
+                throw new Excepciones_PropVenderEdif("No hay hoteles para vender en esta casilla");
             }
         }
     }
     
-    public void venderPiscina(Solar solar, int numVender, Jugador jugador) {
+    public void venderPiscina(Solar solar, int numVender, Jugador jugador) throws Excepciones_PropVenderEdif {
     
         if (solar == null || !(solar.getDuenho().equals(jugador))) {
-            System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
-            return;
+            throw new Excepciones_PropVenderEdif("La casilla especificada no existe o no pertenece a este jugador");
+
         }
         int numPiscinas = solar.contarPiscinas();
         if (numPiscinas < numVender) {
-            System.out.println("No puedes vender más piscinas de las que hay construidas");
-            return;
+            throw new Excepciones_PropVenderEdif("No puedes vender más piscinas de las que hay construidas");
+
         }
     
         for (int i = 0; i < numVender; i++) {
@@ -506,22 +506,22 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
                 numPiscinas = solar.contarPiscinas();
                 System.out.println("Se ha eliminado una piscina en la casilla " + solar.getNombre() + ". Quedan " + numPiscinas + " piscinas construidas.");
             } else {
-                System.out.println("No hay piscinas para vender en esta casilla.");
-                return;
+                throw new Excepciones_PropVenderEdif("No hay piscinas para vender en esta casilla");
+
             }
         }
     }
     
-    public void venderPista(Solar solar, int numVender, Jugador jugador) {
+    public void venderPista(Solar solar, int numVender, Jugador jugador) throws Excepciones_PropVenderEdif {
     
         if (solar == null || !(solar.getDuenho().equals(jugador))) {
-            System.out.println("La casilla especificada no existe o no pertenece a este jugador.");
-            return;
+            throw new Excepciones_PropVenderEdif("La casilla especificada no existe o no pertenece a este jugador");
+
         }
         int numPistas = solar.contarPistas();
         if (numPistas < numVender) {
-            System.out.println("No puedes vender más pistas de las que hay construidas");
-            return;
+            throw new Excepciones_PropVenderEdif("No puedes vender más pistas de las que hay construidas");
+
         }
     
         for (int i = 0; i < numVender; i++) {
@@ -533,8 +533,8 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
                 numPistas = solar.contarPistas();
                 System.out.println("Se ha eliminado una pista en la casilla " + solar.getNombre() + ". Quedan " + numPistas + " pistas construidas.");
             } else {
-                System.out.println("No hay pistas para vender en esta casilla.");
-                return;
+                throw new Excepciones_PropVenderEdif("No hay pistas para vender en esta casilla");
+
             }
         }
     }

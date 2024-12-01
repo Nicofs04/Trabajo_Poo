@@ -126,7 +126,7 @@ public abstract class Propiedad extends Casilla {
 
 
 
-    public int Hacienda(Jugador jugador, Tablero tablero) {
+    public int Hacienda(Jugador jugador, Tablero tablero) throws Excepciones_PropHip{
 
         if (!jugador.getPropiedades().isEmpty()) { // Mientras el jugador tenga propiedades
             consola.imprimir("¿Qué casilla desea hipotecar?");

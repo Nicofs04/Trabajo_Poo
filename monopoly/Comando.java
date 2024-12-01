@@ -45,9 +45,9 @@ public interface Comando {
 
     public void estadisticasJugador(String nombre);
 
-    public void cambiar(String[] palabras) throws Excepciones_JugadorCamMod;
+    public void cambiar(String[] palabras);
     
-    public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares) throws Excepciones_PropBanc;
+    public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares);
 
-    public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares) throws Excepciones_PropBanc;
+    public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares);
 }
