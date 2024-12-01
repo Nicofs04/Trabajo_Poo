@@ -406,9 +406,10 @@ public class Juego implements Comando{
 
         }catch(Excepciones_PropDesHip e){
             consola.imprimir("Error "+ e.getMessage());
-
         }catch(Excepciones_PropHip e){
             consola.imprimir("Error "+ e.getMessage());
+        }catch(Excepciones_PropComprar e){
+            consola.imprimir("Error: "+e.getMessage());
         }
 
     }
@@ -503,7 +504,7 @@ public class Juego implements Comando{
         if (casilla==null){
             throw new Excepciones_DescCas("Esa casilla no existe\n");
         } else{
-            casilla.setTablero(tablero.getPosiciones());
+            casilla.setTablero(tablero);
             consola.imprimir(casilla.infoCasilla());
         }   
     }
@@ -709,17 +710,21 @@ public class Juego implements Comando{
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
-    public void comprar(String nombre) {
-        if(nombre.equals(jugadores.get(turno).getAvatar().getLugar().getNombre())){
-            if(tirado||dadosdobles){
-                Casilla casilla = tablero.encontrar_casilla(nombre);
-                Propiedad propiedad = (Propiedad)casilla;
-                propiedad.comprarCasilla(jugadores.get(turno),banca);
+    public void comprar(String nombre) throws Excepciones_PropComprar{
+        try{
+            if(nombre.equals(jugadores.get(turno).getAvatar().getLugar().getNombre())){
+                if(tirado||dadosdobles){
+                    Casilla casilla = tablero.encontrar_casilla(nombre);
+                    Propiedad propiedad = (Propiedad)casilla;
+                    propiedad.comprarCasilla(jugadores.get(turno),banca);
+                }else{
+                    throw new Excepciones_PropComprar("Primeor debes tirar los dados");
+                }
             }else{
-                consola.imprimir("Primero debes tirar los dados");
+                throw new Excepciones_PropComprar("Debes de estar sobre esa casilla para comprarla");
             }
-        }else{
-            consola.imprimir("Debes de estar sobre esa casilla para comprarla");
+        }catch(Excepciones_PropComprar e){
+            consola.imprimir("Error: "+e.getMessage());
         }
         
     }
