@@ -142,95 +142,99 @@ public class Juego implements Comando{
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
     
-        while (true) { 
-            if (partidaEmpezada && jugadores.size() < 2) {
-                consola.imprimir("El jugador " + jugadores.get(0).getNombre() + " ha ganado la partida.");
-                break;
+    while (true) { //CAMBIAR PARA QUE SE EJECUTE SEA QUE EL TAMAÑO DE JUGADORES SEA 2 O MAS
+        if(!partidaEmpezada){
+            consola.imprimir("=====================================\n");
+            consola.imprimir("                MENÚ                \n");
+            consola.imprimir("=====================================\n");
+
+            consola.imprimir("1. Crear un jugador                                    -> Comando: 'crear jugador NombreJugador tipoAvatar'");
+            consola.imprimir("2. Empezar partida                                     -> Comando: 'empezar'");
+
+            consola.imprimir("=====================================\n");
+            consola.imprimir("Selecciona una opción para continuar.\n");
+            consola.imprimir("=====================================\n\n");
+
+            Scanner scanner = new Scanner(System.in);
+            String comando = scanner.nextLine();
+            analizarComando(comando);
+        }else{
+
+            if(!jugadores.get(turno).getTratosRecibidos().isEmpty()){
+                consola.imprimir("Tienes nuevos tratos.\n");
+                
+                for(Trato tratoAImprimir:jugadores.get(turno).getTratosRecibidos()){
+                    if(tratoAImprimir.getFortunaACambiar() < tratoAImprimir.getJugadorOfrece().getFortuna() && tratoAImprimir.getFortunaARecibir() < tratoAImprimir.getJugadorRecibe().getFortuna()){ //si el jugador que recibe el cambio no le llega el dinero, se espera a que tenga suficiente dinero
+                        trato.manejarTrato(tratoAImprimir, jugadores.get(turno));
+                    }else{
+                        consola.imprimir(String.format("Un jugador no tiene suficiente dinero.\n", tratoAImprimir.getJugadorRecibe().getNombre()));
+                    }
+                }
             }
-        
-            if (!partidaEmpezada) {
-                consola.imprimir("=====================================\n");
-                consola.imprimir("                MENÚ                \n");
-                consola.imprimir("=====================================\n");
-        
-                consola.imprimir("1. Crear un jugador                                    -> Comando: 'crear jugador NombreJugador tipoAvatar'");
-                consola.imprimir("2. Empezar partida                                     -> Comando: 'empezar'");
-        
-                consola.imprimir("=====================================\n");
-                consola.imprimir("Selecciona una opción para continuar.\n");
-                consola.imprimir("=====================================\n\n");
-        
-                Scanner scanner = new Scanner(System.in);
-                String comando = scanner.nextLine();
-                analizarComando(comando);
-            } else {
-                if (!jugadores.get(turno).getTratosRecibidos().isEmpty()) {
-                    consola.imprimir("Tienes nuevos tratos.\n");
-                    for (Trato tratoAImprimir : jugadores.get(turno).getTratosRecibidos()) {
-                        if (tratoAImprimir.getFortunaACambiar() < tratoAImprimir.getJugadorOfrece().getFortuna() &&
-                            tratoAImprimir.getFortunaARecibir() < tratoAImprimir.getJugadorRecibe().getFortuna()) {
-                            trato.manejarTrato(tratoAImprimir, jugadores.get(turno));
-                        } else {
-                            consola.imprimir(String.format("Un jugador no tiene suficiente dinero.\n", tratoAImprimir.getJugadorRecibe().getNombre()));
-                        }
+
+            //si alguno de los tratos ha sido aceptado lo eliminamos del array de recibidos
+            if(!(jugadores.get(turno).getTratosRecibidos().isEmpty())){ //chequeamos que el array no esté vacío
+                Iterator<Trato> iteratorRecibidos = jugadores.get(turno).getTratosRecibidos().iterator();
+                boolean aceptadoRecibidos;
+                while(iteratorRecibidos.hasNext()){
+                    aceptadoRecibidos = iteratorRecibidos.next().getAceptado();
+                    if(aceptadoRecibidos){
+                        iteratorRecibidos.remove();
                     }
                 }
-        
-                if (!jugadores.get(turno).getTratosRecibidos().isEmpty()) {
-                    Iterator<Trato> iteratorRecibidos = jugadores.get(turno).getTratosRecibidos().iterator();
-                    while (iteratorRecibidos.hasNext()) {
-                        if (iteratorRecibidos.next().getAceptado()) {
-                            iteratorRecibidos.remove();
-                        }
-                    }
-                }
-        
-                if (!jugadores.get(turno).getTratosOfrecidos().isEmpty()) {
-                    Iterator<Trato> iteratorOfrecidos = jugadores.get(turno).getTratosOfrecidos().iterator();
-                    while (iteratorOfrecidos.hasNext()) {
-                        if (iteratorOfrecidos.next().getAceptado()) {
-                            iteratorOfrecidos.remove();
-                        }
-                    }
-                }
-        
-                consola.imprimir("=====================================\n");
-                consola.imprimir("                MENÚ                \n");
-                consola.imprimir("=====================================\n");
-        
-                consola.imprimir("1. Jugador del turno actual                            -> Comando: 'jugador'");
-                consola.imprimir("2. Listar jugadores                                    -> Comando: 'listar jugadores'");
-                consola.imprimir("3. Listar avatares                                     -> Comando: 'listar avatares'");
-                consola.imprimir("4. Lanzar dados                                        -> Comando: 'lanzar dados'");
-                consola.imprimir("5. Acabar turno                                        -> Comando: 'acabar turno'");
-                consola.imprimir("6. Salir de la cárcel                                  -> Comando: 'salir carcel'");
-                consola.imprimir("7. Describir casilla                                   -> Comando: 'describir nombreCasilla'");
-                consola.imprimir("8. Describir jugador                                   -> Comando: 'describir jugador nombreJugador'");
-                consola.imprimir("9. Describir avatar                                   -> Comando: 'describir avatar idAvatar'");
-                consola.imprimir("10. Comprar casilla                                    -> Comando: 'comprar 'nombreCasilla'");
-                consola.imprimir("11. Listar casillas en venta                           -> Comando: 'listarenventa'");
-                consola.imprimir("12. Ver tablero                                        -> Comando: 'ver'");
-                consola.imprimir("13. Construir un edificio                              -> Comando: 'edificar tipoEdificacion'");
-                consola.imprimir("14. Listar edificios construidos                       -> Comando: 'listar edificios'");
-                consola.imprimir("15. Listar edificios construidos en grupo              -> Comando: 'listar edificios colorGrupo'");
-                consola.imprimir("16. Hipotecar una propiedad                            -> Comando: 'hipotecar'");
-                consola.imprimir("17. Declararse en bancarrota                           -> Comando: 'bancarrota'");
-                consola.imprimir("18. Deshipotecar una propiedad                         -> Comando: 'deshipotecar'");
-                consola.imprimir("19. Vender edificios                                   -> Comando: 'vender tipoEdificacion nombrePropiedad numeroElementosAvender'");
-                consola.imprimir("20. Mostrar estadísticas de un jugador                 -> Comando: 'estadisticas nombreJugador'");
-                consola.imprimir("21. Mostrar estadísticas del juego                     -> Comando: 'estadisticas'");
-                consola.imprimir("22. Cambiar modo de movimiento de los avatares         -> Comando: 'cambiar modo'\n");
-        
-                consola.imprimir("=====================================\n");
-                consola.imprimir("Selecciona una opción para continuar.\n");
-                consola.imprimir("=====================================\n\n");
-        
-                Scanner scanner = new Scanner(System.in);
-                String comando = scanner.nextLine();
-                analizarComando(comando);
             }
+
+            //si alguno de los tratos ha sido aceptado lo eliminamos del array de ofrecidos
+            if(!(jugadores.get(turno).getTratosOfrecidos().isEmpty())){ //chequeamos que el array no esté vacío
+                Iterator<Trato> iteratorOfrecidos = jugadores.get(turno).getTratosOfrecidos().iterator();
+                boolean aceptadoOfrecidos;
+                while(iteratorOfrecidos.hasNext()){
+                    aceptadoOfrecidos = iteratorOfrecidos.next().getAceptado();
+                    if(aceptadoOfrecidos){
+                        iteratorOfrecidos.remove();
+                    }
+                }
+            }
+
+            consola.imprimir("=====================================\n");
+            consola.imprimir("                MENÚ                \n");
+            consola.imprimir("=====================================\n");
+
+            consola.imprimir("1. Jugador del turno actual                            -> Comando: 'jugador'");
+            consola.imprimir("2. Listar jugadores                                    -> Comando: 'listar jugadores'");
+            consola.imprimir("3. Listar avatares                                     -> Comando: 'listar avatares'");
+            consola.imprimir("4. Lanzar dados                                        -> Comando: 'lanzar dados'");
+            consola.imprimir("5. Acabar turno                                        -> Comando: 'acabar turno'");
+            consola.imprimir("6. Salir de la cárcel                                  -> Comando: 'salir carcel'");
+            consola.imprimir("7. Describir casilla                                   -> Comando: 'describir nombreCasilla'");
+            consola.imprimir("8. Describir jugador                                   -> Comando: 'describir jugador nombreJugador'");
+            consola.imprimir("9. Describir avatar                                   -> Comando: 'describir avatar idAvatar'");
+            consola.imprimir("10. Comprar casilla                                    -> Comando: 'comprar 'nombreCasilla'");
+            consola.imprimir("11. Listar casillas en venta                           -> Comando: 'listarenventa'");
+            consola.imprimir("12. Ver tablero                                        -> Comando: 'ver'");
+            consola.imprimir("13. Construir un edificio                              -> Comando: 'edificar tipoEdificacion'");
+            consola.imprimir("14. Listar edificios construidos                       -> Comando: 'listar edificios'");
+            consola.imprimir("15. Listar edificios construidos en grupo              -> Comando: 'listar edificios colorGrupo'");
+            consola.imprimir("16. Hipotecar una propiedad                            -> Comando: 'hipotecar'");
+            consola.imprimir("17. Declararse en bancarrota                           -> Comando: 'bancarrota'");
+            consola.imprimir("18. Deshipotecar una propiedad                         -> Comando: 'deshipotecar'");
+            consola.imprimir("19. Vender edificios                                   -> Comando: 'vender tipoEdificacion nombrePropiedad numeroElementosAvender'");
+            consola.imprimir("20. Mostrar estadísticas de un jugador                 -> Comando: 'estadisticas nombreJugador'");
+            consola.imprimir("21. Mostrar estadísticas del juego                     -> Comando: 'estadisticas'");
+            consola.imprimir("22. Cambiar modo de movimiento de los avatares         -> Comando: 'cambiar modo'\n");
+               
+
+            consola.imprimir("=====================================\n");
+            consola.imprimir("Selecciona una opción para continuar.\n");
+            consola.imprimir("=====================================\n\n");
+
+            Scanner scanner = new Scanner(System.in);
+            String comando = scanner.nextLine();
+            analizarComando(comando);
         }
-    }        
+    }
+    consola.imprimir("El jugador"+jugadores.get(0).getNombre()+"ha ganado la partida"); //DA ERROR MIENTRAS ESTE EL WHILE TRUE, DEJAR ASÍ
+}
     
     /*Método que interpreta el comando introducido y toma la accion correspondiente.
     * Parámetro: cadena de caracteres (el comando).
@@ -394,22 +398,10 @@ public class Juego implements Comando{
         }catch(Excepciones_DescJug e){
             consola.imprimir("Error "+ e.getMessage());
 
-        }catch(Excepciones_JugadorCamMod e){
-            consola.imprimir("Error "+ e.getMessage());
-
         }catch(Excepciones_JugadorLanz e){
             consola.imprimir("Error "+ e.getMessage());
 
         }catch(Excepciones_JugadorSalCar e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_PropBanc e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_PropComprar e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_PropConstruir e){
             consola.imprimir("Error "+ e.getMessage());
 
         }catch(Excepciones_PropDesHip e){
@@ -417,10 +409,6 @@ public class Juego implements Comando{
 
         }catch(Excepciones_PropHip e){
             consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_PropVenderEdif e){
-            consola.imprimir("Error "+ e.getMessage());
-
         }
 
     }
