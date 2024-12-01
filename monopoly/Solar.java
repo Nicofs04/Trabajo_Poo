@@ -94,13 +94,13 @@ public class Solar extends Propiedad{
         if(!getHipotecado()){ //verificamos que la casilla no este hipotecada
             if (!getDuenho().equals(actual) && !getDuenho().equals(banca) ) {
                 
-                if (actual.getFortuna() < devolverImpuesto(c,getDuenho())/*+sumarImpuestoedificios()*/) {
+                if (actual.getFortuna() < devolverImpuesto(c,getDuenho())+sumarImpuestoedificios()) {
                     
                     consola.imprimir("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                     
                     analizarMenuPequenho(actual, banca, tablero, juego, c); //analizamos el comando escrito
                     
-                    while(actual.getFortuna() < devolverImpuesto(c, getDuenho())/*+sumarImpuestoedificios()*/){
+                    while(actual.getFortuna() < devolverImpuesto(c, getDuenho())+sumarImpuestoedificios()){
                         consola.imprimir(String.format("El jugador %s no tiene dinero suficiente, elija una opción:\n", actual.getNombre()));
                         if(actual.getPropiedades().isEmpty()){ //nos aseguramos de que pueda seguir teniendo propiedades para hipotecar
                             bancarrotaAJugador(actual, getDuenho(), juego.getJugadores(), juego.getAvatares()); //si no llamamos a bancarrota
@@ -109,31 +109,31 @@ public class Solar extends Propiedad{
                         analizarMenuPequenho(actual, banca, tablero, juego, c);
                     }
 
-                    if (actual.getFortuna() < devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/) {
+                    if (actual.getFortuna() < devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios()) {
                         //return false;
                     }else{
-                        actual.setFortuna(actual.getFortuna()-(devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/)); //le restamos el alquiler pagado
-                        actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + (devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/)); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
+                        actual.setFortuna(actual.getFortuna()-(devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios())); //le restamos el alquiler pagado
+                        actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + (devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios())); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
 
-                        getDuenho().setFortuna(getDuenho().getFortuna() + (devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/)); //le sumamos el alquiler al dueño de la casilla
-                        getDuenho().setDineroCobradoAlquileres(getDuenho().getDineroCobradoAlquileres() + (devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/)); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
+                        getDuenho().setFortuna(getDuenho().getFortuna() + (devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios())); //le sumamos el alquiler al dueño de la casilla
+                        getDuenho().setDineroCobradoAlquileres(getDuenho().getDineroCobradoAlquileres() + (devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios())); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
 
-                        this.setDineroCasilla(this.getDineroCasilla() + (devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/)); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
+                        this.setDineroCasilla(this.getDineroCasilla() + (devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios())); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
 
-                        consola.imprimir("El jugador paga "+(devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/) +"€");
+                        consola.imprimir("El jugador paga "+(devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios()) +"€");
                         //return true;
                     }
                     //Acabaría la partida para este jugador
                 }else{
-                        actual.setFortuna(actual.getFortuna()-(devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/)); //le restamos el alquiler pagado
-                        actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + (devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/)); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
+                        actual.setFortuna(actual.getFortuna()-(devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios())); //le restamos el alquiler pagado
+                        actual.setDineroPagadoAlquileres(actual.getDineroPagadoAlquileres() + (devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios())); //sumamos el dinero pagado al atributo dineroPagado del jugador que paga
 
-                        getDuenho().setFortuna(getDuenho().getFortuna() + (devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/)); //le sumamos el alquiler al dueño de la casilla
-                        getDuenho().setDineroCobradoAlquileres(getDuenho().getDineroCobradoAlquileres() + (devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/)); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
+                        getDuenho().setFortuna(getDuenho().getFortuna() + (devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios())); //le sumamos el alquiler al dueño de la casilla
+                        getDuenho().setDineroCobradoAlquileres(getDuenho().getDineroCobradoAlquileres() + (devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios())); //sumamos el dinero cobrado al atributo dineroCobrado del jugador que cobra
 
-                        this.setDineroCasilla(this.getDineroCasilla() + (devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/)); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
+                        this.setDineroCasilla(this.getDineroCasilla() + (devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios())); //le sumamos lo que se paga al atributo que nos indica el dinero total que gana el dueño de la casilla
 
-                        consola.imprimir("El jugador paga "+(devolverImpuesto(c, c.getDuenho())/*+sumarImpuestoedificios()*/) +"€");
+                        consola.imprimir("El jugador paga "+(devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios()) +"€");
                         //return true;
                 }      
             }
@@ -153,7 +153,6 @@ public class Solar extends Propiedad{
     }
 
     public float sumarImpuestoedificios(){
-
         float suma=0;
         int casas=0,hotel=0,piscina=0,pista=0;
         casas = contarCasas();

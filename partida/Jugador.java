@@ -27,6 +27,9 @@ public class Jugador {
     private float dineroInvertido;
     private int numVueltas;
     private int vecesDados;
+    private ArrayList<Trato> tratosOfrecidos;
+    private ArrayList<Trato> tratosRecibidos;
+
 
     // Constructor vacío. Se usará para crear la banca.
     public Jugador() {
@@ -75,6 +78,8 @@ public class Jugador {
         this.tiradasCarcel = 0;
         this.vueltas = 0;
         this.propiedades = new ArrayList<Propiedad>();
+        this.tratosOfrecidos = new ArrayList<Trato>();
+        this.tratosRecibidos = new ArrayList<Trato>();
 
     }
 
@@ -214,6 +219,23 @@ public class Jugador {
 
     public void setVecesDados(int vecesDados){
         this.vecesDados = vecesDados;
+    }
+
+    
+    public ArrayList<Trato> getTratosRecibidos(){
+        return tratosRecibidos;
+    }
+
+    public void setTratosRecibidos(ArrayList<Trato> tratosRecibidos){
+        this.tratosRecibidos = tratosRecibidos;
+    }
+
+    public ArrayList<Trato> getTratosOfrecidos(){
+        return tratosOfrecidos;
+    }
+
+    public void setTratosOfrecidos(ArrayList<Trato> tratosOfrecidos){
+        this.tratosOfrecidos = tratosOfrecidos;
     }
 
     // Otros métodos:
