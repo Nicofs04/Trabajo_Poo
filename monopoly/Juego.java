@@ -25,6 +25,7 @@ public class Juego implements Comando{
     private boolean partidaEmpezada = false;
 
     public static ConsolaNormal consola = new ConsolaNormal();
+    public Trato trato = new Trato();
 
     public Juego(){
         this.jugadores = new ArrayList<Jugador>();
@@ -158,6 +159,43 @@ public class Juego implements Comando{
             String comando = scanner.nextLine();
             analizarComando(comando);
         }else{
+
+            if(!jugadores.get(turno).getTratosRecibidos().isEmpty()){
+                consola.imprimir("Tienes nuevos tratos.\n");
+                
+                for(Trato tratoAImprimir:jugadores.get(turno).getTratosRecibidos()){
+                    if(tratoAImprimir.getFortunaACambiar() < tratoAImprimir.getJugadorOfrece().getFortuna() && tratoAImprimir.getFortunaARecibir() < tratoAImprimir.getJugadorRecibe().getFortuna()){ //si el jugador que recibe el cambio no le llega el dinero, se espera a que tenga suficiente dinero
+                        trato.manejarTrato(tratoAImprimir, jugadores.get(turno));
+                    }else{
+                        consola.imprimir(String.format("Un jugador no tiene suficiente dinero.\n", tratoAImprimir.getJugadorRecibe().getNombre()));
+                    }
+                }
+            }
+
+            //si alguno de los tratos ha sido aceptado lo eliminamos del array de recibidos
+            if(!(jugadores.get(turno).getTratosRecibidos().isEmpty())){ //chequeamos que el array no esté vacío
+                Iterator<Trato> iteratorRecibidos = jugadores.get(turno).getTratosRecibidos().iterator();
+                boolean aceptadoRecibidos;
+                while(iteratorRecibidos.hasNext()){
+                    aceptadoRecibidos = iteratorRecibidos.next().getAceptado();
+                    if(aceptadoRecibidos){
+                        iteratorRecibidos.remove();
+                    }
+                }
+            }
+
+            //si alguno de los tratos ha sido aceptado lo eliminamos del array de ofrecidos
+            if(!(jugadores.get(turno).getTratosOfrecidos().isEmpty())){ //chequeamos que el array no esté vacío
+                Iterator<Trato> iteratorOfrecidos = jugadores.get(turno).getTratosOfrecidos().iterator();
+                boolean aceptadoOfrecidos;
+                while(iteratorOfrecidos.hasNext()){
+                    aceptadoOfrecidos = iteratorOfrecidos.next().getAceptado();
+                    if(aceptadoOfrecidos){
+                        iteratorOfrecidos.remove();
+                    }
+                }
+            }
+
             consola.imprimir("=====================================\n");
             consola.imprimir("                MENÚ                \n");
             consola.imprimir("=====================================\n");
@@ -203,195 +241,156 @@ public class Juego implements Comando{
     */
     private void analizarComando(String comando) {
         
-        String[] palabras = comando.split(" ");
+    String[] palabras = comando.split(" ");
 
-        // Si no hay palabras suficientes, no es un comando válido
-        if (palabras.length < 1) {
-            consola.imprimir("Comando inválido.");
-        }
-
-        String metodo = palabras[0];
-        try {
-            switch (metodo) {
-                case "crear":
-                    if(!partidaEmpezada){
-                        if (palabras.length >= 4 && palabras[1].equals("jugador")) {
-                            crearJugador(palabras);
-                        } else {
-                            consola.imprimir("Comando incompleto o incorrecto para crear jugador.\n");
-                        }
-                    }else{
-                        consola.imprimir("No se puede crear un jugador cuando la partida ya ha empezado.\n");
-                    }
-                    break;
-                case "jugador":
-                    if(jugadores.size()>0){
-
-                    }else{
-                        consola.imprimir("No hay ningún jugador creado en la partida");
-                    }
-                    break;
-                case "listar":
-                    if (palabras.length == 2) {
-                        if (palabras[1].equals("jugadores")) {
-                            listarJugadores();
-                        } else if (palabras[1].equals("avatares")) {
-                            listarAvatares();
-                        }else if(palabras[1].equals("edificios")){
-                            listarEdificios();
-                        }
-                    }else if(palabras.length==3){
-                            //listarEdificiosGrupo();
-                    }else {
-                        consola.imprimir("Error, comando desconocido.\n");
-                    }
-                    break;
-                case "lanzar":
-                    if (palabras.length == 2 && palabras[1].equals("dados")) {
-                        lanzarDados();
-                        
-                    } else {
-                        consola.imprimir("Error, comando desconocido.\n");
-                    }
-                    break;
-                case "acabar":
-                    if (palabras.length == 2 && palabras[1].equals("turno")) {
-                        acabarTurno();
-                    } else {
-                        consola.imprimir("Error, comando desconocido.\n");
-                    }
-                    break;
-                case "salir":
-                    if(jugadores.size()>0){
-                        if (palabras.length == 2 && palabras[1].equals("carcel")) {
-                            salirCarcel();
-                        } else {
-                            consola.imprimir("Error, comando desconocido.\n");
-                        }
-                    }else{
-                        consola.imprimir("No hay jugadores creados en la partida");
-                    }
-                    break;
-                case "describir":
-                    if (palabras.length == 2) {
-                        String nombreCasilla = palabras[1];
-                        descCasilla(nombreCasilla);
-                    }else if(palabras.length == 3){
-                        if(palabras[1].equals("jugador")){
-                            String[] nombreJugador = new String[]{palabras[2]};
-                            descJugador(nombreJugador);
-                        }else if(palabras[1].equals("avatar")){
-                            String[] idAvatar = new String[]{palabras[2]};
-                            descAvatar(idAvatar);
-                    }else {
-                        consola.imprimir("Error, comando desconocido.\n");
-                    }
-                    }
-                    break;
-                case "comprar":
-                    if (palabras.length == 2) {
-                        String nombreCasilla = palabras[1];
-                        comprar(nombreCasilla);
-                    } else {
-                        consola.imprimir("Error, comando desconocido.\n");
-                    }
-                    break;
-                case "listarenventa":
-                    listarVenta();
-                    break;
-                case "ver":
-                    consola.imprimir(tablero.toString());
-                    break;
-                case "edificar":
-                    if(palabras.length==2){
-                        String tipoEdificacion=palabras[1];
-                        edificar(tipoEdificacion);
-                    }
-                    break;
-                case "hipotecar":
-                    if(palabras.length==1){
-                        Hacienda(jugadores.get(turno), tablero);
-
-                    }
-                    break;
-                case "bancarrota":
-                    bancarrotaABanca(jugadores.get(turno), banca, jugadores, avatares);
-                    acabarTurno(); //acabamos el turno automáticamente para que sigan jugando el resto
-                    consola.imprimir("Jugador eliminado con éxito. El siguiente jugador puede ahora elegir una opción.\n");
-                    break;
-                case "deshipotecar":
-                    if(palabras.length==1){
-                        deshipotecar(jugadores.get(turno), tablero);
-                    }
-                    break;    
-                case "vender":
-                    if(palabras.length==4){
-                        String tipoEdificacion=palabras[1];
-                        String nombreCasilla=palabras[2];
-                        String numeroventa = palabras[3];
-                        int numvender = Integer.parseInt(numeroventa);
-                        vender(tipoEdificacion,nombreCasilla,numvender);
-                    }    
-                    break;
-                case "estadisticas":
-                    if(palabras.length==1){
-                        estadisticasJuego();
-                    }else if(palabras.length==2){
-                        estadisticasJugador(palabras[1]);
-                    }
-                    break;
-                case "cambiar":
-                    cambiar(palabras);
-                    break;
-                case "empezar":
-                    empezar();
-                    break;
-                default:
-                    consola.imprimir("Error, comando desconocido.\n");
-                    break;
-            }
-        }catch(Excepciones_EmpezarPartida e){
-            consola.imprimir("Error: "+e.getMessage());
-        }catch(Excepciones_DescAv e){
-            consola.imprimir("Error "+ e.getMessage());
-        }catch(Excepciones_DescCas e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_DescJug e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_JugadorCamMod e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_JugadorLanz e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_JugadorSalCar e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_PropBanc e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_PropComprar e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_PropConstruir e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_PropDesHip e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_PropHip e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }catch(Excepciones_PropVenderEdif e){
-            consola.imprimir("Error "+ e.getMessage());
-
-        }
-
+    // Si no hay palabras suficientes, no es un comando válido
+    if (palabras.length < 1) {
+        consola.imprimir("Comando inválido.");
     }
 
-    public void crearJugador(String[] palabras) throws Excepciones_EmpezarPartida{
+    String metodo = palabras[0];
+
+    switch (metodo) {
+        case "crear":
+            if(!partidaEmpezada){
+                if (palabras.length >= 4 && palabras[1].equals("jugador")) {
+                    crearJugador(palabras);
+                } else {
+                    consola.imprimir("Comando incompleto o incorrecto para crear jugador.\n");
+                }
+            }else{
+                consola.imprimir("No se puede crear un jugador cuando la partida ya ha empezado.\n");
+            }
+            break;
+        case "jugador":
+            if(jugadores.size()>0){
+
+            }else{
+                consola.imprimir("No hay ningún jugador creado en la partida");
+            }
+            break;
+        case "listar":
+            if (palabras.length == 2) {
+                if (palabras[1].equals("jugadores")) {
+                    listarJugadores();
+                } else if (palabras[1].equals("avatares")) {
+                    listarAvatares();
+                }else if(palabras[1].equals("edificios")){
+                    listarEdificios();
+                }
+            }else if(palabras.length==3){
+                    //listarEdificiosGrupo();
+            }else {
+                consola.imprimir("Error, comando desconocido.\n");
+            }
+            break;
+        case "lanzar":
+            if (palabras.length == 2 && palabras[1].equals("dados")) {
+                lanzarDados();
+                
+            } else {
+                consola.imprimir("Error, comando desconocido.\n");
+            }
+            break;
+        case "acabar":
+            if (palabras.length == 2 && palabras[1].equals("turno")) {
+                acabarTurno();
+            } else {
+                consola.imprimir("Error, comando desconocido.\n");
+            }
+            break;
+        case "salir":
+            if(jugadores.size()>0){
+                if (palabras.length == 2 && palabras[1].equals("carcel")) {
+                    salirCarcel();
+                } else {
+                    consola.imprimir("Error, comando desconocido.\n");
+                }
+            }else{
+                consola.imprimir("No hay jugadores creados en la partida");
+            }
+            break;
+        case "describir":
+            if (palabras.length == 2) {
+                String nombreCasilla = palabras[1];
+                descCasilla(nombreCasilla);
+            }else if(palabras.length == 3){
+                if(palabras[1].equals("jugador")){
+                    String[] nombreJugador = new String[]{palabras[2]};
+                    descJugador(nombreJugador);
+                }else if(palabras[1].equals("avatar")){
+                    String[] idAvatar = new String[]{palabras[2]};
+                    descAvatar(idAvatar);
+            }else {
+                consola.imprimir("Error, comando desconocido.\n");
+            }
+            }
+            break;
+        case "comprar":
+            if (palabras.length == 2) {
+                String nombreCasilla = palabras[1];
+                comprar(nombreCasilla);
+            } else {
+                consola.imprimir("Error, comando desconocido.\n");
+            }
+            break;
+        case "listarenventa":
+            listarVenta();
+            break;
+        case "ver":
+            consola.imprimir(tablero.toString());
+            break;
+        case "edificar":
+            if(palabras.length==2){
+                String tipoEdificacion=palabras[1];
+                edificar(tipoEdificacion);
+            }
+            break;
+        case "hipotecar":
+            if(palabras.length==1){
+                Hacienda(jugadores.get(turno), tablero);
+
+            }
+            break;
+        case "bancarrota":
+            bancarrotaABanca(jugadores.get(turno), banca, jugadores, avatares);
+            acabarTurno(); //acabamos el turno automáticamente para que sigan jugando el resto
+            consola.imprimir("Jugador eliminado con éxito. El siguiente jugador puede ahora elegir una opción.\n");
+            break;
+        case "deshipotecar":
+            if(palabras.length==1){
+                deshipotecar(jugadores.get(turno), tablero);
+            }
+            break;    
+        case "vender":
+            if(palabras.length==4){
+                String tipoEdificacion=palabras[1];
+                String nombreCasilla=palabras[2];
+                String numeroventa = palabras[3];
+                int numvender = Integer.parseInt(numeroventa);
+                vender(tipoEdificacion,nombreCasilla,numvender);
+            }    
+            break;
+        case "estadisticas":
+            if(palabras.length==1){
+                estadisticasJuego();
+            }else if(palabras.length==2){
+                estadisticasJugador(palabras[1]);
+            }
+            break;
+        case "cambiar":
+            cambiar(palabras);
+            break;
+        case "empezar":
+            empezar();
+            break;
+        default:
+            consola.imprimir("Error, comando desconocido.\n");
+            break;
+        }
+    }
+
+    public void crearJugador(String[] palabras){
         String nombre = palabras[2];
         String tipoAvatar = new String();
     
@@ -401,10 +400,10 @@ public class Juego implements Comando{
                 jugadores.add(jugador);
                 consola.imprimir("Jugador creado con éxito.\n");    
             }else{
-                throw new Excepciones_EmpezarPartida("Se ha alcanzado el número máximo de jugadores creados\n");
+                consola.imprimir("Se ha alcanzado el número máximo de jugadores creados.\n");
             }
         } else {
-            throw new Excepciones_EmpezarPartida("El avatar debe ser de tipo pelota, coche, esfinge o sombrero\n");
+            consola.imprimir("El avatar debe ser del tipo pelota, esfinge, coche o sombrero.\n");
         }
     }
 
@@ -413,9 +412,9 @@ public class Juego implements Comando{
         consola.imprimir("Avatar: "+jugadores.get(turno).getAvatar().getId());
     }
 
-    public void empezar() throws Excepciones_EmpezarPartida{
+    public void empezar(){
         if(jugadores.size() < 2){
-            throw new Excepciones_EmpezarPartida("Se deben crear mínimo 2 jugadores para empezar la partida\n");
+            consola.imprimir("Error, se deben crear mínimo 2 jugadores para empezar la partida.\n");
         }else{
             setPartidaEmpezada(true);
         }
@@ -424,8 +423,7 @@ public class Juego implements Comando{
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
     * Parámetro: comando introducido
      */
-    public void descJugador(String[] palabras) throws Excepciones_DescJug{
-        int encontrado=0;
+    public void descJugador(String[] palabras) {
         for(Jugador jugador:jugadores){
             if((jugador.getNombre()).equals(palabras[0])){
                 consola.imprimir("{\n\tNombre: " + jugador.getNombre() + 
@@ -444,42 +442,28 @@ public class Juego implements Comando{
                                             "\n\t\t\tpistas de deporte: " + solar.contarPistas()+
                                             "\n\t\t}"); 
                             consola.imprimir("}"); }}
-                encontrado++;
             }
-
-        }
-        if(encontrado==0){
-            throw new Excepciones_DescJug("Ese jugador no existe\n");
-
-
         }
     }
 
     /*Método que realiza las acciones asociadas al comando 'describir avatar'.
     * Parámetro: id del avatar a describir.
     */
-    public void descAvatar(String[] palabras) throws Excepciones_DescAv {
-        int encontrado=0;
+    public void descAvatar(String[] palabras) {
         for(Avatar avatar:avatares){
             if((avatar.getId()).equals(palabras[0])){
                 consola.imprimir("{\nid: " + avatar.getId() + ",\ntipo: " + avatar.tipoAvatar() + ",\ncasilla: " + avatar.getLugar().getNombre() + ",\njugador: " + avatar.getJugador().getNombre() + "\n}\n");
-                encontrado++;
             }
-
-        }
-        if(encontrado==0){
-            throw new Excepciones_DescAv("Ese avatar no existe\n");
-
         }
     }
 
     /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
     * Parámetros: nombre de la casilla a describir.
     */
-    public void descCasilla(String nombre) throws Excepciones_DescCas {
+    public void descCasilla(String nombre) {
         Casilla casilla = tablero.encontrar_casilla(nombre);
         if (casilla==null){
-            throw new Excepciones_DescCas("Esa casilla no existe\n");
+            consola.imprimir("Esa casilla no existe");
         } else{
             casilla.setTablero(tablero.getPosiciones());
             consola.imprimir(casilla.infoCasilla());
@@ -487,11 +471,10 @@ public class Juego implements Comando{
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
-    public void lanzarDados() throws Excepciones_JugadorLanz {
+    public void lanzarDados() {
         if (getTirado()) {
-            throw new Excepciones_JugadorLanz("Ya has lanzado los dados en este turno");
-            //return;
-
+            consola.imprimir("Ya has lanzado los dados en este turno.");
+            return;
         }
         //Si existe una restricción de turnos sin tirar(mov avanzado coche), no podremos lanzar los dados
         //Si es un coche, lo casteamos y gestionamos las restricciones de tiradas
@@ -499,10 +482,11 @@ public class Juego implements Comando{
             Coche coche= (Coche)jugadores.get(turno).getAvatar();
             if(coche.getRestriccionTiradas()!=0){
 
+            
+            consola.imprimir("Debido a la restricción del mov avanzado de coche, tiene que esperar "+ coche.getRestriccionTiradas()+ " turnos para volver a lanzar los dados");
             //Le restamos 1 a los turnos restantes para poder volver a tirar
             coche.setRestriccionTiradas(coche.getRestriccionTiradas()-1);
-            throw new Excepciones_JugadorLanz("Debido a la restricción del mov avanzado de coche, tiene que esperar "+ coche.getRestriccionTiradas()+ " turnos para volver a lanzar los dados");
-            //return;
+            return;
             }
         }
         
@@ -581,7 +565,7 @@ public class Juego implements Comando{
                         //Imprimimos el mensaje final:
                         consola.imprimir("El avatar: "+jugadores.get(turno).getAvatar().getId()+", avanza "+sumaDados+" posiciones, desde "+posicionActual+" hasta "+posicionFinal);
                     }else{
-                        throw new Excepciones_JugadorLanz("No puedes moverte porque estás en la cárcel\n");
+                        consola.imprimir("No puedes moverte porque estás en la cárcel");
                     }
                 setTirado(true);
                 return;
@@ -702,7 +686,7 @@ public class Juego implements Comando{
         
     }
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
-    public void salirCarcel() throws Excepciones_JugadorSalCar{
+    public void salirCarcel() {
         //Si el jugador está en la cárcel
         //if(jugadores.get(turno).getAvatar().getLugar().getNombre()=="carcel"){
         if(jugadores.get(turno).getAvatar().getLugar().getPosicion() == 10){
@@ -719,12 +703,11 @@ public class Juego implements Comando{
 
             }else{
                 consola.imprimir("No tienes dinero suficiente para salir de la cárcel.");
-                throw new Excepciones_JugadorSalCar("No tienes dinero suficiente para salir de la cárcel.\n");
                 //falta poner que pierde la partida
             }
         }else{
             //Si el jugador no está en la cárcel
-            throw new Excepciones_JugadorSalCar("El jugador no está en la cárcel\n");
+            consola.imprimir("El jugador no está en la cárcel\n");
         }
     }
 
@@ -776,28 +759,24 @@ public class Juego implements Comando{
 
 
     public void edificar(String tipo){
-        try{
-            if (jugadores.get(turno).getAvatar().getLugar() instanceof Solar) {
-                Solar solar = (Solar)jugadores.get(turno).getAvatar().getLugar();
-            switch (tipo) {
-                case "casa":
-                    solar.edificarCasa(jugadores.get(turno),turno);
-                    break;
-                case "hotel":
-                    solar.edificarHotel(jugadores.get(turno),turno);
-                    break;
-                case "piscina":
-                    solar.edificarPiscina(jugadores.get(turno),turno);
-                    break;
-                case "pista":
-                    solar.edificarPista(jugadores.get(turno),turno);
-                    break;
-                default:
-                    break;
-                }
+        if (jugadores.get(turno).getAvatar().getLugar() instanceof Solar) {
+            Solar solar = (Solar)jugadores.get(turno).getAvatar().getLugar();
+        switch (tipo) {
+            case "casa":
+                solar.edificarCasa(jugadores.get(turno),turno);
+                break;
+            case "hotel":
+                solar.edificarHotel(jugadores.get(turno),turno);
+                break;
+            case "piscina":
+                solar.edificarPiscina(jugadores.get(turno),turno);
+                break;
+            case "pista":
+                solar.edificarPista(jugadores.get(turno),turno);
+                break;
+            default:
+                break;
             }
-        }catch(Excepciones_PropConstruir e){
-            consola.imprimir("Error: "+e.getMessage());;
         }
     }
 
