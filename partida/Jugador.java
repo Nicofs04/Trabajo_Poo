@@ -1,3 +1,5 @@
+//JUGADOR
+
 package partida;
 
 import java.util.ArrayList;
@@ -39,8 +41,6 @@ public class Jugador {
         this.tiradasCarcel = 0;
         this.tiradasCarcel = 0;
         this.vueltas = 0;
-        this.tratosOfrecidos = new ArrayList<Trato>();
-        this.tratosRecibidos = new ArrayList<Trato>();
     }
 
     /*
@@ -55,19 +55,18 @@ public class Jugador {
 
     public Jugador(String nombre, Casilla inicio, ArrayList<Avatar> avCreados, String tipo) {
         this.nombre = nombre;
-        this.nombre = nombre;
         switch (tipo) {
             case "pelota":
-                this.avatar = new Pelota(this, inicio, avCreados, tipo);                
+                this.avatar = new Pelota(this, inicio, avCreados);                
                 break;
             case "coche":
-                this.avatar= new Coche(this, inicio, avCreados, tipo);
+                this.avatar= new Coche(this, inicio, avCreados);
                 break;
             case "sombrero":
-                this.avatar= new Sombrero(this,inicio, avCreados, tipo);
+                this.avatar= new Sombrero(this,inicio, avCreados);
                 break;
             case "esfinge":
-                this.avatar= new Esfinge(this, inicio, avCreados, tipo);
+                this.avatar= new Esfinge(this, inicio, avCreados);
                 break;
         
             default:
@@ -222,6 +221,7 @@ public class Jugador {
         this.vecesDados = vecesDados;
     }
 
+    
     public ArrayList<Trato> getTratosRecibidos(){
         return tratosRecibidos;
     }
@@ -237,7 +237,7 @@ public class Jugador {
     public void setTratosOfrecidos(ArrayList<Trato> tratosOfrecidos){
         this.tratosOfrecidos = tratosOfrecidos;
     }
-    
+
     // Otros métodos:
     // Método para añadir una propiedad al jugador. Como parámetro, la casilla a
     // añadir.

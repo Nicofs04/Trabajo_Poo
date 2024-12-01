@@ -1,3 +1,5 @@
+//AVATAR
+
 package partida;
 
 import monopoly.*;
@@ -14,7 +16,14 @@ public abstract class Avatar {
     private int avanzado; // 1 si el movimiento del avatar está en modo avanzado y 0 si no lo está
     public static ConsolaNormal consola = new ConsolaNormal();
     // Constructor vacío
-    public Avatar() {
+    
+    public Avatar(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
+        this.setJugador(jugador);
+        this.setLugar(lugar);
+        this.generarId(avCreados);
+        this.getLugar().anhadirAvatar(this);
+        this.setAvanzado(0);
+        avCreados.add(this);
     }
 
     /*
@@ -23,7 +32,7 @@ public abstract class Avatar {
      * un arraylist con los
      * avatares creados (usado para crear un ID distinto del de los demás avatares).
      */
-    
+
 
     // GETTERS
 

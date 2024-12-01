@@ -9,13 +9,8 @@ import partida.Avatar;
 public class Esfinge extends Avatar{
 
 
-    public Esfinge(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados, String tipo){
-        this.setJugador(jugador);
-        this.setLugar(lugar);
-        this.generarId(avCreados);
-        this.getLugar().anhadirAvatar(this);
-        this.setAvanzado(0);
-        avCreados.add(this);
+    public Esfinge(Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados){
+        super(jugador, lugar, avCreados);
     }
 
 

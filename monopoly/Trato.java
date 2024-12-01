@@ -10,8 +10,8 @@ public class Trato {
     public static ConsolaNormal consola = new ConsolaNormal();
     private Jugador jugadorOfrece;
     private Jugador jugadorRecibe;
-    private Casilla aCambiar;
-    private Casilla aRecibir;
+    private Propiedad aCambiar;
+    private Propiedad aRecibir;
     private float fortunaACambiar = 0;
     private float fortunaARecibir = 0;
     private int tipoTrato;
@@ -33,19 +33,19 @@ public class Trato {
         this.jugadorRecibe = jugadorRecibe;
     }
 
-    public Casilla getACambiar(){
+    public Propiedad getACambiar(){
         return aCambiar;
     }
 
-    public void setACambiar(Casilla aCambiar){
+    public void setACambiar(Propiedad aCambiar){
         this.aCambiar = aCambiar;
     }
 
-    public Casilla getARecibir(){
+    public Propiedad getARecibir(){
         return aRecibir;
     }
 
-    public void setARecibir(Casilla aRecibir){
+    public void setARecibir(Propiedad aRecibir){
         this.aRecibir = aRecibir;
     }
 
@@ -136,7 +136,7 @@ public void cambiar1(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
     consola.imprimir("Escriba la casilla que desea cambiar:");
     String casillaCambiar = scanner.nextLine();
 
-    for(Casilla propiedad:actual.getPropiedades()){
+    for(Propiedad propiedad:actual.getPropiedades()){
         if(propiedad.getNombre().equals(casillaCambiar)){
             this.aCambiar = propiedad;
             mensajeCam = false;
@@ -144,7 +144,7 @@ public void cambiar1(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
             consola.imprimir("Escriba la casilla que desea recibir:");
             String casillaRecibir = scanner.nextLine();
 
-            for(Casilla Propiedad:recibidor.getPropiedades()){
+            for(Propiedad Propiedad:recibidor.getPropiedades()){
                 if(Propiedad.getNombre().equals(casillaRecibir)){
                     this.aRecibir = Propiedad;
                     
@@ -181,7 +181,7 @@ public void cambiar2(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
     consola.imprimir("Escriba la casilla que desea cambiar:");
     String casillaCambiar = scanner.nextLine();
 
-    for(Casilla propiedad:actual.getPropiedades()){
+    for(Propiedad propiedad:actual.getPropiedades()){
         if(propiedad.getNombre().equals(casillaCambiar)){
             this.aCambiar = propiedad;
             
@@ -217,7 +217,7 @@ public void cambiar3(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
     consola.imprimir("Escriba la casilla que desea recibir:");
     String casillaRecibir = scanner.nextLine();
 
-    for(Casilla propiedad:recibidor.getPropiedades()){
+    for(Propiedad propiedad:recibidor.getPropiedades()){
         if(propiedad.getNombre().equals(casillaRecibir)){
             this.aRecibir = propiedad;
 
@@ -248,7 +248,7 @@ public void cambiar4(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
     consola.imprimir("Escriba la casilla que desea cambiar:");
     String casillaCambiar = scanner.nextLine();
 
-    for(Casilla propiedad:actual.getPropiedades()){
+    for(Propiedad propiedad:actual.getPropiedades()){
         if(propiedad.getNombre().equals(casillaCambiar)){
             this.aCambiar = propiedad;
             mensajeCam = true;
@@ -256,7 +256,7 @@ public void cambiar4(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
             consola.imprimir("Escriba la casilla que desea recibir:");
             String casillaRecibir = scanner.nextLine();
 
-            for(Casilla Propiedad:recibidor.getPropiedades()){
+            for(Propiedad Propiedad:recibidor.getPropiedades()){
                 if(Propiedad.getNombre().equals(casillaRecibir)){
                     this.aRecibir = Propiedad;
 
@@ -297,7 +297,7 @@ public void cambiar5(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
     consola.imprimir("Escriba la casilla que desea cambiar:");
     String casillaCambiar = scanner.nextLine();
 
-    for(Casilla propiedad:actual.getPropiedades()){
+    for(Propiedad propiedad:actual.getPropiedades()){
         if(propiedad.getNombre().equals(casillaCambiar)){
             this.aCambiar = propiedad;
             mensajeCam = false;
@@ -308,7 +308,7 @@ public void cambiar5(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
             consola.imprimir("Escriba la casilla que desea recibir:");
             String casillaRecibir = scanner.nextLine();
 
-            for(Casilla Propiedad:recibidor.getPropiedades()){
+            for(Propiedad Propiedad:recibidor.getPropiedades()){
                 if(Propiedad.getNombre().equals(casillaRecibir)){
                     this.aRecibir = Propiedad;
 
@@ -435,6 +435,7 @@ public void casoPrimero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         consola.imprimir("Trato rechazado.\n");
         //no se elimina
     }
+    scanner.close();
 }
 
 public void casoSegundo(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
@@ -486,6 +487,7 @@ public void casoSegundo(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         consola.imprimir("Trato rechazado.\n");
         //no se elimina
     }
+    scanner.close();
 }
 
 public void casoTercero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
@@ -537,6 +539,7 @@ public void casoTercero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         consola.imprimir("Trato rechazado.\n");
         //no se elimina
     }
+    scanner.close();
 }
 
 public void casoCuarto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
@@ -597,6 +600,7 @@ public void casoCuarto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         consola.imprimir("Trato rechazado.\n");
         //no se elimina
     }
+    scanner.close();
 }
 
 public void casoQuinto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
@@ -657,6 +661,7 @@ public void casoQuinto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         consola.imprimir("Trato rechazado.\n");
         //no se elimina
     }
+    scanner.close();
 }
 
 }
