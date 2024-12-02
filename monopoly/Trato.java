@@ -94,8 +94,8 @@ public void crearTrato(Jugador actual, Jugador banca, Juego juego){
     Jugador recibidor = buscarJugador(juego);
     Scanner scanner = new Scanner(System.in);
 
-    if(recibidor == null){
-        consola.imprimir("El jugador no existe.\n");
+    if(recibidor == null || recibidor.equals(actual)){
+        consola.imprimir("No es posible proponerle un trato a ese jugador.\n");
     }else{
         consola.imprimir("Elija el modo de trato:\n\n");
         consola.imprimir("1. Cambiar <propiedad1> por <propiedad2>                                       -> Comando: 'cambiar 1'\n");
@@ -359,11 +359,9 @@ public Jugador buscarJugador(Juego juego){
 
     for(Jugador jugador:juego.getJugadores()){
         if(jugador.getNombre().equals(jugadorABuscar)){
-
             return jugador;
         }
     }
-
     return null;
 }
 
@@ -617,28 +615,6 @@ public void casoCuarto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         //no se elimina
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 public void casoQuinto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
     Scanner scanner = new Scanner(System.in);
