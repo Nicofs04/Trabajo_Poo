@@ -791,14 +791,14 @@ public class Juego implements Comando{
         //if(jugadores.get(turno).getAvatar().getLugar().getNombre()=="carcel"){
         if(jugadores.get(turno).getEnCarcel()){
             //Si está en la cárcel y además le llega el dinero:
-            if(jugadores.get(turno).getFortuna()>=jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())){
+            if(jugadores.get(turno).getFortuna()>=jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero)){
                 
-                jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones()));
+                jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna()-jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero));
                 
                 jugadores.get(turno).setEnCarcel(false);
             
-                jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())); //añadimos al atributo dineroTasasEImpuestos el valor pagado por salir de la cárcel
-                consola.imprimir("Sales de la cárcel pagando " +jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones())+"€");
+                jugadores.get(turno).setDineroTasasEImpuestos(jugadores.get(turno).getDineroTasasEImpuestos() + jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero)); //añadimos al atributo dineroTasasEImpuestos el valor pagado por salir de la cárcel
+                consola.imprimir("Sales de la cárcel pagando " +jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero)+"€");
             
 
             }else{
