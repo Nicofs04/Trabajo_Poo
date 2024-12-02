@@ -1264,7 +1264,7 @@ public void listarJugadores() {
         trato.listarTratos(jugadores.get(turno));
     }
 
-    public int hipotecar(Jugador jugador, Tablero tablero) throws Excepciones_PropHip{
+    public int hipotecar(Jugador jugador, Tablero tablero) {
 
         if (!jugador.getPropiedades().isEmpty()) { // mientras el jugador tenga propiedades
             consola.imprimir("¿Qué casilla desea hipotecar?");
