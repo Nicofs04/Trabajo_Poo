@@ -5,7 +5,6 @@ package partida;
 import monopoly.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 public abstract class Avatar {
 

@@ -1,8 +1,6 @@
 package monopoly;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-
 import partida.Jugador;
 
 public class Trato {
@@ -92,23 +90,23 @@ public class Trato {
 
 public void crearTrato(Jugador actual, Jugador banca, Juego juego){
     Jugador recibidor = buscarJugador(juego);
-    Scanner scanner = new Scanner(System.in);
+    
 
     if(recibidor == null || recibidor.equals(actual)){
         consola.imprimir("No es posible proponerle un trato a ese jugador.\n");
     }else{
         consola.imprimir("Elija el modo de trato:\n\n");
-        consola.imprimir("1. Cambiar <propiedad1> por <propiedad2>                                       -> Comando: 'cambiar 1'\n");
-        consola.imprimir("2. Cambiar <propiedad1> por <cantidad_dinero>                                  -> Comando: 'cambiar 2'\n");
-        consola.imprimir("3. Cambiar <cantidad_dinero> por <propiedad1>                                  -> Comando: 'cambiar 3'\n");
-        consola.imprimir("4. Cambiar <propiedad1> por <propiedad2> y <cantidad_dinero>                   -> Comando: 'cambiar 4'\n");
-        consola.imprimir("5. Cambiar <propiedad1> y <cantidad_dinero> por <propiedad2>                   -> Comando: 'cambiar 5'\n\n");
+        consola.imprimir("1. Cambiar <propiedad1> por <propiedad2>                                       -> Comando: '1'\n");
+        consola.imprimir("2. Cambiar <propiedad1> por <cantidad_dinero>                                  -> Comando: '2'\n");
+        consola.imprimir("3. Cambiar <cantidad_dinero> por <propiedad1>                                  -> Comando: '3'\n");
+        consola.imprimir("4. Cambiar <propiedad1> por <propiedad2> y <cantidad_dinero>                   -> Comando: '4'\n");
+        consola.imprimir("5. Cambiar <propiedad1> y <cantidad_dinero> por <propiedad2>                   -> Comando: '5'\n\n");
 
         consola.imprimir("=====================================\n");
         consola.imprimir("Selecciona una opción para continuar.\n");
         consola.imprimir("=====================================\n\n");
 
-        String comando = scanner.nextLine();
+        String comando = consola.leer();
         String opcion[] = comando.split(" ");
 
         switch(opcion[0]){
@@ -134,12 +132,11 @@ public void crearTrato(Jugador actual, Jugador banca, Juego juego){
 }
 
 public void cambiar1(Jugador actual, Jugador banca, Jugador recibidor, Juego juego){
-    Scanner scanner = new Scanner(System.in);
     boolean mensajeRec = true;
     boolean mensajeCam = true;
 
     consola.imprimir("Escriba la casilla que desea cambiar:");
-    String casillaCambiar = scanner.nextLine();
+    String casillaCambiar = consola.leer();
 
     for(Propiedad propiedad:actual.getPropiedades()){
         if(propiedad.getNombre().equals(casillaCambiar)){
@@ -147,7 +144,7 @@ public void cambiar1(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
             mensajeCam = false;
 
             consola.imprimir("Escriba la casilla que desea recibir:");
-            String casillaRecibir = scanner.nextLine();
+            String casillaRecibir = consola.leer();
 
             for(Propiedad Propiedad:recibidor.getPropiedades()){
                 if(Propiedad.getNombre().equals(casillaRecibir)){
@@ -181,18 +178,18 @@ public void cambiar1(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
 }
 
 public void cambiar2(Jugador actual, Jugador banca, Jugador recibidor, Juego juego){
-    Scanner scanner = new Scanner(System.in);
+
     boolean mensaje = true;
 
     consola.imprimir("Escriba la casilla que desea cambiar:");
-    String casillaCambiar = scanner.nextLine();
+    String casillaCambiar = consola.leer();
 
     for(Propiedad propiedad:actual.getPropiedades()){
         if(propiedad.getNombre().equals(casillaCambiar)){
             this.aCambiar = propiedad;
             
             consola.imprimir("Escriba la cantidad de dinero que desea recibir:");
-            this.fortunaARecibir = scanner.nextFloat();
+            this.fortunaARecibir = Float.parseFloat(consola.leer());
             
             this.tipoTrato = 2;
             this.jugadorOfrece = actual;
@@ -215,15 +212,16 @@ public void cambiar2(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
 }
 
 public void cambiar3(Jugador actual, Jugador banca, Jugador recibidor, Juego juego){
-    Scanner scanner = new Scanner(System.in);
+
     boolean mensaje = true;
 
     consola.imprimir("Escriba la cantidad de dinero que desea cambiar:");
-    this.fortunaACambiar = scanner.nextFloat();
+    this.fortunaACambiar = Float.parseFloat(consola.leer());
     String aux = scanner.nextLine(); //sirve para limpiar el \n que deja nextFloat()
+    //NS QUE HACER AQUI
 
     consola.imprimir("Escriba la casilla que desea recibir:");
-    String casillaRecibir = scanner.nextLine();
+    String casillaRecibir = consola.leer();
 
     for(Propiedad propiedad:recibidor.getPropiedades()){
         if(propiedad.getNombre().equals(casillaRecibir)){
@@ -251,12 +249,12 @@ public void cambiar3(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
 }
 
 public void cambiar4(Jugador actual, Jugador banca, Jugador recibidor, Juego juego){
-    Scanner scanner = new Scanner(System.in);
+    
     boolean mensajeCam = true;
     boolean mensajeRec = true;
 
     consola.imprimir("Escriba la casilla que desea cambiar:");
-    String casillaCambiar = scanner.nextLine();
+    String casillaCambiar = consola.leer();
 
     for(Propiedad propiedad:actual.getPropiedades()){
         if(propiedad.getNombre().equals(casillaCambiar)){
@@ -264,14 +262,14 @@ public void cambiar4(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
             mensajeCam = false;
 
             consola.imprimir("Escriba la casilla que desea recibir:");
-            String casillaRecibir = scanner.nextLine();
+            String casillaRecibir = consola.leer();
 
             for(Propiedad Propiedad:recibidor.getPropiedades()){
                 if(Propiedad.getNombre().equals(casillaRecibir)){
                     this.aRecibir = Propiedad;
 
                     consola.imprimir("Escriba la cantidad de dinero que desea recibir:");
-                    this.fortunaARecibir = scanner.nextFloat();
+                    this.fortunaARecibir = Float.parseFloat(consola.leer());
                     
                     this.tipoTrato = 4;
                     this.jugadorOfrece = actual;
@@ -301,12 +299,12 @@ public void cambiar4(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
 }
 
 public void cambiar5(Jugador actual, Jugador banca, Jugador recibidor, Juego juego){
-    Scanner scanner = new Scanner(System.in);
+
     boolean mensajeCam = true;
     boolean mensajeRec = true;
 
     consola.imprimir("Escriba la casilla que desea cambiar:");
-    String casillaCambiar = scanner.nextLine();
+    String casillaCambiar = consola.leer();
 
     for(Propiedad propiedad:actual.getPropiedades()){
         if(propiedad.getNombre().equals(casillaCambiar)){
@@ -314,11 +312,12 @@ public void cambiar5(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
             mensajeCam = false;
             
             consola.imprimir("Escriba la cantidad de dinero que desea cambiar:");
-            this.fortunaACambiar = scanner.nextFloat();
+            this.fortunaACambiar = Float.parseFloat(consola.leer());
             String aux = scanner.nextLine(); //sirve para limpiar el \n que deja nextFloat()
+            //NS QUE HACER AQUI
 
             consola.imprimir("Escriba la casilla que desea recibir:");
-            String casillaRecibir = scanner.nextLine();
+            String casillaRecibir = consola.leer();
 
             for(Propiedad Propiedad:recibidor.getPropiedades()){
                 if(Propiedad.getNombre().equals(casillaRecibir)){
@@ -352,10 +351,10 @@ public void cambiar5(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
 }
 
 public Jugador buscarJugador(Juego juego){
-    Scanner scanner = new Scanner(System.in);
+    
 
     consola.imprimir("Escriba el jugador al que le quiere proponer un trato:");
-    String jugadorABuscar = scanner.nextLine();
+    String jugadorABuscar = consola.leer();
 
     for(Jugador jugador:juego.getJugadores()){
         if(jugador.getNombre().equals(jugadorABuscar)){
@@ -393,17 +392,17 @@ public void manejarTrato(Trato trato, Jugador recibidor){
 }
 
 public void casoPrimero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
-    Scanner scanner = new Scanner(System.in);
+    
     consola.imprimir(String.format("Trato %s: %s te doy %s y recibo %s.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getACambiar().getNombre(), trato.getARecibir().getNombre()));
 
     consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
-    String respuesta = scanner.nextLine();
+    String respuesta = consola.leer();
 
     while((!respuesta.equals("acepto")) && (!respuesta.equals("rechazo"))){
         consola.imprimir("Comando desconocido.\n");
 
         consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
-        respuesta = scanner.nextLine();
+        respuesta = consola.leer();
     }
 
     if(respuesta.equals("acepto")){
@@ -419,13 +418,13 @@ public void casoPrimero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
     String respuestaConfirmacion;
     
     consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
-    respuestaConfirmacion = scanner.nextLine();
+    respuestaConfirmacion = consola.leer();
 
     while((!respuestaConfirmacion.equals("acepto")) && (!respuestaConfirmacion.equals("rechazo"))){
         consola.imprimir("Comando desconocido.\n");
 
         consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
-        respuestaConfirmacion = scanner.nextLine();
+        respuestaConfirmacion = consola.leer();
     }
 
     if(respuestaConfirmacion.equals("acepto")){
@@ -447,17 +446,16 @@ public void casoPrimero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
 }
 
 public void casoSegundo(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
-    Scanner scanner = new Scanner(System.in);
     consola.imprimir(String.format("Trato %s: %s te doy %s y recibo %.2f.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getACambiar().getNombre(), trato.getFortunaARecibir()));
 
     consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
-    String respuesta = scanner.nextLine();
+    String respuesta = consola.leer();
 
     while((!respuesta.equals("acepto")) && (!respuesta.equals("rechazo"))){
         consola.imprimir("Comando desconocido.\n");
 
         consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
-        respuesta = scanner.nextLine();
+        respuesta = consola.leer();
     }
 
     if(respuesta.equals("acepto")){
@@ -469,13 +467,13 @@ public void casoSegundo(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
     String respuestaConfirmacion;
 
     consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
-    respuestaConfirmacion = scanner.nextLine();
+    respuestaConfirmacion = consola.leer();
 
     while((!respuestaConfirmacion.equals("acepto")) && (!respuestaConfirmacion.equals("rechazo"))){
         consola.imprimir("Comando desconocido.\n");
 
         consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
-        respuestaConfirmacion = scanner.nextLine();
+        respuestaConfirmacion = consola.leer();
     }
 
     if(respuestaConfirmacion.equals("acepto")){
@@ -498,17 +496,16 @@ public void casoSegundo(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
 }
 
 public void casoTercero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
-    Scanner scanner = new Scanner(System.in);
     consola.imprimir(String.format("Trato %s: %s te doy %.2f y recibo %s.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getFortunaACambiar(), trato.getARecibir().getNombre()));
 
     consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
-    String respuesta = scanner.nextLine();
+    String respuesta = consola.leer();
 
     while((!respuesta.equals("acepto")) && (!respuesta.equals("rechazo"))){
         consola.imprimir("Comando desconocido.\n");
 
         consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
-        respuesta = scanner.nextLine();
+        respuesta = consola.leer();
     }
 
     if(respuesta.equals("acepto")){
@@ -519,13 +516,13 @@ public void casoTercero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         String respuestaConfirmacion;
 
         consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
-        respuestaConfirmacion = scanner.nextLine();
+        respuestaConfirmacion = consola.leer();
 
         while((!respuestaConfirmacion.equals("acepto")) && (!respuestaConfirmacion.equals("rechazo"))){
             consola.imprimir("Comando desconocido.\n");
 
             consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
-            respuestaConfirmacion = scanner.nextLine();
+            respuestaConfirmacion = consola.leer();
         }
 
         if(respuestaConfirmacion.equals("acepto")){
@@ -554,17 +551,17 @@ public void casoTercero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
 }
 
 public void casoCuarto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
-    Scanner scanner = new Scanner(System.in);
+    
     consola.imprimir(String.format("Trato %s: %s te doy %s y recibo %s y %.2f.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getACambiar().getNombre(), trato.getARecibir().getNombre(), trato.getFortunaARecibir()));
 
     consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
-    String respuesta = scanner.nextLine();
+    String respuesta = consola.leer();
 
     while((!respuesta.equals("acepto")) && (!respuesta.equals("rechazo"))){
         consola.imprimir("Comando desconocido.\n");
 
         consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
-        respuesta = scanner.nextLine();
+        respuesta = consola.leer();
     }
 
     if(respuesta.equals("acepto")){
@@ -579,13 +576,13 @@ public void casoCuarto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         String respuestaConfirmacion;
 
         consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
-        respuestaConfirmacion = scanner.nextLine();
+        respuestaConfirmacion = consola.leer();
 
         while((!respuestaConfirmacion.equals("acepto")) && (!respuestaConfirmacion.equals("rechazo"))){
             consola.imprimir("Comando desconocido.\n");
 
             consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
-            respuestaConfirmacion = scanner.nextLine();
+            respuestaConfirmacion = consola.leer();
         }
 
         if(respuestaConfirmacion.equals("acepto")){
@@ -617,17 +614,17 @@ public void casoCuarto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
 }
 
 public void casoQuinto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
-    Scanner scanner = new Scanner(System.in);
+    
     consola.imprimir(String.format("Trato %s: %s te doy %s y %.2f y recibo %s.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getACambiar().getNombre(), trato.getFortunaACambiar(), trato.getARecibir().getNombre()));
 
     consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
-    String respuesta = scanner.nextLine();
+    String respuesta = consola.leer();
 
     while((!respuesta.equals("acepto")) && (!respuesta.equals("rechazo"))){
         consola.imprimir("Comando desconocido.\n");
 
         consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
-        respuesta = scanner.nextLine();
+        respuesta = consola.leer();
     }
 
     if(respuesta.equals("acepto")){
@@ -643,13 +640,13 @@ public void casoQuinto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
     String respuestaConfirmacion;
 
     consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
-    respuestaConfirmacion = scanner.nextLine();
+    respuestaConfirmacion = consola.leer();
 
     while((!respuestaConfirmacion.equals("acepto")) && (!respuestaConfirmacion.equals("rechazo"))){
         consola.imprimir("Comando desconocido.\n");
 
         consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
-        respuestaConfirmacion = scanner.nextLine();
+        respuestaConfirmacion = consola.leer();
     }
 
     if(respuestaConfirmacion.equals("acepto")){

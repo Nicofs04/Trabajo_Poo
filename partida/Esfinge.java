@@ -1,10 +1,9 @@
 package partida;
 
 import java.util.ArrayList;
-
 import monopoly.Casilla;
 import monopoly.Juego;
-import partida.Avatar;
+
 
 public class Esfinge extends Avatar{
 

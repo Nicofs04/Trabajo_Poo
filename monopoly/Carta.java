@@ -1,12 +1,7 @@
 package monopoly;
 
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
-import java.util.Iterator;
 import partida.*;
-import monopoly.*;
+
 
 public  abstract class Carta{
     private int numCarta;

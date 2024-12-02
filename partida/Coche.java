@@ -3,9 +3,7 @@
 package partida;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import monopoly.Casilla;
-import monopoly.Solar;
 import monopoly.Juego;
 import monopoly.Propiedad;
 
@@ -57,8 +55,7 @@ public class Coche extends Avatar {
                 if (compras <= 1) {
                     consola.imprimir("Quieres comprar la casilla " + getLugar().getNombre() + "?");
                     consola.imprimir("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
-                    Scanner scanner = new Scanner(System.in);
-                    String respuesta = scanner.nextLine();
+                    String respuesta = consola.leer();
                     if (respuesta.equals("si")) {
                         Propiedad propiedad=(Propiedad) getLugar();
                         getJugador().setFortuna(getJugador().getFortuna() - propiedad.getValor());
@@ -73,12 +70,11 @@ public class Coche extends Avatar {
 
             consola.imprimir("Quieres edificar en esta casilla?");
             consola.imprimir("Escribe 'si' si quieres edificar y 'no' si no quieres edificar");
-            Scanner scanner = new Scanner(System.in);
-            String respuesta = scanner.nextLine();
+            String respuesta = consola.leer();
             if (respuesta.equals("si")) {
                 boolean comprobante = false;
                 while (comprobante) {
-                    Scanner scanner2 = new Scanner(System.in);
+                
                     consola.imprimir("=====================================\n");
                     consola.imprimir("                MENÚ                \n");
                     consola.imprimir("=====================================\n");
@@ -92,7 +88,7 @@ public class Coche extends Avatar {
                     consola.imprimir("Selecciona una opción para continuar.\n");
                     consola.imprimir("=====================================\n\n");
 
-                    String comando = scanner2.nextLine();
+                    String comando = consola.leer();
                     String[] palabras = comando.split(" ");
 
                     if (palabras.length <= 1 || palabras.length > 2) {
@@ -104,8 +100,7 @@ public class Coche extends Avatar {
                         case "edificar":
                             if (palabras.length == 2) {
                                 String tipoEdificacion = palabras[1];
-                                Casilla casilla = getLugar();
-                                Solar solar = (Solar)casilla;
+
                                 if (tipoEdificacion.equals("casa")) {
                                     menu.edificar("casa");
                                 } else if (tipoEdificacion.equals("hotel")) {

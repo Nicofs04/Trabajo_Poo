@@ -1,9 +1,6 @@
 package monopoly;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Scanner;
-
 import partida.Avatar;
 import partida.Jugador;
 
@@ -75,8 +72,8 @@ public abstract class Casilla {
     public float getDineroParking(){
         return dineroParking;
     }
-    public void setDineroParking(float dineroParking){
-        this.dineroParking = dineroParking;
+    public void setDineroParking(float dinero){
+        dineroParking = dinero;
     }
     public int getVecesCaidasGrupal(){
         return this.VecesCaidasGrupal;

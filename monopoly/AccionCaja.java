@@ -1,8 +1,8 @@
 package monopoly;
 
-import java.util.Scanner;
+
 import partida.*;
-import monopoly.*;
+
 
 public class AccionCaja extends Accion {
 
@@ -19,11 +19,10 @@ public class AccionCaja extends Accion {
         //barajar(baraja2);
         //Elegir carta
         System.out.println("Qué carta desea elegir?");
-        Scanner scanner2 = new Scanner(System.in);
-        int carta2 = scanner2.nextInt();
+        int carta2 = Integer.parseInt(consola.leer());
         while(carta2>6 || carta2<1){
             System.out.println("Introduce un número del 1 al 6");
-            carta2 = scanner2.nextInt();
+            carta2 = Integer.parseInt(consola.leer());
         }
         //int eleccion2=0;
         //eleccion2=baraja2.get(carta2);

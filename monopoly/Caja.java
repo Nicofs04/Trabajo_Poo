@@ -1,6 +1,5 @@
 package monopoly;
 import partida.*;
-import monopoly.*;
 
 public class Caja extends Carta {
 

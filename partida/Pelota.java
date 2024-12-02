@@ -1,16 +1,11 @@
 package partida;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-
 import monopoly.AccionCaja;
 import monopoly.AccionSuerte;
 import monopoly.Casilla;
 import monopoly.Juego;
 import monopoly.Propiedad;
-import monopoly.Suerte;
-import partida.Avatar;
-import monopoly.*;
 import monopoly.Excepciones.*;
 
 public class Pelota extends Avatar {
@@ -58,8 +53,7 @@ public class Pelota extends Avatar {
                         if (this.getLugar().estaEnVenta()) {
                             consola.imprimir("Quieres comprar la casilla " + this.getLugar().getNombre() + "?");
                             consola.imprimir("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
-                            Scanner scanner = new Scanner(System.in);
-                            String respuesta = scanner.nextLine();
+                            String respuesta = consola.leer();
                             if (respuesta.equals("si")) {
                                 Propiedad propiedad= (Propiedad) this.getLugar();
                                 propiedad.comprarCasilla(this.getJugador(), menu.getBanca());
@@ -99,8 +93,7 @@ public class Pelota extends Avatar {
                             if (this.getLugar().estaEnVenta()) {
                                 consola.imprimir("Quieres comprar la casilla " + this.getLugar().getNombre() + "?");
                                 consola.imprimir("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
-                                Scanner scanner = new Scanner(System.in);
-                                String respuesta = scanner.nextLine();
+                                String respuesta = consola.leer();
                                 if (respuesta.equals("si")) {
                                     Propiedad propiedad=(Propiedad) this.getLugar();
                                     propiedad.comprarCasilla(this.getJugador(), menu.getBanca());
@@ -147,8 +140,7 @@ public class Pelota extends Avatar {
                         if (this.getLugar().estaEnVenta()) {
                             consola.imprimir("Quieres comprar la casilla " + this.getLugar().getNombre() + "?");
                             consola.imprimir("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
-                            Scanner scanner = new Scanner(System.in);
-                            String respuesta = scanner.nextLine();
+                            String respuesta = consola.leer();
                             if (respuesta.equals("si")) {
                                 Propiedad propiedad=(Propiedad) this.getLugar();
                                 propiedad.comprarCasilla(this.getJugador(), menu.getBanca());
@@ -192,8 +184,7 @@ public class Pelota extends Avatar {
                             if (this.getLugar().estaEnVenta()) {
                                 consola.imprimir("Quieres comprar la casilla " + this.getLugar().getNombre() + "?");
                                 consola.imprimir("Escribe 'si' si la quieres comprar y 'no' si no la quieres comprar");
-                                Scanner scanner = new Scanner(System.in);
-                                String respuesta = scanner.nextLine();
+                                String respuesta = consola.leer();
                                 if (respuesta.equals("si")) {
                                     Propiedad propiedad=(Propiedad) this.getLugar();
                                     propiedad.comprarCasilla(this.getJugador(), menu.getBanca());

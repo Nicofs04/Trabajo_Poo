@@ -1,8 +1,5 @@
 package monopoly;
 
-
-import java.util.Scanner;
-
 import partida.Jugador;
 import monopoly.Excepciones.*;
 
