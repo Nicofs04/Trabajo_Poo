@@ -4,9 +4,16 @@ import partida.Jugador;
 
 public class Servicio extends Propiedad{
 
+    static final float FACTOR_SERVICIO = 6506.64f;
+
+
     public Servicio(String nombre, int posicion, float valor, Jugador duenho) {
         super(nombre, posicion,valor,duenho); // llama al constructor de Propiedades
         
+    }
+
+    public float getFactor(){
+        return FACTOR_SERVICIO;
     }
 
 
@@ -16,7 +23,6 @@ public class Servicio extends Propiedad{
         c.sumarVecesCaidasGrupal(1);
         if(!c.getHipotecado()){ //verificamos que la casilla no este hipotecada
             if(!c.getDuenho().equals(actual) && !c.getDuenho().equals(banca)){
-                float factorservicio = 6506.64f;
                         Jugador duenho = c.getDuenho();
                         int contador=0;
                         float valortirada = 0;
@@ -33,7 +39,7 @@ public class Servicio extends Propiedad{
                             valortirada = tirada*10;
                         }
 
-                        setImpuesto(factorservicio*valortirada);
+                        setImpuesto(FACTOR_SERVICIO*valortirada);
                         
                     
                         if(actual.getFortuna() < (getImpuesto())) {
