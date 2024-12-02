@@ -25,7 +25,7 @@ public interface Comando {
 
     public void descCasilla(String nombreCasilla) throws Excepciones_DescCas;
 
-    public void descJugador(String[] nombreJugador) throws Excepciones_DescJug;
+    public void descJugador(String nombreJugador) throws Excepciones_DescJug;
 
     public void descAvatar(String[] idAvatar) throws Excepciones_DescAv;
 
