@@ -1294,6 +1294,7 @@ public void listarJugadores() {
                                     return 1;
                                 } else {
                                     consola.imprimir("La casilla ya ha sido hipotecada.\n");
+                                    
                                 }
                             } else {
                                 consola.imprimir("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla.\n");
