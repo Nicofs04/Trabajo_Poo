@@ -22,7 +22,7 @@ public class Especial extends Casilla {
             actual.setFortuna(actual.getFortuna() + getDineroParking());
             float bote=getDineroParking();
             setDineroParking(0);
-            System.out.println("El jugador recibe"+bote+ " el bote de la banca.");
+            System.out.println("El jugador recibe "+bote+ " del bote de la banca.");
             actual.setDineroInversionesOBote(actual.getDineroInversionesOBote() + bote); //añadimos al atributo dineroInversionesOBote el valor indicado
             //return true;
             

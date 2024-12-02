@@ -17,6 +17,7 @@ public class Caja extends Carta {
                 consola.imprimir("Paga 500000€ por un fin de semana en un balneario de 5 estrellas.");
                 if(jugador.getFortuna()>=500000f){
                     jugador.setFortuna(jugador.getFortuna()-500000f);
+                    jugador.getAvatar().getLugar().setDineroParking(jugador.getAvatar().getLugar().getDineroParking()+500000f);
 
                     jugador.setDineroTasasEImpuestos(jugador.getDineroTasasEImpuestos() + 500000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
 

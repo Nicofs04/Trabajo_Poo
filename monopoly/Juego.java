@@ -637,7 +637,7 @@ public class Juego implements Comando{
                         consola.imprimir("Has fallado 3 veces.");
                         jugadores.get(turno).setEnCarcel(false);
 
-                        jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero.getPosiciones()));
+                        jugadores.get(turno).setFortuna(jugadores.get(turno).getFortuna() - jugadores.get(turno).getAvatar().getLugar().valorCarcel(tablero));
                         
                         //Calculamos la posición inicial
                         String posicionActual = jugadores.get(turno).getAvatar().getLugar().getNombre();
