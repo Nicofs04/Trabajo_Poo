@@ -152,10 +152,11 @@ public class Juego implements Comando{
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
-    
+    //hacer un atributo partidacabada;
         while (true) { 
             if (partidaEmpezada && jugadores.size() < 2) {
                 consola.imprimir("El jugador " + jugadores.get(0).getNombre() + " ha ganado la partida.");
+                consola.close();
                 break;
             }
         
@@ -174,6 +175,7 @@ public class Juego implements Comando{
                 Scanner scanner = new Scanner(System.in);
                 String comando = scanner.nextLine();
                 analizarComando(comando);
+                
             }else{
                 if(mensajeTrato){ //para que solo se imprima una vez cada turno
                     if(!jugadores.get(turno).getTratosRecibidos().isEmpty()){

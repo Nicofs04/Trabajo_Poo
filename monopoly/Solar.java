@@ -279,19 +279,7 @@ public int contarPistas(){
 }
 
 
-//a edificar se podría llamar con Jugador jugador
-private boolean puedeEdificar(Jugador jugador,int index) {
-    if (!getHipotecado()) {    
-        if (this.getGrupo().esDuenhoGrupo(jugador) || getVeces(index)>2) {
-            return true;   
-        }else{
-            consola.imprimir("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar, aparte, la casilla no puede estar hipotecada");
-        return false;
-        }
-    }
-    consola.imprimir("No puedes construir en un solar hipotecado");
-    return false;
-}
+
 
 public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropConstruir{
     Edificacion casa = new Casa(this);
@@ -302,7 +290,15 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
     int hotelgrupo = this.getGrupo().contarHotelesGrupo();
     int casasGrupo = this.getGrupo().contarCasasGrupo();
 
-    if (puedeEdificar(jugador,index)) {
+
+    if (!getHipotecado()) {    
+        if (!this.getGrupo().esDuenhoGrupo(jugador) && !(getVeces(index)>2)) {
+            throw new Excepciones_PropConstruir("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar, aparte, la casilla no puede estar hipotecada");
+        }
+    }else{
+        throw new Excepciones_PropConstruir("No puedes construir en un solar hipotecado");
+    }
+    
         if (numCasas < 4) {
             if (hotelgrupo==limiteGrupo) {
                 if (casasGrupo<limiteGrupo) {
@@ -338,7 +334,7 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
         }else{
             throw new Excepciones_PropConstruir("Se alcanzó el límite máximo de casas a construir");
         }    
-        }
+        
     }
 
 
@@ -349,7 +345,7 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
         int hotelgrupo = getGrupo().contarHotelesGrupo();
         int contarHoteles = contarHoteles();
         
-        if (puedeEdificar(jugador,index)) {
+        
             if (hotelgrupo < limiteGrupo) {
                 if (numCasas == 4) {
                     if (jugador.getFortuna() >= (getValor() * 0.6f)) {
@@ -372,7 +368,7 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
                 throw new Excepciones_PropConstruir("Has alcanzado el límite máximo de hoteles en el grupo");
                 
             }
-        }
+        
     }
     
     public void edificarPiscina(Jugador jugador, int index) throws Excepciones_PropConstruir{
