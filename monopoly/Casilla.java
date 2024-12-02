@@ -244,7 +244,7 @@ public abstract class Casilla {
             if (!solar.getEdificacion().isEmpty()) {
                 detalles.append(",\n\tEdificaciones: [");
                 for (Edificacion edificacion : solar.getEdificacion()) {
-                    detalles.append("\n\t\t{tipo: ").append(edificacion.getTipo())
+                    detalles.append("\n\t\t{tipo: ").append(edificacion.getNombre())
                             .append(", id: ").append(edificacion.getId()).append("},");
                 }
                 detalles.deleteCharAt(detalles.length() - 1); // Eliminar la última coma

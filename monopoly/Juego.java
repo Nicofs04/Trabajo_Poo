@@ -1294,7 +1294,7 @@ public void listarJugadores() {
                                     return 1;
                                 } else {
                                     consola.imprimir("La casilla ya ha sido hipotecada.\n");
-                                    
+
                                 }
                             } else {
                                 consola.imprimir("La casilla tiene edificaciones, debes venderlas antes de poder hipotecar la casilla.\n");
@@ -1364,15 +1364,18 @@ public void listarJugadores() {
         consola.imprimir("No tienes propiedades para deshipotecar.\n");
         return 0;
     }
-    /* 
+    
 
 public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares){ //falta mirar si las propiedades van a la banca o a un jugador determinado
-    for(Casilla casilla:actual.getPropiedades()){ //pasamos todas las propiedades del jugador a la banca
-        if(!casilla.getEdificacion().isEmpty()){
-            casilla.getEdificacion().clear();
+    for(Propiedad propiedad:actual.getPropiedades()){ //pasamos todas las propiedades del jugador a la banca
+        if (propiedad instanceof Solar) {
+            Solar solar = (Solar)propiedad;
+        if(solar.getEdificacion().isEmpty()){
+            solar.getEdificacion().clear();
+            }
         }
-        casilla.setHipotecado(false);
-        casilla.setDuenho(banca);
+        propiedad.setHipotecado(false);
+        propiedad.setDuenho(banca);
     }
     
     banca.setFortuna(banca.getFortuna() + actual.getFortuna()); //pasamos toda la fortuna del jugador a la banca
@@ -1385,22 +1388,25 @@ public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> j
 
 public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares){
 
-    for(Casilla casilla:actual.getPropiedades()){ //nos aseguramos de que todas las casillas estén libres de edificaciones
-        if(!casilla.getEdificacion().isEmpty()){
-            casilla.getEdificacion().clear();
+    for(Propiedad propiedad:actual.getPropiedades()){ //pasamos todas las propiedades del jugador a la banca
+        if (propiedad instanceof Solar) {
+            Solar solar = (Solar)propiedad;
+        if(solar.getEdificacion().isEmpty()){
+            solar.getEdificacion().clear();
+            }
         }
-        casilla.setHipotecado(false);
-        casilla.setDuenho(receptor);
+        propiedad.setHipotecado(false);
+        propiedad.setDuenho(receptor);
     }
     /*for(Casilla casilla:actual.getPropiedades()){ //pasamos todas las propiedades del jugador que llama bancarrota al jugador que las recibe
         receptor.getPropiedades().add(casilla);
         actual.getPropiedades().remove(casilla);
-    }//
+    }*/
 
-    Iterator<Casilla> iterator = actual.getPropiedades().iterator();
+    Iterator<Propiedad> iterator = actual.getPropiedades().iterator();
     while(iterator.hasNext()){ //pasamos todas las propiedades del jugador que llama bancarrota al jugador que las recibe
-        Casilla casilla = iterator.next();
-        receptor.getPropiedades().add(casilla);
+        Propiedad propiedad = iterator.next();
+        receptor.getPropiedades().add(propiedad);
         iterator.remove();
     }
 
@@ -1411,7 +1417,7 @@ public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugad
     jugadores.remove(actual); //eliminamos al jugador del ArrayList de jugadores
     avatares.remove(actual.getAvatar()); //eliminamos el avatar del jugador del ArrayList de avatares
 
-}*/
+}
 
 
 
