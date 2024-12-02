@@ -125,7 +125,7 @@ public abstract class Casilla {
                     .append(",\n\tGrupo: ").append(solar.getGrupo().getColorGrupo())
                     .append(",\n\tPropietario: ").append(solar.getDuenho().getNombre())
                     .append(",\n\tvalor: ").append(solar.getValor())
-                    .append(",\n\talquiler: ").append(solar.getImpuesto() + solar.sumarImpuestoedificios())
+                    .append(",\n\talquiler: ").append(solar.getImpuesto() + solar.sumarImpuestoedificios()) //alquiler acutal del solar (Caso de dueño del grupo)
                     .append(",\n\tvalor casa: ").append(solar.getValor() * 0.6f)
                     .append(",\n\tvalor hotel: ").append(solar.getValor() * 0.6f)
                     .append(",\n\tvalor piscina: ").append(solar.getValor() * 0.4f)

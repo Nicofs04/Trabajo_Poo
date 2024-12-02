@@ -1,5 +1,4 @@
-package monopoly;
-
+package monopoly.Excepciones;
 
 public class ExcepcionesMonopoly extends Exception{
 

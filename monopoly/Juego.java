@@ -671,9 +671,13 @@ public class Juego implements Comando{
                 jugadores.get(turno).getAvatar().moverAvanzado(tablero.getPosiciones(), sumaDados,this);
             }
 
-            
+            Jugador jugador2 = jugadores.get(turno);
             // Evaluar la casilla en la que ha caído
             jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero, jugadores.get(turno), banca, sumaDados,this);
+
+            if (!jugadores.get(turno).equals(jugador2)) {
+                //meter lo sig en el if y quitar exclamación 
+            }
 
             // Verificar si el jugador ha dado la vuelta al tablero
             if (jugadores.get(turno).getAvatar().getLugar().getPosicion() < sumaDados) {

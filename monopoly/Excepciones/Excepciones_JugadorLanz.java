@@ -1,5 +1,4 @@
-package monopoly;
-
+package monopoly.Excepciones;
 public class Excepciones_JugadorLanz extends Excepciones_Jugador{
 
     public Excepciones_JugadorLanz(String mensaje){

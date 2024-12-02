@@ -56,7 +56,7 @@ public class Caja extends Carta {
                 jugador.setDineroInversionesOBote(jugador.getDineroInversionesOBote() + 2000000f); //añadimos al atributo dineroInversionesOBote el valor indicado
                 break;
             case 5:
-                consola.imprimir("Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14");
+                consola.imprimir("Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14"); //añadir a parking
                 if(jugador.getFortuna()>=1000000f){
                     jugador.setFortuna(jugador.getFortuna()-1000000f);
 
