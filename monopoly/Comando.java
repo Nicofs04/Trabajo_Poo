@@ -35,9 +35,9 @@ public interface Comando {
 
     public void edificar(String tipo) throws Excepciones_PropConstruir;
 
-    public int hipotecar(Jugador jugador, Tablero tablero)throws Excepciones_PropHip;
+    public int hipotecar(Jugador jugador, Tablero tablero);
 
-    public int deshipotecar(Jugador jugador, Tablero tablero) throws Excepciones_PropDesHip;
+    public int deshipotecar(Jugador jugador, Tablero tablero);
 
     public void vender(String tipo, String nombreCasilla, int numeroventa) throws Excepciones_PropVenderEdif;
 
