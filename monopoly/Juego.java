@@ -1257,7 +1257,7 @@ public void listarJugadores() {
     }
 
     public void trato(){
-        trato.trucoOTrato(jugadores.get(turno), banca, this);
+        trato.crearTrato(jugadores.get(turno), banca, this);
     }
 
     public void listarTratos(){

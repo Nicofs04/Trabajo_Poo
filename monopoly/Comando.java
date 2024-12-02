@@ -46,6 +46,10 @@ public interface Comando {
     public void estadisticasJugador(String nombre);
 
     public void cambiar(String[] palabras);
+
+    public void trato();
+
+    public void listarTratos();
     
     public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugador> jugadores, ArrayList<Avatar> avatares);
 
