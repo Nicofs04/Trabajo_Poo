@@ -218,6 +218,93 @@ public abstract class Casilla {
         }       
     }
 
+    @Override
+    public String toString() {
+        if (this instanceof Solar) {
+            Solar solar = (Solar)this;
+            return "\nnombre: " + getNombre() +
+            ",\n\ttipo: solar" +
+            ",\n\tvalor: " + solar.getValor() +
+            ",\n\tPropietario: " + solar.getDuenho().getNombre() +
+            ",\n\tPosición: " + solar.getPosicion() +
+            ",\n\tGrupo: " + solar.getGrupo().getColorGrupo() +
+            ",\n\tImpuesto: " + solar.getImpuesto() +
+            ",\n\talquiler: " + (solar.getImpuesto() + solar.sumarImpuestoedificios()) +
+            ",\n\tvalor casa: " + (solar.getValor() * 0.6f) +
+            ",\n\tvalor hotel: " + (solar.getValor() * 0.6f) +
+            ",\n\tvalor piscina: " + (solar.getValor() * 0.4f) +
+            ",\n\tvalor pista de deportes: " + (solar.getValor() * 1.25f) +
+            ",\n\talquiler de una casa: " + (solar.getImpuesto() * 5) +
+            ",\n\talquiler dos casas: " + (solar.getImpuesto() * 15) +
+            ",\n\talquiler tres casas: " + (solar.getImpuesto() * 35) +
+            ",\n\talquiler cuatro casas: " + (solar.getImpuesto() * 50) +
+            ",\n\talquiler hotel (por casa hotel): " + (solar.getImpuesto() * 70) +
+            ",\n\talquiler piscina (por cada pisina): " + (solar.getImpuesto() * 25) +
+            ",\n\talquiler pista de deporte (por cada pista de deporte): " + (solar.getImpuesto() * 25);
+    
+     
+        } else if (this instanceof Transporte) {
+            Servicio servicio = (Servicio)this;
+            return "nombre: " + getNombre() + ",\n tipo: servicio ,\n valor: " + getValor()
+                    + ",\n Propietario: "
+                    + getDuenho().getNombre() + ",\n Posición:" + getPosicion() + ",\n Impuesto:" + getImpuesto();
+        } else if (this instanceof Transporte) {
+            Propiedad propiedad = (Propiedad)this;
+            return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor()
+                    + ",\n Propietario: "
+                    + getDuenho().getNombre() + ",\n Posición:" + getPosicion() + ",\n Impuesto:" + getImpuesto();
+        } else if (this.tipo == "impuesto") {
+            return "tipo: " + getTipo() + ",\n Impuesto:" + getImpuesto();
+
+        } else if (this.tipo == "especial" && this.posicion == 20) {
+            // LISTA DE LOS JUGADORES
+            StringBuilder jugadoresEnCasilla = new StringBuilder();
+            for (int i = 0; i < this.avatares.size(); i++) {
+                jugadoresEnCasilla.append(avatares.get(i).getJugador().getNombre()).append(", "); // Cambia getNombre
+                                                                                                  // por el método que
+                                                                                                  // devuelva el nombre
+                                                                                                  // del jugador
+            }
+
+            // Eliminar la última coma y espacio
+            if (jugadoresEnCasilla.length() > 0) {
+                jugadoresEnCasilla.setLength(jugadoresEnCasilla.length() - 2);
+            }
+
+            return "bote: " + getValor() + ",\n jugadores:" + jugadoresEnCasilla;
+        } else if (this.tipo == "especial" && this.posicion == 10) {
+            StringBuilder jugadoresEnCasilla = new StringBuilder();
+            for (int i = 0; i < this.avatares.size(); i++) {
+                jugadoresEnCasilla.append(avatares.get(i).getJugador().getNombre()).append(", "); // Cambia getNombre
+                                                                                                  // por el método que
+                                                                                                  // devuelva el nombre
+                                                                                                  // del jugador
+            }
+
+            // Eliminar la última coma y espacio
+            if (jugadoresEnCasilla.length() > 0) {
+                jugadoresEnCasilla.setLength(jugadoresEnCasilla.length() - 2);
+            }
+
+            return "salir: " +valorCarcel(this.tablero)+ ",\n jugadores:" + jugadoresEnCasilla;
+        } else if (this.tipo == "especial" && this.posicion == 0) {
+            // LISTA DE LOS JUGADORES
+            StringBuilder jugadoresEnCasilla = new StringBuilder();
+            for (int i = 0; i < this.avatares.size(); i++) {
+                jugadoresEnCasilla.append(avatares.get(i).getJugador().getNombre()).append(", "); // Cambia getNombre
+                                                                                                  // devuelva el nombre
+                                                                                                  // del jugador
+            }
+
+            // Eliminar la última coma y espacio
+            if (jugadoresEnCasilla.length() > 0) {
+                jugadoresEnCasilla.setLength(jugadoresEnCasilla.length() - 2);
+            }
+            return "nombre: " + getNombre() + ",\n jugadores:" + jugadoresEnCasilla;
+        }
+        return "Tipo o posición desconocida\n";
+    }
+
 
     public String infoCasilla() {
         String informacion = new String();

@@ -35,7 +35,7 @@ public interface Comando {
 
     public void edificar(String tipo) throws Excepciones_PropConstruir;
 
-    public int Hacienda(Jugador jugador, Tablero tablero); //throws Excepciones_PropHip;
+    public int hipotecar(Jugador jugador, Tablero tablero)throws Excepciones_PropHip;
 
     public int deshipotecar(Jugador jugador, Tablero tablero) throws Excepciones_PropDesHip;
 

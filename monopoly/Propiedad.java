@@ -126,18 +126,9 @@ public abstract class Propiedad extends Casilla {
 
 
 
-    public int Hacienda(Jugador jugador, Tablero tablero) throws Excepciones_PropHip{
+    public int Hacienda(Jugador jugador, String nombre ,Tablero tablero) throws Excepciones_PropHip{
 
-        if (!jugador.getPropiedades().isEmpty()) { // Mientras el jugador tenga propiedades
-            consola.imprimir("¿Qué casilla desea hipotecar?");
-            Scanner scanner = new Scanner(System.in);
-            String nombre = scanner.nextLine();
-    
-            if (tablero.encontrar_casilla(nombre) == null) { // Verificamos que la casilla exista
-                consola.imprimir("No se ha podido encontrar la casilla.\n");
-                return 0;
-            } else {
-                for (Propiedad propiedad : jugador.getPropiedades()) { // Verificamos que el jugador tenga la casilla comprada
+        for (Propiedad propiedad : jugador.getPropiedades()) { // Verificamos que el jugador tenga la casilla comprada
                     if (propiedad.getNombre().equals(nombre)) {
                         if (propiedad instanceof Solar) {
                             Solar solar = (Solar) propiedad;
@@ -179,11 +170,8 @@ public abstract class Propiedad extends Casilla {
                 consola.imprimir(String.format("La casilla %s no pertenece al jugador %s.\n", nombre, jugador.getNombre()));
                 return 0;
             }
-        } else {
-            consola.imprimir("No tienes más propiedades para hipotecar.\n");
-            return 0;
-        }
-    }
+ 
+    
     
     
     
