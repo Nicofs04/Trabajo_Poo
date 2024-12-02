@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
- import Excepcione.*;
 import partida.*;
 
 public class Juego implements Comando{

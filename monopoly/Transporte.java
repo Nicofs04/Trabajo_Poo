@@ -44,14 +44,14 @@ public class Transporte extends Propiedad{
                 
                     consola.imprimir("El jugador no tiene dinero suficiente para pagar el transporte, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                                             
-                    analizarMenuPequenho(actual, banca, tablero, juego, c); //analizamos el comando escrito
+                    juego.analizarMenuPequenho(actual, banca, tablero, juego, c); //analizamos el comando escrito
 
                     while(actual.getFortuna() < getImpuesto()){
                         if(actual.getPropiedades().isEmpty()){ //nos aseguramos de que pueda seguir teniendo propiedades para hipotecar
-                            bancarrotaAJugador(actual, this.getDuenho(), juego.getJugadores(), juego.getAvatares()); //si no llamamos a bancarrota
+                            juego.bancarrotaAJugador(actual, this.getDuenho(), juego.getJugadores(), juego.getAvatares()); //si no llamamos a bancarrota
                             break;
                         }
-                        analizarMenuPequenho(actual, banca, tablero, juego, c);
+                        juego.analizarMenuPequenho(actual, banca, tablero, juego, c);
                     }
 
                     if (actual.getFortuna() < getImpuesto()) {
