@@ -450,7 +450,7 @@ public void casoPrimero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
 
 public void casoSegundo(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
     Scanner scanner = new Scanner(System.in);
-    consola.imprimir(String.format("Trato %s: %s te doy %s y recibo %f.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getACambiar().getNombre(), trato.getFortunaARecibir()));
+    consola.imprimir(String.format("Trato %s: %s te doy %s y recibo %.2f.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getACambiar().getNombre(), trato.getFortunaARecibir()));
 
     consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
     String respuesta = scanner.nextLine();
@@ -501,7 +501,7 @@ public void casoSegundo(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
 
 public void casoTercero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
     Scanner scanner = new Scanner(System.in);
-    consola.imprimir(String.format("Trato %s: %s te doy %f y recibo %s.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getFortunaACambiar(), trato.getARecibir().getNombre()));
+    consola.imprimir(String.format("Trato %s: %s te doy %.2f y recibo %s.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getFortunaACambiar(), trato.getARecibir().getNombre()));
 
     consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
     String respuesta = scanner.nextLine();
@@ -517,42 +517,47 @@ public void casoTercero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         if(trato.aRecibir.getHipotecado()){
             consola.imprimir(String.format("Tener en cuenta que la casilla %s está hipotecada.\n", trato.getARecibir().getNombre()));
         }
-    }
 
-    String respuestaConfirmacion;
-
-    consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
-    respuestaConfirmacion = scanner.nextLine();
-
-    while((!respuestaConfirmacion.equals("acepto")) && (!respuestaConfirmacion.equals("rechazo"))){
-        consola.imprimir("Comando desconocido.\n");
+        String respuestaConfirmacion;
 
         consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
         respuestaConfirmacion = scanner.nextLine();
-    }
 
-    if(respuestaConfirmacion.equals("acepto")){
-        //restamos la fortuna
-        ofreceTrato.setFortuna(ofreceTrato.getFortuna() - trato.getFortunaACambiar());
+        while((!respuestaConfirmacion.equals("acepto")) && (!respuestaConfirmacion.equals("rechazo"))){
+            consola.imprimir("Comando desconocido.\n");
+
+            consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
+            respuestaConfirmacion = scanner.nextLine();
+        }
+
+        if(respuestaConfirmacion.equals("acepto")){
+            //restamos la fortuna
+            ofreceTrato.setFortuna(ofreceTrato.getFortuna() - trato.getFortunaACambiar());
         
-        //cambiamos de dueño la casilla
-        recibeTrato.getPropiedades().remove(trato.aRecibir);
-        trato.aRecibir.setDuenho(ofreceTrato);
-        ofreceTrato.getPropiedades().add(trato.aRecibir);
+            //cambiamos de dueño la casilla
+            recibeTrato.getPropiedades().remove(trato.aRecibir);
+            trato.aRecibir.setDuenho(ofreceTrato);
+            ofreceTrato.getPropiedades().add(trato.aRecibir);
 
-        //sumamos la fortuna
-        recibeTrato.setFortuna(recibeTrato.getFortuna() + trato.getFortunaACambiar());
+            //sumamos la fortuna
+            recibeTrato.setFortuna(recibeTrato.getFortuna() + trato.getFortunaACambiar());
 
-        this.aceptado = true;
+            this.aceptado = true;
+        }else{
+            consola.imprimir("Trato rechazado.\n");
+            //no se elimina
+        }
     }else{
-        consola.imprimir("Trato rechazado.\n");
+        consola.imprimir("Trato rechazado");
         //no se elimina
     }
+
+    
 }
 
 public void casoCuarto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
     Scanner scanner = new Scanner(System.in);
-    consola.imprimir(String.format("Trato %s: %s te doy %s y recibo %s y %f.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getACambiar().getNombre(), trato.getARecibir().getNombre(), trato.getFortunaARecibir()));
+    consola.imprimir(String.format("Trato %s: %s te doy %s y recibo %s y %.2f.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getACambiar().getNombre(), trato.getARecibir().getNombre(), trato.getFortunaARecibir()));
 
     consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
     String respuesta = scanner.nextLine();
@@ -572,47 +577,72 @@ public void casoCuarto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         if(trato.aRecibir.getHipotecado()){
             consola.imprimir(String.format("Tener en cuenta que la casilla %s está hipotecada.\n", trato.getARecibir().getNombre()));
         }
-    }
 
-    String respuestaConfirmacion;
-
-    consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
-    respuestaConfirmacion = scanner.nextLine();
-
-    while((!respuestaConfirmacion.equals("acepto")) && (!respuestaConfirmacion.equals("rechazo"))){
-        consola.imprimir("Comando desconocido.\n");
+        String respuestaConfirmacion;
 
         consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
         respuestaConfirmacion = scanner.nextLine();
-    }
 
-    if(respuestaConfirmacion.equals("acepto")){
-        //sumamos la fortuna
-        ofreceTrato.setFortuna(ofreceTrato.getFortuna() + trato.getFortunaARecibir());
+        while((!respuestaConfirmacion.equals("acepto")) && (!respuestaConfirmacion.equals("rechazo"))){
+            consola.imprimir("Comando desconocido.\n");
 
-        //cambiamos la casilla a cambiar de dueño
-        ofreceTrato.getPropiedades().remove(trato.getACambiar());
-        trato.getACambiar().setDuenho(recibeTrato);
-        recibeTrato.getPropiedades().add(trato.getACambiar());
+            consola.imprimir("Estás seguro de querer aceptar? (acepto, rechazo)");
+            respuestaConfirmacion = scanner.nextLine();
+        }
 
-        //cambiamos la casilla a recibir de dueño
-        recibeTrato.getPropiedades().remove(trato.aRecibir);
-        trato.getARecibir().setDuenho(ofreceTrato);
-        ofreceTrato.getPropiedades().add(trato.getARecibir());
+        if(respuestaConfirmacion.equals("acepto")){
+            //sumamos la fortuna
+            ofreceTrato.setFortuna(ofreceTrato.getFortuna() + trato.getFortunaARecibir());
 
-        //restamos la fortuna
-        recibeTrato.setFortuna(recibeTrato.getFortuna() - trato.getFortunaARecibir());
+            //cambiamos la casilla a cambiar de dueño
+            ofreceTrato.getPropiedades().remove(trato.getACambiar());
+            trato.getACambiar().setDuenho(recibeTrato);
+            recibeTrato.getPropiedades().add(trato.getACambiar());
 
-        this.aceptado = true;
+            //cambiamos la casilla a recibir de dueño
+            recibeTrato.getPropiedades().remove(trato.aRecibir);
+            trato.getARecibir().setDuenho(ofreceTrato);
+            ofreceTrato.getPropiedades().add(trato.getARecibir());
+
+            //restamos la fortuna
+            recibeTrato.setFortuna(recibeTrato.getFortuna() - trato.getFortunaARecibir());
+
+            this.aceptado = true;
+        }else{
+            consola.imprimir("Trato rechazado.\n");
+            //no se elimina
+        }
     }else{
         consola.imprimir("Trato rechazado.\n");
         //no se elimina
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public void casoQuinto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
     Scanner scanner = new Scanner(System.in);
-    consola.imprimir(String.format("Trato %s: %s te doy %s y %f y recibo %s.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getACambiar().getNombre(), trato.getFortunaACambiar(), trato.getARecibir().getNombre()));
+    consola.imprimir(String.format("Trato %s: %s te doy %s y %.2f y recibo %s.\n", ofreceTrato.getNombre(), recibeTrato.getNombre(), trato.getACambiar().getNombre(), trato.getFortunaACambiar(), trato.getARecibir().getNombre()));
 
     consola.imprimir("Aceptas o rechazas? (acepto, rechazo)");
     String respuesta = scanner.nextLine();
@@ -673,10 +703,34 @@ public void casoQuinto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
 public void listarTratos(Jugador jugador){
     StringBuilder sb = new StringBuilder();
     for(Trato trato:jugador.getTratosRecibidos()){
-        sb.append(String.format("{\n  id: trato%d", trato.getId()));
-        sb.append(String.format("\n   jugadorPropone: %s", trato.getJugadorOfrece().getNombre()));
-        sb.append(String.format("\n   trato: cambiar (%s, %s)", trato.getACambiar().getNombre(), trato.getARecibir().getNombre()));
-        sb.append("\n},\n");
+        if(trato.getTipoTrato() == 1){
+            sb.append(String.format("{\n  id: trato%d", trato.getId()));
+            sb.append(String.format("\n   jugadorPropone: %s", trato.getJugadorOfrece().getNombre()));
+            sb.append(String.format("\n   trato: cambiar (%s, %s)", trato.getACambiar().getNombre(), trato.getARecibir().getNombre()));
+            sb.append("\n},\n");
+        }else if(trato.getTipoTrato() == 2){
+            sb.append(String.format("{\n  id: trato%d", trato.getId()));
+            sb.append(String.format("\n   jugadorPropone: %s", trato.getJugadorOfrece().getNombre()));
+            sb.append(String.format("\n   trato: cambiar (%s, %.2f)", trato.getACambiar().getNombre(), trato.getFortunaARecibir()));
+            sb.append("\n},\n");
+        }else if(trato.getTipoTrato() == 3){
+            sb.append(String.format("{\n  id: trato%d", trato.getId()));
+            sb.append(String.format("\n   jugadorPropone: %s", trato.getJugadorOfrece().getNombre()));
+            sb.append(String.format("\n   trato: cambiar (%.2f, %s)", trato.getFortunaACambiar(), trato.getARecibir().getNombre()));
+            sb.append("\n},\n");
+        }else if(trato.getTipoTrato() == 4){
+            sb.append(String.format("{\n  id: trato%d", trato.getId()));
+            sb.append(String.format("\n   jugadorPropone: %s", trato.getJugadorOfrece().getNombre()));
+            sb.append(String.format("\n   trato: cambiar (%s, %s y %.2f)", trato.getACambiar().getNombre(), trato.getARecibir().getNombre(), trato.getFortunaARecibir()));
+            sb.append("\n},\n");   
+        }else if(trato.getTipoTrato() == 5){
+            sb.append(String.format("{\n  id: trato%d", trato.getId()));
+            sb.append(String.format("\n   jugadorPropone: %s", trato.getJugadorOfrece().getNombre()));
+            sb.append(String.format("\n   trato: cambiar (%s y %.2f, %s)", trato.getACambiar().getNombre(), trato.getFortunaACambiar(), trato.getARecibir().getNombre()));
+            sb.append("\n},\n");
+        }else{
+            sb.append("Error, tipo de trato desconocido.\n");
+        }
     }
     consola.imprimir(sb.toString());
 }

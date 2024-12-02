@@ -24,6 +24,7 @@ public class Juego implements Comando{
     private boolean dadosdobles;
     private boolean partidaEmpezada = false;
     private ArrayList<Trato> tratosTotales;
+    private boolean mensajeTrato = true;
 
     public static ConsolaNormal consola = new ConsolaNormal();
     public Trato trato = new Trato();
@@ -174,39 +175,42 @@ public class Juego implements Comando{
                 String comando = scanner.nextLine();
                 analizarComando(comando);
             }else{
-
-                if(!jugadores.get(turno).getTratosRecibidos().isEmpty()){
-                    consola.imprimir("Tienes nuevos tratos.\n");
+                if(mensajeTrato){ //para que solo se imprima una vez cada turno
+                    if(!jugadores.get(turno).getTratosRecibidos().isEmpty()){
+                        consola.imprimir("Tienes nuevos tratos.\n");
                     
-                    for(Trato tratoAImprimir:jugadores.get(turno).getTratosRecibidos()){
-                        if(tratoAImprimir.getFortunaACambiar() < tratoAImprimir.getJugadorOfrece().getFortuna() && tratoAImprimir.getFortunaARecibir() < tratoAImprimir.getJugadorRecibe().getFortuna()){ //si el jugador que recibe el cambio no le llega el dinero, se espera a que tenga suficiente dinero
-                            trato.manejarTrato(tratoAImprimir, jugadores.get(turno));
-                        }else{
-                            consola.imprimir(String.format("Un jugador no tiene suficiente dinero.\n", tratoAImprimir.getJugadorRecibe().getNombre()));
+                        for(Trato tratoAImprimir:jugadores.get(turno).getTratosRecibidos()){
+                            if(tratoAImprimir.getFortunaACambiar() < tratoAImprimir.getJugadorOfrece().getFortuna() && tratoAImprimir.getFortunaARecibir() < tratoAImprimir.getJugadorRecibe().getFortuna()){ //si el jugador que recibe el cambio no le llega el dinero, se espera a que tenga suficiente dinero
+                                trato.manejarTrato(tratoAImprimir, jugadores.get(turno));
+                            }else{
+                                consola.imprimir(String.format("Un jugador no tiene suficiente dinero para realizar el trato.\n", tratoAImprimir.getJugadorRecibe().getNombre()));
+                            }
+                        }
+                        mensajeTrato = false; //para que solo se imprima una vez cada turno
+                    }
+                
+
+                        //si alguno de los tratos ha sido aceptado lo eliminamos del array de recibidos
+                    if(!(jugadores.get(turno).getTratosRecibidos().isEmpty())){ //chequeamos que el array no esté vacío
+                        Iterator<Trato> iteratorRecibidos = jugadores.get(turno).getTratosRecibidos().iterator();
+                        boolean aceptadoRecibidos;
+                        while(iteratorRecibidos.hasNext()){
+                            aceptadoRecibidos = iteratorRecibidos.next().getAceptado();
+                            if(aceptadoRecibidos){
+                                iteratorRecibidos.remove();
+                            }
                         }
                     }
-                }
         
-                //si alguno de los tratos ha sido aceptado lo eliminamos del array de recibidos
-            if(!(jugadores.get(turno).getTratosRecibidos().isEmpty())){ //chequeamos que el array no esté vacío
-                Iterator<Trato> iteratorRecibidos = jugadores.get(turno).getTratosRecibidos().iterator();
-                boolean aceptadoRecibidos;
-                while(iteratorRecibidos.hasNext()){
-                    aceptadoRecibidos = iteratorRecibidos.next().getAceptado();
-                    if(aceptadoRecibidos){
-                        iteratorRecibidos.remove();
-                    }
-                }
-            }
-        
-                //si alguno de los tratos ha sido aceptado lo eliminamos del array de ofrecidos
-            if(!(jugadores.get(turno).getTratosOfrecidos().isEmpty())){ //chequeamos que el array no esté vacío
-                Iterator<Trato> iteratorOfrecidos = jugadores.get(turno).getTratosOfrecidos().iterator();
-                boolean aceptadoOfrecidos;
-                while(iteratorOfrecidos.hasNext()){
-                    aceptadoOfrecidos = iteratorOfrecidos.next().getAceptado();
-                    if(aceptadoOfrecidos){
-                            iteratorOfrecidos.remove();
+                        //si alguno de los tratos ha sido aceptado lo eliminamos del array de ofrecidos
+                    if(!(jugadores.get(turno).getTratosOfrecidos().isEmpty())){ //chequeamos que el array no esté vacío
+                        Iterator<Trato> iteratorOfrecidos = jugadores.get(turno).getTratosOfrecidos().iterator();
+                        boolean aceptadoOfrecidos;
+                        while(iteratorOfrecidos.hasNext()){
+                            aceptadoOfrecidos = iteratorOfrecidos.next().getAceptado();
+                            if(aceptadoOfrecidos){
+                                iteratorOfrecidos.remove();
+                            }
                         }
                     }
                 }
@@ -995,7 +999,8 @@ public void listarJugadores() {
         setLanzamientos(0);
         setLanzamientosDobles(0);
         setDadosdobles(false);
-        
+
+        mensajeTrato = true;  //reiniciamos la variable a false para que se vuelva a imprimir cada turno los tratos
     }
 
 
