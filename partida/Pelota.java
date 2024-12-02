@@ -11,6 +11,7 @@ import monopoly.Propiedad;
 import monopoly.Suerte;
 import partida.Avatar;
 import monopoly.*;
+import monopoly.Excepciones.*;
 
 public class Pelota extends Avatar {
 

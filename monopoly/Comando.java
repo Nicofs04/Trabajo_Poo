@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import partida.Avatar;
 import partida.Jugador;
+import monopoly.Excepciones.*;
 
 public interface Comando {
 

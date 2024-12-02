@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 import partida.*;
+import monopoly.Excepciones.*;
 
 public class Juego implements Comando{
 
