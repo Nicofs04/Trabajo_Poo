@@ -13,6 +13,9 @@ public class Impuesto extends Casilla {
         this.impuesto = impuesto;
     }
 
+    public float getImpuesto(){
+        return this.impuesto;
+    }
 
     public void evaluarCasilla(Tablero tablero, Jugador actual, Jugador banca, int tirada, Juego juego) {
         Impuesto c = this;

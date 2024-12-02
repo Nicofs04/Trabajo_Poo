@@ -245,25 +245,24 @@ public abstract class Casilla {
      
         } else if (this instanceof Transporte) {
             Transporte transporte = (Transporte)this;
-            return "nombre: " + getNombre() + ",\n tipo: servicio ,\n valor: " + transporte.getValor()
+            return "nombre: " + getNombre() + ",\n tipo: transporte ,\n valor: " + transporte.getValor()
                     + ",\n Propietario: "
-                    + transporte.getDuenho().getNombre() + ",\n Posición:" + transporte.getPosicion() + ",\n Impuesto:" + transporte.getImpuesto();
-        } else if (this instanceof Transporte) {
-            Propiedad propiedad = (Propiedad)this;
-            return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor()
+                    + transporte.getDuenho().getNombre() + ",\n Posición:" + transporte.getPosicion() + ",\n Impuesto (1 propiedad):" + transporte.getImpuesto();
+        } else if (this instanceof Servicio) {
+            Servicio servicio = (Servicio)this;
+            return "nombre: " + getNombre() + ",\n tipo: servicio,\n valor: " + servicio.getValor()
                     + ",\n Propietario: "
-                    + getDuenho().getNombre() + ",\n Posición:" + getPosicion() + ",\n Impuesto:" + getImpuesto();
-        } else if (this.tipo == "impuesto") {
-            return "tipo: " + getTipo() + ",\n Impuesto:" + getImpuesto();
+                    + servicio.getDuenho().getNombre() + ",\n Posición:" + servicio.getPosicion() + ",\n Impuesto (factor de servicio):" + servicio.getFactor();
+        } else if (this instanceof Impuesto) {
+            Impuesto impuesto = (Impuesto)this;
+            return "tipo: impuesto,\n Impuesto:" + impuesto.getImpuesto();
 
-        } else if (this.tipo == "especial" && this.posicion == 20) {
+        } else if (this instanceof Especial && this.getPosicion()==20) {
+            Especial especial = (Especial)this;
             // LISTA DE LOS JUGADORES
             StringBuilder jugadoresEnCasilla = new StringBuilder();
             for (int i = 0; i < this.avatares.size(); i++) {
-                jugadoresEnCasilla.append(avatares.get(i).getJugador().getNombre()).append(", "); // Cambia getNombre
-                                                                                                  // por el método que
-                                                                                                  // devuelva el nombre
-                                                                                                  // del jugador
+                jugadoresEnCasilla.append(avatares.get(i).getJugador().getNombre()).append(", "); 
             }
 
             // Eliminar la última coma y espacio
@@ -271,8 +270,9 @@ public abstract class Casilla {
                 jugadoresEnCasilla.setLength(jugadoresEnCasilla.length() - 2);
             }
 
-            return "bote: " + getValor() + ",\n jugadores:" + jugadoresEnCasilla;
-        } else if (this.tipo == "especial" && this.posicion == 10) {
+            return "bote: " + getDineroParking() + ",\n jugadores:" + jugadoresEnCasilla;
+        } 
+        else if (this.tipo == "especial" && this.posicion == 10) {
             StringBuilder jugadoresEnCasilla = new StringBuilder();
             for (int i = 0; i < this.avatares.size(); i++) {
                 jugadoresEnCasilla.append(avatares.get(i).getJugador().getNombre()).append(", "); // Cambia getNombre
