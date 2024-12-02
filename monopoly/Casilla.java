@@ -244,10 +244,10 @@ public abstract class Casilla {
     
      
         } else if (this instanceof Transporte) {
-            Servicio servicio = (Servicio)this;
-            return "nombre: " + getNombre() + ",\n tipo: servicio ,\n valor: " + getValor()
+            Transporte transporte = (Transporte)this;
+            return "nombre: " + getNombre() + ",\n tipo: servicio ,\n valor: " + transporte.getValor()
                     + ",\n Propietario: "
-                    + getDuenho().getNombre() + ",\n Posición:" + getPosicion() + ",\n Impuesto:" + getImpuesto();
+                    + transporte.getDuenho().getNombre() + ",\n Posición:" + transporte.getPosicion() + ",\n Impuesto:" + transporte.getImpuesto();
         } else if (this instanceof Transporte) {
             Propiedad propiedad = (Propiedad)this;
             return "nombre: " + getNombre() + ",\n tipo: " + getTipo() + ",\n valor: " + getValor()

@@ -477,9 +477,8 @@ public class Juego implements Comando{
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
     * Parámetro: comando introducido
      */
-    public void descJugador(String[] palabras) throws Excepciones_DescJug{
+    public void descJugador(String jugadornombre) throws Excepciones_DescJug{
         int encontrado=0;
-        String jugadornombre = palabras[2];
         for(Jugador jugador:jugadores){
                 if (jugadornombre.equals(jugador.getNombre())) 
                     {
