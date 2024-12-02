@@ -345,7 +345,7 @@ public class Juego implements Comando{
                                     descCasilla(nombreCasilla);
                                 }else if(palabras.length == 3){
                                     if(palabras[1].equals("jugador")){
-                                        String[] nombreJugador = new String[]{palabras[2]};
+                                        String nombreJugador = palabras[2];
                                         descJugador(nombreJugador);
                                     }else if(palabras[1].equals("avatar")){
                                         String[] idAvatar = new String[]{palabras[2]};
