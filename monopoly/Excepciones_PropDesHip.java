@@ -1,4 +1,4 @@
-package monopoly.Excepciones;
+package monopoly;
 
 public class Excepciones_PropDesHip extends Excepciones_Prop{
 

@@ -1,4 +1,4 @@
-package monopoly.Excepciones;
+package monopoly;
 
 public class Excepciones_DescCas extends Excepciones_Desc{
 

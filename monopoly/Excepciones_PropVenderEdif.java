@@ -1,4 +1,4 @@
-package monopoly.Excepciones;
+package monopoly;
 
 public class Excepciones_PropVenderEdif extends Excepciones_Prop{
 
