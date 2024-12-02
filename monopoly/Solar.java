@@ -98,7 +98,7 @@ public class Solar extends Propiedad{
                     
                     consola.imprimir("El jugador no tiene dinero suficiente para pagar el alquiler, por lo que debe declararse en bancarrota o hipotecar alguna propiedad");
                     
-                    analizarMenuPequenho(actual, banca, tablero, juego, c); //analizamos el comando escrito
+                    juego.analizarMenuPequenho(actual, banca, tablero, juego, c); //analizamos el comando escrito
                     
                     while(actual.getFortuna() < devolverImpuesto(c, getDuenho())+sumarImpuestoedificios()){
                         consola.imprimir(String.format("El jugador %s no tiene dinero suficiente, elija una opción:\n", actual.getNombre()));
@@ -106,7 +106,7 @@ public class Solar extends Propiedad{
                             bancarrotaAJugador(actual, getDuenho(), juego.getJugadores(), juego.getAvatares()); //si no llamamos a bancarrota
                             break;
                         }
-                        analizarMenuPequenho(actual, banca, tablero, juego, c);
+                        juego.juego.analizarMenuPequenho(actual, banca, tablero, juego, c);
                     }
 
                     if (actual.getFortuna() < devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios()) {

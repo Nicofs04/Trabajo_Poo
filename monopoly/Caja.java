@@ -22,7 +22,7 @@ public class Caja extends Carta {
                     jugador.setDineroTasasEImpuestos(jugador.getDineroTasasEImpuestos() + 500000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
 
                 }else{
-                    jugador.getAvatar().getLugar().analizarMenuPequenho(jugador, menu.getBanca(), tablero, menu, jugador.getAvatar().getLugar()); //analizamos el comando escrito
+                    menu.analizarMenuPequenho(jugador, menu.getBanca(), tablero, menu, jugador.getAvatar().getLugar()); //analizamos el comando escrito
                 }
                 break;
             case 2:
@@ -62,7 +62,7 @@ public class Caja extends Carta {
 
                     jugador.setDineroTasasEImpuestos(jugador.getDineroTasasEImpuestos() + 1000000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
                 }else{
-                    jugador.getAvatar().getLugar().analizarMenuPequenho(jugador, menu.getBanca(), tablero, menu, jugador.getAvatar().getLugar()); //analizamos el comando escrito
+                    menu.analizarMenuPequenho(jugador, menu.getBanca(), tablero, menu, jugador.getAvatar().getLugar()); //analizamos el comando escrito
                 }
                 break;
             case 6:
@@ -78,7 +78,7 @@ public class Caja extends Carta {
                             jugador.setDineroTasasEImpuestos(jugador.getDineroTasasEImpuestos() + 200000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
 
                         }else{
-                            jugador.getAvatar().getLugar().analizarMenuPequenho(jugador, menu.getBanca(), tablero, menu, jugador.getAvatar().getLugar()); //analizamos el comando escrito
+                            menu.analizarMenuPequenho(jugador, menu.getBanca(), tablero, menu, jugador.getAvatar().getLugar()); //analizamos el comando escrito
                         }
                     }
                 }

@@ -439,9 +439,7 @@ public class Juego implements Comando{
 
         }/*catch(Excepciones_PropDesHip e){
             consola.imprimir("Error "+ e.getMessage());
-        }*/catch(Excepciones_PropHip e){
-            consola.imprimir("Error "+ e.getMessage());
-        }catch(Excepciones_PropComprar e){
+        }*/catch(Excepciones_PropComprar e){
             consola.imprimir("Error: "+e.getMessage());
         }
 
@@ -1268,7 +1266,7 @@ public void listarJugadores() {
         trato.listarTratos(jugadores.get(turno));
     }
 
-    public int hipotecar(Jugador jugador, Tablero tablero) throws Excepciones_PropHip{
+    public int hipotecar(Jugador jugador, Tablero tablero){
 
         if (!jugador.getPropiedades().isEmpty()) { // mientras el jugador tenga propiedades
             consola.imprimir("¿Qué casilla desea hipotecar?");
@@ -1417,6 +1415,55 @@ public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugad
     jugadores.remove(actual); //eliminamos al jugador del ArrayList de jugadores
     avatares.remove(actual.getAvatar()); //eliminamos el avatar del jugador del ArrayList de avatares
 
+}
+
+
+public void analizarMenuPequenho(Jugador actual, Jugador banca, Tablero tablero, Juego juego, Casilla c){
+    boolean acabado = false;
+
+    while(!acabado){
+        System.out.println("=====================================\n");
+        System.out.println("                MENÚ                \n");
+        System.out.println("=====================================\n");
+        System.out.println("1. Hipotecar una propiedad                            -> Comando: 'hipotecar'");
+        System.out.println("2. Declararse en bancarrota                           -> Comando: 'bancarrota'");
+        
+
+        System.out.println("=====================================\n");
+        System.out.println("Selecciona una opción para continuar.\n");
+        System.out.println("=====================================\n\n");
+
+
+        Scanner scanner = new Scanner(System.in);
+        String comando = scanner.nextLine();
+
+        switch (comando) {
+            case "hipotecar":
+                    hipotecar(actual, tablero);
+                    acabado = true;
+                    break;
+            case "bancarrota":
+                if(!c.getDuenho().equals(banca)){
+                    bancarrotaAJugador(actual, c.getDuenho(), juego.getJugadores(), juego.getAvatares());
+                    juego.setTirado(false); //para que el siguiente jugador pueda seguir tirando
+                    juego.setLanzamientos(0);
+                    juego.setDadosdobles(false);
+                    System.out.println("Jugador eliminado con éxito. El siguiente jugador puede escoger ahora una opción.\n");
+                    acabado = true;
+                }else if(c.getDuenho().equals(banca)){
+                    bancarrotaABanca(actual, c.getDuenho(), juego.getJugadores(), juego.getAvatares());
+                    juego.setTirado(false); //para que el siguiente jugador pueda seguir tirando
+                    juego.setLanzamientos(0);
+                    juego.setDadosdobles(false);
+                    System.out.println("Jugador eliminado con éxito. El siguiente jugador puede escoger ahora una opción.\n");
+                    acabado = true;
+                }
+                break;
+            default:
+                System.out.println("Error, comando desconocido.\n");
+                break;
+        }
+    }
 }
 
 
