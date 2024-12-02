@@ -436,10 +436,7 @@ public class Juego implements Comando{
 
         }catch(Excepciones_JugadorSalCar e){
             consola.imprimir("Error "+ e.getMessage());
-
-        }/*catch(Excepciones_PropDesHip e){
-            consola.imprimir("Error "+ e.getMessage());
-        }*/catch(Excepciones_PropComprar e){
+        }catch(Excepciones_PropComprar e){
             consola.imprimir("Error: "+e.getMessage());
         }
 
@@ -845,7 +842,8 @@ public class Juego implements Comando{
         consola.imprimir(sb.toString());
     }
 
-// Método que realiza las acciones asociadas al comando 'listar jugadores'.
+
+    //🚬 Método que realaiza las acciones asociadas al comando 'listar jugadores'.
 public void listarJugadores() {
     for (Jugador jugador : jugadores) {
         consola.imprimir("{\n" +
@@ -1266,7 +1264,7 @@ public void listarJugadores() {
         trato.listarTratos(jugadores.get(turno));
     }
 
-    public int hipotecar(Jugador jugador, Tablero tablero){
+    public int hipotecar(Jugador jugador, Tablero tablero) throws Excepciones_PropHip{
 
         if (!jugador.getPropiedades().isEmpty()) { // mientras el jugador tenga propiedades
             consola.imprimir("¿Qué casilla desea hipotecar?");

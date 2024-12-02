@@ -103,10 +103,10 @@ public class Solar extends Propiedad{
                     while(actual.getFortuna() < devolverImpuesto(c, getDuenho())+sumarImpuestoedificios()){
                         consola.imprimir(String.format("El jugador %s no tiene dinero suficiente, elija una opción:\n", actual.getNombre()));
                         if(actual.getPropiedades().isEmpty()){ //nos aseguramos de que pueda seguir teniendo propiedades para hipotecar
-                            bancarrotaAJugador(actual, getDuenho(), juego.getJugadores(), juego.getAvatares()); //si no llamamos a bancarrota
+                            juego. bancarrotaAJugador(actual, getDuenho(), juego.getJugadores(), juego.getAvatares()); //si no llamamos a bancarrota
                             break;
                         }
-                        juego.juego.analizarMenuPequenho(actual, banca, tablero, juego, c);
+                        juego.analizarMenuPequenho(actual, banca, tablero, juego, c);
                     }
 
                     if (actual.getFortuna() < devolverImpuesto(c, c.getDuenho())+sumarImpuestoedificios()) {
