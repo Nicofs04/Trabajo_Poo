@@ -1,8 +1,6 @@
 package monopoly;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.Scanner;
 import partida.*;
 import monopoly.Excepciones.*;
 
@@ -179,8 +177,8 @@ public class Juego implements Comando{
                 consola.imprimir("Selecciona una opción para continuar.\n");
                 consola.imprimir("=====================================\n\n");
         
-                Scanner scanner = new Scanner(System.in);
-                String comando = scanner.nextLine();
+                
+                String comando = consola.leer();
                 analizarComando(comando);
             }else{
                 if(mensajeTrato){ //para que solo se imprima una vez cada turno
@@ -261,8 +259,7 @@ public class Juego implements Comando{
                 consola.imprimir("Selecciona una opción para continuar.\n");
                 consola.imprimir("=====================================\n\n");
         
-                Scanner scanner = new Scanner(System.in);
-                String comando = scanner.nextLine();
+                String comando = consola.leer();
                 analizarComando(comando);
             }
         }
@@ -603,12 +600,12 @@ public class Juego implements Comando{
         //LANZAR DADOS MANUAL
         
         
-        Scanner scanner = new Scanner(System.in);    
+        
         consola.imprimir("Introduce dado1: ");
-        int da = scanner.nextInt();
+        int da = Integer.parseInt(consola.leer());
         dado1.setValor(da);
         consola.imprimir("Introduce dado2: ");
-        int da2 = scanner.nextInt();
+        int da2 = Integer.parseInt(consola.leer());
         dado2.setValor(da2);
 
         
@@ -1279,8 +1276,7 @@ public void listarJugadores() {
 
         if (!jugador.getPropiedades().isEmpty()) { // mientras el jugador tenga propiedades
             consola.imprimir("¿Qué casilla desea hipotecar?");
-            Scanner scanner = new Scanner(System.in);
-            String nombre = scanner.nextLine();
+            String nombre = consola.leer();
     
             if (tablero.encontrar_casilla(nombre) == null) { // verificamos que la casilla exista
                 consola.imprimir("No se ha podido encontrar la casilla.\n");
@@ -1333,8 +1329,7 @@ public void listarJugadores() {
 
         if (!jugador.getPropiedades().isEmpty()) { // mientras el jugador tenga propiedades
             consola.imprimir("¿Qué casilla desea deshipotecar?");
-            Scanner scanner = new Scanner(System.in);
-            String nombre = scanner.nextLine();
+            String nombre = consola.leer();
     
             if (tablero.encontrar_casilla(nombre) == null) { // verificamos que la casilla exista
                 consola.imprimir("No se ha podido encontrar la casilla.\n");
@@ -1443,8 +1438,8 @@ public void analizarMenuPequenho(Jugador actual, Jugador banca, Tablero tablero,
         System.out.println("=====================================\n\n");
 
 
-        Scanner scanner = new Scanner(System.in);
-        String comando = scanner.nextLine();
+        
+        String comando = consola.leer();
 
         switch (comando) {
             case "hipotecar":

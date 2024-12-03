@@ -55,10 +55,10 @@ public class Caja extends Carta {
                 jugador.setDineroInversionesOBote(jugador.getDineroInversionesOBote() + 2000000f); //añadimos al atributo dineroInversionesOBote el valor indicado
                 break;
             case 5:
-                consola.imprimir("Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14"); //añadir a parking
+                consola.imprimir("Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14");
                 if(jugador.getFortuna()>=1000000f){
                     jugador.setFortuna(jugador.getFortuna()-1000000f);
-
+                    jugador.getAvatar().getLugar().setDineroParking(jugador.getAvatar().getLugar().getDineroParking()+1000000f);
                     jugador.setDineroTasasEImpuestos(jugador.getDineroTasasEImpuestos() + 1000000f); //añadimos al atributo dineroTasasEImpuestos el valor que recibe
                 }else{
                     menu.analizarMenuPequenho(jugador, menu.getBanca(), tablero, menu, jugador.getAvatar().getLugar()); //analizamos el comando escrito
