@@ -18,7 +18,7 @@ public class Pelota extends Avatar {
     }
     public void moverAvanzado(ArrayList<ArrayList<Casilla>> tablero, int valorTirada, Juego menu) {
         try{
-                        // Obtener la posición actual del lugar del avatar
+            // Obtener la posición actual del lugar del avatar
             int posicionActual = this.getLugar().getPosicion();
 
             if (valorTirada > 4) {
@@ -38,7 +38,8 @@ public class Pelota extends Avatar {
                 for (int I = 1; I < (valorTirada - 3); I++) {
                     if (I % 2 != 0) {
                         // Índices impares
-                        nuevaPosicion = (nuevaPosicion + 1) % 40;
+                        posicionActual=this.getLugar().getPosicion();
+                        nuevaPosicion = (posicionActual + 1) % 40;
                         this.getLugar().eliminarAvatar(this);
                         for (int k = 0; k < tablero.size(); k++) {
                             for (int l = 0; l < tablero.get(k).size(); l++) {
@@ -63,23 +64,16 @@ public class Pelota extends Avatar {
                                 this.getLugar().evaluarCasilla(menu.getTablero(), this.getJugador(), menu.getBanca(),
                                         valorTirada, menu);
 
-                                if (this.getLugar() instanceof AccionSuerte|| this.getLugar() instanceof AccionCaja) {
-                                    if (this.getLugar().getPosicion() == 10) {
-                                        return; // Salimos si va a la cárcel
-                                    }
-                                }
-
-                                if (this.getLugar().getPosicion() == 30) {
-                                    consola.imprimir("Has pisado la casilla irCárcel, vas a la cárcel");
-                                    this.getJugador().encarcelar(tablero);
-                                    return; // Salimos si va a la cárcel
+                                if (this.getLugar().getPosicion() == 10) {
+                                    return; // Salimos de la función si va a la cárcel
                                 }
                             }
                         }
                     } else {
                         // Índices pares
                         if (I == valorTirada - 4) {
-                            nuevaPosicion = (nuevaPosicion + 1) % 40;
+                            posicionActual=this.getLugar().getPosicion();
+                            nuevaPosicion = (posicionActual + 1) % 40;
                             this.getLugar().eliminarAvatar(this);
                             for (int k = 0; k < tablero.size(); k++) {
                                 for (int l = 0; l < tablero.get(k).size(); l++) {
@@ -101,7 +95,8 @@ public class Pelota extends Avatar {
                             }
 
                         } else {
-                            nuevaPosicion = (nuevaPosicion + 1) % 40;
+                            posicionActual=this.getLugar().getPosicion();
+                            nuevaPosicion = (posicionActual + 1) % 40;
                             this.getLugar().eliminarAvatar(this);
                             for (int k = 0; k < tablero.size(); k++) {
                                 for (int l = 0; l < tablero.get(k).size(); l++) {

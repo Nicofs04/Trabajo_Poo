@@ -344,6 +344,16 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
         int numCasas = contarCasas();
         int hotelgrupo = getGrupo().contarHotelesGrupo();
         int contarHoteles = contarHoteles();
+
+
+
+        if (!getHipotecado()) {    
+            if (!this.getGrupo().esDuenhoGrupo(jugador) && !(getVeces(index)>2)) {
+                throw new Excepciones_PropConstruir("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar, aparte, la casilla no puede estar hipotecada");
+            }
+        }else{
+            throw new Excepciones_PropConstruir("No puedes construir en un solar hipotecado");
+        }
         
         
             if (hotelgrupo < limiteGrupo) {
@@ -378,6 +388,14 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
         int hotel = contarHoteles();
         int piscinagrupo = getGrupo().contarPiscinasGrupo();
         int contarpiscinas = contarPiscinas();
+
+        if (!getHipotecado()) {    
+            if (!this.getGrupo().esDuenhoGrupo(jugador) && !(getVeces(index)>2)) {
+                throw new Excepciones_PropConstruir("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar, aparte, la casilla no puede estar hipotecada");
+            }
+        }else{
+            throw new Excepciones_PropConstruir("No puedes construir en un solar hipotecado");
+        }
     
         if (piscinagrupo < limiteGrupo) {
             if ((hotel >= 1 && numCasas > 1) || (hotel >= 2)) {
@@ -406,6 +424,14 @@ public void edificarCasa(Jugador jugador, int index) throws Excepciones_PropCons
         int hotel = contarHoteles();
         int pistasgrupo = getGrupo().contarPistasGrupo();
         int contarpistas = contarPistas();
+
+        if (!getHipotecado()) {    
+            if (!this.getGrupo().esDuenhoGrupo(jugador) && !(getVeces(index)>2)) {
+                throw new Excepciones_PropConstruir("No cumples los requisitos, has de ser dueño de todo el grupo o haber caido al menos tres veces en la casilla para edificar, aparte, la casilla no puede estar hipotecada");
+            }
+        }else{
+            throw new Excepciones_PropConstruir("No puedes construir en un solar hipotecado");
+        }
     
         if (pistasgrupo < limiteGrupo) {
             if (hotel >= 2) {

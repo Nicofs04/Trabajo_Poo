@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import monopoly.Casilla;
 import monopoly.Juego;
 import monopoly.Propiedad;
+import monopoly.Solar;
 import monopoly.Excepciones.*;
 
 public class Coche extends Avatar {
@@ -37,7 +38,7 @@ public class Coche extends Avatar {
         return restriccionTiradas;
     }
 
-    public void moverAvanzado(ArrayList<ArrayList<Casilla>> tablero, int valorTirada, Juego menu) throws Excepciones_PropConstruir{
+    public void moverAvanzado(ArrayList<ArrayList<Casilla>> tablero, int valorTirada, Juego menu){
         // Obtener la posición actual del lugar del avatar
         int posicionActual = this.getLugar().getPosicion();
         if (valorTirada > 4) {
@@ -68,56 +69,82 @@ public class Coche extends Avatar {
                     consola.imprimir("Ya has comprado una casilla este turno");
                 }
             }
-
-            consola.imprimir("Quieres edificar en esta casilla?");
-            consola.imprimir("Escribe 'si' si quieres edificar y 'no' si no quieres edificar");
-            String respuesta = consola.leer();
-            if (respuesta.equals("si")) {
-                boolean comprobante = false;
-                while (comprobante) {
+            
+            if (getLugar() instanceof Solar==false) {
+                consola.imprimir("No puedes edificar si no es en un solar");
                 
-                    consola.imprimir("=====================================\n");
-                    consola.imprimir("                MENÚ                \n");
-                    consola.imprimir("=====================================\n");
-                    consola.imprimir("1. Construir una casa                              -> Comando: 'edificar casa'");
-                    consola.imprimir("2. Construir un hotel                           -> Comando: 'edificar hotel'");
-                    consola.imprimir(
-                            "3. Construir una piscina                           -> Comando: 'edificar piscina'");
-                    consola.imprimir("4. Construir una pista                           -> Comando: 'edificar pista'");
-
-                    consola.imprimir("=====================================\n");
-                    consola.imprimir("Selecciona una opción para continuar.\n");
-                    consola.imprimir("=====================================\n\n");
-
-                    String comando = consola.leer();
-                    String[] palabras = comando.split(" ");
-
-                    if (palabras.length <= 1 || palabras.length > 2) {
-                        consola.imprimir("Comando inválido.");
-                    }
-                    String metodo = palabras[0];
-
-                    switch (metodo) {
-                        case "edificar":
-                            if (palabras.length == 2) {
-                                String tipoEdificacion = palabras[1];
-
-                                if (tipoEdificacion.equals("casa")) {
-                                    menu.edificar("casa");
-                                } else if (tipoEdificacion.equals("hotel")) {
-                                    menu.edificar("hotel");;
-                                } else if (tipoEdificacion.equals("piscina")) {
-                                    menu.edificar("piscina");
-                                } else if (tipoEdificacion.equals("pista")) {
-                                    menu.edificar("pistadeporte");
-                                }
+            }else{
+                consola.imprimir("Quieres edificar en esta casilla?");
+                consola.imprimir("Escribe 'si' si quieres edificar y 'no' si no quieres edificar");
+                String respuesta = consola.leer();
+                if (respuesta.equals("si")) {
+                    boolean comprobante = true;
+                    while (comprobante) {
+                
+                        consola.imprimir("=====================================\n");
+                        consola.imprimir("                MENÚ                \n");
+                        consola.imprimir("=====================================\n");
+                        consola.imprimir("1. Construir una casa                                  -> Comando: 'edificar casa'");
+                        consola.imprimir("2. Construir un hotel                                  -> Comando: 'edificar hotel'");
+                        consola.imprimir("3. Construir una piscina                               -> Comando: 'edificar piscina'");
+                        consola.imprimir("4. Construir una pista                                 -> Comando: 'edificar pista'");
+                        consola.imprimir("5. Salir                                               -> Comando: 'fin'");
+                        consola.imprimir("=====================================\n");
+                        consola.imprimir("Selecciona una opción para continuar.\n");
+                        consola.imprimir("=====================================\n\n");
+                
+                        String comando = consola.leer();
+                        String[] palabras = comando.split(" ");
+                
+                        // Si el comando es "fin", salir del bucle
+                        if (comando.equals("fin")) {
+                            comprobante = false;
+                            consola.imprimir("Saliendo del menú...");
+                            continue;
+                        }
+                
+                        if (palabras.length > 2) {
+                            consola.imprimir("Comando inválido.");
+                            continue;
+                        }
+                
+                        String metodo = palabras[0];
+                
+                        try{
+                            switch (metodo) {
+                                case "edificar":
+                                    if (palabras.length == 2) {
+                                        String tipoEdificacion = palabras[1];
+                    
+                                        if (tipoEdificacion.equals("casa")) {
+                                            menu.edificar("casa");
+                                        } else if (tipoEdificacion.equals("hotel")) {
+                                            menu.edificar("hotel");
+                                        } else if (tipoEdificacion.equals("piscina")) {
+                                            menu.edificar("piscina");
+                                        } else if (tipoEdificacion.equals("pista")) {
+                                            menu.edificar("pistadeporte");
+                                        } else {
+                                            consola.imprimir("Comando inválido.");
+                                        }
+                                    }
+                                    break;
+                    
+                                default:
+                                    consola.imprimir("Comando inválido.");
+                                    break;
                             }
-                            break;
-
+    
+                        }catch(Excepciones_PropConstruir e){
+                            consola.imprimir("Error: "+e.getMessage());
+                        }
+    
                     }
-
                 }
+
             }
+
+            
 
             // El valor de la tirada es 4 o menos, lo mismo que para pelota pero aplicando
             // la restricción

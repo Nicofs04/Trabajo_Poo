@@ -432,24 +432,24 @@ public class Juego implements Comando{
         }catch(Excepciones_EmpezarPartida e){
             consola.imprimir("Error: "+e.getMessage());
         }catch(Excepciones_DescAv e){
-            consola.imprimir("Error "+ e.getMessage());
+            consola.imprimir("Error: "+ e.getMessage());
         }catch(Excepciones_DescCas e){
-            consola.imprimir("Error "+ e.getMessage());
+            consola.imprimir("Error: "+ e.getMessage());
 
         }catch(Excepciones_DescJug e){
-            consola.imprimir("Error "+ e.getMessage());
+            consola.imprimir("Error: "+ e.getMessage());
 
         }catch(Excepciones_JugadorLanz e){
-            consola.imprimir("Error "+ e.getMessage());
+            consola.imprimir("Error: "+ e.getMessage());
 
         }catch(Excepciones_JugadorSalCar e){
-            consola.imprimir("Error "+ e.getMessage());
+            consola.imprimir("Error: "+ e.getMessage());
         }catch(Excepciones_PropComprar e){
             consola.imprimir("Error: "+e.getMessage());
         }catch (Excepciones_PropVenderEdif e){
-            consola.imprimir("Error "+e.getMessage());;
+            consola.imprimir("Error: "+e.getMessage());;
         }catch(Excepciones_PropConstruir e){
-            consola.imprimir("Error "+e.getMessage());
+            consola.imprimir("Error: "+e.getMessage());
         }
 
     }
@@ -570,7 +570,7 @@ public class Juego implements Comando{
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
-    public void lanzarDados() throws Excepciones_JugadorLanz {
+    public void lanzarDados() throws Excepciones_JugadorLanz{
         if (getTirado()) {
             throw new Excepciones_JugadorLanz("Ya has lanzado los dados en este turno");
             //return;
@@ -926,8 +926,9 @@ public void listarJugadores() {
 
                     break;
                 }
+            }else{
+                consola.imprimir("No puedes edificar si no es en un solar");
             }
-
     }
 
 
