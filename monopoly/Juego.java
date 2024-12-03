@@ -24,9 +24,10 @@ public class Juego implements Comando{
     private boolean partidaEmpezada = false;
     private ArrayList<Trato> tratosTotales;
     private boolean mensajeTrato = true;
+    private int idFinalTratos = 0;
 
     public static ConsolaNormal consola = new ConsolaNormal();
-    public Trato trato = new Trato();
+    public Trato claseTrato = new Trato();
 
     public Juego(){
         this.jugadores = new ArrayList<Jugador>();
@@ -149,6 +150,14 @@ public class Juego implements Comando{
         this.tratosTotales = tratosTotales;
     }
 
+    public int getIdFinalTratos(){
+        return idFinalTratos;
+    }
+
+    public void setIdFinalTratos(int idFinalTratos){
+        this.idFinalTratos = idFinalTratos;
+    }
+
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
     
@@ -180,7 +189,10 @@ public class Juego implements Comando{
                     
                         for(Trato tratoAImprimir:jugadores.get(turno).getTratosRecibidos()){
                             if(tratoAImprimir.getFortunaACambiar() < tratoAImprimir.getJugadorOfrece().getFortuna() && tratoAImprimir.getFortunaARecibir() < tratoAImprimir.getJugadorRecibe().getFortuna()){ //si el jugador que recibe el cambio no le llega el dinero, se espera a que tenga suficiente dinero
-                                trato.manejarTrato(tratoAImprimir, jugadores.get(turno));
+                                if(!(tratoAImprimir.getAceptado())){ //si el trato ha sido aceptado no se hace nada
+                                    consola.imprimir("Tienes un nuevo trato.\n");
+                                    claseTrato.manejarTrato(tratoAImprimir, jugadores.get(turno));
+                                }
                             }else{
                                 consola.imprimir(String.format("Un jugador no tiene suficiente dinero para realizar el trato.\n", tratoAImprimir.getJugadorRecibe().getNombre()));
                             }
@@ -190,7 +202,7 @@ public class Juego implements Comando{
                 
 
                         //si alguno de los tratos ha sido aceptado lo eliminamos del array de recibidos
-                    if(!(jugadores.get(turno).getTratosRecibidos().isEmpty())){ //chequeamos que el array no esté vacío
+                    /*if(!(jugadores.get(turno).getTratosRecibidos().isEmpty())){ //chequeamos que el array no esté vacío
                         Iterator<Trato> iteratorRecibidos = jugadores.get(turno).getTratosRecibidos().iterator();
                         boolean aceptadoRecibidos;
                         while(iteratorRecibidos.hasNext()){
@@ -199,7 +211,7 @@ public class Juego implements Comando{
                                 iteratorRecibidos.remove();
                             }
                         }
-                    }
+                    }*/
         
                         //si alguno de los tratos ha sido aceptado lo eliminamos del array de ofrecidos
                     if(!(jugadores.get(turno).getTratosOfrecidos().isEmpty())){ //chequeamos que el array no esté vacío
@@ -1255,11 +1267,12 @@ public void listarJugadores() {
     }
 
     public void trato(){
+        Trato trato = new Trato();
         trato.crearTrato(jugadores.get(turno), banca, this);
     }
 
     public void listarTratos(){
-        trato.listarTratos(jugadores.get(turno));
+        claseTrato.listarTratos(jugadores.get(turno));
     }
 
     public int hipotecar(Jugador jugador, Tablero tablero) {
@@ -1364,7 +1377,7 @@ public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> j
     for(Propiedad propiedad:actual.getPropiedades()){ //pasamos todas las propiedades del jugador a la banca
         if (propiedad instanceof Solar) {
             Solar solar = (Solar)propiedad;
-        if(solar.getEdificacion().isEmpty()){
+        if(!(solar.getEdificacion().isEmpty())){
             solar.getEdificacion().clear();
             }
         }
@@ -1385,7 +1398,7 @@ public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugad
     for(Propiedad propiedad:actual.getPropiedades()){ //pasamos todas las propiedades del jugador a la banca
         if (propiedad instanceof Solar) {
             Solar solar = (Solar)propiedad;
-        if(solar.getEdificacion().isEmpty()){
+        if(!(solar.getEdificacion().isEmpty())){
             solar.getEdificacion().clear();
             }
         }
