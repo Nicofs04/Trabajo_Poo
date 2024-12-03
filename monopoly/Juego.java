@@ -608,8 +608,8 @@ public class Juego implements Comando{
         dado2.hacerTirada();
 
         consola.imprimir("Dado 1: " + dado1.getValor());
-        consola.imprimir("Dado 2: " + dado2.getValor());*/
-
+        consola.imprimir("Dado 2: " + dado2.getValor());
+        */
         
         
         //LANZAR DADOS MANUAL
@@ -652,6 +652,7 @@ public class Juego implements Comando{
 
             } else {
                 jugadores.get(turno).setTiradasCarcel(jugadores.get(turno).getTiradasCarcel() + 1);
+                setTirado(true);
                     if (jugadores.get(turno).getTiradasCarcel() >= 3) {
 
                         consola.imprimir("Has fallado 3 veces.");

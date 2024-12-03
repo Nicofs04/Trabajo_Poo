@@ -28,7 +28,7 @@ public class AccionCaja extends Accion {
         //eleccion2=baraja2.get(carta2);
         //Realizar acción
         Caja caja= new Caja(carta2,actual.getAvatar().getLugar().getPosicion());
-        caja.accion(tablero, juego, banca);
+        caja.accion(tablero, juego, actual);
     
     }
     
