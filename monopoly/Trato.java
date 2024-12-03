@@ -720,7 +720,7 @@ public void eliminarTrato(Juego juego){
     Iterator<Trato> iterator = juego.getTratosTotales().iterator();
     while (iterator.hasNext()) {
         Trato trato = iterator.next();
-        if (trato.getId() == id) {
+        if ((trato.getId() == id) && (!(trato.getAceptado()))) {
             encontrado = true;
             iterator.remove(); //eliminamos el trato del array de tratos totales
             trato.getJugadorOfrece().getTratosOfrecidos().remove(trato); //eliminamos el trato del array de tratos ofrecidos del jugador que ofrece
