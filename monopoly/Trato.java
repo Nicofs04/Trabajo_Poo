@@ -711,4 +711,8 @@ public void listarTratos(Jugador jugador){
     consola.imprimir(sb.toString());
 }
 
+public void eliminarTrato(){
+    
+}
+
 }
