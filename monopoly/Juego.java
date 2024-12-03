@@ -439,6 +439,8 @@ public class Juego implements Comando{
             consola.imprimir("Error: "+e.getMessage());
         }catch (Excepciones_PropVenderEdif e){
             consola.imprimir("Error "+e.getMessage());;
+        }catch(Excepciones_PropConstruir e){
+            consola.imprimir("Error "+e.getMessage());
         }
 
     }
@@ -764,7 +766,7 @@ public class Juego implements Comando{
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     public void comprar(String nombre) throws Excepciones_PropComprar{
-        try{
+
             if(nombre.equals(jugadores.get(turno).getAvatar().getLugar().getNombre())){
                 if(tirado||dadosdobles){
                     Casilla casilla = tablero.encontrar_casilla(nombre);
@@ -776,9 +778,7 @@ public class Juego implements Comando{
             }else{
                 throw new Excepciones_PropComprar("Debes de estar sobre esa casilla para comprarla");
             }
-        }catch(Excepciones_PropComprar e){
-            consola.imprimir("Error: "+e.getMessage());
-        }
+
         
     }
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
@@ -896,8 +896,8 @@ public void listarJugadores() {
     }
 
 
-    public void edificar(String tipo){
-        try{
+    public void edificar(String tipo) throws Excepciones_PropConstruir{
+
             if (jugadores.get(turno).getAvatar().getLugar() instanceof Solar) {
                 Solar solar = (Solar)jugadores.get(turno).getAvatar().getLugar();
             switch (tipo) {
@@ -914,12 +914,11 @@ public void listarJugadores() {
                     solar.edificarPista(jugadores.get(turno),turno);
                     break;
                 default:
+
                     break;
                 }
             }
-        }catch(Excepciones_PropConstruir e){
-            consola.imprimir("Error: "+e.getMessage());;
-        }
+
     }
 
 
