@@ -217,8 +217,7 @@ public void cambiar3(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
 
     consola.imprimir("Escriba la cantidad de dinero que desea cambiar:");
     this.fortunaACambiar = Float.parseFloat(consola.leer());
-    String aux = scanner.nextLine(); //sirve para limpiar el \n que deja nextFloat()
-    //NS QUE HACER AQUI
+    String aux = consola.leer(); //sirve para limpiar el \n que deja nextFloat()
 
     consola.imprimir("Escriba la casilla que desea recibir:");
     String casillaRecibir = consola.leer();
@@ -313,8 +312,7 @@ public void cambiar5(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
             
             consola.imprimir("Escriba la cantidad de dinero que desea cambiar:");
             this.fortunaACambiar = Float.parseFloat(consola.leer());
-            String aux = scanner.nextLine(); //sirve para limpiar el \n que deja nextFloat()
-            //NS QUE HACER AQUI
+            String aux = consola.leer(); //sirve para limpiar el \n que deja nextFloat()
 
             consola.imprimir("Escriba la casilla que desea recibir:");
             String casillaRecibir = consola.leer();
@@ -438,7 +436,7 @@ public void casoPrimero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         trato.getARecibir().setDuenho(ofreceTrato);
         ofreceTrato.getPropiedades().add(trato.getARecibir());
 
-        this.aceptado = true;
+        trato.setAceptado(true); //si usaba aquí this, al llamar a esta función desde un trato distinto, no afecta al trato que queremos
     }else{
         consola.imprimir("Trato rechazado.\n");
         //no se elimina
@@ -488,7 +486,7 @@ public void casoSegundo(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         //restamos la fortuna
         recibeTrato.setFortuna(recibeTrato.getFortuna() - trato.getFortunaARecibir());
 
-        this.aceptado = true;
+        trato.setAceptado(true); //si usaba aquí this, al llamar a esta función desde un trato distinto, no afecta al trato que queremos
     }else{
         consola.imprimir("Trato rechazado.\n");
         //no se elimina
@@ -537,7 +535,7 @@ public void casoTercero(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
             //sumamos la fortuna
             recibeTrato.setFortuna(recibeTrato.getFortuna() + trato.getFortunaACambiar());
 
-            this.aceptado = true;
+            trato.setAceptado(true); //si usaba aquí this, al llamar a esta función desde un trato distinto, no afecta al trato que queremos
         }else{
             consola.imprimir("Trato rechazado.\n");
             //no se elimina
@@ -602,7 +600,7 @@ public void casoCuarto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
             //restamos la fortuna
             recibeTrato.setFortuna(recibeTrato.getFortuna() - trato.getFortunaARecibir());
 
-            this.aceptado = true;
+            trato.setAceptado(true); //si usaba aquí this, al llamar a esta función desde un trato distinto, no afecta al trato que queremos
         }else{
             consola.imprimir("Trato rechazado.\n");
             //no se elimina
@@ -666,7 +664,7 @@ public void casoQuinto(Trato trato, Jugador ofreceTrato, Jugador recibeTrato){
         //sumamos la fortuna
         recibeTrato.setFortuna(recibeTrato.getFortuna() + trato.getFortunaACambiar());
 
-        this.aceptado = true;
+        trato.setAceptado(true); //si usaba aquí this, al llamar a esta función desde un trato distinto, no afecta al trato que queremos
     }else{
         consola.imprimir("Trato rechazado.\n");
         //no se elimina
