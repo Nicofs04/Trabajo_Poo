@@ -3,8 +3,6 @@
 package partida;
 
 import monopoly.*;
-import monopoly.Excepciones.Excepciones_PropConstruir;
-
 import java.util.ArrayList;
 import java.util.Random;
 

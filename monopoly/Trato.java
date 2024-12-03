@@ -1,6 +1,5 @@
 package monopoly;
 
-import java.util.Scanner;
 import java.util.Iterator;
 import partida.Jugador;
 
@@ -220,7 +219,7 @@ public void cambiar3(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
 
     consola.imprimir("Escriba la cantidad de dinero que desea cambiar:");
     this.fortunaACambiar = Float.parseFloat(consola.leer());
-    String aux = consola.leer(); //sirve para limpiar el \n que deja nextFloat()
+    //String aux = consola.leer(); //sirve para limpiar el \n que deja nextFloat()
 
     consola.imprimir("Escriba la casilla que desea recibir:");
     String casillaRecibir = consola.leer();
@@ -317,7 +316,6 @@ public void cambiar5(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
             
             consola.imprimir("Escriba la cantidad de dinero que desea cambiar:");
             this.fortunaACambiar = Float.parseFloat(consola.leer());
-            String aux = consola.leer(); //sirve para limpiar el \n que deja nextFloat()
 
             consola.imprimir("Escriba la casilla que desea recibir:");
             String casillaRecibir = consola.leer();
