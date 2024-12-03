@@ -23,6 +23,7 @@ public class Juego implements Comando{
     private ArrayList<Trato> tratosTotales;
     private boolean mensajeTrato = true;
     private int idFinalTratos = 0;
+    private boolean partidaAcabada = false;
 
     public static ConsolaNormal consola = new ConsolaNormal();
     public Trato claseTrato = new Trato();
@@ -159,12 +160,13 @@ public class Juego implements Comando{
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
     
-        while (true) { 
+        while (!partidaAcabada) { 
             if (partidaEmpezada && jugadores.size() < 2) {
                 consola.imprimir("El jugador " + jugadores.get(0).getNombre() + " ha ganado la partida.");
-                break;
+                consola.close();
+                partidaAcabada=true;
             }
-        
+            if (!partidaAcabada) {
             if (!partidaEmpezada) {
                 consola.imprimir("=====================================\n");
                 consola.imprimir("                MENÚ                \n");
@@ -254,13 +256,17 @@ public class Juego implements Comando{
                 consola.imprimir("22. Cambiar modo de movimiento de los avatares         -> Comando: 'cambiar modo'");
                 consola.imprimir("23. Crear trato                                        -> Comando: 'trato'");
                 consola.imprimir("24. Listar tratos recibidos                            -> Comando: 'listar tratos'");
+                consola.imprimir("25. Eliminar trato                                     -> Comando: 'eliminar tratos'");
         
                 consola.imprimir("=====================================\n");
                 consola.imprimir("Selecciona una opción para continuar.\n");
                 consola.imprimir("=====================================\n\n");
         
-                String comando = consola.leer();
-                analizarComando(comando);
+                
+                
+                    String comando = consola.leer();
+                    analizarComando(comando);
+                }
             }
         }
     }        
@@ -424,6 +430,13 @@ public class Juego implements Comando{
                                 break;
                             case "trato":
                                 trato();
+                                break;
+                            case "eliminar":
+                                if(palabras[1].equals("tratos")){
+                                    eliminar();
+                                }else{
+                                    consola.imprimir("Error, comando desconocido.\n");
+                                }
                                 break;
                             default:
                                 consola.imprimir("Error, comando desconocido.\n");
@@ -684,10 +697,14 @@ public class Juego implements Comando{
                 jugadores.get(turno).getAvatar().moverAvanzado(tablero.getPosiciones(), sumaDados,this);
             }
 
+
+
+            String nombrejugador = jugadores.get(turno).getNombre();
             
             // Evaluar la casilla en la que ha caído
             jugadores.get(turno).getAvatar().getLugar().evaluarCasilla(tablero, jugadores.get(turno), banca, sumaDados,this);
 
+            if (jugadores.get(turno).getNombre().equals(nombrejugador)) {
             // Verificar si el jugador ha dado la vuelta al tablero
             if (jugadores.get(turno).getAvatar().getLugar().getPosicion() < sumaDados) {
                 //if(avatarActual.getLugar().getNombre().equals("ircarcel")){
@@ -767,7 +784,7 @@ public class Juego implements Comando{
 
         }
 
-    
+        }
 }
 
 
@@ -1272,6 +1289,10 @@ public void listarJugadores() {
         claseTrato.listarTratos(jugadores.get(turno));
     }
 
+    public void eliminar(){
+        claseTrato.eliminarTrato(this);
+    }
+
     public int hipotecar(Jugador jugador, Tablero tablero) {
 
         if (!jugador.getPropiedades().isEmpty()) { // mientras el jugador tenga propiedades
@@ -1384,6 +1405,8 @@ public void bancarrotaABanca(Jugador actual, Jugador banca, ArrayList<Jugador> j
 
     actual.setFortuna(0);
 
+    acabarTurno();
+
     jugadores.remove(actual);
     avatares.remove(actual.getAvatar());
 }
@@ -1415,6 +1438,8 @@ public void bancarrotaAJugador(Jugador actual, Jugador receptor, ArrayList<Jugad
     receptor.setFortuna(receptor.getFortuna() + actual.getFortuna()); //pasamos el dinero del jugador que llama bancarrota al jugador que lo recibe
 
     actual.setFortuna(0);
+
+    acabarTurno();
 
     jugadores.remove(actual); //eliminamos al jugador del ArrayList de jugadores
     avatares.remove(actual.getAvatar()); //eliminamos el avatar del jugador del ArrayList de avatares
