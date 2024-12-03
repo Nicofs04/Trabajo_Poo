@@ -153,7 +153,8 @@ public void cambiar1(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
                     this.tipoTrato = 1;
                     this.jugadorOfrece = actual;
                     this.jugadorRecibe = recibidor;
-                    this.id = id++;
+                    this.id = juego.getIdFinalTratos() + 1; //usamos una variable de juego para poder actualizar todos los tratos
+                    juego.setIdFinalTratos(juego.getIdFinalTratos() + 1); //actualizamos la variable
 
                     actual.getTratosOfrecidos().add(this);
                     recibidor.getTratosRecibidos().add(this); //añadimos el trato al array de tratos que tiene cada jugador
@@ -194,7 +195,8 @@ public void cambiar2(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
             this.tipoTrato = 2;
             this.jugadorOfrece = actual;
             this.jugadorRecibe = recibidor;
-            this.id = id++;
+            this.id = juego.getIdFinalTratos() + 1; //usamos una variable de juego para poder actualizar todos los tratos
+            juego.setIdFinalTratos(juego.getIdFinalTratos() + 1); //actualizamos la variable
 
             actual.getTratosOfrecidos().add(this);
             recibidor.getTratosRecibidos().add(this); //añadimos el trato al array de tratos que tiene cada jugador
@@ -229,7 +231,8 @@ public void cambiar3(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
             this.tipoTrato = 3;
             this.jugadorOfrece = actual;
             this.jugadorRecibe = recibidor;
-            this.id = id++;
+            this.id = juego.getIdFinalTratos() + 1; //usamos una variable de juego para poder actualizar todos los tratos
+            juego.setIdFinalTratos(juego.getIdFinalTratos() + 1); //actualizamos la variable
 
             actual.getTratosOfrecidos().add(this);
             recibidor.getTratosRecibidos().add(this); //añadimos el trato al array de tratos que tiene cada jugador
@@ -273,7 +276,8 @@ public void cambiar4(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
                     this.tipoTrato = 4;
                     this.jugadorOfrece = actual;
                     this.jugadorRecibe = recibidor;
-                    this.id = id++;
+                    this.id = juego.getIdFinalTratos() + 1; //usamos una variable de juego para poder actualizar todos los tratos
+                    juego.setIdFinalTratos(juego.getIdFinalTratos() + 1); //actualizamos la variable
 
                     actual.getTratosOfrecidos().add(this);
                     recibidor.getTratosRecibidos().add(this); //añadimos el trato al array de tratos que tiene cada jugador
@@ -324,7 +328,8 @@ public void cambiar5(Jugador actual, Jugador banca, Jugador recibidor, Juego jue
                     this.tipoTrato = 5;
                     this.jugadorOfrece = actual;
                     this.jugadorRecibe = recibidor;
-                    this.id = id++;
+                    this.id = juego.getIdFinalTratos() + 1; //usamos una variable de juego para poder actualizar todos los tratos
+                    juego.setIdFinalTratos(juego.getIdFinalTratos() + 1); //actualizamos la variable
 
                     actual.getTratosOfrecidos().add(this);
                     recibidor.getTratosRecibidos().add(this); //añadimos el trato al array de tratos que tiene cada jugador

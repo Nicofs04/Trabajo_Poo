@@ -23,6 +23,7 @@ public class Juego implements Comando{
     private boolean partidaEmpezada = false;
     private ArrayList<Trato> tratosTotales;
     private boolean mensajeTrato = true;
+    private int idFinalTratos = 0;
 
     public static ConsolaNormal consola = new ConsolaNormal();
     public Trato claseTrato = new Trato();
@@ -148,6 +149,14 @@ public class Juego implements Comando{
         this.tratosTotales = tratosTotales;
     }
 
+    public int getIdFinalTratos(){
+        return idFinalTratos;
+    }
+
+    public void setIdFinalTratos(int idFinalTratos){
+        this.idFinalTratos = idFinalTratos;
+    }
+
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
     //hacer un atributo partidacabada;
@@ -176,11 +185,10 @@ public class Juego implements Comando{
             }else{
                 if(mensajeTrato){ //para que solo se imprima una vez cada turno
                     if(!jugadores.get(turno).getTratosRecibidos().isEmpty()){
-                        consola.imprimir("Tienes nuevos tratos.\n");
-                    
                         for(Trato tratoAImprimir:jugadores.get(turno).getTratosRecibidos()){
                             if(tratoAImprimir.getFortunaACambiar() < tratoAImprimir.getJugadorOfrece().getFortuna() && tratoAImprimir.getFortunaARecibir() < tratoAImprimir.getJugadorRecibe().getFortuna()){ //si el jugador que recibe el cambio no le llega el dinero, se espera a que tenga suficiente dinero
                                 if(!(tratoAImprimir.getAceptado())){ //si el trato ha sido aceptado no se hace nada
+                                    consola.imprimir("Tienes un nuevo trato.\n");
                                     claseTrato.manejarTrato(tratoAImprimir, jugadores.get(turno));
                                 }
                             }else{
