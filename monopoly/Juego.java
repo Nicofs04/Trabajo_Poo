@@ -256,6 +256,7 @@ public class Juego implements Comando{
                 consola.imprimir("22. Cambiar modo de movimiento de los avatares         -> Comando: 'cambiar modo'");
                 consola.imprimir("23. Crear trato                                        -> Comando: 'trato'");
                 consola.imprimir("24. Listar tratos recibidos                            -> Comando: 'listar tratos'");
+                consola.imprimir("25. Eliminar trato                                     -> Comando: 'eliminar tratos'");
         
                 consola.imprimir("=====================================\n");
                 consola.imprimir("Selecciona una opción para continuar.\n");
@@ -427,6 +428,13 @@ public class Juego implements Comando{
                                 break;
                             case "trato":
                                 trato();
+                                break;
+                            case "eliminar":
+                                if(palabras[1].equals("tratos")){
+                                    eliminar();
+                                }else{
+                                    consola.imprimir("Error, comando desconocido.\n");
+                                }
                                 break;
                             default:
                                 consola.imprimir("Error, comando desconocido.\n");
@@ -1273,6 +1281,10 @@ public void listarJugadores() {
 
     public void listarTratos(){
         claseTrato.listarTratos(jugadores.get(turno));
+    }
+
+    public void eliminar(){
+        claseTrato.eliminarTrato(this);
     }
 
     public int hipotecar(Jugador jugador, Tablero tablero) {
