@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import monopoly.Casilla;
 import monopoly.Juego;
 import monopoly.Propiedad;
+import monopoly.Excepciones.*;
 
 public class Coche extends Avatar {
 
@@ -36,7 +37,7 @@ public class Coche extends Avatar {
         return restriccionTiradas;
     }
 
-    public void moverAvanzado(ArrayList<ArrayList<Casilla>> tablero, int valorTirada, Juego menu) {
+    public void moverAvanzado(ArrayList<ArrayList<Casilla>> tablero, int valorTirada, Juego menu) throws Excepciones_PropConstruir{
         // Obtener la posición actual del lugar del avatar
         int posicionActual = this.getLugar().getPosicion();
         if (valorTirada > 4) {
