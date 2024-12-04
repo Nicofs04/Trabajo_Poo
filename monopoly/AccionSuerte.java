@@ -1,6 +1,7 @@
 package monopoly;
 import partida.Jugador;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class AccionSuerte extends Accion {
@@ -26,6 +27,12 @@ public class AccionSuerte extends Accion {
         }
         int eleccion2=0;
         eleccion2=baraja2.get(carta2);
+
+
+        //BARAJA ALEATORIA
+        Random random= new Random();
+        carta2 = random.nextInt(6)+1;
+
         //Realizar acción
         Suerte suerte=new Suerte(carta2,actual.getAvatar().getLugar().getPosicion());
         suerte.accion(tablero, juego, actual);
