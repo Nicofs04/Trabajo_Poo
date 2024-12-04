@@ -188,13 +188,13 @@ public class Juego implements Comando{
                         consola.imprimir("Tienes nuevos tratos.\n");
                     
                         for(Trato tratoAImprimir:jugadores.get(turno).getTratosRecibidos()){
-                            if(tratoAImprimir.getFortunaACambiar() < tratoAImprimir.getJugadorOfrece().getFortuna() && tratoAImprimir.getFortunaARecibir() < tratoAImprimir.getJugadorRecibe().getFortuna()){ //si el jugador que recibe el cambio no le llega el dinero, se espera a que tenga suficiente dinero
-                                if(!(tratoAImprimir.getAceptado())){ //si el trato ha sido aceptado no se hace nada
+                            if(!(tratoAImprimir.getAceptado())){ //si el trato ha sido aceptado no se hace nada
+                                if(tratoAImprimir.getFortunaACambiar() < tratoAImprimir.getJugadorOfrece().getFortuna() && tratoAImprimir.getFortunaARecibir() < tratoAImprimir.getJugadorRecibe().getFortuna()){ //si el jugador que recibe el cambio no le llega el dinero, se espera a que tenga suficiente dinero
                                     consola.imprimir("Tienes un nuevo trato.\n");
                                     claseTrato.manejarTrato(tratoAImprimir, jugadores.get(turno));
+                                }else{
+                                    consola.imprimir(String.format("Un jugador no tiene suficiente dinero para realizar el trato.\n", tratoAImprimir.getJugadorRecibe().getNombre()));
                                 }
-                            }else{
-                                consola.imprimir(String.format("Un jugador no tiene suficiente dinero para realizar el trato.\n", tratoAImprimir.getJugadorRecibe().getNombre()));
                             }
                         }
                         mensajeTrato = false; //para que solo se imprima una vez cada turno
@@ -1291,7 +1291,7 @@ public void listarJugadores() {
     }
 
     public void eliminar(){
-        claseTrato.eliminarTrato(this);
+        claseTrato.eliminarTrato(this, jugadores.get(turno));
     }
 
     public int hipotecar(Jugador jugador, Tablero tablero) {

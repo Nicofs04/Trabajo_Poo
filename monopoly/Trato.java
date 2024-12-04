@@ -710,26 +710,38 @@ public void listarTratos(Jugador jugador){
     consola.imprimir(sb.toString());
 }
 
-public void eliminarTrato(Juego juego){
+public void eliminarTrato(Juego juego, Jugador actual){
+    boolean existe = false;
     consola.imprimir("Escriba la id del trato que quiere eliminar: ");
     int id = Integer.parseInt(consola.leer());
-    boolean encontrado = false;
 
-    Iterator<Trato> iterator = juego.getTratosTotales().iterator();
-    while (iterator.hasNext()) {
-        Trato trato = iterator.next();
-        if ((trato.getId() == id) && (!(trato.getAceptado()))) {
-            encontrado = true;
-            iterator.remove(); //eliminamos el trato del array de tratos totales
-            trato.getJugadorOfrece().getTratosOfrecidos().remove(trato); //eliminamos el trato del array de tratos ofrecidos del jugador que ofrece
-            trato.getJugadorRecibe().getTratosRecibidos().remove(trato); //eliminamos el trato del array de tratos recibidos del jugador que recibe
-
-            consola.imprimir("Trato eliminado con éxito.\n");
+    for(Trato trato:actual.getTratosOfrecidos()){
+        if(trato.getId() == id){ //chequeamos de que dicho trato sea nuestro y no de otro jugador
+            existe = true;
         }
     }
 
-    if(!encontrado){
-        consola.imprimir("No se ha encontrado el trato.\n");
+    if(existe){
+        boolean encontrado = false;
+
+        Iterator<Trato> iterator = juego.getTratosTotales().iterator();
+        while (iterator.hasNext()) {
+            Trato trato = iterator.next();
+            if ((trato.getId() == id) && (!(trato.getAceptado()))) {
+                encontrado = true;
+                iterator.remove(); //eliminamos el trato del array de tratos totales
+                trato.getJugadorOfrece().getTratosOfrecidos().remove(trato); //eliminamos el trato del array de tratos ofrecidos del jugador que ofrece
+                trato.getJugadorRecibe().getTratosRecibidos().remove(trato); //eliminamos el trato del array de tratos recibidos del jugador que recibe
+
+                consola.imprimir("Trato eliminado con éxito.\n");
+            }
+        }
+
+        if(!encontrado){
+            consola.imprimir("No se ha encontrado el trato.\n");
+        }
+    }else{
+        consola.imprimir("No puedes eliminar ese trato.\n");
     }
 }
 
