@@ -604,24 +604,23 @@ public class Juego implements Comando{
         
 
         //LANZAR DADOS ALEATORIOS
-        /*dado1.hacerTirada();
+        
+        dado1.hacerTirada();
         dado2.hacerTirada();
 
         consola.imprimir("Dado 1: " + dado1.getValor());
         consola.imprimir("Dado 2: " + dado2.getValor());
-        */
-        
-        
-        //LANZAR DADOS MANUAL
         
         
         
-        consola.imprimir("Introduce dado1: ");
+        //LANZAR DADOS MANUAL    
+        
+        /*consola.imprimir("Introduce dado1: ");
         int da = Integer.parseInt(consola.leer());
         dado1.setValor(da);
         consola.imprimir("Introduce dado2: ");
         int da2 = Integer.parseInt(consola.leer());
-        dado2.setValor(da2);
+        dado2.setValor(da2);*/
 
         
         int sumaDados = dado1.getValor() + dado2.getValor();
